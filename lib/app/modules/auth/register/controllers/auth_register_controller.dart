@@ -1,7 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AuthRegisterController extends GetxController {
   //TODO: Implement AuthRegisterController
+
+  TextEditingController textEditingController = TextEditingController();
 
   final count = 0.obs;
   @override

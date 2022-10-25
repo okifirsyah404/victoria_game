@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:victoria_game/app/modules/global/themes/app_bar_theme.dart';
 import 'package:victoria_game/app/modules/global/themes/buttons_theme.dart';
 import 'package:victoria_game/app/modules/global/themes/typography_theme.dart';
 
@@ -39,7 +40,7 @@ class MainTheme {
               error: ColorsTheme.errorColor[500],
               onError: ColorsTheme.errorColor[50],
             ),
-        scaffoldBackgroundColor: ColorsTheme.neutralColor[900],
+        scaffoldBackgroundColor: ColorsTheme.neutralColor[800],
         textTheme: TypographyTheme.mainTextTheme(context)
             .copyWith(
               button: TypographyTheme.buttonTextStyle,
@@ -51,5 +52,6 @@ class MainTheme {
         textButtonTheme: DarkButtonsTheme.textButtonThemeData,
         elevatedButtonTheme: DarkButtonsTheme.elevatedButtonThemeData,
         outlinedButtonTheme: DarkButtonsTheme.outlinedButtonThemeData,
+        appBarTheme: MainAppBarTheme.darkAppBarTheme,
       );
 }

@@ -67,7 +67,11 @@ class DarkButtonsTheme {
     style: ElevatedButton.styleFrom(
       textStyle: TypographyTheme.buttonTextStyle,
       foregroundColor: ColorsTheme.neutralColor[900],
-      minimumSize: const Size.fromHeight(50),
+      backgroundColor: ColorsTheme.primaryColor,
+      minimumSize: const Size.fromHeight(55),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
     ),
   );
 
