@@ -41,19 +41,6 @@ class ColorsTheme {
   });
 
   static MaterialColor neutralColor = const MaterialColor(0xFF9E9E9E, {
-    50: Color(0xFFFFEBEE),
-    100: Color(0xFFFFCDD2),
-    200: Color(0xFFEF9A9A),
-    300: Color(0xFFE57373),
-    400: Color(0xFFEF5350),
-    500: Color(0xFFF44336),
-    600: Color(0xFFE53935),
-    700: Color(0xFFD32F2F),
-    800: Color(0xFFC62828),
-    900: Color(0xFFB71C1C),
-  });
-
-  static MaterialColor errorColor = const MaterialColor(0xFFF44336, {
     50: Color(0xFFFAFAFA),
     100: Color(0xFFF5F5F5),
     200: Color(0xFFEEEEEE),
@@ -64,5 +51,18 @@ class ColorsTheme {
     700: Color(0xFF616161),
     800: Color(0xFF424242),
     900: Color(0xFF303030),
+  });
+
+  static MaterialColor errorColor = const MaterialColor(0xFFF44336, {
+    50: Color(0xFFFFEBEE),
+    100: Color(0xFFFFCDD2),
+    200: Color(0xFFEF9A9A),
+    300: Color(0xFFE57373),
+    400: Color(0xFFEF5350),
+    500: Color(0xFFF44336),
+    600: Color(0xFFE53935),
+    700: Color(0xFFD32F2F),
+    800: Color(0xFFC62828),
+    900: Color(0xFFB71C1C),
   });
 }

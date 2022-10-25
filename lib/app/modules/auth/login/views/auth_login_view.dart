@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:victoria_game/app/modules/global/themes/colors_theme.dart';
+import 'package:victoria_game/app/modules/global/themes/typography_theme.dart';
+import 'package:victoria_game/app/modules/global/widgets/text_field/email_text_field/views/email_text_field_widget.dart';
+import 'package:victoria_game/app/modules/global/widgets/text_field/password_text_field/views/password_text_field_widget.dart';
 
 import '../controllers/auth_login_controller.dart';
 
@@ -9,21 +13,71 @@ class AuthLoginView extends GetView<AuthLoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-                Colors.yellow,
-                Colors.orange,
-              ]),
-        ),
-        child: Center(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: SafeArea(
+          child: SingleChildScrollView(
             child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text("Login"), Text("Silahkan Login Untuk Melanjutkan")],
-        )),
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(height: 36.0),
+                Text(
+                  "Login",
+                  style: TypographyTheme.titleLarge
+                      .copyWith(color: ColorsTheme.primaryColor),
+                ),
+                const SizedBox(height: 8.0),
+                const Text("Silahkan Login Untuk Melanjutkan"),
+                const SizedBox(height: 36.0),
+                EmailTextField(
+                  textEditingController: controller.emailTextEditingController,
+                ),
+                const SizedBox(height: 8.0),
+                PasswordTextField(
+                    textEditingController:
+                        controller.emailTextEditingController2),
+                const SizedBox(height: 12.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      child: Text(
+                        "Lupa Kata Sandi?",
+                        style: TypographyTheme.bodyRegular.copyWith(
+                          color: ColorsTheme.primaryColor,
+                        ),
+                      ),
+                      onTap: () {},
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 44.0),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text("Login"),
+                ),
+                const SizedBox(height: 16.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Belum punya akun? "),
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed("/register");
+                      },
+                      child: Text(
+                        "Daftar Akun Victoria",
+                        style: TypographyTheme.bodyRegular.copyWith(
+                          color: ColorsTheme.primaryColor,
+                        ),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

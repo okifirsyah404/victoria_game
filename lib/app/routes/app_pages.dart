@@ -6,6 +6,8 @@ import '../modules/auth/register/bindings/auth_register_binding.dart';
 import '../modules/auth/register/views/auth_register_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/test_widget/bindings/test_widget_binding.dart';
+import '../modules/test_widget/views/test_widget_view.dart';
 
 part 'app_routes.dart';
 
@@ -29,6 +31,11 @@ class AppPages {
       name: _Paths.AUTH_REGISTER,
       page: () => const AuthRegisterView(),
       binding: AuthRegisterBinding(),
+    ),
+    GetPage(
+      name: _Paths.TEST_WIDGET,
+      page: () => TestWidgetView(),
+      binding: TestWidgetBinding(),
     ),
   ];
 }
