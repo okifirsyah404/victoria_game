@@ -29,7 +29,7 @@ class _PasswordTextFieldState extends State<PasswordTextField>
     });
     animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 100),
     );
     animationTween =
         Tween<double>(begin: 0, end: 5).animate(animationController);

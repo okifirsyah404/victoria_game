@@ -26,11 +26,13 @@ class AppPages {
       name: _Paths.AUTH_LOGIN,
       page: () => const AuthLoginView(),
       binding: AuthLoginBinding(),
+      transition: Transition.cupertinoDialog,
     ),
     GetPage(
       name: _Paths.AUTH_REGISTER,
       page: () => const AuthRegisterView(),
       binding: AuthRegisterBinding(),
+      transition: Transition.cupertinoDialog,
     ),
     GetPage(
       name: _Paths.TEST_WIDGET,

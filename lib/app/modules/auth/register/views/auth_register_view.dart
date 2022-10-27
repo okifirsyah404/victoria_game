@@ -14,34 +14,48 @@ class AuthRegisterView extends GetView<AuthRegisterController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Daftar'),
-        centerTitle: true,
-      ),
-      body: Center(
+      body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(left: 16.0, top: 16.0, right: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              UsernameTextField(controller: controller.textEditingController),
-              SizedBox(height: 16.0),
-              EmailTextField(
-                  textEditingController: controller.textEditingController),
-              SizedBox(height: 16.0),
-              PasswordTextField(
-                  textEditingController: controller.textEditingController),
-              SizedBox(height: 32.0),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text("Daftar"),
+              Column(
+                children: [
+                  Text(
+                    "Register",
+                    style: TypographyTheme.titleLarge
+                        .copyWith(color: ColorsTheme.primaryColor),
+                  ),
+                  const SizedBox(height: 8.0),
+                  const Text(
+                      "Silahkan Register Victoria Game Untuk Melanjutkan"),
+                ],
               ),
-              SizedBox(height: 16.0),
+              Column(
+                children: [
+                  UsernameTextField(controller: controller.usernameController),
+                  SizedBox(height: 8.0),
+                  EmailTextField(
+                      textEditingController: controller.emailController),
+                  SizedBox(height: 8.0),
+                  PasswordTextField(
+                      textEditingController: controller.passwordController),
+                  const SizedBox(height: 24.0),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text("Daftar"),
+                  ),
+                ],
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("Sudah punya akun? "),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed("/login");
+                    },
                     child: Text(
                       "Silahkan Login",
                       style: TypographyTheme.bodyRegular.copyWith(

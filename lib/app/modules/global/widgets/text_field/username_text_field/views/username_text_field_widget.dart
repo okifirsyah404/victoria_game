@@ -27,10 +27,10 @@ class _UsernameTextFieldState extends State<UsernameTextField>
     });
     animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 400),
     );
     animationTween =
-        Tween<double>(begin: 0, end: 5).animate(animationController);
+        Tween<double>(begin: 0, end: 6).animate(animationController);
     animationController.addListener(
       () {
         setState(() {});
@@ -83,6 +83,7 @@ class _UsernameTextFieldState extends State<UsernameTextField>
                   style: TypographyTheme.bodyRegular.copyWith(
                     color: ColorsTheme.neutralColor[900],
                   ),
+                  cursorColor: ColorsTheme.neutralColor[900],
                   decoration: InputDecoration(
                     icon: SizedBox(
                       height: 32,

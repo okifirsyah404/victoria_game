@@ -40,7 +40,7 @@ class MainTheme {
               error: ColorsTheme.errorColor[500],
               onError: ColorsTheme.errorColor[50],
             ),
-        scaffoldBackgroundColor: ColorsTheme.neutralColor[800],
+        scaffoldBackgroundColor: ColorsTheme.neutralColor[900],
         textTheme: TypographyTheme.mainTextTheme(context)
             .copyWith(
               button: TypographyTheme.buttonTextStyle,

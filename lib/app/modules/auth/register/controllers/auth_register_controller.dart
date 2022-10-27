@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 class AuthRegisterController extends GetxController {
   //TODO: Implement AuthRegisterController
 
-  TextEditingController textEditingController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   final count = 0.obs;
   @override

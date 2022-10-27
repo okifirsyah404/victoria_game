@@ -13,69 +13,73 @@ class AuthLoginView extends GetView<AuthLoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(height: 36.0),
-                Text(
-                  "Login",
-                  style: TypographyTheme.titleLarge
-                      .copyWith(color: ColorsTheme.primaryColor),
-                ),
-                const SizedBox(height: 8.0),
-                const Text("Silahkan Login Untuk Melanjutkan"),
-                const SizedBox(height: 36.0),
-                EmailTextField(
-                  textEditingController: controller.emailTextEditingController,
-                ),
-                const SizedBox(height: 8.0),
-                PasswordTextField(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: [
+                  Text(
+                    "Login",
+                    style: TypographyTheme.titleLarge
+                        .copyWith(color: ColorsTheme.primaryColor),
+                  ),
+                  const SizedBox(height: 8.0),
+                  const Text("Silahkan Login Untuk Melanjutkan"),
+                ],
+              ),
+              Column(
+                children: [
+                  EmailTextField(
                     textEditingController:
-                        controller.emailTextEditingController2),
-                const SizedBox(height: 12.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    GestureDetector(
-                      child: Text(
-                        "Lupa Kata Sandi?",
-                        style: TypographyTheme.bodyRegular.copyWith(
-                          color: ColorsTheme.primaryColor,
+                        controller.emailTextEditingController,
+                  ),
+                  const SizedBox(height: 8.0),
+                  PasswordTextField(
+                      textEditingController:
+                          controller.emailTextEditingController2),
+                  const SizedBox(height: 12.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        child: Text(
+                          "Lupa Kata Sandi?",
+                          style: TypographyTheme.bodyRegular.copyWith(
+                            color: ColorsTheme.primaryColor,
+                          ),
                         ),
+                        onTap: () {},
                       ),
-                      onTap: () {},
+                    ],
+                  ),
+                  const SizedBox(height: 44.0),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: const Text("Login"),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Belum punya akun? "),
+                  GestureDetector(
+                    onTap: () {
+                      Get.toNamed("/register");
+                    },
+                    child: Text(
+                      "Daftar Akun Victoria",
+                      style: TypographyTheme.bodyRegular.copyWith(
+                        color: ColorsTheme.primaryColor,
+                      ),
                     ),
-                  ],
-                ),
-                const SizedBox(height: 44.0),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("Login"),
-                ),
-                const SizedBox(height: 16.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text("Belum punya akun? "),
-                    GestureDetector(
-                      onTap: () {
-                        Get.toNamed("/register");
-                      },
-                      child: Text(
-                        "Daftar Akun Victoria",
-                        style: TypographyTheme.bodyRegular.copyWith(
-                          color: ColorsTheme.primaryColor,
-                        ),
-                      ),
-                    )
-                  ],
-                )
-              ],
-            ),
+                  )
+                ],
+              )
+            ],
           ),
         ),
       ),
