@@ -15,6 +15,7 @@ class AuthSignUpView extends GetView<AuthSignUpController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
@@ -30,7 +31,9 @@ class AuthSignUpView extends GetView<AuthSignUpController> {
                   ),
                   const SizedBox(height: 8.0),
                   const Text(
-                      "Silahkan Register Victoria Game Untuk Melanjutkan"),
+                    "Silahkan Register Victoria Game Untuk Melanjutkan",
+                    textAlign: TextAlign.center,
+                  ),
                 ],
               ),
               Column(
