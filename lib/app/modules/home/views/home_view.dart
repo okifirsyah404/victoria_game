@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
-import 'package:victoria_game/app/modules/global/themes/colors_theme.dart';
+import 'package:victoria_game/app/global/themes/colors_theme.dart';
 
 import '../controllers/home_controller.dart';
 

@@ -1,13 +1,19 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:victoria_game/app/modules/global/themes/colors_theme.dart';
-import 'package:victoria_game/app/modules/global/themes/theme.dart';
-import 'package:victoria_game/app/modules/global/themes/typography_theme.dart';
+import 'package:victoria_game/app/global/themes/colors_theme.dart';
+import 'package:victoria_game/app/global/themes/theme.dart';
+import 'package:victoria_game/app/global/themes/typography_theme.dart';
+import 'package:victoria_game/firebase_options.dart';
 
 import 'app/routes/app_pages.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MainApp());
 }
 

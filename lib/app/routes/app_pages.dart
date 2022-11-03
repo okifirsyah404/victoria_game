@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 
-import '../modules/auth/login/bindings/auth_login_binding.dart';
-import '../modules/auth/login/views/auth_login_view.dart';
-import '../modules/auth/register/bindings/auth_register_binding.dart';
-import '../modules/auth/register/views/auth_register_view.dart';
+import '../modules/auth/sign_in/bindings/auth_sign_in_binding.dart';
+import '../modules/auth/sign_in/views/auth_sign_in_view.dart';
+import '../modules/auth/sign_up/bindings/auth_sign_up_binding.dart';
+import '../modules/auth/sign_up/views/auth_sign_up_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/test_widget/bindings/test_widget_binding.dart';
@@ -14,7 +14,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.AUTH_LOGIN;
+  static const INITIAL = Routes.AUTH_SIGN_IN;
 
   static final routes = [
     GetPage(
@@ -23,21 +23,19 @@ class AppPages {
       binding: HomeBinding(),
     ),
     GetPage(
-      name: _Paths.AUTH_LOGIN,
-      page: () => const AuthLoginView(),
-      binding: AuthLoginBinding(),
-      transition: Transition.cupertinoDialog,
-    ),
-    GetPage(
-      name: _Paths.AUTH_REGISTER,
-      page: () => const AuthRegisterView(),
-      binding: AuthRegisterBinding(),
-      transition: Transition.cupertinoDialog,
-    ),
-    GetPage(
       name: _Paths.TEST_WIDGET,
       page: () => TestWidgetView(),
       binding: TestWidgetBinding(),
+    ),
+    GetPage(
+      name: _Paths.AUTH_SIGN_IN,
+      page: () => const AuthSignInView(),
+      binding: AuthSignInBinding(),
+    ),
+    GetPage(
+      name: _Paths.AUTH_SIGN_UP,
+      page: () => const AuthSignUpView(),
+      binding: AuthSignUpBinding(),
     ),
   ];
 }

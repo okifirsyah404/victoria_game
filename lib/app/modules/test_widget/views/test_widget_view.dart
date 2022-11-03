@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:victoria_game/app/modules/global/widgets/text_field/email_text_field/views/email_text_field_widget.dart';
+import 'package:victoria_game/app/global/widgets/text_field/email_text_field/views/email_text_field_widget.dart';
 
 import '../controllers/test_widget_controller.dart';
 

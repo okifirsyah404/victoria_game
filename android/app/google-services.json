@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "81713468961",
+    "project_id": "victoria-tolonto",
+    "storage_bucket": "victoria-tolonto.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:81713468961:android:a92e2117cbe17c587eb560",
+        "android_client_info": {
+          "package_name": "com.example.victoria_game"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "81713468961-c2n5qmmgmph5vo5igq4mc8o47vpp33a5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcOn8qkCwo8Zu4-ltha1aum7SBemaFWLU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "81713468961-c2n5qmmgmph5vo5igq4mc8o47vpp33a5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -7,6 +7,7 @@ environment:
 
 dependencies:
   cupertino_icons: ^1.0.2
+  firebase_core: ^2.1.1
   flutter:
     sdk: flutter
   font_awesome_flutter: ^10.2.1
@@ -21,6 +22,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   fonts:
-    - family:  CustomIconData
+    - family: CustomIconData
       fonts:
-       - asset: assets/fonts/CustomIconData.ttf
+        - asset: assets/fonts/CustomIconData.ttf

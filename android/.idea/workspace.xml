@@ -5,16 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="12cc5b07-f312-4d0c-a5cd-e1e69e489289" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/app/modules/auth/login/controllers/auth_login_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/modules/auth/login/controllers/auth_login_controller.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/app/modules/auth/login/views/auth_login_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/modules/auth/login/views/auth_login_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/app/modules/home/views/home_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/modules/home/views/home_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/app/modules/themes/colors_theme.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/app/modules/themes/typography_theme.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/discord.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/app/modules/auth/register/views/auth_register_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/modules/auth/register/views/auth_register_view.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/app/routes/app_pages.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/routes/app_pages.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/app/routes/app_routes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/routes/app_routes.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
