@@ -23,4 +23,14 @@ class CustomIconData {
 
   static const IconData password =
       IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData home =
+      IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData service =
+      IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData setting =
+      IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData historyReceipt =
+      IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData joystick =
+      IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
