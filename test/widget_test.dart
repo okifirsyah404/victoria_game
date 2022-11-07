@@ -5,15 +5,21 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get/get.dart';
+import 'package:victoria_game/app/modules/auth/sign_in/controllers/auth_sign_in_controller.dart';
+import 'package:victoria_game/app/modules/auth/sign_in/views/auth_sign_in_view.dart';
+import 'package:victoria_game/app/modules/test_widget/views/test_widget_view.dart';
+import 'package:victoria_game/firebase_options.dart';
 
 import 'package:victoria_game/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    // await tester.pumpWidget(const GetMat());
+    await tester.pumpWidget(MainApp());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
