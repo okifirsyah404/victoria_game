@@ -4,8 +4,14 @@ import '../modules/auth/sign_in/bindings/auth_sign_in_binding.dart';
 import '../modules/auth/sign_in/views/auth_sign_in_view.dart';
 import '../modules/auth/sign_up/bindings/auth_sign_up_binding.dart';
 import '../modules/auth/sign_up/views/auth_sign_up_view.dart';
-import '../modules/home/bindings/home_binding.dart';
-import '../modules/home/views/home_view.dart';
+import '../modules/main_page/history/bindings/main_page_history_binding.dart';
+import '../modules/main_page/history/views/main_page_history_view.dart';
+import '../modules/main_page/home/bindings/main_page_home_binding.dart';
+import '../modules/main_page/home/views/main_page_home_view.dart';
+import '../modules/main_page/ps_services/bindings/main_page_ps_services_binding.dart';
+import '../modules/main_page/ps_services/views/main_page_ps_services_view.dart';
+import '../modules/main_page/rent/bindings/main_page_rent_binding.dart';
+import '../modules/main_page/rent/views/main_page_rent_view.dart';
 import '../modules/test_widget/bindings/test_widget_binding.dart';
 import '../modules/test_widget/views/test_widget_view.dart';
 
@@ -14,14 +20,9 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.AUTH_SIGN_IN;
+  static const INITIAL = Routes.MAIN_PAGE_HOME;
 
   static final routes = [
-    GetPage(
-      name: _Paths.HOME,
-      page: () => HomeView(),
-      binding: HomeBinding(),
-    ),
     GetPage(
       name: _Paths.TEST_WIDGET,
       page: () => TestWidgetView(),
@@ -36,6 +37,26 @@ class AppPages {
       name: _Paths.AUTH_SIGN_UP,
       page: () => const AuthSignUpView(),
       binding: AuthSignUpBinding(),
+    ),
+    GetPage(
+      name: _Paths.MAIN_PAGE_HOME,
+      page: () => const MainPageHomeView(),
+      binding: MainPageHomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.MAIN_PAGE_RENT,
+      page: () => const MainPageRentView(),
+      binding: MainPageRentBinding(),
+    ),
+    GetPage(
+      name: _Paths.MAIN_PAGE_PS_SERVICES,
+      page: () => const MainPagePsServicesView(),
+      binding: MainPagePsServicesBinding(),
+    ),
+    GetPage(
+      name: _Paths.MAIN_PAGE_HISTORY,
+      page: () => const MainPageHistoryView(),
+      binding: MainPageHistoryBinding(),
     ),
   ];
 }
