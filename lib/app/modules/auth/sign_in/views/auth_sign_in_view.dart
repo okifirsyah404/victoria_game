@@ -40,7 +40,8 @@ class AuthSignInView extends GetView<AuthSignInController> {
                   ),
                   const SizedBox(height: 8.0),
                   PasswordTextField(
-                      textEditingController: controller.passwordController),
+                    textEditingController: controller.passwordController,
+                  ),
                   const SizedBox(height: 12.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,

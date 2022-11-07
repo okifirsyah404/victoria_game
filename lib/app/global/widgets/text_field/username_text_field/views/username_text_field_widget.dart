@@ -22,9 +22,7 @@ class _UsernameTextFieldState extends State<UsernameTextField>
 
   @override
   void initState() {
-    focusNode.addListener(() {
-      print(focusNode.hasFocus);
-    });
+    focusNode.addListener(() {});
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 400),

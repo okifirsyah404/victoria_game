@@ -44,10 +44,14 @@ class AuthSignUpView extends GetView<AuthSignUpController> {
                       textEditingController: controller.emailController),
                   SizedBox(height: 8.0),
                   PasswordTextField(
-                      textEditingController: controller.passwordController),
+                    textEditingController: controller.passwordController,
+                    passwordCondition: "(Angka dan Huruf)",
+                  ),
                   const SizedBox(height: 24.0),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      controller.signUp();
+                    },
                     child: Text("Daftar"),
                   ),
                 ],

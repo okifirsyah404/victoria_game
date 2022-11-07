@@ -8,10 +8,6 @@ class AuthController extends GetxController {
 
   Stream<User?> get authStateChange => _firebaseAuth.authStateChanges();
 
-  // Stream<User?> get authStateChange =>
-  //     firebaseAuthServices.firebaseAuth.authStateChanges();
-
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();

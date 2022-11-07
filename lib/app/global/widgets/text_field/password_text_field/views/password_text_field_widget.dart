@@ -6,9 +6,13 @@ import '../../../../themes/colors_theme.dart';
 import '../../../../themes/typography_theme.dart';
 
 class PasswordTextField extends StatefulWidget {
-  const PasswordTextField({super.key, required this.textEditingController});
+  const PasswordTextField(
+      {super.key,
+      required this.textEditingController,
+      this.passwordCondition = ""});
 
   final TextEditingController textEditingController;
+  final String? passwordCondition;
   @override
   State<PasswordTextField> createState() => _PasswordTextFieldState();
 }
@@ -24,9 +28,7 @@ class _PasswordTextFieldState extends State<PasswordTextField>
 
   @override
   void initState() {
-    focusNode.addListener(() {
-      print(focusNode.hasFocus);
-    });
+    focusNode.addListener(() {});
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 100),
@@ -114,9 +116,9 @@ class _PasswordTextFieldState extends State<PasswordTextField>
                     focusColor: Theme.of(context).colorScheme.secondary,
                     labelText: !widget.textEditingController.text.isEmpty
                         ? hasFocus
-                            ? 'Kata Sandi'
+                            ? 'Kata Sandi ${widget.passwordCondition}'
                             : null
-                        : 'Kata Sandi',
+                        : 'Kata Sandi ${widget.passwordCondition}',
                     labelStyle: hasFocus
                         ? TypographyTheme.bodySmall
                             .copyWith(color: ColorsTheme.neutralColor[600])
