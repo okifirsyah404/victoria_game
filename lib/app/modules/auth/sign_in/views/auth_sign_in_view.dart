@@ -40,7 +40,8 @@ class AuthSignInView extends GetView<AuthSignInController> {
                   ),
                   const SizedBox(height: 8.0),
                   PasswordTextField(
-                      textEditingController: controller.passwordController),
+                    textEditingController: controller.passwordController,
+                  ),
                   const SizedBox(height: 12.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -59,17 +60,18 @@ class AuthSignInView extends GetView<AuthSignInController> {
                   const SizedBox(height: 44.0),
                   ElevatedButton(
                     onPressed: () {
-                      if (controller.emailController.text.isEmpty &&
-                          controller.passwordController.text.isEmpty) {
-                        showDialog(
-                          context: context,
-                          builder: (context) => SingleActionDialog(
-                            title: "Email Sudah Terpakai",
-                            description:
-                                "Yah, Email yang kamu masukkan sudah pernah dipakai. Coba pakai email lain ya!",
-                          ),
-                        );
-                      }
+                      controller.signIn();
+                      // if (controller.emailController.text.isEmpty &&
+                      //     controller.passwordController.text.isEmpty) {
+                      //   showDialog(
+                      //     context: context,
+                      //     builder: (context) => SingleActionDialog(
+                      //       title: "Email Sudah Terpakai",
+                      //       description:
+                      //           "Yah, Email yang kamu masukkan sudah pernah dipakai. Coba pakai email lain ya!",
+                      //     ),
+                      //   );
+                      // }
                     },
                     child: const Text("Login"),
                   ),

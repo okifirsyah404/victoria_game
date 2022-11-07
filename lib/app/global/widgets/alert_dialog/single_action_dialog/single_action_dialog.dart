@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../themes/colors_theme.dart';
 import '../../../themes/typography_theme.dart';
@@ -35,7 +36,7 @@ class SingleActionDialog extends StatelessWidget {
       actions: [
         OutlinedButton(
           onPressed: () {
-            Navigator.pop(context);
+            Get.back();
           },
           child: Text("Ok"),
           style: OutlinedButton.styleFrom(

@@ -7,7 +7,7 @@ import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
-  const HomeView({Key? key}) : super(key: key);
+  HomeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +26,9 @@ class HomeView extends GetView<HomeController> {
             icon: const FaIcon(FontAwesomeIcons.plus),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              controller.signOut();
+            },
             icon: const FaIcon(FontAwesomeIcons.bars),
           ),
         ],
@@ -38,8 +40,8 @@ class HomeView extends GetView<HomeController> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  'HomeView is working',
+                Text(
+                  '${controller.firebaseAuthServices.currentUser?.displayName}',
                   style: TextStyle(fontSize: 20),
                 ),
                 const Text(
