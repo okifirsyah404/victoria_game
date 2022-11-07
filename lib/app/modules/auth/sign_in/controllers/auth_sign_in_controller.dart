@@ -69,7 +69,7 @@ class AuthSignInController extends GetxController {
       firebaseAuthServices.signInUserPasswordBased(
         emailAddress: emailController.text,
         password: passwordController.text,
-        route: Routes.HOME,
+        route: Routes.MAIN_PAGE_HOME,
       );
     }
   }

@@ -108,7 +108,7 @@ class AuthSignUpController extends GetxController {
         emailAddress: emailController.text,
         password: passwordController.text,
         username: usernameController.text,
-        route: Routes.HOME,
+        route: Routes.MAIN_PAGE_HOME,
       );
     }
   }

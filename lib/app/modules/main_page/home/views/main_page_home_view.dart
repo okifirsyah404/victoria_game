@@ -55,7 +55,9 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                         color: ColorsTheme.neutralColor[900],
                       ),
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          controller.signOut();
+                        },
                         icon: Icon(
                           CustomIconData.setting,
                           color: ColorsTheme.primaryColor,

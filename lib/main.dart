@@ -107,7 +107,8 @@ class MainApp extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.active) {
           return GetMaterialApp(
             title: "Application",
-            initialRoute: snapshot.hasData ? Routes.HOME : Routes.AUTH_SIGN_IN,
+            initialRoute:
+                snapshot.hasData ? Routes.MAIN_PAGE_HOME : Routes.AUTH_SIGN_IN,
             theme: MainTheme.darkTheme(context),
             getPages: AppPages.routes,
           );
