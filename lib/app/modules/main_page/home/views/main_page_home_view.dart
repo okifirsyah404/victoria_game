@@ -69,63 +69,66 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 16.0),
-                child: Material(
-                  borderRadius: BorderRadius.circular(8),
-                  elevation: 5,
-                  child: Container(
-                    width: Get.width,
-                    height: 64,
-                    decoration: BoxDecoration(
-                      color: ColorsTheme.neutralColor[900],
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Saldo Kamu",
-                                style: TypographyTheme.bodySmall,
-                              ),
-                              Text(
-                                "Rp 1.000.000",
-                                style: TypographyTheme.bodyMedium.copyWith(
-                                  color: ColorsTheme.primaryColor,
+                child: AspectRatio(
+                  aspectRatio: 100 / 20,
+                  child: Material(
+                    borderRadius: BorderRadius.circular(8),
+                    elevation: 5,
+                    child: Container(
+                      width: Get.width,
+                      // height: 64,5
+                      decoration: BoxDecoration(
+                        color: ColorsTheme.neutralColor[900],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 12.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Saldo Kamu",
+                                  style: TypographyTheme.bodySmall,
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        VerticalDivider(
-                          width: 20,
-                          thickness: 1,
-                          color: ColorsTheme.neutralColor[50],
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Play Time Kamu",
-                                style: TypographyTheme.bodySmall,
-                              ),
-                              Text(
-                                "36 Jam",
-                                style: TypographyTheme.bodyMedium.copyWith(
-                                  color: ColorsTheme.primaryColor,
+                                Text(
+                                  "Rp 1.000.000",
+                                  style: TypographyTheme.bodyMedium.copyWith(
+                                    color: ColorsTheme.primaryColor,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                          VerticalDivider(
+                            width: 20,
+                            thickness: 1,
+                            color: ColorsTheme.neutralColor[50],
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Play Time Kamu",
+                                  style: TypographyTheme.bodySmall,
+                                ),
+                                Text(
+                                  "36 Jam",
+                                  style: TypographyTheme.bodyMedium.copyWith(
+                                    color: ColorsTheme.primaryColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -142,30 +145,33 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                         style: TypographyTheme.titleSmall,
                       ),
                     ),
-                    Container(
-                      height: 150,
-                      child: PageView.builder(
-                        controller: PageController(
-                          viewportFraction: 0.85,
-                          initialPage: 0,
-                        ),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 3,
-                        itemBuilder: (context, index) {
-                          return Card(
-                            elevation: 4,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8.0),
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                      "assets/images/placeholder/banner-images.jpg"),
-                                  fit: BoxFit.cover,
+                    AspectRatio(
+                      aspectRatio: 16 / 9,
+                      child: SizedBox(
+                        // height: 150,
+                        child: PageView.builder(
+                          controller: PageController(
+                            viewportFraction: 0.85,
+                            initialPage: 0,
+                          ),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 3,
+                          itemBuilder: (context, index) {
+                            return Card(
+                              elevation: 4,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                        "assets/images/placeholder/banner-images.jpg"),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ],

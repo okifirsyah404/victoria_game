@@ -63,7 +63,10 @@ class FirebaseAuthServices {
     try {
       final credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: emailAddress, password: password)
-          .then((value) => Get.offAllNamed(route));
+          .then((value) {
+        print(value.user);
+        Get.offAllNamed(route);
+      });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
