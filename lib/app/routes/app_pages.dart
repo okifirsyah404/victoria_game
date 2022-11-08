@@ -42,21 +42,25 @@ class AppPages {
       name: _Paths.MAIN_PAGE_HOME,
       page: () => const MainPageHomeView(),
       binding: MainPageHomeBinding(),
+      transition: Transition.fadeIn,
     ),
     GetPage(
       name: _Paths.MAIN_PAGE_RENT,
       page: () => const MainPageRentView(),
       binding: MainPageRentBinding(),
+      transition: Transition.fadeIn,
     ),
     GetPage(
       name: _Paths.MAIN_PAGE_PS_SERVICES,
       page: () => const MainPagePsServicesView(),
       binding: MainPagePsServicesBinding(),
+      transition: Transition.fadeIn,
     ),
     GetPage(
       name: _Paths.MAIN_PAGE_HISTORY,
       page: () => const MainPageHistoryView(),
       binding: MainPageHistoryBinding(),
+      transition: Transition.fadeIn,
     ),
   ];
 }

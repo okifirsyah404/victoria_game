@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../global/widgets/navigation/bottom_navigation/main_bottom_navigation.dart';
 import '../controllers/main_page_history_controller.dart';
 
 class MainPageHistoryView extends GetView<MainPageHistoryController> {
@@ -19,6 +20,7 @@ class MainPageHistoryView extends GetView<MainPageHistoryController> {
           style: TextStyle(fontSize: 20),
         ),
       ),
+      bottomNavigationBar: MainBottomNavigation(),
     );
   }
 }

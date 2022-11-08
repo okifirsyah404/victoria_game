@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:victoria_game/app/global/widgets/navigation/bottom_navigation/main_bottom_navigation.dart';
 
 import '../controllers/main_page_rent_controller.dart';
 
@@ -19,6 +20,7 @@ class MainPageRentView extends GetView<MainPageRentController> {
           style: TextStyle(fontSize: 20),
         ),
       ),
+      bottomNavigationBar: MainBottomNavigation(),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../global/widgets/navigation/bottom_navigation/main_bottom_navigation.dart';
 import '../controllers/main_page_ps_services_controller.dart';
 
 class MainPagePsServicesView extends GetView<MainPagePsServicesController> {
@@ -19,6 +20,7 @@ class MainPagePsServicesView extends GetView<MainPagePsServicesController> {
           style: TextStyle(fontSize: 20),
         ),
       ),
+      bottomNavigationBar: MainBottomNavigation(),
     );
   }
 }
