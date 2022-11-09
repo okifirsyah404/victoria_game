@@ -10,6 +10,7 @@ abstract class Routes {
   static const MAIN_PAGE_RENT = _Paths.MAIN_PAGE_RENT;
   static const MAIN_PAGE_PS_SERVICES = _Paths.MAIN_PAGE_PS_SERVICES;
   static const MAIN_PAGE_HISTORY = _Paths.MAIN_PAGE_HISTORY;
+  static const ON_BOARDING = _Paths.ON_BOARDING;
 }
 
 abstract class _Paths {
@@ -21,4 +22,5 @@ abstract class _Paths {
   static const MAIN_PAGE_RENT = '/rent';
   static const MAIN_PAGE_PS_SERVICES = '/ps-services';
   static const MAIN_PAGE_HISTORY = '/history';
+  static const ON_BOARDING = '/on-boarding';
 }

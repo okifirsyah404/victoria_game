@@ -12,6 +12,8 @@ import '../modules/main_page/ps_services/bindings/main_page_ps_services_binding.
 import '../modules/main_page/ps_services/views/main_page_ps_services_view.dart';
 import '../modules/main_page/rent/bindings/main_page_rent_binding.dart';
 import '../modules/main_page/rent/views/main_page_rent_view.dart';
+import '../modules/on_boarding/bindings/on_boarding_binding.dart';
+import '../modules/on_boarding/views/on_boarding_view.dart';
 import '../modules/test_widget/bindings/test_widget_binding.dart';
 import '../modules/test_widget/views/test_widget_view.dart';
 
@@ -57,6 +59,11 @@ class AppPages {
       name: _Paths.MAIN_PAGE_HISTORY,
       page: () => const MainPageHistoryView(),
       binding: MainPageHistoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.ON_BOARDING,
+      page: () => const OnBoardingView(),
+      binding: OnBoardingBinding(),
     ),
   ];
 }
