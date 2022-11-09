@@ -21,6 +21,7 @@ class MainPageRentView extends GetView<MainPageRentController> {
         ),
         centerTitle: true,
         elevation: 0,
+        backgroundColor: Colors.transparent,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

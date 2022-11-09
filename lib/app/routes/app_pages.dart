@@ -66,8 +66,9 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PROFILE_SETTINGS_USER_PROFILE,
-      page: () => const ProfileSettingsUserProfileView(),
+      page: () => ProfileSettingsUserProfileView(),
       binding: ProfileSettingsUserProfileBinding(),
+      transition: Transition.downToUp,
     ),
   ];
 }

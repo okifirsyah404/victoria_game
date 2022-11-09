@@ -10,9 +10,11 @@ dependencies:
   firebase_core: ^2.1.1
   flutter:
     sdk: flutter
+  flutter_svg: ^1.1.6
   font_awesome_flutter: ^10.2.1
   get: 4.6.5
   google_fonts: ^3.0.1
+  package_info_plus: ^3.0.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -27,6 +29,7 @@ flutter:
         - asset: assets/fonts/CustomIconData.ttf
   assets:
     - assets/images/
+    - assets/images/illustrations/
     - assets/images/placeholder/
     - assets/images/drawable/
     - assets/images/drawable/profile/

@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:victoria_game/app/controllers/app_controller.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
@@ -21,6 +22,10 @@ void main() async {
 class MainApp extends StatelessWidget {
   MainApp({super.key});
 
+  AppController appController = Get.put(
+    AppController(),
+    permanent: true,
+  );
   MainPageIndexController mainPageIndexController =
       Get.put(MainPageIndexController(), permanent: true);
 
