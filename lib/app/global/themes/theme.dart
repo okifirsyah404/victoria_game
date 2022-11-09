@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:victoria_game/app/global/themes/app_bar_theme.dart';
 import 'package:victoria_game/app/global/themes/buttons_theme.dart';
+import 'package:victoria_game/app/global/themes/icon_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
 
 import 'colors_theme.dart';
@@ -50,6 +51,7 @@ class MainTheme {
           ),
       buttonTheme: DarkButtonsTheme.darkButtonTheme(context),
       textButtonTheme: DarkButtonsTheme.textButtonThemeData,
+      iconTheme: MainIconTheme.darkIconThemeData,
       elevatedButtonTheme: DarkButtonsTheme.elevatedButtonThemeData,
       outlinedButtonTheme: DarkButtonsTheme.outlinedButtonThemeData,
       appBarTheme: MainAppBarTheme.darkAppBarTheme,

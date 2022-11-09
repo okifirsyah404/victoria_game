@@ -33,4 +33,6 @@ class CustomIconData {
       IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData joystick =
       IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData pencil =
+      IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

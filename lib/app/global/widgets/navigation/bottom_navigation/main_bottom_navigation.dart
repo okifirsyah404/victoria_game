@@ -1,37 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:victoria_game/app/modules/main_page/controllers/main_page_index_controller.dart';
 
 import '../../../icons/custom_icon_data_icons.dart';
 
-class MainBottomNavigation extends StatefulWidget {
-  const MainBottomNavigation({super.key});
+class MainBottomNavigation extends StatelessWidget {
+  MainBottomNavigation({super.key});
 
-  @override
-  State<MainBottomNavigation> createState() => _MainBottomNavigationState();
-}
+  MainPageIndexController controller = Get.find<MainPageIndexController>();
 
-class _MainBottomNavigationState extends State<MainBottomNavigation> {
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      currentIndex: 0,
-      items: [
-        BottomNavigationBarItem(
-          icon: Icon(CustomIconData.home),
-          label: "Home",
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(CustomIconData.joystick),
-          label: "Sewa",
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(CustomIconData.service),
-          label: "Servis PS",
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(CustomIconData.historyReceipt),
-          label: "Riwayat",
-        ),
-      ],
-    );
+    return Obx(() => BottomNavigationBar(
+          currentIndex: controller.pageIndex.value,
+          onTap: (value) {
+            controller.onTappedItem(value);
+          },
+          enableFeedback: false,
+          unselectedFontSize: 12,
+          selectedFontSize: 12,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(CustomIconData.home),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(CustomIconData.joystick),
+              label: "Sewa",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(CustomIconData.service),
+              label: "Servis PS",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(CustomIconData.historyReceipt),
+              label: "Riwayat",
+            ),
+          ],
+        ));
   }
 }

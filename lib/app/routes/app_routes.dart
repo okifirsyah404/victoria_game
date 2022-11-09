@@ -11,6 +11,8 @@ abstract class Routes {
   static const MAIN_PAGE_PS_SERVICES = _Paths.MAIN_PAGE_PS_SERVICES;
   static const MAIN_PAGE_HISTORY = _Paths.MAIN_PAGE_HISTORY;
   static const ON_BOARDING = _Paths.ON_BOARDING;
+  static const PROFILE_SETTINGS_USER_PROFILE =
+      _Paths.PROFILE_SETTINGS_USER_PROFILE;
 }
 
 abstract class _Paths {
@@ -23,4 +25,5 @@ abstract class _Paths {
   static const MAIN_PAGE_PS_SERVICES = '/ps-services';
   static const MAIN_PAGE_HISTORY = '/history';
   static const ON_BOARDING = '/on-boarding';
+  static const PROFILE_SETTINGS_USER_PROFILE = '/user-profile';
 }

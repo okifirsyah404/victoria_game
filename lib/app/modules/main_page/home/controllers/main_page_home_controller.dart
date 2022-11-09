@@ -9,12 +9,12 @@ import '../../../../routes/app_pages.dart';
 class MainPageHomeController extends GetxController {
   //TODO: Implement MainPageHomeController
 
-  FirebaseAuthServices firebaseAuthServices = FirebaseAuthServices();
+  // FirebaseAuthServices firebaseAuthServices = FirebaseAuthServices();
 
-  void signOut() {
-    firebaseAuthServices.signOutUserPasswordBased();
-    Get.offAllNamed(Routes.AUTH_SIGN_IN);
-  }
+  // void signOut() {
+  //   firebaseAuthServices.signOutUserPasswordBased();
+  //   Get.offAllNamed(Routes.AUTH_SIGN_IN);
+  // }
 
   var listItem = List.generate(
       7,
