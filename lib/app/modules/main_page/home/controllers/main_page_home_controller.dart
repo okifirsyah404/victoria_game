@@ -46,7 +46,6 @@ class MainPageHomeController extends GetxController {
             ),
           ));
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -61,6 +60,4 @@ class MainPageHomeController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

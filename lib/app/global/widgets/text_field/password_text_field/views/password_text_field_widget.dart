@@ -84,7 +84,8 @@ class _PasswordTextFieldState extends State<PasswordTextField>
                 child: TextField(
                   controller: widget.textEditingController,
                   obscureText: isObsecure,
-                  keyboardType: TextInputType.emailAddress,
+                  keyboardType: TextInputType.visiblePassword,
+                  cursorColor: ColorsTheme.neutralColor[900],
                   style: TypographyTheme.bodyRegular.copyWith(
                     color: ColorsTheme.neutralColor[900],
                   ),

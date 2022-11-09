@@ -81,6 +81,7 @@ class _EmailTextFieldState extends State<EmailTextField>
                 child: TextField(
                   controller: widget.textEditingController,
                   keyboardType: TextInputType.emailAddress,
+                  cursorColor: ColorsTheme.neutralColor[900],
                   style: TypographyTheme.bodyRegular.copyWith(
                     color: ColorsTheme.neutralColor[900],
                   ),

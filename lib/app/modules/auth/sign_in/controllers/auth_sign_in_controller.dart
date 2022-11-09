@@ -24,8 +24,8 @@ class AuthSignInController extends GetxController {
     if (passwordController.text.isEmpty) {
       Get.dialog(
         const SingleActionDialog(
-          title: "Email tidak boleh kosong",
-          description: "Tolong masukkan email kamu ya!",
+          title: "Password tidak boleh kosong",
+          description: "Tolong masukkan password kamu ya!",
         ),
       );
       return false;
