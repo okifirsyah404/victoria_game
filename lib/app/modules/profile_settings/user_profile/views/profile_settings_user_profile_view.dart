@@ -244,6 +244,9 @@ class ProfileSettingsUserProfileView
             DividerListTile(
               title: "Keluar",
               bottomBorder: true,
+              onTap: () {
+                controller.signOut();
+              },
             ),
           ],
         ),
