@@ -5,6 +5,7 @@ import 'package:victoria_game/app/global/icons/custom_icon_data_icons.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
 import 'package:victoria_game/app/global/widgets/navigation/bottom_navigation/main_bottom_navigation.dart';
+import 'package:victoria_game/app/routes/app_pages.dart';
 
 import '../controllers/main_page_home_controller.dart';
 
@@ -56,7 +57,7 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                       ),
                       child: IconButton(
                         onPressed: () {
-                          controller.signOut();
+                          Get.toNamed(Routes.PROFILE_SETTINGS_USER_PROFILE);
                         },
                         icon: Icon(
                           CustomIconData.setting,

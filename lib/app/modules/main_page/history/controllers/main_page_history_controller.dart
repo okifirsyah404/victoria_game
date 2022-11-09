@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 class MainPageHistoryController extends GetxController {
   //TODO: Implement MainPageHistoryController
 
+  RxBool isRentActive = true.obs;
+
   final count = 0.obs;
   @override
   void onInit() {

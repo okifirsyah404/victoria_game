@@ -12,6 +12,8 @@ import '../modules/main_page/ps_services/bindings/main_page_ps_services_binding.
 import '../modules/main_page/ps_services/views/main_page_ps_services_view.dart';
 import '../modules/main_page/rent/bindings/main_page_rent_binding.dart';
 import '../modules/main_page/rent/views/main_page_rent_view.dart';
+import '../modules/profile_settings/user_profile/bindings/profile_settings_user_profile_binding.dart';
+import '../modules/profile_settings/user_profile/views/profile_settings_user_profile_view.dart';
 import '../modules/test_widget/bindings/test_widget_binding.dart';
 import '../modules/test_widget/views/test_widget_view.dart';
 
@@ -42,21 +44,31 @@ class AppPages {
       name: _Paths.MAIN_PAGE_HOME,
       page: () => const MainPageHomeView(),
       binding: MainPageHomeBinding(),
+      transition: Transition.fadeIn,
     ),
     GetPage(
       name: _Paths.MAIN_PAGE_RENT,
       page: () => const MainPageRentView(),
       binding: MainPageRentBinding(),
+      transition: Transition.fadeIn,
     ),
     GetPage(
       name: _Paths.MAIN_PAGE_PS_SERVICES,
       page: () => const MainPagePsServicesView(),
       binding: MainPagePsServicesBinding(),
+      transition: Transition.fadeIn,
     ),
     GetPage(
       name: _Paths.MAIN_PAGE_HISTORY,
       page: () => const MainPageHistoryView(),
       binding: MainPageHistoryBinding(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: _Paths.PROFILE_SETTINGS_USER_PROFILE,
+      page: () => ProfileSettingsUserProfileView(),
+      binding: ProfileSettingsUserProfileBinding(),
+      transition: Transition.downToUp,
     ),
   ];
 }
