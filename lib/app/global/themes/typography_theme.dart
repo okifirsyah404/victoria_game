@@ -50,7 +50,7 @@ class TypographyTheme {
   static TextStyle titleRegular = GoogleFonts.notoSans(
     fontSize: 18,
     letterSpacing: 0.15,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w600,
   );
 
   static TextStyle titleSmall = GoogleFonts.notoSans(
