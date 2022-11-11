@@ -30,6 +30,7 @@ class MainApp extends StatelessWidget {
     AppController(),
     permanent: true,
   );
+
   MainPageIndexController mainPageIndexController =
       Get.put(MainPageIndexController(), permanent: true);
 
@@ -54,8 +55,9 @@ class MainApp extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.active) {
           return GetMaterialApp(
             title: "Application",
-            initialRoute:
-                snapshot.hasData ? Routes.MAIN_PAGE_HOME : Routes.AUTH_SIGN_IN,
+            // initialRoute:
+            //     snapshot.hasData ? Routes.MAIN_PAGE_HOME : Routes.AUTH_SIGN_IN,
+            initialRoute: Routes.ON_BOARDING,
             theme: MainTheme.darkTheme(context),
             getPages: AppPages.routes,
           );
