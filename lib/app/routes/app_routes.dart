@@ -12,6 +12,8 @@ abstract class Routes {
   static const MAIN_PAGE_HISTORY = _Paths.MAIN_PAGE_HISTORY;
   static const PROFILE_SETTINGS_USER_PROFILE =
       _Paths.PROFILE_SETTINGS_USER_PROFILE;
+  static const DETAIL_GAME_CENTER = _Paths.DETAIL_GAME_CENTER;
+  static const ORDER_DETAILS_ON_SITE = _Paths.ORDER_DETAILS_ON_SITE;
 }
 
 abstract class _Paths {
@@ -24,4 +26,6 @@ abstract class _Paths {
   static const MAIN_PAGE_PS_SERVICES = '/ps-services';
   static const MAIN_PAGE_HISTORY = '/history';
   static const PROFILE_SETTINGS_USER_PROFILE = '/user-profile';
+  static const DETAIL_GAME_CENTER = '/detail-game-center';
+  static const ORDER_DETAILS_ON_SITE = '/on-site';
 }
