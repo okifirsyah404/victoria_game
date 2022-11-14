@@ -1,4 +1,4 @@
-package com.example.victoria_game
+package com.tolonto.victoriagame
 
 import io.flutter.embedding.android.FlutterActivity
 
