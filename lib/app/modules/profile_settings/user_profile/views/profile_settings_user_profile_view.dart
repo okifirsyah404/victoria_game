@@ -43,7 +43,7 @@ class ProfileSettingsUserProfileView
           children: [
             Material(
               borderRadius: BorderRadius.circular(8.0),
-              elevation: 4,
+              elevation: 2,
               child: Container(
                 decoration: BoxDecoration(
                   color: ColorsTheme.neutralColor[900],
@@ -101,7 +101,7 @@ class ProfileSettingsUserProfileView
                 aspectRatio: 328 / 130,
                 child: Material(
                   borderRadius: BorderRadius.circular(8),
-                  elevation: 5,
+                  elevation: 2,
                   child: Container(
                     width: Get.width,
                     // height: 64,5

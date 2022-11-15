@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:victoria_game/app/controllers/app_controller.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/theme.dart';
@@ -15,6 +17,9 @@ import 'app/routes/app_pages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // await initializeDateFormatting(
+  //   'id_ID',
+  // );
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -56,9 +61,16 @@ class MainApp extends StatelessWidget {
             title: "Application",
             // initialRoute:
             //     snapshot.hasData ? Routes.MAIN_PAGE_HOME : Routes.AUTH_SIGN_IN,
-            initialRoute: Routes.DETAIL_GAME_CENTER,
+            initialRoute: Routes.ORDER_DETAILS_ON_SITE,
             theme: MainTheme.darkTheme(context),
             getPages: AppPages.routes,
+            localizationsDelegates: [
+              GlobalMaterialLocalizations.delegate,
+            ],
+            supportedLocales: [
+              Locale('en'),
+              Locale('id'),
+            ],
           );
         }
 

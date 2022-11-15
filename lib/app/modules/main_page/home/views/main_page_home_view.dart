@@ -74,7 +74,7 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                   aspectRatio: 100 / 20,
                   child: Material(
                     borderRadius: BorderRadius.circular(8),
-                    elevation: 5,
+                    elevation: 2,
                     child: Container(
                       width: Get.width,
                       // height: 64,5
@@ -158,8 +158,8 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                           scrollDirection: Axis.horizontal,
                           itemCount: 3,
                           itemBuilder: (context, index) {
-                            return Card(
-                              elevation: 4,
+                            return Material(
+                              elevation: 2,
                               child: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8.0),

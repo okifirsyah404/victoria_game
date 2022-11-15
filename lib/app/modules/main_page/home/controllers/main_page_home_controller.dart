@@ -21,7 +21,7 @@ class MainPageHomeController extends GetxController {
       (index) => Padding(
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
             child: Material(
-              elevation: 4,
+              elevation: 2,
               borderRadius: BorderRadius.circular(8.0),
               child: Container(
                 padding: const EdgeInsets.all(16),

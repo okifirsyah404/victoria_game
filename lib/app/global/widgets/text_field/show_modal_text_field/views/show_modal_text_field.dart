@@ -1,28 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:victoria_game/app/global/themes/colors_theme.dart';
+import 'package:victoria_game/app/global/themes/typography_theme.dart';
 
-import '../../../../icons/custom_icon_data_icons.dart';
-import '../../../../themes/colors_theme.dart';
-import '../../../../themes/typography_theme.dart';
+class ShowModalTextField extends StatefulWidget {
+  const ShowModalTextField(
+      {super.key, required this.controller, this.label, this.icon, this.onTap});
 
-class PasswordTextField extends StatefulWidget {
-  const PasswordTextField(
-      {super.key,
-      required this.textEditingController,
-      this.passwordCondition = ""});
+  final TextEditingController controller;
+  final String? label;
+  final Widget? icon;
+  final VoidCallback? onTap;
 
-  final TextEditingController textEditingController;
-  final String? passwordCondition;
   @override
-  State<PasswordTextField> createState() => _PasswordTextFieldState();
+  State<ShowModalTextField> createState() => _ShowModalTextFieldState();
 }
 
-class _PasswordTextFieldState extends State<PasswordTextField>
+class _ShowModalTextFieldState extends State<ShowModalTextField>
     with SingleTickerProviderStateMixin {
   FocusNode focusNode = FocusNode();
   bool hasFocus = false;
-  bool isObsecure = true;
-
   late AnimationController animationController;
   late Animation<double> animationTween;
 
@@ -31,10 +27,10 @@ class _PasswordTextFieldState extends State<PasswordTextField>
     focusNode.addListener(() {});
     animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 100),
+      duration: const Duration(milliseconds: 400),
     );
     animationTween =
-        Tween<double>(begin: 0, end: 5).animate(animationController);
+        Tween<double>(begin: 0, end: 6).animate(animationController);
     animationController.addListener(
       () {
         setState(() {});
@@ -48,7 +44,7 @@ class _PasswordTextFieldState extends State<PasswordTextField>
   void dispose() {
     focusNode.dispose();
     animationController.dispose();
-    widget.textEditingController.dispose();
+    widget.controller.dispose();
 
     super.dispose();
   }
@@ -85,44 +81,29 @@ class _PasswordTextFieldState extends State<PasswordTextField>
               height: 64,
               child: Center(
                 child: TextField(
-                  controller: widget.textEditingController,
-                  obscureText: isObsecure,
-                  keyboardType: TextInputType.visiblePassword,
-                  cursorColor: ColorsTheme.neutralColor[900],
+                  readOnly: true,
+                  onTap: widget.onTap,
+                  controller: widget.controller,
                   style: TypographyTheme.bodyRegular.copyWith(
                     color: ColorsTheme.neutralColor[900],
                   ),
+                  cursorColor: ColorsTheme.neutralColor[900],
                   decoration: InputDecoration(
-                    icon: SizedBox(
-                      height: 32,
-                      width: 32,
-                      child: Center(
-                        child: Icon(
-                          CustomIconData.password,
-                          color: ColorsTheme.neutralColor[900],
-                        ),
-                      ),
-                    ),
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          isObsecure = !isObsecure;
-                        });
-                      },
-                      icon: FaIcon(
-                        isObsecure
-                            ? FontAwesomeIcons.eyeSlash
-                            : FontAwesomeIcons.eye,
-                        color: ColorsTheme.neutralColor[900],
-                      ),
-                    ),
+                    icon: widget.icon != null
+                        ? SizedBox(
+                            height: 32,
+                            width: 32,
+                            child: Center(
+                              child: widget.icon,
+                            ),
+                          )
+                        : null,
                     border: InputBorder.none,
-                    focusColor: Theme.of(context).colorScheme.secondary,
-                    labelText: !widget.textEditingController.text.isEmpty
+                    labelText: !widget.controller.text.isEmpty
                         ? hasFocus
-                            ? 'Kata Sandi ${widget.passwordCondition}'
+                            ? widget.label
                             : null
-                        : 'Kata Sandi ${widget.passwordCondition}',
+                        : widget.label,
                     labelStyle: hasFocus
                         ? TypographyTheme.bodySmall
                             .copyWith(color: ColorsTheme.neutralColor[600])
