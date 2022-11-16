@@ -14,6 +14,7 @@ abstract class Routes {
       _Paths.PROFILE_SETTINGS_USER_PROFILE;
   static const DETAIL_GAME_CENTER = _Paths.DETAIL_GAME_CENTER;
   static const ORDER_DETAILS_ON_SITE = _Paths.ORDER_DETAILS_ON_SITE;
+  static const PAYMENT = _Paths.PAYMENT;
 }
 
 abstract class _Paths {
@@ -28,4 +29,5 @@ abstract class _Paths {
   static const PROFILE_SETTINGS_USER_PROFILE = '/user-profile';
   static const DETAIL_GAME_CENTER = '/detail-game-center';
   static const ORDER_DETAILS_ON_SITE = '/on-site';
+  static const PAYMENT = '/payment';
 }

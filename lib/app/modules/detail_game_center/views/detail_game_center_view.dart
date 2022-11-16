@@ -177,7 +177,7 @@ class DetailGameCenterView extends GetView<DetailGameCenterController> {
                 Get.toNamed(Routes.ORDER_DETAILS_ON_SITE);
               },
               child: Material(
-                elevation: 4,
+                elevation: 2,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),

@@ -38,7 +38,7 @@ class MainPageHistoryView extends GetView<MainPageHistoryController> {
                   child: AspectRatio(
                     aspectRatio: 328 / 128,
                     child: Material(
-                      elevation: 4,
+                      elevation: 2,
                       borderRadius: BorderRadius.circular(8.0),
                       child: Container(
                         padding: const EdgeInsets.symmetric(

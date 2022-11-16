@@ -16,6 +16,8 @@ import '../modules/main_page/rent/bindings/main_page_rent_binding.dart';
 import '../modules/main_page/rent/views/main_page_rent_view.dart';
 import '../modules/order_details/on_site/bindings/order_details_on_site_binding.dart';
 import '../modules/order_details/on_site/views/order_details_on_site_view.dart';
+import '../modules/payment/bindings/payment_binding.dart';
+import '../modules/payment/views/payment_view.dart';
 import '../modules/profile_settings/user_profile/bindings/profile_settings_user_profile_binding.dart';
 import '../modules/profile_settings/user_profile/views/profile_settings_user_profile_view.dart';
 import '../modules/test_widget/bindings/test_widget_binding.dart';
@@ -83,6 +85,11 @@ class AppPages {
       name: _Paths.ORDER_DETAILS_ON_SITE,
       page: () => const OrderDetailsOnSiteView(),
       binding: OrderDetailsOnSiteBinding(),
+    ),
+    GetPage(
+      name: _Paths.PAYMENT,
+      page: () => const PaymentView(),
+      binding: PaymentBinding(),
     ),
   ];
 }

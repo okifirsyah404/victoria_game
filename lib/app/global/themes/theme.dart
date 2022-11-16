@@ -60,7 +60,7 @@ class MainTheme {
         selectedItemColor: ColorsTheme.primaryColor,
         showUnselectedLabels: true,
         enableFeedback: false,
-        elevation: 5,
+        elevation: 2,
         type: BottomNavigationBarType.fixed,
       ));
 }

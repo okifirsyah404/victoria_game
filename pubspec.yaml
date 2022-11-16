@@ -12,6 +12,8 @@ dependencies:
   firebase_core: ^2.1.1
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   flutter_svg: ^1.1.6
   font_awesome_flutter: ^10.2.1
   geocoding: ^2.0.5
@@ -19,9 +21,11 @@ dependencies:
   get: 4.6.5
   google_fonts: ^3.0.1
   google_maps_flutter: ^2.2.1
+  intl: ^0.17.0
   package_info_plus: ^3.0.1
 
 dev_dependencies:
+  logger: ^1.1.0
   change_app_package_name: ^1.1.0
   flutter_lints: ^2.0.0
   flutter_test:

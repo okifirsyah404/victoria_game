@@ -15,7 +15,7 @@ class MainPageRentController extends GetxController {
       child: AspectRatio(
         aspectRatio: 328 / 100,
         child: Material(
-          elevation: 4,
+          elevation: 2,
           borderRadius: BorderRadius.circular(8.0),
           child: Container(
             padding: const EdgeInsets.symmetric(

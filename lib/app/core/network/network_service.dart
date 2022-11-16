@@ -1,1 +1,14 @@
-// User(displayName: johndoe2@mail.com, email: johndoe2@mail.com, emailVerified: false, isAnonymous: false, metadata: UserMetadata(creationTime: 2022-11-07 17:10:43.375Z, lastSignInTime: 2022-11-08 06:04:01.348Z), phoneNumber: null, photoURL: null, providerData, [UserInfo(displayName: johndoe2@mail.com, email: johndoe2@mail.com, phoneNumber: null, photoURL: null, providerId: password, uid: johndoe2@mail.com)], refreshToken: , tenantId: null, uid: mJanlDHjllRexJkr6W2CRSGwrea2);
+import 'dart:io';
+
+import 'package:logger/logger.dart';
+
+const BASE_URL = "";
+
+abstract class NetworkServices {
+  final printLog = Logger(printer: PrettyPrinter());
+
+  Future<dynamic> getMethod(
+      String endpoint, Map<String, String>? headers) async {
+    try {} on SocketException {}
+  }
+}
