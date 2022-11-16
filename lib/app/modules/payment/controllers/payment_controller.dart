@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 class PaymentController extends GetxController {
   //TODO: Implement PaymentController
 
-  final selectedIndex = 0.obs;
+  final selectedIndex = (-1).obs;
 
   List<Map<String, dynamic>> paymentMethods = [
     {

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:victoria_game/utils/int_extensions.dart';
 
-import '../../../global/themes/colors_theme.dart';
-import '../../../global/themes/typography_theme.dart';
-import '../controllers/payment_controller.dart';
+import 'package:victoria_game/app/global/themes/colors_theme.dart';
+import 'package:victoria_game/app/global/themes/typography_theme.dart';
+import 'package:victoria_game/app/modules/payment/controllers/payment_controller.dart';
+import 'package:victoria_game/utils/int_extensions.dart';
 
 class PaymentView extends GetView<PaymentController> {
   const PaymentView({Key? key}) : super(key: key);
@@ -44,10 +44,6 @@ class PaymentView extends GetView<PaymentController> {
                           controller.getPaymentMethods[index]["methodTitle"],
                           style: TypographyTheme.titleSmall,
                         ),
-                        // trailing: Text(
-                        //   "Rp. 1.000.000",
-                        //   style: TypographyTheme.bodyRegular,
-                        // ),
                         trailing: controller.getPaymentMethods[index]
                                     ["ballance"] !=
                                 null
@@ -69,16 +65,17 @@ class PaymentView extends GetView<PaymentController> {
               width: double.infinity,
               padding: EdgeInsets.all(16.0),
               color: ColorsTheme.neutralColor[900],
-              child: OutlinedButton(
-                onPressed: () {},
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: ColorsTheme.neutralColor[900],
-                  backgroundColor: ColorsTheme.primaryColor,
-                  side: BorderSide(
-                    color: ColorsTheme.primaryColor,
+              child: Obx(
+                () => OutlinedButton(
+                  onPressed: controller.selectedIndex == -1 ? null : () {},
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: ColorsTheme.neutralColor[900],
+                    backgroundColor: controller.selectedIndex == -1
+                        ? ColorsTheme.neutralColor[400]
+                        : ColorsTheme.primaryColor,
                   ),
+                  child: Text("Pilih Metode Pembayaran"),
                 ),
-                child: Text("Pilih Metode Pembayaran"),
               ),
             ),
           ],

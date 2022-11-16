@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
-import 'package:victoria_game/app/core/services/firebase_auth_services.dart';
+
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
-
-import '../../../../routes/app_pages.dart';
 
 class MainPageHomeController extends GetxController {
   //TODO: Implement MainPageHomeController
