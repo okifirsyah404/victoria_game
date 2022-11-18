@@ -3,8 +3,12 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 
+import '../../../../routes/app_pages.dart';
+
 class OrderDetailsOnSiteController extends GetxController {
   //TODO: Implement OrderDetailsOnSiteController, and cleaning the code
+
+  final formKey = GlobalKey<FormState>();
 
   late TextEditingController calendarTextController;
   late TextEditingController timeTextController;
@@ -12,6 +16,9 @@ class OrderDetailsOnSiteController extends GetxController {
 
   Rx<DateTime> selectedDate = Rx<DateTime>(DateTime.now());
   List<String> listItem = List.generate(6, (index) => "${index + 1} Jam");
+
+  RxString paymentMethod = "".obs;
+  RxInt paymentMethodBallance = (-1).obs;
 
   void onChangeDropDown(String? newValue) {
     dropDownInitialSelected.value = newValue ?? "";
@@ -65,14 +72,14 @@ class OrderDetailsOnSiteController extends GetxController {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: ColorScheme.dark(
-              primary: ColorsTheme.primaryColor, // header background color
-              onPrimary: ColorsTheme.neutralColor[900] ??
-                  ColorsTheme.neutralColor, // header text color
-              onSurface: ColorsTheme.primaryColor, // body text color
+              primary: ColorsTheme.primaryColor,
+              onPrimary:
+                  ColorsTheme.neutralColor[900] ?? ColorsTheme.neutralColor,
+              onSurface: ColorsTheme.primaryColor,
             ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
-                foregroundColor: ColorsTheme.primaryColor, // button text color
+                foregroundColor: ColorsTheme.primaryColor,
               ),
             ),
           ),
@@ -94,7 +101,13 @@ class OrderDetailsOnSiteController extends GetxController {
     }
   }
 
-  final count = 0.obs;
+  Future<void> initiatePaymentMethod() async {
+    var result = await Get.toNamed(Routes.PAYMENT);
+
+    paymentMethod.value = result["method"];
+    paymentMethodBallance.value = result["ballance"] ?? -1;
+  }
+
   @override
   void onInit() {
     calendarTextController = TextEditingController();
@@ -113,6 +126,4 @@ class OrderDetailsOnSiteController extends GetxController {
     super.onClose();
     // calendarTextController.dispose();
   }
-
-  void increment() => count.value++;
 }

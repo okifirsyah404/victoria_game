@@ -67,7 +67,11 @@ class PaymentView extends GetView<PaymentController> {
               color: ColorsTheme.neutralColor[900],
               child: Obx(
                 () => OutlinedButton(
-                  onPressed: controller.selectedIndex == -1 ? null : () {},
+                  onPressed: controller.selectedIndex == -1
+                      ? null
+                      : () {
+                          controller.backWithOption();
+                        },
                   style: OutlinedButton.styleFrom(
                     foregroundColor: ColorsTheme.neutralColor[900],
                     backgroundColor: controller.selectedIndex == -1

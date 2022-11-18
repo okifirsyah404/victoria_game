@@ -143,7 +143,7 @@ class DetailGameCenterView extends GetView<DetailGameCenterController> {
                             initialCameraPosition: CameraPosition(
                               target: LatLng(controller.markedLatitude,
                                   controller.markedLongitude),
-                              zoom: 20.0,
+                              zoom: 11.0,
                             ),
                           ),
                         ),
