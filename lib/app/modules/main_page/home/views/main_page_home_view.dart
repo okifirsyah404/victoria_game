@@ -145,7 +145,7 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                     ),
                   ),
                   AspectRatio(
-                    aspectRatio: 19 / 9,
+                    aspectRatio: 19 / 8,
                     child: SizedBox(
                       child: PageView.builder(
                         controller: PageController(
@@ -196,27 +196,32 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                   physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) => Padding(
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-                    child: Material(
-                      elevation: 2,
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Container(
-                        padding: const EdgeInsets.all(16),
-                        width: Get.width,
-                        decoration: BoxDecoration(
-                          color: ColorsTheme.neutralColor[600],
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Nama Tempat $index",
-                              style: TypographyTheme.titleSmall.copyWith(
-                                color: ColorsTheme.primaryColor,
+                    child: InkWell(
+                      onTap: () {
+                        Get.toNamed(Routes.DETAIL_GAME_CENTER);
+                      },
+                      child: Material(
+                        elevation: 2,
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Container(
+                          padding: const EdgeInsets.all(16),
+                          width: Get.width,
+                          decoration: BoxDecoration(
+                            color: ColorsTheme.neutralColor[600],
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Nama Tempat $index",
+                                style: TypographyTheme.titleSmall.copyWith(
+                                  color: ColorsTheme.primaryColor,
+                                ),
                               ),
-                            ),
-                            Text("Alamat Tempat"),
-                          ],
+                              Text("Alamat Tempat"),
+                            ],
+                          ),
                         ),
                       ),
                     ),

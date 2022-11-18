@@ -169,7 +169,9 @@ class ProfileSettingsUserProfileView
                         ),
                         SizedBox(height: 8),
                         OutlinedButton.icon(
-                          onPressed: () {},
+                          onPressed: () {
+                            controller.intentWhatsappTopUp();
+                          },
                           icon: FaIcon(FontAwesomeIcons.whatsapp),
                           label: Text("Chat Admin untuk Top Up"),
                           style: OutlinedButton.styleFrom(

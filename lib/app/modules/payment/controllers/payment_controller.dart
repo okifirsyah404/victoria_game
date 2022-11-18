@@ -19,6 +19,15 @@ class PaymentController extends GetxController {
     selectedIndex.value = index;
   }
 
+  void backWithOption() {
+    Get.back(
+      result: {
+        "method": paymentMethods[selectedIndex.value]["methodTitle"],
+        "ballance": paymentMethods[selectedIndex.value]["ballance"],
+      },
+    );
+  }
+
   final count = 0.obs;
   @override
   void onInit() {
