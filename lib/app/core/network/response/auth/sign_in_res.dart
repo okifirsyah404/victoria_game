@@ -17,20 +17,20 @@ class SignInResponse {
     required this.data,
   });
 
-  String status;
-  String message;
-  Data data;
+  String? status;
+  String? message;
+  Data? data;
 
   factory SignInResponse.fromJson(Map<String, dynamic> json) => SignInResponse(
-        status: json["status"],
-        message: json["message"],
-        data: Data.fromJson(json["data"]),
+        status: json["status"] == null ? null : json["status"],
+        message: json["message"] == null ? null : json["message"],
+        data: json["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "status": status,
-        "message": message,
-        "data": data.toJson(),
+        "status": status == null ? null : status,
+        "message": message == null ? null : message,
+        "data": data == null ? null : data?.toJson(),
       };
 }
 
@@ -47,37 +47,39 @@ class Data {
     required this.img,
   });
 
-  String userId;
-  String email;
-  String username;
-  String hp;
-  dynamic cookies;
-  DateTime createAt;
-  dynamic updateAt;
-  String saldo;
-  String img;
+  String? userId;
+  String? email;
+  String? username;
+  String? hp;
+  dynamic? cookies;
+  DateTime? createAt;
+  dynamic? updateAt;
+  String? saldo;
+  String? img;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        userId: json["user_id"],
-        email: json["email"],
-        username: json["username"],
-        hp: json["hp"],
+        userId: json["user_id"] == null ? null : json["user_id"],
+        email: json["email"] == null ? null : json["email"],
+        username: json["username"] == null ? null : json["username"],
+        hp: json["hp"] == null ? null : json["hp"],
         cookies: json["cookies"],
-        createAt: DateTime.parse(json["create_at"]),
+        createAt: json["create_at"] == null
+            ? null
+            : DateTime.parse(json["create_at"]),
         updateAt: json["update_at"],
-        saldo: json["saldo"],
-        img: json["img"],
+        saldo: json["saldo"] == null ? null : json["saldo"],
+        img: json["img"] == null ? null : json["img"],
       );
 
   Map<String, dynamic> toJson() => {
-        "user_id": userId,
-        "email": email,
-        "username": username,
-        "hp": hp,
+        "user_id": userId == null ? null : userId,
+        "email": email == null ? null : email,
+        "username": username == null ? null : username,
+        "hp": hp == null ? null : hp,
         "cookies": cookies,
-        "create_at": createAt.toIso8601String(),
+        "create_at": createAt == null ? null : createAt?.toIso8601String(),
         "update_at": updateAt,
-        "saldo": saldo,
-        "img": img,
+        "saldo": saldo == null ? null : saldo,
+        "img": img == null ? null : img,
       };
 }

@@ -22,7 +22,7 @@ class DetailGameCenterView extends GetView<DetailGameCenterController> {
           AspectRatio(
             aspectRatio: 2 / 1,
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
                       "assets/images/placeholder/game-center-banner.jpg"),
@@ -39,7 +39,7 @@ class DetailGameCenterView extends GetView<DetailGameCenterController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Text(
                     "Title Game Center",
                     style: TypographyTheme.titleRegular.copyWith(
@@ -50,7 +50,7 @@ class DetailGameCenterView extends GetView<DetailGameCenterController> {
                 AspectRatio(
                   aspectRatio: 328 / 80,
                   child: Container(
-                    margin: EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                     width: Get.width,
                     // height: 64,5
                     decoration: BoxDecoration(
@@ -58,7 +58,7 @@ class DetailGameCenterView extends GetView<DetailGameCenterController> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     padding:
-                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                        const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -112,7 +112,7 @@ class DetailGameCenterView extends GetView<DetailGameCenterController> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(16.0, 0, 16.0, 8.0),
+                  padding: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 8.0),
                   child: Text(
                     "Lokasi Game Center",
                     style: TypographyTheme.titleSmall,
@@ -155,14 +155,14 @@ class DetailGameCenterView extends GetView<DetailGameCenterController> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+            padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
             child: Text(
               "Daftar Playstation",
               style: TypographyTheme.titleSmall,
             ),
           ),
           GridView.builder(
-            padding: EdgeInsets.fromLTRB(16.0, 0, 16.0, 16.0),
+            padding: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 16.0),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 8.0,
@@ -170,7 +170,7 @@ class DetailGameCenterView extends GetView<DetailGameCenterController> {
               childAspectRatio: 160 / 88,
             ),
             shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: 30,
             itemBuilder: (context, index) => InkWell(
               onTap: () {
@@ -182,7 +182,7 @@ class DetailGameCenterView extends GetView<DetailGameCenterController> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: Container(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
                     color: ColorsTheme.primaryColor,
                     borderRadius: BorderRadius.circular(8.0),
