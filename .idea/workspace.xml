@@ -10,13 +10,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ec1d654-f8ef-40ca-b391-bb4a3f166a36" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/discord.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/core/network/response/auth/sign_in_res.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/core/network/response/auth/sign_in_res.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/auth/sign_in/controllers/auth_sign_in_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/auth/sign_in/controllers/auth_sign_in_controller.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/modules/detail_game_center/views/detail_game_center_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/detail_game_center/views/detail_game_center_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/modules/main_page/home/controllers/main_page_home_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/main_page/home/controllers/main_page_home_controller.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/modules/main_page/home/views/main_page_home_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/main_page/home/views/main_page_home_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/modules/order_details/on_site/views/order_details_on_site_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/order_details/on_site/views/order_details_on_site_view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

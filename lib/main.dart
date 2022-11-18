@@ -60,8 +60,8 @@ class MainApp extends StatelessWidget {
           return GetMaterialApp(
             title: "Application",
             // initialRoute:
-            //     snapshot.hasData ? Routes.MAIN_PAGE_HOME : Routes.AUTH_SIGN_IN,
-            initialRoute: Routes.MAIN_PAGE_HOME,
+                // snapshot.hasData ? Routes.MAIN_PAGE_HOME : Routes.AUTH_SIGN_IN,
+            initialRoute: Routes.DETAIL_GAME_CENTER,
             theme: MainTheme.darkTheme(context),
             getPages: AppPages.routes,
             localizationsDelegates: [
