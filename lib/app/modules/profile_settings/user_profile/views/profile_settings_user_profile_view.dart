@@ -112,6 +112,7 @@ class ProfileSettingsUserProfileView
                     padding:
                         EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
