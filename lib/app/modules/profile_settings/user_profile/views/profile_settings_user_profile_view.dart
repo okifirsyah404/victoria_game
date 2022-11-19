@@ -84,7 +84,10 @@ class ProfileSettingsUserProfileView
                         color: ColorsTheme.neutralColor[900],
                       ),
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.toNamed(
+                              Routes.PROFILE_SETTINGS_EDIT_USER_PROFILE);
+                        },
                         icon: Icon(
                           CustomIconData.pencil,
                           color: ColorsTheme.primaryColor,
