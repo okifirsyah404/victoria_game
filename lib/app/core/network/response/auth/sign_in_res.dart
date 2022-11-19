@@ -19,12 +19,12 @@ class SignInResponse {
 
   String? status;
   String? message;
-  Data? data;
+  UserModel? data;
 
   factory SignInResponse.fromJson(Map<String, dynamic> json) => SignInResponse(
         status: json["status"] == null ? null : json["status"],
         message: json["message"] == null ? null : json["message"],
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+        data: json["data"] == null ? null : UserModel.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -34,8 +34,8 @@ class SignInResponse {
       };
 }
 
-class Data {
-  Data({
+class UserModel {
+  UserModel({
     required this.userId,
     required this.email,
     required this.username,
@@ -57,7 +57,7 @@ class Data {
   String? saldo;
   String? img;
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         userId: json["user_id"] == null ? null : json["user_id"],
         email: json["email"] == null ? null : json["email"],
         username: json["username"] == null ? null : json["username"],

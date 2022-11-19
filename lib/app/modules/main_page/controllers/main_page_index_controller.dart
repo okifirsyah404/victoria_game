@@ -23,19 +23,4 @@ class MainPageIndexController extends GetxController {
         Get.offAllNamed(Routes.MAIN_PAGE_HOME);
     }
   }
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
 }

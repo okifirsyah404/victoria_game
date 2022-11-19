@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:victoria_game/app/core/network/response/game_center/game_centers_res.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
@@ -41,7 +42,7 @@ class DetailGameCenterView extends GetView<DetailGameCenterController> {
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    "Title Game Center",
+                    controller.placeName,
                     style: TypographyTheme.titleRegular.copyWith(
                       color: ColorsTheme.primaryColor,
                     ),
@@ -57,8 +58,8 @@ class DetailGameCenterView extends GetView<DetailGameCenterController> {
                       color: ColorsTheme.neutralColor[800],
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 12.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -74,7 +75,7 @@ class DetailGameCenterView extends GetView<DetailGameCenterController> {
                                 ),
                               ),
                               Text(
-                                "15 Unit",
+                                "${controller.playstation3} Unit".toString(),
                                 style: TypographyTheme.bodyMedium.copyWith(
                                   color: ColorsTheme.primaryColor,
                                 ),
@@ -99,7 +100,7 @@ class DetailGameCenterView extends GetView<DetailGameCenterController> {
                                 ),
                               ),
                               Text(
-                                "15 Unit",
+                                "${controller.playstation4} Unit",
                                 style: TypographyTheme.bodyMedium.copyWith(
                                   color: ColorsTheme.primaryColor,
                                 ),
@@ -171,7 +172,7 @@ class DetailGameCenterView extends GetView<DetailGameCenterController> {
             ),
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: 30,
+            itemCount: controller.playstationsData.length,
             itemBuilder: (context, index) => InkWell(
               onTap: () {
                 Get.toNamed(Routes.ORDER_DETAILS_ON_SITE);
@@ -184,7 +185,13 @@ class DetailGameCenterView extends GetView<DetailGameCenterController> {
                 child: Container(
                   padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
-                    color: ColorsTheme.primaryColor,
+                    color: controller.playstationsData[index].psStatus !=
+                            PsStatus.MAINTENANCE
+                        ? controller.playstationsData[index].psStatus !=
+                                PsStatus.UNAVAILABLE
+                            ? ColorsTheme.primaryColor
+                            : ColorsTheme.errorColor
+                        : ColorsTheme.neutralColor,
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   child: Column(
@@ -192,21 +199,21 @@ class DetailGameCenterView extends GetView<DetailGameCenterController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        index >= 15 ? "Playstation 4" : "Playstation 3",
+                        "${controller.playstationsData[index].psName.name}",
                         style: TypographyTheme.bodyMedium.copyWith(
                           color: ColorsTheme.neutralColor[900],
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       Text(
-                        "No. ${index + 1}",
+                        "No. ${controller.playstationsData[index].psNumber}",
                         style: TypographyTheme.titleSmall.copyWith(
                           color: ColorsTheme.neutralColor[900],
                           fontWeight: FontWeight.w800,
                         ),
                       ),
                       Text(
-                        "Tersedia",
+                        "${controller.playstationsData[index].psStatus}",
                         style: TypographyTheme.bodySmall.copyWith(
                           color: ColorsTheme.neutralColor[900],
                           fontWeight: FontWeight.w600,

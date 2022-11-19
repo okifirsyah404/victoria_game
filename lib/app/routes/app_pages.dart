@@ -9,6 +9,8 @@ import '../modules/detail_game_center/views/detail_game_center_view.dart';
 import '../modules/main_page/history/bindings/main_page_history_binding.dart';
 import '../modules/main_page/history/views/main_page_history_view.dart';
 import '../modules/main_page/home/bindings/main_page_home_binding.dart';
+import '../modules/main_page/home/bindings/main_page_home_binding.dart';
+import '../modules/main_page/home/views/main_page_home_view.dart';
 import '../modules/main_page/home/views/main_page_home_view.dart';
 import '../modules/main_page/ps_services/bindings/main_page_ps_services_binding.dart';
 import '../modules/main_page/ps_services/views/main_page_ps_services_view.dart';

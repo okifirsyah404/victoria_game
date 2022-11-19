@@ -11,6 +11,7 @@ import 'package:victoria_game/app/global/themes/theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
 import 'package:victoria_game/app/modules/auth/controllers/auth_controller.dart';
 import 'package:victoria_game/app/modules/main_page/controllers/main_page_index_controller.dart';
+import 'package:victoria_game/app/modules/main_page/home/bindings/main_page_home_binding.dart';
 import 'package:victoria_game/firebase_options.dart';
 
 import 'app/routes/app_pages.dart';
@@ -60,8 +61,8 @@ class MainApp extends StatelessWidget {
           return GetMaterialApp(
             title: "Application",
             // initialRoute:
-                // snapshot.hasData ? Routes.MAIN_PAGE_HOME : Routes.AUTH_SIGN_IN,
-            initialRoute: Routes.DETAIL_GAME_CENTER,
+            // snapshot.hasData ? Routes.MAIN_PAGE_HOME : Routes.AUTH_SIGN_IN,
+            initialRoute: Routes.MAIN_PAGE_HOME,
             theme: MainTheme.darkTheme(context),
             getPages: AppPages.routes,
             localizationsDelegates: [

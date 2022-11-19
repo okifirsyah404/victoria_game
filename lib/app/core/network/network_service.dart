@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:victoria_game/app/core/network/response/auth/sign_in_res.dart';
 
 const BASE_URL = "https://tolonto.okifirsyah.com/api";
+const SECOND_BASE_URL = "https://0ce5-118-99-121-209.ap.ngrok.io";
 
 abstract class NetworkServices {
   final printLog = Logger(printer: PrettyPrinter());
@@ -20,7 +21,8 @@ abstract class NetworkServices {
   Future<dynamic> getMethod(
       String endPoint, Map<String, String>? headers) async {
     try {
-      final response = await http.get(Uri.parse(endPoint), headers: headers);
+      final response = await http.get(Uri.parse(endPoint));
+      printLog.d(response);
       var res = json.decode(response.body);
       printLog.d(res);
       return res;

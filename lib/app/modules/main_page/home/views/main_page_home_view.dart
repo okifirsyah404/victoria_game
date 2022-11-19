@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-
 import 'package:victoria_game/app/global/icons/custom_icon_data_icons.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
 import 'package:victoria_game/app/global/widgets/navigation/bottom_navigation/main_bottom_navigation.dart';
-import 'package:victoria_game/app/modules/main_page/home/controllers/main_page_home_controller.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
 import 'package:victoria_game/utils/int_extensions.dart';
 
+import '../controllers/main_page_home_controller.dart';
+
 class MainPageHomeView extends GetView<MainPageHomeController> {
   const MainPageHomeView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,37 +145,42 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                       style: TypographyTheme.titleSmall,
                     ),
                   ),
-                  AspectRatio(
-                    aspectRatio: 19 / 8,
-                    child: SizedBox(
-                      child: PageView.builder(
-                        controller: PageController(
-                          viewportFraction: 0.85,
-                          initialPage: 0,
-                        ),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 3,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                            ),
-                            child: Material(
-                              elevation: 2,
-                              borderRadius: BorderRadius.circular(8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                        "assets/images/placeholder/banner-images.jpg"),
-                                    fit: BoxFit.fill,
+                  InkWell(
+                    onTap: () {
+                      // print("Hehe");
+                    },
+                    child: AspectRatio(
+                      aspectRatio: 19 / 8,
+                      child: SizedBox(
+                        child: PageView.builder(
+                          controller: PageController(
+                            viewportFraction: 0.85,
+                            initialPage: 0,
+                          ),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 3,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                              ),
+                              child: Material(
+                                elevation: 2,
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          "assets/images/placeholder/banner-images.jpg"),
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),
@@ -198,7 +204,8 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                     child: InkWell(
                       onTap: () {
-                        Get.toNamed(Routes.DETAIL_GAME_CENTER);
+                        Get.toNamed(Routes.DETAIL_GAME_CENTER,
+                            arguments: controller.listItem[index]);
                       },
                       child: Material(
                         elevation: 2,
@@ -212,14 +219,19 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
-                                "Nama Tempat $index",
+                                controller.listItem[index].name,
                                 style: TypographyTheme.titleSmall.copyWith(
                                   color: ColorsTheme.primaryColor,
                                 ),
                               ),
-                              Text("Alamat Tempat"),
+                              SizedBox(height: 16),
+                              Text(
+                                controller.listItem[index].address,
+                                maxLines: 2,
+                              ),
                             ],
                           ),
                         ),
@@ -227,8 +239,9 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                     ),
                   ),
                   separatorBuilder: (context, index) => SizedBox(height: 4),
-                  itemCount: 7,
+                  itemCount: controller.listItem.length,
                 ),
+                // ...controller.listItem,
               ],
             ),
           ],

@@ -3,15 +3,23 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:victoria_game/app/core/network/response/game_center/game_centers_res.dart';
 
 class DetailGameCenterController extends GetxController {
   //TODO: Implement DetailGameCenterController
 
-  double markedLatitude = -7.154877;
-  double markedLongitude = 111.875865;
-  RxList<Marker> myMarker = <Marker>[].obs;
-  String placeName = "Tolonto Game Bojonegoro";
+  var gameCenterArguments = Get.arguments;
 
+  double get markedLatitude => gameCenterArguments.latitude;
+  double get markedLongitude => gameCenterArguments.longitude;
+  String get placeName => gameCenterArguments.name;
+  int get totalPlaystation => gameCenterArguments.totalPlaystaion;
+  int get playstation3 => gameCenterArguments.playstation3;
+  int get playstation4 => gameCenterArguments.playstation4;
+  List<PlaystationsData> get playstationsData =>
+      gameCenterArguments.playstationsData;
+
+  RxList<Marker> myMarker = <Marker>[].obs;
   RxString locationMessage = "Belum mendapat Lat dan Long".obs;
   RxString addressMessage = "Mencari Lokasi".obs;
 
@@ -109,11 +117,11 @@ class DetailGameCenterController extends GetxController {
   }
 
   void intentGoogleMaps() {
-    placeName = placeName.replaceAll(RegExp("\\s+"), '+');
+    var intentPlaceName = placeName.replaceAll(RegExp("\\s+"), '+');
     final intent = AndroidIntent(
         action: "android.intent.action.VIEW",
-        data:
-            Uri.encodeFull("geo:$markedLatitude,$markedLongitude?q=$placeName"),
+        data: Uri.encodeFull(
+            "geo:$markedLatitude,$markedLongitude?q=$intentPlaceName"),
         package: "com.google.android.apps.maps");
 
     intent.launch();
