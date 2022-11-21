@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:victoria_game/app/core/network/response/auth/sign_in_res.dart';
 
 const BASE_URL = "https://tolonto.okifirsyah.com/api";
-const SECOND_BASE_URL = "https://0ce5-118-99-121-209.ap.ngrok.io";
 
 abstract class NetworkServices {
   final printLog = Logger(printer: PrettyPrinter());

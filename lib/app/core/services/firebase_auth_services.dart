@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:victoria_game/app/core/network/network_service.dart';
+import 'package:victoria_game/app/core/services/network_service.dart';
 
 import '../../global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
 import '../../routes/app_pages.dart';

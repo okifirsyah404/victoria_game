@@ -31,7 +31,17 @@ class ProfileSettingsEditUserProfileView
                 children: [
                   _buildImagePicker(
                     onTap: () {
+                      print("Tapped");
                       controller.openCamera();
+                      // showModalBottomSheet(
+                      //   context: context,
+                      //   builder: (context) => Container(
+                      //     height: 100,
+                      //     decoration: BoxDecoration(
+                      //       color: Colors.white,
+                      //     ),
+                      //   ),
+                      // );
                     },
                   ),
                   SizedBox(height: 32),
@@ -52,7 +62,7 @@ class ProfileSettingsEditUserProfileView
                 foregroundColor: ColorsTheme.neutralColor[900],
                 backgroundColor: ColorsTheme.primaryColor,
               ),
-              child: Text("Ubah Foto Profile"),
+              child: Text("Ubah Profile"),
             ),
           ),
         ],
@@ -60,7 +70,7 @@ class ProfileSettingsEditUserProfileView
     );
   }
 
-  Widget _buildImagePicker({required VoidCallback? onTap}) {
+  Widget _buildImagePicker({required VoidCallback onTap}) {
     return Obx(
       () => Container(
         height: 120,
@@ -81,6 +91,7 @@ class ProfileSettingsEditUserProfileView
           shape: BoxShape.circle,
         ),
         child: InkWell(
+          borderRadius: BorderRadius.circular(60),
           onTap: onTap,
           child: Stack(
             children: [

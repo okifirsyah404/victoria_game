@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:victoria_game/app/core/network/network_service.dart';
+import 'package:victoria_game/app/core/services/network_service.dart';
 import 'package:victoria_game/app/core/repository/user_repository.dart';
 import 'package:victoria_game/app/core/services/firebase_auth_services.dart';
 import 'package:victoria_game/utils/secure_storage.dart';

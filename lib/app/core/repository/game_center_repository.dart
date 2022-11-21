@@ -1,4 +1,4 @@
-import 'package:victoria_game/app/core/network/network_service.dart';
+import 'package:victoria_game/app/core/services/network_service.dart';
 import 'package:victoria_game/app/core/network/response/game_center/game_centers_res.dart';
 
 class GameCenterRepository extends NetworkServices {
