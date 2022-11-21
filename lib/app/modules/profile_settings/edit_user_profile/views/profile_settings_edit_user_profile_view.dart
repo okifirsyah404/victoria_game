@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
+import 'package:victoria_game/app/global/widgets/alert_dialog/image_source_dialog/image_source_dialog.dart';
 import 'package:victoria_game/app/global/widgets/text_field/username_text_field/views/username_text_field_widget.dart';
 
 import '../controllers/profile_settings_edit_user_profile_controller.dart';
@@ -32,16 +33,19 @@ class ProfileSettingsEditUserProfileView
                   _buildImagePicker(
                     onTap: () {
                       print("Tapped");
-                      controller.openCamera();
-                      // showModalBottomSheet(
-                      //   context: context,
-                      //   builder: (context) => Container(
-                      //     height: 100,
-                      //     decoration: BoxDecoration(
-                      //       color: Colors.white,
-                      //     ),
-                      //   ),
-                      // );
+                      // controller.openCamera();
+                      Get.dialog(
+                        ImageSourceDialog(
+                          cameraAction: () {
+                            controller.openCamera();
+                            Get.back();
+                          },
+                          galeryAction: () {
+                            controller.openGallery();
+                            Get.back();
+                          },
+                        ),
+                      );
                     },
                   ),
                   SizedBox(height: 32),

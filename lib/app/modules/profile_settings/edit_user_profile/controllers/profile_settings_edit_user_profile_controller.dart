@@ -19,8 +19,6 @@ class ProfileSettingsEditUserProfileController extends GetxController {
   Future<void> openCamera() async {
     var cameraPermission = await requestCameraGaleryPermissions();
 
-    print(cameraPermission);
-
     if (cameraPermission) {
       try {
         final imagePicked =
@@ -30,11 +28,22 @@ class ProfileSettingsEditUserProfileController extends GetxController {
         }
       } on PlatformException catch (e) {
         print(e);
-        // Get.dialog(SingleActionDialog(
-        //   title: "Akses Kamera Ditolak",
-        //   description: "Lorem Ipsum Dolor Sit Amet",
-        // ));
+      }
+    }
+  }
 
+  Future<void> openGallery() async {
+    var galleryPermission = await requestCameraGaleryPermissions();
+
+    if (galleryPermission) {
+      try {
+        final imagePicked =
+            await imagePicker.pickImage(source: ImageSource.gallery);
+        if (imagePicked != null) {
+          imageFile.value = File(imagePicked.path);
+        }
+      } on PlatformException catch (e) {
+        print(e);
       }
     }
   }
@@ -53,6 +62,7 @@ class ProfileSettingsEditUserProfileController extends GetxController {
               "Kami membutuhkan akses kamera serta galeri untuk mengupdate profile kamu.",
           buttonFunction: () async {
             await userRepository.requestOpenAppSettings();
+            Get.back();
           },
         ),
       );
