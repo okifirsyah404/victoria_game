@@ -47,7 +47,6 @@ class _RegularTextFieldState extends State<RegularTextField>
   void dispose() {
     focusNode.dispose();
     animationController.dispose();
-    widget.controller.dispose();
 
     super.dispose();
   }

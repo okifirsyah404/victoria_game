@@ -16,6 +16,8 @@ import '../modules/main_page/ps_services/bindings/main_page_ps_services_binding.
 import '../modules/main_page/ps_services/views/main_page_ps_services_view.dart';
 import '../modules/main_page/rent/bindings/main_page_rent_binding.dart';
 import '../modules/main_page/rent/views/main_page_rent_view.dart';
+import '../modules/order_details/at_home/bindings/order_details_at_home_binding.dart';
+import '../modules/order_details/at_home/views/order_details_at_home_view.dart';
 import '../modules/order_details/on_site/bindings/order_details_on_site_binding.dart';
 import '../modules/order_details/on_site/views/order_details_on_site_view.dart';
 import '../modules/payment/bindings/payment_binding.dart';
@@ -99,6 +101,11 @@ class AppPages {
       name: _Paths.PROFILE_SETTINGS_EDIT_USER_PROFILE,
       page: () => const ProfileSettingsEditUserProfileView(),
       binding: ProfileSettingsEditUserProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDER_DETAILS_AT_HOME,
+      page: () => const OrderDetailsAtHomeView(),
+      binding: OrderDetailsAtHomeBinding(),
     ),
   ];
 }

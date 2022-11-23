@@ -102,6 +102,7 @@ class OrderDetailsOnSiteController extends GetxController {
     }
   }
 
+  // FIXME: Fix receiver null
   Future<void> initiatePaymentMethod() async {
     var result = await Get.toNamed(Routes.PAYMENT);
 

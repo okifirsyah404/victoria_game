@@ -42,7 +42,6 @@ class _UsernameTextFieldState extends State<UsernameTextField>
   void dispose() {
     focusNode.dispose();
     animationController.dispose();
-    widget.controller.dispose();
 
     super.dispose();
   }

@@ -10,8 +10,6 @@ import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
 
 class MainPageHomeController extends GetxController {
-  //TODO: Implement MainPageHomeController
-
   // FirebaseAuthServices firebaseAuthServices = FirebaseAuthServices();
 
   // void signOut() {
@@ -126,6 +124,7 @@ class MainPageHomeController extends GetxController {
     ),
   ];
 
+  // FIXME: Use Permisson Service
   Future<void> determinePosition() async {
     LocationPermission locationPermission;
 

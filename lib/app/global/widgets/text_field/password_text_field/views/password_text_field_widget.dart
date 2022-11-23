@@ -48,7 +48,6 @@ class _PasswordTextFieldState extends State<PasswordTextField>
   void dispose() {
     focusNode.dispose();
     animationController.dispose();
-    widget.textEditingController.dispose();
 
     super.dispose();
   }

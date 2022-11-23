@@ -45,7 +45,6 @@ class _EmailTextFieldState extends State<EmailTextField>
   void dispose() {
     focusNode.dispose();
     animationController.dispose();
-    widget.textEditingController.dispose();
 
     super.dispose();
   }

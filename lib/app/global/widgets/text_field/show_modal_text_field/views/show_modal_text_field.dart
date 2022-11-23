@@ -44,7 +44,6 @@ class _ShowModalTextFieldState extends State<ShowModalTextField>
   void dispose() {
     focusNode.dispose();
     animationController.dispose();
-    widget.controller.dispose();
 
     super.dispose();
   }

@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
 
 class PaymentController extends GetxController {
-  //TODO: Implement PaymentController
+//  FIXME: Receive argument to keep payment method
+  var argument = Get.arguments;
 
-  final selectedIndex = (-1).obs;
+  late Rxn<int> selectedIndex;
 
   List<Map<String, dynamic>> paymentMethods = [
     {
@@ -22,15 +23,32 @@ class PaymentController extends GetxController {
   void backWithOption() {
     Get.back(
       result: {
-        "method": paymentMethods[selectedIndex.value]["methodTitle"],
-        "ballance": paymentMethods[selectedIndex.value]["ballance"],
+        "method": paymentMethods[selectedIndex.value ?? 1]["methodTitle"],
+        "ballance": paymentMethods[selectedIndex.value ?? 1]["ballance"],
       },
     );
   }
 
-  final count = 0.obs;
+  // TODO: checking argument for payment
+  void initialPaymentMethod() {
+    var paymentMethod = argument[0];
+
+    selectedIndex.value = -1;
+    if (paymentMethod != null && paymentMethod != "") {
+      print(argument);
+      for (var i = 0; i < paymentMethods.length; i++) {
+        if (paymentMethods[i]["methodTitle"] == paymentMethod) {
+          print(i);
+          selectedIndex.value = i;
+        }
+      }
+    }
+  }
+
   @override
   void onInit() {
+    selectedIndex = Rxn<int>();
+    initialPaymentMethod();
     super.onInit();
   }
 
@@ -43,6 +61,4 @@ class PaymentController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }
