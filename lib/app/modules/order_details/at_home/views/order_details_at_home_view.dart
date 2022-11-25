@@ -6,6 +6,7 @@ import 'package:victoria_game/app/global/icons/custom_icon_data_icons.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
 import 'package:victoria_game/app/global/widgets/dropdown/generic_dropdown.dart';
 import 'package:victoria_game/app/global/widgets/text_field/show_modal_text_field/views/show_modal_text_field.dart';
+import 'package:victoria_game/app/routes/app_pages.dart';
 import 'package:victoria_game/utils/int_extensions.dart';
 
 import '../../../../global/themes/colors_theme.dart';
@@ -167,7 +168,9 @@ class OrderDetailsAtHomeView extends GetView<OrderDetailsAtHomeController> {
                           ),
                         ),
                         OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.toNamed(Routes.SHIPMENT);
+                          },
                           style: OutlinedButton.styleFrom(
                             foregroundColor: ColorsTheme.primaryColor,
                             backgroundColor: ColorsTheme.neutralColor[800],

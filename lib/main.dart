@@ -4,14 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:get/get.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:victoria_game/app/controllers/app_controller.dart';
-import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/theme.dart';
-import 'package:victoria_game/app/global/themes/typography_theme.dart';
 import 'package:victoria_game/app/modules/auth/controllers/auth_controller.dart';
 import 'package:victoria_game/app/modules/main_page/controllers/main_page_index_controller.dart';
-import 'package:victoria_game/app/modules/main_page/home/bindings/main_page_home_binding.dart';
 import 'package:victoria_game/firebase_options.dart';
 
 import 'app/routes/app_pages.dart';

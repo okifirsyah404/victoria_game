@@ -18,6 +18,7 @@ abstract class Routes {
   static const PROFILE_SETTINGS_EDIT_USER_PROFILE =
       _Paths.PROFILE_SETTINGS_EDIT_USER_PROFILE;
   static const ORDER_DETAILS_AT_HOME = _Paths.ORDER_DETAILS_AT_HOME;
+  static const SHIPMENT = _Paths.SHIPMENT;
 }
 
 abstract class _Paths {
@@ -35,4 +36,5 @@ abstract class _Paths {
   static const PAYMENT = '/payment';
   static const PROFILE_SETTINGS_EDIT_USER_PROFILE = '/edit-user-profile';
   static const ORDER_DETAILS_AT_HOME = '/at-home';
+  static const SHIPMENT = '/shipment';
 }

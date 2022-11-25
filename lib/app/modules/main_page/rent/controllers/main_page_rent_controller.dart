@@ -12,49 +12,54 @@ class MainPageRentController extends GetxController {
     2,
     (index) => Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-      child: AspectRatio(
-        aspectRatio: 328 / 100,
-        child: Material(
-          elevation: 2,
-          borderRadius: BorderRadius.circular(8.0),
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16.0,
-              vertical: 10.0,
-            ),
-            width: Get.width,
-            decoration: BoxDecoration(
-              color: ColorsTheme.neutralColor[600],
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Playstation ${index + 3}",
-                  style: TypographyTheme.bodyMedium,
-                ),
-                Row(
-                  children: [
-                    Text(
-                      "Rp 100.000",
-                      style: TypographyTheme.bodyMedium.copyWith(
-                        color: ColorsTheme.primaryColor,
-                        fontWeight: FontWeight.w800,
+      child: InkWell(
+        onTap: () {
+          Get.toNamed(Routes.ORDER_DETAILS_AT_HOME);
+        },
+        child: AspectRatio(
+          aspectRatio: 328 / 100,
+          child: Material(
+            elevation: 2,
+            borderRadius: BorderRadius.circular(8.0),
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 10.0,
+              ),
+              width: Get.width,
+              decoration: BoxDecoration(
+                color: ColorsTheme.neutralColor[600],
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Playstation ${index + 3}",
+                    style: TypographyTheme.bodyMedium,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "Rp 100.000",
+                        style: TypographyTheme.bodyMedium.copyWith(
+                          color: ColorsTheme.primaryColor,
+                          fontWeight: FontWeight.w800,
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 4),
-                    Text(
-                      "/hari",
-                      style: TypographyTheme.bodySmall.copyWith(
-                        color: ColorsTheme.primaryColor,
+                      SizedBox(width: 4),
+                      Text(
+                        "/hari",
+                        style: TypographyTheme.bodySmall.copyWith(
+                          color: ColorsTheme.primaryColor,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Text("Alamat Tempat"),
-              ],
+                    ],
+                  ),
+                  Text("Alamat Tempat"),
+                ],
+              ),
             ),
           ),
         ),
