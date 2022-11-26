@@ -6,8 +6,6 @@ import '../../../../global/themes/colors_theme.dart';
 import '../../../../global/themes/typography_theme.dart';
 
 class MainPageRentController extends GetxController {
-  //TODO: Implement MainPageRentController
-
   var listItem = List.generate(
     2,
     (index) => Padding(

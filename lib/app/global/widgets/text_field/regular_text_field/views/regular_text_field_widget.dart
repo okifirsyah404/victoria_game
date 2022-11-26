@@ -65,8 +65,6 @@ class _RegularTextFieldState extends State<RegularTextField>
           hasFocus = !hasFocus;
         });
       },
-
-      // FIXME: Change from Material to Material
       child: Material(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),

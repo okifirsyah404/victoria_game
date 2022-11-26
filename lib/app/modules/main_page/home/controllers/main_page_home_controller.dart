@@ -156,7 +156,6 @@ class MainPageHomeController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     determinePosition();
     super.onInit();
   }

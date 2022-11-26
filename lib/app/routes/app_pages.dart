@@ -9,13 +9,13 @@ import '../modules/detail_game_center/views/detail_game_center_view.dart';
 import '../modules/main_page/history/bindings/main_page_history_binding.dart';
 import '../modules/main_page/history/views/main_page_history_view.dart';
 import '../modules/main_page/home/bindings/main_page_home_binding.dart';
-import '../modules/main_page/home/bindings/main_page_home_binding.dart';
-import '../modules/main_page/home/views/main_page_home_view.dart';
 import '../modules/main_page/home/views/main_page_home_view.dart';
 import '../modules/main_page/ps_services/bindings/main_page_ps_services_binding.dart';
 import '../modules/main_page/ps_services/views/main_page_ps_services_view.dart';
 import '../modules/main_page/rent/bindings/main_page_rent_binding.dart';
 import '../modules/main_page/rent/views/main_page_rent_view.dart';
+import '../modules/maps/bindings/maps_binding.dart';
+import '../modules/maps/views/maps_view.dart';
 import '../modules/order_details/at_home/bindings/order_details_at_home_binding.dart';
 import '../modules/order_details/at_home/views/order_details_at_home_view.dart';
 import '../modules/order_details/on_site/bindings/order_details_on_site_binding.dart';
@@ -113,6 +113,11 @@ class AppPages {
       name: _Paths.SHIPMENT,
       page: () => const ShipmentView(),
       binding: ShipmentBinding(),
+    ),
+    GetPage(
+      name: _Paths.MAPS,
+      page: () => const MapsView(),
+      binding: MapsBinding(),
     ),
   ];
 }

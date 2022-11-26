@@ -2,8 +2,6 @@ import 'package:get/get.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
 
 class MainPageIndexController extends GetxController {
-  //TODO: Implement MainPageIndexController
-
   RxInt pageIndex = 0.obs;
 
   void onTappedItem(int index) {

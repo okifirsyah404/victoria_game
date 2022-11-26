@@ -58,7 +58,7 @@ class MainApp extends StatelessWidget {
             title: "Application",
             // initialRoute:
             // snapshot.hasData ? Routes.MAIN_PAGE_HOME : Routes.AUTH_SIGN_IN,
-            initialRoute: Routes.ORDER_DETAILS_AT_HOME,
+            initialRoute: Routes.MAPS,
             theme: MainTheme.darkTheme(context),
             getPages: AppPages.routes,
             localizationsDelegates: [

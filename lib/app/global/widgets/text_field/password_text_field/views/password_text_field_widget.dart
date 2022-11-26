@@ -66,8 +66,6 @@ class _PasswordTextFieldState extends State<PasswordTextField>
           hasFocus = !hasFocus;
         });
       },
-
-      // FIXME: Change from Material to Material
       child: Material(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),

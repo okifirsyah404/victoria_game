@@ -6,8 +6,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:victoria_game/app/core/network/response/game_center/game_centers_res.dart';
 
 class DetailGameCenterController extends GetxController {
-  //TODO: Implement DetailGameCenterController
-
   var gameCenterArguments = Get.arguments;
 
   double get markedLatitude => gameCenterArguments.latitude;
@@ -127,7 +125,6 @@ class DetailGameCenterController extends GetxController {
     intent.launch();
   }
 
-  final count = 0.obs;
   @override
   void onInit() {
     determinePosition();
@@ -143,6 +140,4 @@ class DetailGameCenterController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }
