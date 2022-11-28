@@ -31,6 +31,10 @@ class MapsView extends GetView<MapsController> {
                       myLocationButtonEnabled: false,
                       myLocationEnabled: true,
                       zoomControlsEnabled: false,
+                      mapToolbarEnabled: false,
+                      buildingsEnabled: false,
+                      compassEnabled: false,
+                      rotateGesturesEnabled: false,
                       markers: Set.from(controller.myMarker),
                       onMapCreated: (googleMapController) {
                         controller.onMapCreated(googleMapController);
@@ -55,7 +59,9 @@ class MapsView extends GetView<MapsController> {
                         ),
                         SizedBox(height: 10),
                         OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            controller.onSubmitMap();
+                          },
                           style: OutlinedButton.styleFrom(
                             foregroundColor: ColorsTheme.neutralColor[900],
                             backgroundColor: ColorsTheme.primaryColor,

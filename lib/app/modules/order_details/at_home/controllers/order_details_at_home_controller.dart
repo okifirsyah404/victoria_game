@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
+import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
 
 class OrderDetailsAtHomeController extends GetxController {
+  var _arguments = Get.arguments;
+
   final formKey = GlobalKey<FormState>();
+
+  RxBool isPageLoading = true.obs;
 
   late TextEditingController initCalendarTextController;
   late TextEditingController endCalendarTextController;
@@ -16,7 +21,17 @@ class OrderDetailsAtHomeController extends GetxController {
 
   RxString paymentMethod = "".obs;
   RxInt paymentMethodBallance = (-1).obs;
+
   RxString shipmentMethod = "".obs;
+  RxString shipmentMethodDescription = "".obs;
+
+  Map<String, dynamic> get itemData => _arguments[0];
+  Map<String, dynamic>? get dateData => _arguments[1];
+  Map<String, dynamic>? get paymentData => _arguments[2];
+  Map<String, dynamic>? get shipmentData => _arguments[3];
+
+  late Rx<int> totalAmount = Rx(itemData["price"]);
+  int? timeInterval;
 
   void onChangeDropDown(String? newValue) {
     dropDownInitialSelected.value = newValue ?? "";
@@ -82,33 +97,88 @@ class OrderDetailsAtHomeController extends GetxController {
       selectedEndDate.value = timePicked;
       endCalendarTextController.text = DateFormat("dd MMMM yyyy", "id_ID")
           .format(selectedEndDate.value ?? DateTime.now());
+
       print(selectedEndDate.value
           ?.difference(selectedInitDate.value ?? DateTime.now()));
-      print(compareDateInDays(selectedInitDate.value ?? DateTime.now(),
-          selectedEndDate.value ?? DateTime.now()));
+      print(compareDateInDays(selectedEndDate.value ?? DateTime.now(),
+          selectedInitDate.value ?? DateTime.now()));
+
+      timeInterval = compareDateInDays(selectedEndDate.value ?? DateTime.now(),
+          selectedInitDate.value ?? DateTime.now());
+
+      var tempTotal = itemData["price"] * timeInterval;
+      totalAmount.value = tempTotal;
     }
   }
 
-  Duration compareDateInDays(DateTime firstDate, DateTime lastDate) {
+  int compareDateInDays(DateTime firstDate, DateTime lastDate) {
     var timeInterval = firstDate.difference(lastDate);
-    return Duration(days: timeInterval.inDays);
+    return (timeInterval.inHours / 24).round();
   }
 
   Future<void> initiatePaymentMethod() async {
-    var result =
-        await Get.toNamed(Routes.PAYMENT, arguments: [paymentMethod.value]);
+    if (initCalendarTextController.text.isEmpty ||
+        endCalendarTextController.text.isEmpty) {
+      Get.dialog(const SingleActionDialog(
+        title: "Silahkan Pilih Tanggal",
+        description:
+            "Tanggal mulai main atau tanggal selesai main tidak boleh kosong nih!",
+      ));
+    } else {
+      var result = Get.toNamed(Routes.PAYMENT, arguments: [
+        itemData,
+        {
+          "firstDate": selectedInitDate.value,
+          "lastDate": selectedEndDate.value,
+        },
+        null,
+        null,
+        totalAmount.value,
+        paymentMethod.value
+      ]);
 
-    paymentMethod.value = result?["method"] ?? "";
-    paymentMethodBallance.value = result?["ballance"] ?? -1;
+      // paymentMethod.value = result?["method"] ?? "";
+      // paymentMethodBallance.value = result?["ballance"] ?? -1;
+    }
   }
 
-  // TODO: Add Shipment option
-  Future<void> initiateShipmentMethod() async {}
+  void initiateShipmentMethod() async {
+    if (initCalendarTextController.text.isEmpty ||
+        endCalendarTextController.text.isEmpty) {
+      Get.dialog(const SingleActionDialog(
+        title: "Silahkan Pilih Tanggal",
+        description:
+            "Tanggal mulai main atau tanggal selesai main tidak boleh kosong nih!",
+      ));
+    } else {
+      var result = await Get.toNamed(Routes.SHIPMENT);
+    }
+  }
+
+  void initArgumentsData() {
+    paymentMethod.value = paymentData?["method"] ?? "";
+    paymentMethodBallance.value = paymentData?["method"] ?? -1;
+
+    print(paymentData);
+
+    if (dateData != null) {
+      initCalendarTextController.text =
+          DateFormat("dd MMMM yyyy", "id_ID").format(dateData?["firstDate"]);
+
+      endCalendarTextController.text =
+          DateFormat("dd MMMM yyyy", "id_ID").format(dateData?["lastDate"]);
+    }
+
+    isPageLoading.value = false;
+  }
 
   @override
   void onInit() {
     initCalendarTextController = TextEditingController();
     endCalendarTextController = TextEditingController();
+
+    initArgumentsData();
+
     super.onInit();
   }
 

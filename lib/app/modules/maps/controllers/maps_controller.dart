@@ -3,9 +3,12 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as loc;
+import 'package:victoria_game/app/routes/app_pages.dart';
 
 class MapsController extends GetxController {
-  var gameCenterArguments = Get.arguments;
+  // var _arguments = Get.arguments;
+
+  // Map<String, dynamic> get itemData => _arguments[0];
 
   loc.Location location = loc.Location();
   late GoogleMapController mapController;
@@ -77,7 +80,7 @@ class MapsController extends GetxController {
     myMarker.add(initialLicationMarker);
   }
 
-  void handleMapOnTap(LatLng tapPoint) {
+  void handleMapOnTap(LatLng tapPoint) async {
     myMarker.add(
       Marker(markerId: MarkerId(tapPoint.toString()), position: tapPoint),
     );
@@ -85,6 +88,15 @@ class MapsController extends GetxController {
     print(tapPoint);
     markedLatitude.value = tapPoint.latitude;
     markedLongitude.value = tapPoint.longitude;
+    List<Placemark> placemark =
+        await placemarkFromCoordinates(tapPoint.latitude, tapPoint.longitude);
+
+    locationPlacemark.value =
+        "${placemark[0].street}, ${placemark[0].subLocality}, ${placemark[0].locality}";
+  }
+
+  void onSubmitMap() {
+    Get.offNamed(Routes.ORDER_DETAILS_AT_HOME);
   }
 
   @override

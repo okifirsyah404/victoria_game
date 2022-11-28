@@ -15,6 +15,19 @@ class PaymentView extends GetView<PaymentController> {
       appBar: AppBar(
         title: const Text('Pilih Pembayaran'),
         centerTitle: true,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: ColorsTheme.primaryColor,
+          ),
+          onPressed: controller.selectedIndex == -1
+              ? () {
+                  Get.back();
+                }
+              : () {
+                  controller.backWithOption();
+                },
+        ),
       ),
       body: Container(
         child: Column(
@@ -28,7 +41,7 @@ class PaymentView extends GetView<PaymentController> {
                   return Obx(
                     () {
                       int? ballance =
-                          controller.getPaymentMethods[index]["ballance"];
+                          controller.paymentMethods[index]["ballance"];
 
                       return ListTile(
                         contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -41,17 +54,16 @@ class PaymentView extends GetView<PaymentController> {
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         title: Text(
-                          controller.getPaymentMethods[index]["methodTitle"],
+                          controller.paymentMethods[index]["methodTitle"],
                           style: TypographyTheme.titleSmall,
                         ),
-                        trailing: controller.getPaymentMethods[index]
-                                    ["ballance"] !=
-                                null
-                            ? Text(
-                                ballance?.toRupiah() ?? "",
-                                style: TypographyTheme.bodyRegular,
-                              )
-                            : null,
+                        trailing:
+                            controller.paymentMethods[index]["ballance"] != null
+                                ? Text(
+                                    ballance?.toRupiah() ?? "",
+                                    style: TypographyTheme.bodyRegular,
+                                  )
+                                : null,
                         onTap: () {
                           controller.changeIndex(index);
                         },
