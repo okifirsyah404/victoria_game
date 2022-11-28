@@ -1,20 +1,24 @@
 import 'package:get/get.dart';
+import 'package:victoria_game/app/routes/app_pages.dart';
 
 class PaymentController extends GetxController {
 //  FIXME: Receive argument to keep payment method
-  var argument = Get.arguments;
+  var _arguments = Get.arguments;
+
+  Map<String, dynamic> get itemData => _arguments[0];
+  Map<String, dynamic>? get paymentMethod => _arguments[1];
 
   late Rxn<int> selectedIndex;
 
-  List<Map<String, dynamic>> paymentMethods = [
+  List<Map<String, dynamic>> _paymentMethods = [
     {
-      "methodTitle": "Saldo",
+      "method": "Saldo",
       "ballance": 1000000,
     },
-    {"methodTitle": "Tunai"},
+    {"method": "Tunai"},
   ];
 
-  List<Map<String, dynamic>> get getPaymentMethods => paymentMethods;
+  List<Map<String, dynamic>> get paymentMethods => _paymentMethods;
 
   void changeIndex(int index) {
     selectedIndex.value = index;
@@ -23,7 +27,7 @@ class PaymentController extends GetxController {
   void backWithOption() {
     Get.back(
       result: {
-        "method": paymentMethods[selectedIndex.value ?? 1]["methodTitle"],
+        "method": paymentMethods[selectedIndex.value ?? 1]["method"],
         "ballance": paymentMethods[selectedIndex.value ?? 1]["ballance"],
       },
     );
@@ -31,14 +35,10 @@ class PaymentController extends GetxController {
 
   // TODO: checking argument for payment
   void initialPaymentMethod() {
-    var paymentMethod = argument[0];
-
     selectedIndex.value = -1;
-    if (paymentMethod != null && paymentMethod != "") {
-      print(argument);
+    if (paymentMethod != null && paymentMethod?["method"] != "") {
       for (var i = 0; i < paymentMethods.length; i++) {
-        if (paymentMethods[i]["methodTitle"] == paymentMethod) {
-          print(i);
+        if (paymentMethods[i]["method"] == paymentMethod?["method"]) {
           selectedIndex.value = i;
         }
       }

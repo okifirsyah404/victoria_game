@@ -1,11 +1,12 @@
 import 'package:get/get.dart';
+import 'package:victoria_game/app/routes/app_pages.dart';
 
 class ShipmentController extends GetxController {
   //TODO: Implement ShipmentController
 
   var argument = Get.arguments;
 
-  List<Map<String, dynamic>> shipmentMethods = [
+  final List<Map<String, dynamic>> _shipmentMethods = [
     {
       "methodTitle": "Shipment by Official",
       "description":
@@ -18,7 +19,15 @@ class ShipmentController extends GetxController {
     },
   ];
 
-  List<Map<String, dynamic>> get getShipmentMethods => shipmentMethods;
+  List<Map<String, dynamic>> get shipmentMethods => _shipmentMethods;
+
+  void onTapShipmentMethod(int index) {
+    if (index > 0) {
+      Get.back(result: _shipmentMethods[index]);
+    } else {
+      Get.toNamed(Routes.MAPS);
+    }
+  }
 
   @override
   void onInit() {

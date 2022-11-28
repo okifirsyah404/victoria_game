@@ -34,17 +34,19 @@ class ShipmentView extends GetView<ShipmentController> {
             title: Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
               child: Text(
-                controller.getShipmentMethods[index]["methodTitle"],
+                controller.shipmentMethods[index]["methodTitle"],
                 style: TypographyTheme.titleSmall,
               ),
             ),
             subtitle: Text(
-              controller.getShipmentMethods[index]["description"],
+              controller.shipmentMethods[index]["description"],
               style: TypographyTheme.bodySmall.copyWith(
                 color: ColorsTheme.neutralColor[50],
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              controller.onTapShipmentMethod(index);
+            },
           );
         },
       ),

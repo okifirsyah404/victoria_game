@@ -77,7 +77,7 @@ class MapsController extends GetxController {
     myMarker.add(initialLicationMarker);
   }
 
-  void handleMapOnTap(LatLng tapPoint) {
+  void handleMapOnTap(LatLng tapPoint) async {
     myMarker.add(
       Marker(markerId: MarkerId(tapPoint.toString()), position: tapPoint),
     );
@@ -85,6 +85,12 @@ class MapsController extends GetxController {
     print(tapPoint);
     markedLatitude.value = tapPoint.latitude;
     markedLongitude.value = tapPoint.longitude;
+
+    List<Placemark> placemark =
+        await placemarkFromCoordinates(tapPoint.latitude, tapPoint.longitude);
+
+    locationPlacemark.value =
+        "${placemark[0].street}, ${placemark[0].subLocality}, ${placemark[0].locality}";
   }
 
   @override
