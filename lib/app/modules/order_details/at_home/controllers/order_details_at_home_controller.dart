@@ -156,7 +156,7 @@ class OrderDetailsAtHomeController extends GetxController {
     }
   }
 
-  void initArgumentsData() {
+  void initiatePage() {
     isPageLoading.value = false;
   }
 
@@ -165,7 +165,7 @@ class OrderDetailsAtHomeController extends GetxController {
     initCalendarTextController = TextEditingController();
     endCalendarTextController = TextEditingController();
 
-    initArgumentsData();
+    initiatePage();
 
     super.onInit();
   }

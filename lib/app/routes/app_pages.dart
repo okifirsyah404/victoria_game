@@ -18,6 +18,8 @@ import '../modules/maps/bindings/maps_binding.dart';
 import '../modules/maps/views/maps_view.dart';
 import '../modules/order_details/at_home/bindings/order_details_at_home_binding.dart';
 import '../modules/order_details/at_home/views/order_details_at_home_view.dart';
+import '../modules/order_details/at_home_overview/bindings/order_details_at_home_overview_binding.dart';
+import '../modules/order_details/at_home_overview/views/order_details_at_home_overview_view.dart';
 import '../modules/order_details/on_site/bindings/order_details_on_site_binding.dart';
 import '../modules/order_details/on_site/views/order_details_on_site_view.dart';
 import '../modules/payment/bindings/payment_binding.dart';
@@ -118,6 +120,11 @@ class AppPages {
       name: _Paths.MAPS,
       page: () => const MapsView(),
       binding: MapsBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDER_DETAILS_AT_HOME_OVERVIEW,
+      page: () => const OrderDetailsAtHomeOverviewView(),
+      binding: OrderDetailsAtHomeOverviewBinding(),
     ),
   ];
 }
