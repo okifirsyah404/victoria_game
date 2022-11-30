@@ -3,19 +3,28 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
 import 'package:get/get.dart';
+import 'package:victoria_game/app/core/network/response/auth/sign_in_res.dart';
 import 'package:victoria_game/app/core/network/response/game_center/game_centers_res.dart';
 import 'package:victoria_game/app/core/repository/game_center_repository.dart';
+import 'package:victoria_game/app/core/repository/user_repository.dart';
 
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
 
 class MainPageHomeController extends GetxController {
+  final arguments = Get.arguments;
+
+  SignInResponse get userData => arguments[0];
+
   // FirebaseAuthServices firebaseAuthServices = FirebaseAuthServices();
 
   // void signOut() {
   //   firebaseAuthServices.signOutUserPasswordBased();
   //   Get.offAllNamed(Routes.AUTH_SIGN_IN);
   // }
+
+  late String username;
+  late int ballance;
 
   late GameCenterRepository gameCenterRepository;
 
@@ -154,8 +163,14 @@ class MainPageHomeController extends GetxController {
   //   super.onInit();
   // }
 
+  void initUserData() {
+    username = userData.data?.username ?? "";
+    ballance = userData.data?.ballance ?? 0;
+  }
+
   @override
   void onInit() {
+    initUserData();
     determinePosition();
     super.onInit();
   }

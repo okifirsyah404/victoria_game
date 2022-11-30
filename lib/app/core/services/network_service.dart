@@ -6,7 +6,8 @@ import 'package:http/http.dart' as http;
 
 import 'package:victoria_game/app/core/network/response/auth/sign_in_res.dart';
 
-const BASE_URL = "https://tolonto.okifirsyah.com/api";
+// TODO: Dynamic Base URL
+const BASE_URL = "https://8e56-125-166-119-24.ap.ngrok.io";
 
 abstract class NetworkServices {
   final printLog = Logger(printer: PrettyPrinter());

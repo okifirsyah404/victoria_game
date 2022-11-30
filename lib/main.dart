@@ -5,8 +5,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:get/get.dart';
 import 'package:victoria_game/app/controllers/app_controller.dart';
+import 'package:victoria_game/app/core/repository/user_repository.dart';
 import 'package:victoria_game/app/global/themes/theme.dart';
-import 'package:victoria_game/app/modules/auth/controllers/auth_controller.dart';
 import 'package:victoria_game/app/modules/main_page/controllers/main_page_index_controller.dart';
 import 'package:victoria_game/firebase_options.dart';
 
@@ -23,63 +23,73 @@ void main() async {
   runApp(MainApp());
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   MainApp({Key? key}) : super(key: key);
 
-  AuthController authController = Get.put(AuthController(), permanent: true);
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  String userToken = "";
+  String introduction = "";
+
+  late UserRepository userRepository;
+
+  @override
+  void initState() {
+    userRepository = UserRepository.instance;
+    super.initState();
+  }
 
   AppController appController = Get.put(
     AppController(),
     permanent: true,
   );
+
   MainPageIndexController mainPageIndexController =
       Get.put(MainPageIndexController(), permanent: true);
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-      stream: authController.authStateChange,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return MaterialApp(
-            theme: MainTheme.darkTheme(context),
-            home: Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            ),
-          );
-        }
+    // return  MaterialApp(
+    //         theme: MainTheme.darkTheme(context),
+    //         home: Scaffold(
+    //           body: Center(
+    //             child: CircularProgressIndicator(),
+    //           ),
+    //         ),
+    //       );
 
-        if (snapshot.connectionState == ConnectionState.none) {}
+    Future<void> getSharedPreferences() async {
+      userToken = await userRepository.readSecureData("token") ?? "";
+      introduction = await userRepository.readSecureData("isIntro") ?? "";
+      print(userToken);
+    }
 
-        if (snapshot.connectionState == ConnectionState.active) {
-          return GetMaterialApp(
-            title: "Application",
-            // initialRoute:
-            // snapshot.hasData ? Routes.MAIN_PAGE_HOME : Routes.AUTH_SIGN_IN,
-            initialRoute: Routes.MAIN_PAGE_HOME,
-            theme: MainTheme.darkTheme(context),
-            getPages: AppPages.routes,
-            localizationsDelegates: [
-              GlobalMaterialLocalizations.delegate,
-            ],
-            supportedLocales: [
-              Locale('en'),
-              Locale('id'),
-            ],
-          );
-        }
-
-        return MaterialApp(
-          theme: MainTheme.darkTheme(context),
-          home: Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          ),
-        );
-      },
+    return GetMaterialApp(
+      title: "Application",
+      // initialRoute:
+      // snapshot.hasData ? Routes.MAIN_PAGE_HOME : Routes.AUTH_SIGN_IN,
+      initialRoute: Routes.AUTH_SIGN_IN,
+      theme: MainTheme.darkTheme(context),
+      getPages: AppPages.routes,
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale('en'),
+        Locale('id'),
+      ],
     );
+
+    // return MaterialApp(
+    //   theme: MainTheme.darkTheme(context),
+    //   home: Scaffold(
+    //     body: Center(
+    //       child: CircularProgressIndicator(),
+    //     ),
+    //   ),
+    // );
   }
 }

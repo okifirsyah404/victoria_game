@@ -44,7 +44,7 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                       ),
                       SizedBox(width: 16),
                       Text(
-                        "Hi, John Doe",
+                        "Hi, ${controller.username}",
                         style: TypographyTheme.bodyMedium,
                       ),
                     ],
@@ -96,7 +96,7 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                                 style: TypographyTheme.bodySmall,
                               ),
                               Text(
-                                1000000.toRupiah(),
+                                controller.ballance.toRupiah(),
                                 style: TypographyTheme.bodyMedium.copyWith(
                                   color: ColorsTheme.primaryColor,
                                 ),

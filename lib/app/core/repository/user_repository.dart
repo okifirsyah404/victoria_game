@@ -8,6 +8,7 @@ import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dial
 
 class UserRepository extends NetworkServices with PermissionServices {
   UserRepository();
+  final storage = const FlutterSecureStorage();
 
   UserRepository._privateConstructor();
 
@@ -25,9 +26,11 @@ class UserRepository extends NetworkServices with PermissionServices {
     };
 
     var response =
-        await postMethod("/loginApi.php", body: body, headers: headers);
+        await postMethod("/auth/signin", body: body, headers: headers);
 
     var userData = SignInResponse.fromJson(response);
+
+    print(response);
 
     return userData;
   }
@@ -45,5 +48,15 @@ class UserRepository extends NetworkServices with PermissionServices {
 
     printLog.d("Denied");
     return false;
+  }
+
+  Future<String?> readSecureData(String key) {
+    var readData = storage.read(key: key);
+    return readData;
+  }
+
+  Object writeSecureTokenData(String key, String value) {
+    var writeData = storage.write(key: key, value: value);
+    return writeData;
   }
 }
