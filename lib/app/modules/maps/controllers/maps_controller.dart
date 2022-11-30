@@ -4,21 +4,22 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as loc;
 
+import '../../../routes/app_pages.dart';
+
 class MapsController extends GetxController {
-  var gameCenterArguments = Get.arguments;
+  var arguments = Get.arguments;
+
+  Map<String?, dynamic>? get shipmentData => arguments[4];
 
   loc.Location location = loc.Location();
   late GoogleMapController mapController;
-
-  // double get markedLatitude => gameCenterArguments.latitude;
-  // double get markedLongitude => gameCenterArguments.longitude;
 
   RxBool isMapLoading = true.obs;
 
   RxDouble markedLatitude = 0.0.obs;
   RxDouble markedLongitude = 0.0.obs;
 
-  LatLng initialCameraPosition = LatLng(-7.9282521, 113.8162798);
+  LatLng initialCameraPosition = const LatLng(-7.9282521, 113.8162798);
 
   RxList<Marker> myMarker = <Marker>[].obs;
   RxString locationPlacemark = "".obs;
@@ -70,7 +71,7 @@ class MapsController extends GetxController {
     Marker initialLicationMarker = Marker(
       position: LatLng(markedLatitude.value, markedLongitude.value),
       markerId: const MarkerId("1"),
-      infoWindow: InfoWindow(title: "Pilih Lokasi"),
+      infoWindow: const InfoWindow(title: "Pilih Lokasi"),
       icon: BitmapDescriptor.defaultMarker,
       consumeTapEvents: true,
     );
@@ -91,6 +92,25 @@ class MapsController extends GetxController {
 
     locationPlacemark.value =
         "${placemark[0].street}, ${placemark[0].subLocality}, ${placemark[0].locality}";
+  }
+
+  void onSubmitMap() {
+    Get.toNamed(
+      Routes.ORDER_DETAILS_AT_HOME_OVERVIEW,
+      arguments: [
+        arguments[0],
+        arguments[1],
+        arguments[2],
+        arguments[3],
+        {
+          "methodTitle": shipmentData?["methodTitle"],
+          "description": shipmentData?["description"],
+          "address": locationPlacemark.value,
+          "latitude": markedLatitude.value,
+          "longitude": markedLongitude.value,
+        },
+      ],
+    );
   }
 
   @override

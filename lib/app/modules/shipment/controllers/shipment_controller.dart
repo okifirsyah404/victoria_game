@@ -4,7 +4,7 @@ import 'package:victoria_game/app/routes/app_pages.dart';
 class ShipmentController extends GetxController {
   //TODO: Implement ShipmentController
 
-  var argument = Get.arguments;
+  var arguments = Get.arguments;
 
   final List<Map<String, dynamic>> _shipmentMethods = [
     {
@@ -23,14 +23,33 @@ class ShipmentController extends GetxController {
 
   void onTapShipmentMethod(int index) {
     if (index > 0) {
-      Get.back(result: _shipmentMethods[index]);
+      Get.toNamed(
+        Routes.ORDER_DETAILS_AT_HOME_OVERVIEW,
+        arguments: [
+          arguments[0],
+          arguments[1],
+          arguments[2],
+          arguments[3],
+          shipmentMethods[index],
+        ],
+      );
     } else {
-      Get.toNamed(Routes.MAPS);
+      Get.toNamed(
+        Routes.MAPS,
+        arguments: [
+          arguments[0],
+          arguments[1],
+          arguments[2],
+          arguments[3],
+          shipmentMethods[index],
+        ],
+      );
     }
   }
 
   @override
   void onInit() {
+    print(arguments);
     super.onInit();
   }
 

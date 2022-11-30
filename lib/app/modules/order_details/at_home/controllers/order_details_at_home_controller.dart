@@ -137,7 +137,7 @@ class OrderDetailsAtHomeController extends GetxController {
     }
   }
 
-  void initiateShipmentMethod() async {
+  void initiateShipmentMethod() {
     if (initCalendarTextController.text.isEmpty ||
         endCalendarTextController.text.isEmpty) {
       Get.dialog(const SingleActionDialog(
@@ -152,7 +152,20 @@ class OrderDetailsAtHomeController extends GetxController {
             "Kamu belum memilih metode pembayaran nih! Silahkan pilih ya!",
       ));
     } else {
-      var result = await Get.toNamed(Routes.SHIPMENT);
+      Get.toNamed(Routes.SHIPMENT, arguments: [
+        itemData,
+        {
+          "startDate": selectedInitDate.value,
+          "lastDate": selectedEndDate.value,
+        },
+        {
+          "paymentMethod": paymentMethod.value,
+          "ballance": paymentMethodBallance.value,
+        },
+        {
+          "totalAmount": totalAmount.value,
+        }
+      ]);
     }
   }
 

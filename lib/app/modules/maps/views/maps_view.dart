@@ -55,7 +55,9 @@ class MapsView extends GetView<MapsController> {
                         ),
                         SizedBox(height: 10),
                         OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            controller.onSubmitMap();
+                          },
                           style: OutlinedButton.styleFrom(
                             foregroundColor: ColorsTheme.neutralColor[900],
                             backgroundColor: ColorsTheme.primaryColor,

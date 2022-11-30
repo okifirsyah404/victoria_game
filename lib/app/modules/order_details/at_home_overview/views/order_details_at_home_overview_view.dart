@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:victoria_game/app/global/icons/custom_icon_data_icons.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
@@ -35,8 +36,7 @@ class OrderDetailsAtHomeOverviewView
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding:
-                                  const EdgeInsets.only(bottom: 8.0, top: 16.0),
+                              padding: const EdgeInsets.only(bottom: 8.0),
                               child: Text(
                                 "Playstation",
                                 style: TypographyTheme.titleSmall,
@@ -56,18 +56,16 @@ class OrderDetailsAtHomeOverviewView
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        "Playstation",
-                                        // controller.itemData["playstation"],
+                                        controller.itemData["playstation"],
                                         style: TypographyTheme.bodyMedium,
                                       ),
                                       Row(
                                         children: [
                                           Text(
-                                            1000000.toRupiah(),
-                                            // int.parse(controller
-                                            //         .itemData["price"]
-                                            //         .toString())
-                                            //     .toRupiah(),
+                                            int.parse(controller
+                                                    .itemData["price"]
+                                                    .toString())
+                                                .toRupiah(),
                                             style: TypographyTheme.bodyMedium
                                                 .copyWith(
                                               color: ColorsTheme.primaryColor,
@@ -100,7 +98,9 @@ class OrderDetailsAtHomeOverviewView
                                     style: TypographyTheme.titleSmall,
                                   ),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      controller.onTimeAndPaymentChange();
+                                    },
                                     child: Text(
                                       "Ubah",
                                       style: TypographyTheme.bodySmall.copyWith(
@@ -111,9 +111,6 @@ class OrderDetailsAtHomeOverviewView
                                 ],
                               ),
                             ),
-
-                            // TODO : Edit view for order detail view
-
                             AspectRatio(
                               aspectRatio: 100 / 22,
                               child: Material(
@@ -144,7 +141,7 @@ class OrderDetailsAtHomeOverviewView
                                               style: TypographyTheme.bodySmall,
                                             ),
                                             Text(
-                                              "27 November 2022",
+                                              controller.startDate.value,
                                               style: TypographyTheme.bodyRegular
                                                   .copyWith(
                                                 color: ColorsTheme.primaryColor,
@@ -170,7 +167,7 @@ class OrderDetailsAtHomeOverviewView
                                               style: TypographyTheme.bodySmall,
                                             ),
                                             Text(
-                                              "27 September 2022",
+                                              controller.lastDate.value,
                                               style: TypographyTheme.bodyRegular
                                                   .copyWith(
                                                 color: ColorsTheme.primaryColor,
@@ -184,7 +181,6 @@ class OrderDetailsAtHomeOverviewView
                                 ),
                               ),
                             ),
-
                             Padding(
                               padding:
                                   const EdgeInsets.only(bottom: 8.0, top: 16.0),
@@ -198,7 +194,9 @@ class OrderDetailsAtHomeOverviewView
                                     style: TypographyTheme.titleSmall,
                                   ),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      controller.onTimeAndPaymentChange();
+                                    },
                                     child: Text(
                                       "Ubah",
                                       style: TypographyTheme.bodySmall.copyWith(
@@ -218,21 +216,22 @@ class OrderDetailsAtHomeOverviewView
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               title: Text(
-                                // controller.paymentMethod.value,
-                                "Tunai",
+                                controller.paymentMethod?.value ?? "",
+                                // "Tunai",
                                 style: TypographyTheme.titleSmall,
                               ),
-                              // trailing: controller
-                              //             .paymentMethodBallance.value >
-                              //         0
-                              //     ? Text(
-                              //         controller
-                              //             .paymentMethodBallance.value
-                              //             .toRupiah(),
-                              //         style:
-                              //             TypographyTheme.bodyRegular,
-                              //       )
-                              //     : null,
+                              trailing:
+                                  (controller.paymentMethodBallance?.value ??
+                                              0) >
+                                          0
+                                      ? Text(
+                                          (controller.paymentMethodBallance
+                                                      ?.value ??
+                                                  0)
+                                              .toRupiah(),
+                                          style: TypographyTheme.bodyRegular,
+                                        )
+                                      : null,
                             ),
                             shipmentWidget(),
                           ],
@@ -255,7 +254,7 @@ class OrderDetailsAtHomeOverviewView
                               style: TypographyTheme.bodySmall,
                             ),
                             Text(
-                              1000000.toRupiah(),
+                              (controller.totalAmount ?? 0).toRupiah(),
                               style: TypographyTheme.bodyMedium.copyWith(
                                 color: ColorsTheme.primaryColor,
                               ),
@@ -264,6 +263,7 @@ class OrderDetailsAtHomeOverviewView
                         ),
                         const SizedBox(height: 12),
                         OutlinedButton(
+                          // TODO: ON SUBMIT CHECKOUT
                           onPressed: () {},
                           style: OutlinedButton.styleFrom(
                             foregroundColor: ColorsTheme.neutralColor[900],
@@ -299,7 +299,9 @@ class OrderDetailsAtHomeOverviewView
                 style: TypographyTheme.titleSmall,
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  controller.onShipmentMethodChange();
+                },
                 child: Text(
                   "Ubah",
                   style: TypographyTheme.bodySmall.copyWith(
@@ -324,72 +326,74 @@ class OrderDetailsAtHomeOverviewView
           title: Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
-              "Shipment by Official",
-              // controller.shipmentMethods[index]["methodTitle"],
+              controller.shipmentMethod?.value ?? "",
               style: TypographyTheme.titleSmall,
             ),
           ),
           subtitle: Text(
-            "Jumlah durasi penyewaan playstation terpenuhi, dapat diantarkan dengan jarak max 10km",
-            // controller.shipmentMethods[index]["description"],
+            controller.shipmentMethodDescription?.value ?? "",
             style: TypographyTheme.bodySmall.copyWith(
               color: ColorsTheme.neutralColor[50],
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 8.0, top: 16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "Lokasi Pengiriman",
-                style: TypographyTheme.titleSmall,
-              ),
-              InkWell(
-                onTap: () {},
-                child: Text(
-                  "Ubah",
-                  style: TypographyTheme.bodySmall.copyWith(
-                    color: ColorsTheme.primaryColor,
+        controller.shipmentMethod?.value != "Shipment by Official"
+            ? SizedBox()
+            : Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0, top: 16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Lokasi Pengiriman",
+                          style: TypographyTheme.titleSmall,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            controller.onMapPlaceChange();
+                          },
+                          child: Text(
+                            "Ubah",
+                            style: TypographyTheme.bodySmall.copyWith(
+                              color: ColorsTheme.primaryColor,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                  AspectRatio(
+                    aspectRatio: 328 / 148,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        heightFactor: 0.3,
+                        widthFactor: 2.5,
+                        child: GoogleMap(
+                          mapType: MapType.hybrid,
+                          zoomControlsEnabled: false,
+                          zoomGesturesEnabled: false,
+                          markers: Set.from(controller.myMarker),
+                          onMapCreated: (googleMapController) {
+                            controller.onMapCreated(googleMapController);
+                          },
+                          initialCameraPosition: CameraPosition(
+                            target: LatLng(controller.markedLatitude.value,
+                                controller.markedLongitude.value),
+                            zoom: 20.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
-        AspectRatio(
-          aspectRatio: 328 / 148,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: Align(
-                alignment: Alignment.bottomRight,
-                heightFactor: 0.3,
-                widthFactor: 2.5,
-                // child: GoogleMap(
-                //   onTap: (argument) {
-                //     controller.intentGoogleMaps();
-                //   },
-                //   mapType: MapType.hybrid,
-                //   zoomControlsEnabled: false,
-                //   zoomGesturesEnabled: false,
-                //   markers: Set.from(controller.myMarker),
-                //   onMapCreated: (googleMapController) {
-                //     controller.onMapCreated(googleMapController);
-                //   },
-                //   initialCameraPosition: CameraPosition(
-                //     target: LatLng(controller.markedLatitude,
-                //         controller.markedLongitude),
-                //     zoom: 11.0,
-                //   ),
-                // ),
-              ),
-            ),
-          ),
-        ),
       ],
     );
   }
