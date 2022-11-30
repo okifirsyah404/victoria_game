@@ -80,7 +80,8 @@ class AuthSignInController extends GetxController {
       );
       if (userResponse.data != null) {
         var putToStorage = secureStorage.writeDataToStorage(
-            key: "token", value: userResponse.data?.cookies);
+            key: "token", value: userResponse.data?.token ?? "");
+        Get.offNamed(Routes.MAIN_PAGE_HOME, arguments: [userResponse]);
       } else {
         Get.dialog(
           const SingleActionDialog(
@@ -96,7 +97,7 @@ class AuthSignInController extends GetxController {
       //   route: Routes.MAIN_PAGE_HOME,
       // );
       var getFromStorage = await secureStorage.readDataFromStrorage("token");
-      print("From API : ${userResponse.data?.cookies}");
+      print("From API : ${userResponse.data?.token ?? ""}");
       print("From Storage : $getFromStorage");
     }
   }
