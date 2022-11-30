@@ -128,6 +128,7 @@ class OrderDetailsAtHomeController extends GetxController {
           "method": paymentMethod.value,
           "ballance": paymentMethodBallance.value
         },
+        totalAmount.value,
       ]);
 
       print(result);
@@ -144,6 +145,12 @@ class OrderDetailsAtHomeController extends GetxController {
         title: "Silahkan Pilih Tanggal",
         description:
             "Tanggal mulai main atau tanggal selesai main tidak boleh kosong nih!",
+      ));
+    } else if (paymentMethodBallance.value < totalAmount.value) {
+      Get.dialog(const SingleActionDialog(
+        title: "Jumlah Saldo Kamu Kurang Nih",
+        description:
+            "Jumlah saldo kamu tidak mencukupi nih! Coba pakai metode pembayaran lain",
       ));
     } else if (paymentMethod.value.isEmpty) {
       Get.dialog(const SingleActionDialog(

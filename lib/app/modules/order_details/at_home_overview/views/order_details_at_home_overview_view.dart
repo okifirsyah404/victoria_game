@@ -338,33 +338,16 @@ class OrderDetailsAtHomeOverviewView
           ),
         ),
         controller.shipmentMethod?.value != "Shipment by Official"
-            ? SizedBox()
+            ? const SizedBox()
             : Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8.0, top: 16.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Lokasi Pengiriman",
-                          style: TypographyTheme.titleSmall,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            controller.onMapPlaceChange();
-                          },
-                          child: Text(
-                            "Ubah",
-                            style: TypographyTheme.bodySmall.copyWith(
-                              color: ColorsTheme.primaryColor,
-                            ),
-                          ),
-                        ),
-                      ],
+                    child: Text(
+                      "Lokasi Pengiriman",
+                      style: TypographyTheme.titleSmall,
                     ),
                   ),
                   AspectRatio(

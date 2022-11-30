@@ -2,21 +2,22 @@ import 'package:get/get.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
 
 class PaymentController extends GetxController {
-//  FIXME: Receive argument to keep payment method
-  var _arguments = Get.arguments;
+  final _arguments = Get.arguments;
 
   Map<String, dynamic> get itemData => _arguments[0];
   Map<String, dynamic>? get paymentMethod => _arguments[1];
 
   late Rxn<int> selectedIndex;
 
-  List<Map<String, dynamic>> _paymentMethods = [
-    {
-      "method": "Saldo",
-      "ballance": 1000000,
-    },
-    {"method": "Tunai"},
-  ];
+  List<Map<String, dynamic>> get _paymentMethods => [
+        {
+          "method": "Saldo",
+          "ballance": 1000000,
+        },
+        {
+          "method": "Tunai",
+        },
+      ];
 
   List<Map<String, dynamic>> get paymentMethods => _paymentMethods;
 
@@ -33,7 +34,6 @@ class PaymentController extends GetxController {
     );
   }
 
-  // TODO: checking argument for payment
   void initialPaymentMethod() {
     selectedIndex.value = -1;
     if (paymentMethod != null && paymentMethod?["method"] != "") {

@@ -99,20 +99,6 @@ class OrderDetailsAtHomeOverviewController extends GetxController {
     );
   }
 
-  void onMapPlaceChange() {
-    Get.offNamedUntil(
-      Routes.SHIPMENT,
-      (route) => route.isFirst,
-      arguments: [
-        arguments[0],
-        arguments[1],
-        arguments[2],
-        arguments[3],
-        arguments[4]
-      ],
-    );
-  }
-
   @override
   void onInit() {
     initiatePage();
