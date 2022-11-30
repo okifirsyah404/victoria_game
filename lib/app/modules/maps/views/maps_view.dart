@@ -17,7 +17,7 @@ class MapsView extends GetView<MapsController> {
       ),
       body: Obx(
         () => controller.isMapLoading.value
-            ? Center(
+            ? const Center(
                 child: CircularProgressIndicator(),
               )
             : Column(

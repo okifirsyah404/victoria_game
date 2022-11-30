@@ -146,7 +146,8 @@ class OrderDetailsAtHomeController extends GetxController {
         description:
             "Tanggal mulai main atau tanggal selesai main tidak boleh kosong nih!",
       ));
-    } else if (paymentMethodBallance.value < totalAmount.value) {
+    } else if (paymentMethodBallance.value < totalAmount.value &&
+        paymentMethodBallance.value > -1) {
       Get.dialog(const SingleActionDialog(
         title: "Jumlah Saldo Kamu Kurang Nih",
         description:

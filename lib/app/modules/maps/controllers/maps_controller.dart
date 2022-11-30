@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as loc;
+import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
 
 import '../../../routes/app_pages.dart';
 
@@ -94,23 +97,46 @@ class MapsController extends GetxController {
         "${placemark[0].street}, ${placemark[0].subLocality}, ${placemark[0].locality}";
   }
 
+  double calculateDistance(LatLng coordinates) {
+    double gameCenterLatitude = -7.154877;
+    double gameCenterLongitude = 111.875865;
+
+    double result = Geolocator.distanceBetween(coordinates.latitude,
+        coordinates.longitude, gameCenterLatitude, gameCenterLongitude);
+    return result;
+  }
+
   void onSubmitMap() {
-    Get.toNamed(
-      Routes.ORDER_DETAILS_AT_HOME_OVERVIEW,
-      arguments: [
-        arguments[0],
-        arguments[1],
-        arguments[2],
-        arguments[3],
-        {
-          "methodTitle": shipmentData?["methodTitle"],
-          "description": shipmentData?["description"],
-          "address": locationPlacemark.value,
-          "latitude": markedLatitude.value,
-          "longitude": markedLongitude.value,
-        },
-      ],
-    );
+    var distance =
+        calculateDistance(LatLng(markedLatitude.value, markedLongitude.value));
+    print(distance);
+
+    if (distance > 10000.0) {
+      Get.dialog(
+        SingleActionDialog(
+          title: "Jarak Kamu Terlalu Jauh",
+          description:
+              "Jarak posisi kamu terlalu jauh dari Game Center, Seperti jarak dia sama kamu!",
+        ),
+      );
+    } else {
+      Get.toNamed(
+        Routes.ORDER_DETAILS_AT_HOME_OVERVIEW,
+        arguments: [
+          arguments[0],
+          arguments[1],
+          arguments[2],
+          arguments[3],
+          {
+            "methodTitle": shipmentData?["methodTitle"],
+            "description": shipmentData?["description"],
+            "address": locationPlacemark.value,
+            "latitude": markedLatitude.value,
+            "longitude": markedLongitude.value,
+          },
+        ],
+      );
+    }
   }
 
   @override
