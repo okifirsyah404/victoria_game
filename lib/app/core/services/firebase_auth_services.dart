@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:victoria_game/app/core/services/network_service.dart';
 
 import '../../global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
 import '../../routes/app_pages.dart';
@@ -61,11 +62,13 @@ class FirebaseAuthServices {
     required String route,
   }) async {
     try {
+      // await NetworkServices.signInUser(email: emailAddress, password: password);
       final credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: emailAddress, password: password)
           .then((value) {
         print(value.user);
-        Get.offAllNamed(route);
+
+        //   // Get.offAllNamed(route);
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

@@ -10,15 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ec1d654-f8ef-40ca-b391-bb4a3f166a36" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/lib/app/modules/auth/login/controllers/auth_login_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/auth/login/controllers/auth_login_controller.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/modules/auth/login/views/auth_login_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/auth/login/views/auth_login_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/modules/home/views/home_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/home/views/home_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/modules/themes/colors_theme.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/modules/themes/typography_theme.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/main_page/rent/controllers/main_page_rent_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/main_page/rent/controllers/main_page_rent_controller.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/routes/app_pages.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/routes/app_pages.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/routes/app_routes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/routes/app_routes.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +44,7 @@
     <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.force.activate" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>

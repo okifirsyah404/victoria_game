@@ -66,7 +66,7 @@ class _PasswordTextFieldState extends State<PasswordTextField>
           hasFocus = !hasFocus;
         });
       },
-      child: Card(
+      child: Material(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),

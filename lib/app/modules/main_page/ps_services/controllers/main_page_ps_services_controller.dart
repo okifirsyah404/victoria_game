@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 
 class MainPagePsServicesController extends GetxController {
-  //TODO: Implement MainPagePsServicesController
-
   final count = 0.obs;
   @override
   void onInit() {

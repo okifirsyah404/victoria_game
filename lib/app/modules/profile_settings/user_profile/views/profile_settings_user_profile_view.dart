@@ -43,7 +43,7 @@ class ProfileSettingsUserProfileView
           children: [
             Material(
               borderRadius: BorderRadius.circular(8.0),
-              elevation: 4,
+              elevation: 2,
               child: Container(
                 decoration: BoxDecoration(
                   color: ColorsTheme.neutralColor[900],
@@ -84,7 +84,10 @@ class ProfileSettingsUserProfileView
                         color: ColorsTheme.neutralColor[900],
                       ),
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.toNamed(
+                              Routes.PROFILE_SETTINGS_EDIT_USER_PROFILE);
+                        },
                         icon: Icon(
                           CustomIconData.pencil,
                           color: ColorsTheme.primaryColor,
@@ -101,7 +104,7 @@ class ProfileSettingsUserProfileView
                 aspectRatio: 328 / 130,
                 child: Material(
                   borderRadius: BorderRadius.circular(8),
-                  elevation: 5,
+                  elevation: 2,
                   child: Container(
                     width: Get.width,
                     // height: 64,5
@@ -112,6 +115,7 @@ class ProfileSettingsUserProfileView
                     padding:
                         EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -169,7 +173,9 @@ class ProfileSettingsUserProfileView
                         ),
                         SizedBox(height: 8),
                         OutlinedButton.icon(
-                          onPressed: () {},
+                          onPressed: () {
+                            controller.intentWhatsappTopUp();
+                          },
                           icon: FaIcon(FontAwesomeIcons.whatsapp),
                           label: Text("Chat Admin untuk Top Up"),
                           style: OutlinedButton.styleFrom(

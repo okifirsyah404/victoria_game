@@ -13,6 +13,16 @@ abstract class Routes {
   static const ON_BOARDING = _Paths.ON_BOARDING;
   static const PROFILE_SETTINGS_USER_PROFILE =
       _Paths.PROFILE_SETTINGS_USER_PROFILE;
+  static const DETAIL_GAME_CENTER = _Paths.DETAIL_GAME_CENTER;
+  static const ORDER_DETAILS_ON_SITE = _Paths.ORDER_DETAILS_ON_SITE;
+  static const PAYMENT = _Paths.PAYMENT;
+  static const PROFILE_SETTINGS_EDIT_USER_PROFILE =
+      _Paths.PROFILE_SETTINGS_EDIT_USER_PROFILE;
+  static const ORDER_DETAILS_AT_HOME = _Paths.ORDER_DETAILS_AT_HOME;
+  static const SHIPMENT = _Paths.SHIPMENT;
+  static const MAPS = _Paths.MAPS;
+  static const ORDER_DETAILS_AT_HOME_OVERVIEW =
+      _Paths.ORDER_DETAILS_AT_HOME_OVERVIEW;
 }
 
 abstract class _Paths {
@@ -26,4 +36,12 @@ abstract class _Paths {
   static const MAIN_PAGE_HISTORY = '/history';
   static const ON_BOARDING = '/on-boarding';
   static const PROFILE_SETTINGS_USER_PROFILE = '/user-profile';
+  static const DETAIL_GAME_CENTER = '/detail-game-center';
+  static const ORDER_DETAILS_ON_SITE = '/on-site';
+  static const PAYMENT = '/payment';
+  static const PROFILE_SETTINGS_EDIT_USER_PROFILE = '/edit-user-profile';
+  static const ORDER_DETAILS_AT_HOME = '/at-home';
+  static const SHIPMENT = '/shipment';
+  static const MAPS = '/maps';
+  static const ORDER_DETAILS_AT_HOME_OVERVIEW = '/at-home-overview';
 }

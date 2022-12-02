@@ -6,10 +6,14 @@ import '../../../themes/typography_theme.dart';
 
 class SingleActionDialog extends StatelessWidget {
   const SingleActionDialog(
-      {super.key, this.title = "Title", this.description = "Description"});
+      {super.key,
+      this.title = "Title",
+      this.description = "Description",
+      this.buttonFunction});
 
   final String title;
   final String description;
+  final VoidCallback? buttonFunction;
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +39,10 @@ class SingleActionDialog extends StatelessWidget {
       actionsAlignment: MainAxisAlignment.spaceBetween,
       actions: [
         OutlinedButton(
-          onPressed: () {
-            Get.back();
-          },
+          onPressed: buttonFunction ??
+              () {
+                Get.back();
+              },
           child: Text("Ok"),
           style: OutlinedButton.styleFrom(
             minimumSize: Size.fromHeight(50),

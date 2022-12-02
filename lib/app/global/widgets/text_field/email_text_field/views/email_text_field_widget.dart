@@ -63,7 +63,7 @@ class _EmailTextFieldState extends State<EmailTextField>
           hasFocus = !hasFocus;
         });
       },
-      child: Card(
+      child: Material(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),

@@ -35,4 +35,8 @@ class CustomIconData {
       IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData pencil =
       IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData calendar =
+      IconData(0xe807, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData timer =
+      IconData(0xe808, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

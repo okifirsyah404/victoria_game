@@ -60,7 +60,7 @@ class _UsernameTextFieldState extends State<UsernameTextField>
           hasFocus = !hasFocus;
         });
       },
-      child: Card(
+      child: Material(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
