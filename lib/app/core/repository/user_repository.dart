@@ -24,13 +24,9 @@ class UserRepository extends NetworkServices with PermissionServices {
       "email": email,
       "password": password,
     };
-
     var response =
-        await postMethod("/auth/signin", body: body, headers: headers);
-
+        await postMethod("/api/auth/signin", body: body, headers: headers);
     var userData = SignInResponse.fromJson(response);
-
-    print(response);
 
     return userData;
   }

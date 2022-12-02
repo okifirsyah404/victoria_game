@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -12,10 +13,6 @@ import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
 
 class MainPageHomeController extends GetxController {
-  final arguments = Get.arguments;
-
-  SignInResponse get userData => arguments[0];
-
   // FirebaseAuthServices firebaseAuthServices = FirebaseAuthServices();
 
   // void signOut() {
@@ -23,8 +20,12 @@ class MainPageHomeController extends GetxController {
   //   Get.offAllNamed(Routes.AUTH_SIGN_IN);
   // }
 
-  late String username;
-  late int ballance;
+  RxBool isPageLoading = true.obs;
+
+  late String authAccessToken;
+
+  String username = "John Doe";
+  int ballance = 1000;
 
   late GameCenterRepository gameCenterRepository;
 
@@ -156,6 +157,12 @@ class MainPageHomeController extends GetxController {
     myPosition = await Geolocator.getCurrentPosition();
   }
 
+  Future<String> fetchUserImage() async {
+    var storage = const FlutterSecureStorage();
+    String readData = await storage.read(key: "token") ?? "";
+    return readData;
+  }
+
   // @override
   // void onInit() {
   //   determinePosition();
@@ -163,9 +170,9 @@ class MainPageHomeController extends GetxController {
   //   super.onInit();
   // }
 
-  void initUserData() {
-    username = userData.data?.username ?? "";
-    ballance = userData.data?.ballance ?? 0;
+  void initUserData() async {
+    authAccessToken = await fetchUserImage();
+    isPageLoading.value = false;
   }
 
   @override

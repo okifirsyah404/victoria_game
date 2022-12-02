@@ -40,24 +40,24 @@ class SignInResponse {
 
 class UserData {
   UserData({
-    required this.userId,
-    required this.email,
-    required this.username,
-    required this.phone,
-    required this.image,
-    required this.token,
-    required this.ballance,
-    required this.createAt,
-    required this.updateAt,
+    this.userId,
+    this.email,
+    this.username,
+    this.phone,
+    this.image,
+    this.token,
+    this.ballance,
+    this.createAt,
+    this.updateAt,
   });
 
-  final String userId;
-  final String email;
-  final String username;
-  final String phone;
-  final String image;
-  final String token;
-  final int ballance;
+  final String? userId;
+  final String? email;
+  final String? username;
+  final String? phone;
+  final String? image;
+  final String? token;
+  final int? ballance;
   final DateTime? createAt;
   final DateTime? updateAt;
 
