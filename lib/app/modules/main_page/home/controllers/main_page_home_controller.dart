@@ -13,14 +13,6 @@ import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
 
 class MainPageHomeController extends GetxController {
-  // FirebaseAuthServices firebaseAuthServices = FirebaseAuthServices();
-
-  // void signOut() {
-  //   firebaseAuthServices.signOutUserPasswordBased();
-  //   Get.offAllNamed(Routes.AUTH_SIGN_IN);
-  // }
-
-  RxBool isPageLoading = true.obs;
   var storage = const FlutterSecureStorage();
 
   late UserRepository userRepository;
@@ -177,17 +169,9 @@ class MainPageHomeController extends GetxController {
     playTime = userData.data?.playTime ?? 1;
   }
 
-  // @override
-  // void onInit() {
-  //   determinePosition();
-  //   // fetchGameCentersData();
-  //   super.onInit();
-  // }
-
-  void initUserData() async {
+  Future<void> initUserData() async {
     authAccessToken = await fetchUserImage();
     await fetchUserData();
-    isPageLoading.value = false;
   }
 
   @override

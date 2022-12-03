@@ -2,6 +2,7 @@ import 'package:android_intent_plus/android_intent.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:victoria_game/app/core/network/response/user_data_response.dart';
 import 'package:victoria_game/app/core/repository/user_repository.dart';
 
 import '../../../../core/services/firebase_auth_services.dart';
@@ -10,7 +11,6 @@ import '../../../../routes/app_pages.dart';
 class ProfileSettingsUserProfileController extends GetxController {
   //TODO: Implement ProfileSettingsUserProfileController
 
-  RxBool isPageLoading = true.obs;
   var storage = const FlutterSecureStorage();
 
   late UserRepository userRepository;
@@ -59,7 +59,7 @@ Cuma testing Intent WA
     return authToken;
   }
 
-  Future<void> fetchUserData() async {
+  Future<UserDataResponse> fetchUserData() async {
     userRepository = UserRepository.instance;
     String authToken = await storage.read(key: "token") ?? "";
 
@@ -71,17 +71,19 @@ Cuma testing Intent WA
     username = userData.data?.username ?? "";
     ballance = userData.data?.ballance ?? 1;
     playTime = userData.data?.playTime ?? 1;
+
+    return userData;
   }
 
   void initUserData() async {
     authAccessToken = await fetchUserImage();
     await fetchUserData();
-    isPageLoading.value = false;
   }
 
   @override
   void onInit() async {
     userRepository = UserRepository.instance;
+    initUserData();
     super.onInit();
   }
 

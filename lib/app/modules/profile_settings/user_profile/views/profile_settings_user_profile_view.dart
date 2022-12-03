@@ -73,7 +73,7 @@ class ProfileSettingsUserProfileView
                         ),
                         SizedBox(width: 16),
                         Text(
-                          "Hi, John Doe",
+                          "Hi, ${controller.username}",
                           style: TypographyTheme.bodyMedium,
                         ),
                       ],
