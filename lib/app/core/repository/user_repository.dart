@@ -1,10 +1,10 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:victoria_game/app/core/services/network_service.dart';
 import 'package:victoria_game/app/core/network/response/auth/sign_in_res.dart';
+import 'package:victoria_game/app/core/network/response/auth/sign_out_res.dart';
+import 'package:victoria_game/app/core/network/response/user_data_response.dart';
+import 'package:victoria_game/app/core/services/network_service.dart';
 import 'package:victoria_game/app/core/services/permission_services.dart';
-import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
 
 class UserRepository extends NetworkServices with PermissionServices {
   UserRepository();
@@ -31,6 +31,27 @@ class UserRepository extends NetworkServices with PermissionServices {
     return userData;
   }
 
+  Future<UserDataResponse> fetchUserData(String authToken) async {
+    var headers = {
+      contentType: applicationJson,
+      authorization: authToken,
+    };
+
+    var response = await getMethod("/api/user", headers: headers);
+    var userData = UserDataResponse.fromJson(response);
+    return userData;
+  }
+
+  Future<SignOutResponse> sumbitSignOut(String authToken) async {
+    var headers = {
+      contentType: applicationJson,
+      authorization: authToken,
+    };
+
+    var response = await getMethod("/api/auth/signout", headers: headers);
+    return SignOutResponse.fromJson(response);
+  }
+
   Future<bool> handleCameraGaleryPermission() async {
     var permissions = await requestCameraGaleryPermission();
 
@@ -44,15 +65,5 @@ class UserRepository extends NetworkServices with PermissionServices {
 
     printLog.d("Denied");
     return false;
-  }
-
-  Future<String?> readSecureData(String key) {
-    var readData = storage.read(key: key);
-    return readData;
-  }
-
-  Object writeSecureTokenData(String key, String value) {
-    var writeData = storage.write(key: key, value: value);
-    return writeData;
   }
 }

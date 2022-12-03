@@ -46,7 +46,7 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                                     // image: AssetImage(
                                     //     "assets/images/drawable/profile/avatar-profile-100.jpg"),
                                     image: NetworkImage(
-                                        "https://8b73-118-99-121-213.ap.ngrok.io/api/user/image",
+                                        "https://e55e-118-99-121-213.ap.ngrok.io/api/user/image",
                                         headers: {
                                           "Authorization":
                                               controller.authAccessToken,
@@ -139,7 +139,7 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                                         style: TypographyTheme.bodySmall,
                                       ),
                                       Text(
-                                        "36 Jam",
+                                        "${controller.playTime} Jam",
                                         style:
                                             TypographyTheme.bodyMedium.copyWith(
                                           color: ColorsTheme.primaryColor,

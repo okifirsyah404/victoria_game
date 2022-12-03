@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 import 'package:get/get.dart';
 import 'package:victoria_game/app/controllers/app_controller.dart';
@@ -20,7 +21,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MainApp());
+  runApp(Phoenix(child: MainApp()));
 }
 
 class MainApp extends StatefulWidget {
@@ -52,26 +53,9 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    // return  MaterialApp(
-    //         theme: MainTheme.darkTheme(context),
-    //         home: Scaffold(
-    //           body: Center(
-    //             child: CircularProgressIndicator(),
-    //           ),
-    //         ),
-    //       );
-
-    Future<void> getSharedPreferences() async {
-      userToken = await userRepository.readSecureData("token") ?? "";
-      introduction = await userRepository.readSecureData("isIntro") ?? "";
-      print(userToken);
-    }
-
     return GetMaterialApp(
       title: "Application",
-      // initialRoute:
-      // snapshot.hasData ? Routes.MAIN_PAGE_HOME : Routes.AUTH_SIGN_IN,
-      initialRoute: Routes.AUTH_SIGN_IN,
+      initialRoute: Routes.SPLASH,
       theme: MainTheme.darkTheme(context),
       getPages: AppPages.routes,
       localizationsDelegates: [
@@ -82,14 +66,5 @@ class _MainAppState extends State<MainApp> {
         Locale('id'),
       ],
     );
-
-    // return MaterialApp(
-    //   theme: MainTheme.darkTheme(context),
-    //   home: Scaffold(
-    //     body: Center(
-    //       child: CircularProgressIndicator(),
-    //     ),
-    //   ),
-    // );
   }
 }

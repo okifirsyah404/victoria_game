@@ -23,6 +23,7 @@ abstract class Routes {
   static const MAPS = _Paths.MAPS;
   static const ORDER_DETAILS_AT_HOME_OVERVIEW =
       _Paths.ORDER_DETAILS_AT_HOME_OVERVIEW;
+  static const SPLASH = _Paths.SPLASH;
 }
 
 abstract class _Paths {
@@ -44,4 +45,5 @@ abstract class _Paths {
   static const SHIPMENT = '/shipment';
   static const MAPS = '/maps';
   static const ORDER_DETAILS_AT_HOME_OVERVIEW = '/at-home-overview';
+  static const SPLASH = '/splash';
 }

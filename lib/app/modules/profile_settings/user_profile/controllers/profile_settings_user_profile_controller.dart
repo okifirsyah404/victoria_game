@@ -1,6 +1,8 @@
 import 'package:android_intent_plus/android_intent.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:victoria_game/app/core/repository/user_repository.dart';
 
 import '../../../../core/services/firebase_auth_services.dart';
 import '../../../../routes/app_pages.dart';
@@ -8,7 +10,15 @@ import '../../../../routes/app_pages.dart';
 class ProfileSettingsUserProfileController extends GetxController {
   //TODO: Implement ProfileSettingsUserProfileController
 
-  FirebaseAuthServices firebaseAuthServices = FirebaseAuthServices();
+  RxBool isPageLoading = true.obs;
+  var storage = const FlutterSecureStorage();
+
+  late UserRepository userRepository;
+  late String authAccessToken;
+
+  String username = "John Doe";
+  int ballance = 1000;
+  int playTime = 0;
 
   void intentWhatsappTopUp() {
     final message = """
@@ -37,13 +47,41 @@ Cuma testing Intent WA
     intent.launch();
   }
 
-  void signOut() {
-    firebaseAuthServices.signOutUserPasswordBased();
+  void signOut() async {
+    String authToken = await storage.read(key: "token") ?? "";
+    await userRepository.sumbitSignOut(authToken);
+    await storage.write(key: "token", value: "");
     Get.offAllNamed(Routes.AUTH_SIGN_IN);
+  }
+
+  Future<String> fetchUserImage() async {
+    String authToken = await storage.read(key: "token") ?? "";
+    return authToken;
+  }
+
+  Future<void> fetchUserData() async {
+    userRepository = UserRepository.instance;
+    String authToken = await storage.read(key: "token") ?? "";
+
+    var userData = await userRepository.fetchUserData(authToken);
+
+    print(userData);
+    print(userData.data);
+
+    username = userData.data?.username ?? "";
+    ballance = userData.data?.ballance ?? 1;
+    playTime = userData.data?.playTime ?? 1;
+  }
+
+  void initUserData() async {
+    authAccessToken = await fetchUserImage();
+    await fetchUserData();
+    isPageLoading.value = false;
   }
 
   @override
   void onInit() async {
+    userRepository = UserRepository.instance;
     super.onInit();
   }
 

@@ -30,6 +30,8 @@ import '../modules/profile_settings/user_profile/bindings/profile_settings_user_
 import '../modules/profile_settings/user_profile/views/profile_settings_user_profile_view.dart';
 import '../modules/shipment/bindings/shipment_binding.dart';
 import '../modules/shipment/views/shipment_view.dart';
+import '../modules/splash/bindings/splash_binding.dart';
+import '../modules/splash/views/splash_view.dart';
 import '../modules/test_widget/bindings/test_widget_binding.dart';
 import '../modules/test_widget/views/test_widget_view.dart';
 
@@ -125,6 +127,11 @@ class AppPages {
       name: _Paths.ORDER_DETAILS_AT_HOME_OVERVIEW,
       page: () => const OrderDetailsAtHomeOverviewView(),
       binding: OrderDetailsAtHomeOverviewBinding(),
+    ),
+    GetPage(
+      name: _Paths.SPLASH,
+      page: () => SplashView(),
+      binding: SplashBinding(),
     ),
   ];
 }

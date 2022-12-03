@@ -7,6 +7,7 @@ environment:
 
 dependencies:
   android_intent_plus: ^3.1.5
+  connectivity_plus: ^3.0.2
   cupertino_icons: ^1.0.2
   firebase_auth: ^4.1.1
   firebase_core: ^2.1.1
@@ -14,6 +15,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  flutter_phoenix: ^1.1.0
   flutter_secure_storage: ^6.0.0
   flutter_svg: ^1.1.6
   font_awesome_flutter: ^10.2.1
@@ -42,10 +44,15 @@ flutter:
     - family: CustomIconData
       fonts:
         - asset: assets/fonts/CustomIconData.ttf
+    - family: NotoSans
+      fonts:
+        - asset: assets/fonts/NotoSans-Medium.ttf
+        - asset: assets/fonts/NotoSans-SemiBold.ttf
   assets:
     - assets/images/
     - assets/images/illustrations/
     - assets/images/placeholder/
     - assets/images/drawable/
     - assets/images/drawable/profile/
+    - assets/images/logo/
     - assets/fonts/

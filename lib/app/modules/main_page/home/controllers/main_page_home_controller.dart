@@ -21,11 +21,15 @@ class MainPageHomeController extends GetxController {
   // }
 
   RxBool isPageLoading = true.obs;
+  var storage = const FlutterSecureStorage();
+
+  late UserRepository userRepository;
 
   late String authAccessToken;
 
   String username = "John Doe";
   int ballance = 1000;
+  int playTime = 0;
 
   late GameCenterRepository gameCenterRepository;
 
@@ -158,9 +162,19 @@ class MainPageHomeController extends GetxController {
   }
 
   Future<String> fetchUserImage() async {
-    var storage = const FlutterSecureStorage();
-    String readData = await storage.read(key: "token") ?? "";
-    return readData;
+    String authToken = await storage.read(key: "token") ?? "";
+    return authToken;
+  }
+
+  Future<void> fetchUserData() async {
+    userRepository = UserRepository.instance;
+    String authToken = await storage.read(key: "token") ?? "";
+
+    var userData = await userRepository.fetchUserData(authToken);
+
+    username = userData.data?.username ?? "";
+    ballance = userData.data?.ballance ?? 1;
+    playTime = userData.data?.playTime ?? 1;
   }
 
   // @override
@@ -172,6 +186,7 @@ class MainPageHomeController extends GetxController {
 
   void initUserData() async {
     authAccessToken = await fetchUserImage();
+    await fetchUserData();
     isPageLoading.value = false;
   }
 
