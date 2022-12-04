@@ -25,6 +25,7 @@ dependencies:
   google_fonts: ^3.0.1
   google_maps_flutter: ^2.2.1
   http: ^0.13.5
+  http_parser: ^4.0.2
   image_picker: ^0.8.6
   intl: ^0.17.0
   location: ^4.4.0

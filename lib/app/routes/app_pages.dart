@@ -4,6 +4,8 @@ import '../modules/auth/sign_in/bindings/auth_sign_in_binding.dart';
 import '../modules/auth/sign_in/views/auth_sign_in_view.dart';
 import '../modules/auth/sign_up/bindings/auth_sign_up_binding.dart';
 import '../modules/auth/sign_up/views/auth_sign_up_view.dart';
+import '../modules/auth/verify_sign_up/bindings/auth_verify_sign_up_binding.dart';
+import '../modules/auth/verify_sign_up/views/auth_verify_sign_up_view.dart';
 import '../modules/detail_game_center/bindings/detail_game_center_binding.dart';
 import '../modules/detail_game_center/views/detail_game_center_view.dart';
 import '../modules/main_page/history/bindings/main_page_history_binding.dart';
@@ -132,6 +134,11 @@ class AppPages {
       name: _Paths.SPLASH,
       page: () => SplashView(),
       binding: SplashBinding(),
+    ),
+    GetPage(
+      name: _Paths.AUTH_VERIFY_SIGN_UP,
+      page: () => const AuthVerifySignUpView(),
+      binding: AuthVerifySignUpBinding(),
     ),
   ];
 }

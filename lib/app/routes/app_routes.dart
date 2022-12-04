@@ -24,6 +24,7 @@ abstract class Routes {
   static const ORDER_DETAILS_AT_HOME_OVERVIEW =
       _Paths.ORDER_DETAILS_AT_HOME_OVERVIEW;
   static const SPLASH = _Paths.SPLASH;
+  static const AUTH_VERIFY_SIGN_UP = _Paths.AUTH_VERIFY_SIGN_UP;
 }
 
 abstract class _Paths {
@@ -46,4 +47,5 @@ abstract class _Paths {
   static const MAPS = '/maps';
   static const ORDER_DETAILS_AT_HOME_OVERVIEW = '/at-home-overview';
   static const SPLASH = '/splash';
+  static const AUTH_VERIFY_SIGN_UP = '/verify-sign-up';
 }

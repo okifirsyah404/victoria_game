@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:victoria_game/app/core/network/response/user_data_response.dart';
 import 'package:victoria_game/app/core/repository/user_repository.dart';
+import 'package:victoria_game/utils/secure_storage.dart';
 
 import '../../../../core/services/firebase_auth_services.dart';
 import '../../../../routes/app_pages.dart';
@@ -11,7 +12,7 @@ import '../../../../routes/app_pages.dart';
 class ProfileSettingsUserProfileController extends GetxController {
   //TODO: Implement ProfileSettingsUserProfileController
 
-  var storage = const FlutterSecureStorage();
+  final storage = SecureStorage();
 
   late UserRepository userRepository;
   late String authAccessToken;
@@ -48,25 +49,22 @@ Cuma testing Intent WA
   }
 
   void signOut() async {
-    String authToken = await storage.read(key: "token") ?? "";
+    String authToken = await storage.readDataFromStrorage("token") ?? "";
     await userRepository.sumbitSignOut(authToken);
-    await storage.write(key: "token", value: "");
+    storage.writeDataToStorage(key: "token", value: "");
     Get.offAllNamed(Routes.AUTH_SIGN_IN);
   }
 
   Future<String> fetchUserImage() async {
-    String authToken = await storage.read(key: "token") ?? "";
+    String authToken = await storage.readDataFromStrorage("token") ?? "";
     return authToken;
   }
 
   Future<UserDataResponse> fetchUserData() async {
     userRepository = UserRepository.instance;
-    String authToken = await storage.read(key: "token") ?? "";
+    String authToken = await storage.readDataFromStrorage("token") ?? "";
 
     var userData = await userRepository.fetchUserData(authToken);
-
-    print(userData);
-    print(userData.data);
 
     username = userData.data?.username ?? "";
     ballance = userData.data?.ballance ?? 1;
@@ -75,7 +73,7 @@ Cuma testing Intent WA
     return userData;
   }
 
-  void initUserData() async {
+  Future<void> initUserData() async {
     authAccessToken = await fetchUserImage();
     await fetchUserData();
   }

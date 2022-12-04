@@ -1,19 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
 import 'package:get/get.dart';
-import 'package:victoria_game/app/core/network/response/auth/sign_in_res.dart';
+
 import 'package:victoria_game/app/core/network/response/game_center/game_centers_res.dart';
 import 'package:victoria_game/app/core/repository/game_center_repository.dart';
 import 'package:victoria_game/app/core/repository/user_repository.dart';
 
-import 'package:victoria_game/app/global/themes/colors_theme.dart';
-import 'package:victoria_game/app/global/themes/typography_theme.dart';
+import 'package:victoria_game/utils/secure_storage.dart';
 
 class MainPageHomeController extends GetxController {
-  var storage = const FlutterSecureStorage();
+  final storage = SecureStorage();
 
   late UserRepository userRepository;
 
@@ -154,13 +150,13 @@ class MainPageHomeController extends GetxController {
   }
 
   Future<String> fetchUserImage() async {
-    String authToken = await storage.read(key: "token") ?? "";
+    String authToken = await storage.readDataFromStrorage("token") ?? "";
     return authToken;
   }
 
   Future<void> fetchUserData() async {
     userRepository = UserRepository.instance;
-    String authToken = await storage.read(key: "token") ?? "";
+    String authToken = await storage.readDataFromStrorage("token") ?? "";
 
     var userData = await userRepository.fetchUserData(authToken);
 
