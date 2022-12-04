@@ -11,6 +11,7 @@ class AuthVerifySignUpView extends GetView<AuthVerifySignUpController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
           "Verifikasi",
@@ -35,7 +36,7 @@ class AuthVerifySignUpView extends GetView<AuthVerifySignUpController> {
               ),
               SizedBox(height: 32),
               Text(
-                "Kami telah mengirim OTP (One-Time Password) Ke alamat email kamu!",
+                "Kami telah mengirim OTP (One-Time Password) Ke alamat email ${controller.userMail}",
                 style: TypographyTheme.bodyRegular,
                 textAlign: TextAlign.center,
               ),
@@ -43,11 +44,10 @@ class AuthVerifySignUpView extends GetView<AuthVerifySignUpController> {
               Container(
                 width: 240,
                 child: TextField(
-                  // controller: widget.controller,
+                  controller: controller.otpController,
                   textAlign: TextAlign.center,
                   keyboardType: TextInputType.number,
                   maxLength: 6,
-
                   style: TypographyTheme.bodyMedium.copyWith(
                     color: ColorsTheme.neutralColor[900],
                     fontWeight: FontWeight.w600,
@@ -89,7 +89,9 @@ class AuthVerifySignUpView extends GetView<AuthVerifySignUpController> {
               ),
               SizedBox(height: 64),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  controller.onSubmitOtp();
+                },
                 child: const Text("Verifikasi"),
               ),
             ],

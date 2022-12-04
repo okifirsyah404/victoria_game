@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:victoria_game/app/core/repository/user_repository.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
 
-import '../../../../core/services/firebase_auth_services.dart';
 import '../../../../global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
 
 class AuthSignUpController extends GetxController {
-  FirebaseAuthServices firebaseAuthServices = FirebaseAuthServices();
+  late UserRepository userRepository;
+
   late TextEditingController emailController;
   late TextEditingController passwordController;
   late TextEditingController usernameController;
+  late TextEditingController phoneController;
+
+  int token = 0;
 
   bool validateSingUp() {
     if (usernameController.text.isEmpty) {
@@ -81,11 +85,40 @@ class AuthSignUpController extends GetxController {
     return true;
   }
 
+  void signUp() async {
+    if (validateSingUp()) {
+      var result = await userRepository.submitVerifySignUp(
+          email: emailController.text,
+          password: passwordController.text,
+          username: usernameController.text,
+          phone: phoneController.text);
+
+      if (result.message != "Email already used") {
+        Get.toNamed(Routes.AUTH_VERIFY_SIGN_UP, arguments: {
+          "email": emailController.text,
+          "username": usernameController.text,
+          "phone": phoneController.text,
+          "password": passwordController.text,
+          "otp": result.data?.otp
+        });
+      } else {
+        Get.dialog(
+          const SingleActionDialog(
+            title: "Email sudah terpakai",
+            description: "Coba gunakan email lain atau bisa login dulu!",
+          ),
+        );
+      }
+    }
+  }
+
   @override
   void onInit() {
+    userRepository = UserRepository.instance;
     emailController = TextEditingController();
     passwordController = TextEditingController();
     usernameController = TextEditingController();
+    phoneController = TextEditingController();
     super.onInit();
   }
 
@@ -100,16 +133,5 @@ class AuthSignUpController extends GetxController {
     passwordController.dispose();
     usernameController.dispose();
     super.onClose();
-  }
-
-  void signUp() {
-    if (validateSingUp()) {
-      firebaseAuthServices.createUserPasswordBased(
-        emailAddress: emailController.text,
-        password: passwordController.text,
-        username: usernameController.text,
-        route: Routes.MAIN_PAGE_HOME,
-      );
-    }
   }
 }

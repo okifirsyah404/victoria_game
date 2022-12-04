@@ -4,6 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:victoria_game/app/core/network/response/auth/sign_in_res.dart';
 import 'package:victoria_game/app/core/network/response/auth/sign_out_res.dart';
+import 'package:victoria_game/app/core/network/response/auth/sign_up_res.dart';
 import 'package:victoria_game/app/core/network/response/auth/verify_sign_up_res.dart';
 import 'package:victoria_game/app/core/network/response/multipart_profile_response.dart';
 import 'package:victoria_game/app/core/network/response/user_data_response.dart';
@@ -39,6 +40,28 @@ class UserRepository extends NetworkServices with PermissionServices {
         headers: headers, body: body);
 
     var result = VerifySignUpResponse.fromJson(response);
+    return result;
+  }
+
+  Future<SignUpResponse> submitSignUp({
+    required String email,
+    required String password,
+    required String username,
+    required String phone,
+  }) async {
+    var headers = {contentType: applicationJson};
+
+    var body = {
+      "email": email,
+      "password": password,
+      "username": username,
+      "phone": phone,
+    };
+
+    var response =
+        await postMethod("/api/auth/signup", headers: headers, body: body);
+
+    var result = SignUpResponse.fromJson(response);
     return result;
   }
 

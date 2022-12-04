@@ -45,7 +45,7 @@ class Data {
     required this.otp,
   });
 
-  final String otp;
+  final String? otp;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         otp: json["OTP"] == null ? null : json["OTP"],
