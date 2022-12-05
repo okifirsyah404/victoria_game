@@ -323,7 +323,7 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                         ),
                         image: DecorationImage(
                           image: NetworkImage(
-                              "https://e2f1-118-99-121-213.ap.ngrok.io/api/user/image",
+                              "https://9a7c-125-166-116-213.ap.ngrok.io/api/user/image",
                               headers: {
                                 "Authorization": controller.authAccessToken,
                               }),

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:victoria_game/app/core/network/response/user_data_response.dart';
@@ -32,7 +33,9 @@ class ProfileSettingsEditUserProfileController extends GetxController {
         final imagePicked =
             await imagePicker.pickImage(source: ImageSource.camera);
         if (imagePicked != null) {
-          imageFile.value = File(imagePicked.path);
+          File tempFile = await compressFile(File(imagePicked.path));
+
+          imageFile.value = tempFile;
         }
       } on PlatformException catch (e) {
         // print(e);
@@ -77,15 +80,27 @@ class ProfileSettingsEditUserProfileController extends GetxController {
     return userData;
   }
 
+  Future<File> compressFile(File file) async {
+    File compressedFile = await FlutterNativeImage.compressImage(file.path,
+        quality: 50, percentage: 50);
+
+    return compressedFile;
+  }
+
   onSubmitEdit() async {
     authAccessToken = await storage.readDataFromStrorage("token") ?? "";
-    await userRepository.updateUserProfile(
-        authToken: authAccessToken, file: imageFile.value);
 
-    Get.offNamedUntil(
-      Routes.PROFILE_SETTINGS_USER_PROFILE,
-      (route) => route.isFirst,
-    );
+    await userRepository
+        .updateUserProfile(authToken: authAccessToken, file: imageFile.value)
+        .then((value) => Get.offNamedUntil(
+              Routes.PROFILE_SETTINGS_USER_PROFILE,
+              (route) => route.isFirst,
+            ));
+
+    // Get.offNamedUntil(
+    //   Routes.PROFILE_SETTINGS_USER_PROFILE,
+    //   (route) => route.isFirst,
+    // );
   }
 
   @override
@@ -104,6 +119,7 @@ class ProfileSettingsEditUserProfileController extends GetxController {
 
   @override
   void onClose() {
+    imageFile.value.delete();
     super.onClose();
   }
 }

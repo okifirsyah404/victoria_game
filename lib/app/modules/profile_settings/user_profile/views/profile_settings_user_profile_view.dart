@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -35,7 +36,7 @@ class ProfileSettingsUserProfileView
           centerTitle: true,
           leading: IconButton(
             onPressed: () {
-              Get.back();
+              Get.offAllNamed(Routes.MAIN_PAGE_HOME);
             },
             icon: Icon(Icons.close),
           ),
@@ -72,12 +73,14 @@ class ProfileSettingsUserProfileView
                                     width: 1,
                                   ),
                                   image: DecorationImage(
-                                    image: NetworkImage(
-                                        "https://e2f1-118-99-121-213.ap.ngrok.io/api/user/image",
-                                        headers: {
-                                          "Authorization":
-                                              controller.authAccessToken,
-                                        }),
+                                    // image: NetworkImage(
+                                    //     "https://9a7c-125-166-116-213.ap.ngrok.io/api/user/image",
+                                    //     headers: {
+                                    //       "Authorization":
+                                    //           controller.authAccessToken,
+                                    //     }),
+                                    image: MemoryImage(Uint8List.fromList(
+                                        controller.imageByte)),
                                     fit: BoxFit.cover,
                                   ),
                                 ),

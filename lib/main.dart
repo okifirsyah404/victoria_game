@@ -55,7 +55,7 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: "Application",
-      initialRoute: Routes.AUTH_SIGN_UP,
+      initialRoute: Routes.SPLASH,
       theme: MainTheme.darkTheme(context),
       getPages: AppPages.routes,
       localizationsDelegates: [

@@ -1,10 +1,13 @@
 import 'package:android_intent_plus/android_intent.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:victoria_game/app/core/network/response/user_data_response.dart';
 import 'package:victoria_game/app/core/repository/user_repository.dart';
 import 'package:victoria_game/utils/secure_storage.dart';
+import 'package:http/http.dart' as http;
 
 import '../../../../core/services/firebase_auth_services.dart';
 import '../../../../routes/app_pages.dart';
@@ -20,6 +23,8 @@ class ProfileSettingsUserProfileController extends GetxController {
   String username = "John Doe";
   int ballance = 1000;
   int playTime = 0;
+
+  List<int> imageByte = [];
 
   void intentWhatsappTopUp() {
     final message = """
@@ -55,8 +60,11 @@ Cuma testing Intent WA
     Get.offAllNamed(Routes.AUTH_SIGN_IN);
   }
 
-  Future<String> fetchUserImage() async {
+  Future<String> fetchUserToken() async {
     String authToken = await storage.readDataFromStrorage("token") ?? "";
+    var result = await http.get(
+        Uri.parse("https://9a7c-125-166-116-213.ap.ngrok.io/api/user/image"),
+        headers: {userRepository.authorization: authToken});
     return authToken;
   }
 
@@ -73,9 +81,24 @@ Cuma testing Intent WA
     return userData;
   }
 
+  Future<Uint8List> fetchUserImage() async {
+    var result = await http.get(
+        Uri.parse("https://9a7c-125-166-116-213.ap.ngrok.io/api/user/image"),
+        headers: {userRepository.authorization: authAccessToken});
+
+    print(result.bodyBytes);
+
+    result.bodyBytes.forEach((element) {
+      imageByte.add(element);
+    });
+
+    return result.bodyBytes;
+  }
+
   Future<void> initUserData() async {
-    authAccessToken = await fetchUserImage();
+    authAccessToken = await fetchUserToken();
     await fetchUserData();
+    await fetchUserImage();
   }
 
   @override
