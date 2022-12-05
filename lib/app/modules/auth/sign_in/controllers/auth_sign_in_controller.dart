@@ -78,25 +78,30 @@ class AuthSignInController extends GetxController {
         email: emailController.text,
         password: passwordController.text,
       );
-      if (userResponse.data != null) {
-        var putToStorage = secureStorage.writeDataToStorage(
-            key: "token", value: userResponse.data?.cookies);
-      } else {
+
+      if (userResponse.message == "Email not registered") {
         Get.dialog(
           const SingleActionDialog(
-            title: "Email Atau Password Kamu Salah",
+            title: "Email Kamu Belum Terdaftar",
             description:
-                "Kamu mungkin salah memasukkan Email atau Password, Coba cek lagi ya! Atau bisa daftar aja",
+                "Kamu mungkin salah memasukkan Email, Coba cek lagi ya! Atau bisa daftar aja",
           ),
         );
+      } else if (userResponse.message == "Wrong password") {
+        Get.dialog(
+          const SingleActionDialog(
+            title: "Password Kamu Salah",
+            description:
+                "Kamu mungkin salah memasukkan Password, Coba cek lagi ya! Atau bisa daftar aja",
+          ),
+        );
+      } else {
+        var putToStorage = secureStorage.writeDataToStorage(
+            key: "token", value: userResponse.data?.token ?? "");
+        Get.offNamed(Routes.MAIN_PAGE_HOME);
       }
-      // firebaseAuthServices.signInUserPasswordBased(
-      //   emailAddress: emailController.text,
-      //   password: passwordController.text,
-      //   route: Routes.MAIN_PAGE_HOME,
-      // );
       var getFromStorage = await secureStorage.readDataFromStrorage("token");
-      print("From API : ${userResponse.data?.cookies}");
+      print("From API : ${userResponse.data?.token ?? ""}");
       print("From Storage : $getFromStorage");
     }
   }

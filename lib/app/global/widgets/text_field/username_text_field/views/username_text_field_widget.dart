@@ -42,7 +42,6 @@ class _UsernameTextFieldState extends State<UsernameTextField>
   void dispose() {
     focusNode.dispose();
     animationController.dispose();
-    widget.controller.dispose();
 
     super.dispose();
   }
@@ -61,7 +60,6 @@ class _UsernameTextFieldState extends State<UsernameTextField>
           hasFocus = !hasFocus;
         });
       },
-      // FIXME: Change from Material to Material
       child: Material(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),

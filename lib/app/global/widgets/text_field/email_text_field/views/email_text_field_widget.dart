@@ -45,7 +45,6 @@ class _EmailTextFieldState extends State<EmailTextField>
   void dispose() {
     focusNode.dispose();
     animationController.dispose();
-    widget.textEditingController.dispose();
 
     super.dispose();
   }
@@ -64,8 +63,6 @@ class _EmailTextFieldState extends State<EmailTextField>
           hasFocus = !hasFocus;
         });
       },
-
-      // FIXME: Change from Material to Material
       child: Material(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),

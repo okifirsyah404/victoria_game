@@ -10,6 +10,7 @@ abstract class Routes {
   static const MAIN_PAGE_RENT = _Paths.MAIN_PAGE_RENT;
   static const MAIN_PAGE_PS_SERVICES = _Paths.MAIN_PAGE_PS_SERVICES;
   static const MAIN_PAGE_HISTORY = _Paths.MAIN_PAGE_HISTORY;
+  static const ON_BOARDING = _Paths.ON_BOARDING;
   static const PROFILE_SETTINGS_USER_PROFILE =
       _Paths.PROFILE_SETTINGS_USER_PROFILE;
   static const DETAIL_GAME_CENTER = _Paths.DETAIL_GAME_CENTER;
@@ -17,6 +18,13 @@ abstract class Routes {
   static const PAYMENT = _Paths.PAYMENT;
   static const PROFILE_SETTINGS_EDIT_USER_PROFILE =
       _Paths.PROFILE_SETTINGS_EDIT_USER_PROFILE;
+  static const ORDER_DETAILS_AT_HOME = _Paths.ORDER_DETAILS_AT_HOME;
+  static const SHIPMENT = _Paths.SHIPMENT;
+  static const MAPS = _Paths.MAPS;
+  static const ORDER_DETAILS_AT_HOME_OVERVIEW =
+      _Paths.ORDER_DETAILS_AT_HOME_OVERVIEW;
+  static const SPLASH = _Paths.SPLASH;
+  static const AUTH_VERIFY_SIGN_UP = _Paths.AUTH_VERIFY_SIGN_UP;
 }
 
 abstract class _Paths {
@@ -28,9 +36,16 @@ abstract class _Paths {
   static const MAIN_PAGE_RENT = '/rent';
   static const MAIN_PAGE_PS_SERVICES = '/ps-services';
   static const MAIN_PAGE_HISTORY = '/history';
+  static const ON_BOARDING = '/on-boarding';
   static const PROFILE_SETTINGS_USER_PROFILE = '/user-profile';
   static const DETAIL_GAME_CENTER = '/detail-game-center';
   static const ORDER_DETAILS_ON_SITE = '/on-site';
   static const PAYMENT = '/payment';
   static const PROFILE_SETTINGS_EDIT_USER_PROFILE = '/edit-user-profile';
+  static const ORDER_DETAILS_AT_HOME = '/at-home';
+  static const SHIPMENT = '/shipment';
+  static const MAPS = '/maps';
+  static const ORDER_DETAILS_AT_HOME_OVERVIEW = '/at-home-overview';
+  static const SPLASH = '/splash';
+  static const AUTH_VERIFY_SIGN_UP = '/verify-sign-up';
 }

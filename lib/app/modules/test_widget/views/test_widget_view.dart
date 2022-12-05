@@ -45,12 +45,5 @@ class TestWidgetView extends GetView<TestWidgetController> {
 class TextFieldController extends GetxController {
   static var _focusNode;
 
-  // @override
-  // void onInit() {
-  //   // TODO: implement onInit
-  //   super.onInit();
-  //   _focusNode = FocusNode();
-  // }
-
   FocusNode get focusNode => _focusNode;
 }

@@ -65,6 +65,8 @@ class OrderDetailsOnSiteController extends GetxController {
       confirmText: "OKE",
       cancelText: "BATAL",
       helpText: "Pilih Jam",
+      hourLabelText: "",
+      minuteLabelText: "",
       initialEntryMode: TimePickerEntryMode.inputOnly,
       context: context,
       initialTime: TimeOfDay.now(),
@@ -73,8 +75,7 @@ class OrderDetailsOnSiteController extends GetxController {
           data: Theme.of(context).copyWith(
             colorScheme: ColorScheme.dark(
               primary: ColorsTheme.primaryColor,
-              onPrimary:
-                  ColorsTheme.neutralColor[900] ?? ColorsTheme.neutralColor,
+              onPrimary: ColorsTheme.primaryColor,
               onSurface: ColorsTheme.primaryColor,
             ),
             textButtonTheme: TextButtonThemeData(
@@ -101,6 +102,7 @@ class OrderDetailsOnSiteController extends GetxController {
     }
   }
 
+  // FIXME: Fix receiver null
   Future<void> initiatePaymentMethod() async {
     var result = await Get.toNamed(Routes.PAYMENT);
 

@@ -22,54 +22,65 @@ class ProfileSettingsEditUserProfileView
         title: const Text('Ubah Profile'),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _buildImagePicker(
-                    onTap: () {
-                      print("Tapped");
-                      // controller.openCamera();
-                      Get.dialog(
-                        ImageSourceDialog(
-                          cameraAction: () {
+      body: FutureBuilder(
+        future: controller.fetchUserData(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return Column(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _buildImagePicker(
+                          onTap: () {
+                            print("Tapped");
                             controller.openCamera();
-                            Get.back();
-                          },
-                          galeryAction: () {
-                            controller.openGallery();
-                            Get.back();
+                            // showModalBottomSheet(
+                            //   context: context,
+                            //   builder: (context) => Container(
+                            //     height: 100,
+                            //     decoration: BoxDecoration(
+                            //       color: Colors.white,
+                            //     ),
+                            //   ),
+                            // );
                           },
                         ),
-                      );
+                        SizedBox(height: 32),
+                        UsernameTextField(
+                          controller: controller.usernameController,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(16.0),
+                  color: ColorsTheme.neutralColor[900],
+                  child: OutlinedButton(
+                    onPressed: () {
+                      controller.onSubmitEdit();
                     },
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: ColorsTheme.neutralColor[900],
+                      backgroundColor: ColorsTheme.primaryColor,
+                    ),
+                    child: Text("Ubah Profile"),
                   ),
-                  SizedBox(height: 32),
-                  UsernameTextField(
-                    controller: controller.usernameController,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.all(16.0),
-            color: ColorsTheme.neutralColor[900],
-            child: OutlinedButton(
-              onPressed: () {},
-              style: OutlinedButton.styleFrom(
-                foregroundColor: ColorsTheme.neutralColor[900],
-                backgroundColor: ColorsTheme.primaryColor,
-              ),
-              child: Text("Ubah Profile"),
-            ),
-          ),
-        ],
+                ),
+              ],
+            );
+          }
+
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
       ),
     );
   }
@@ -88,8 +99,11 @@ class ProfileSettingsEditUserProfileView
             image: controller.imageFile != null &&
                     controller.imageFile.value.path != ""
                 ? Image.file(controller.imageFile.value).image
-                : AssetImage(
-                    "assets/images/drawable/profile/avatar-profile-100.jpg"),
+                : NetworkImage(
+                    "https://9a7c-125-166-116-213.ap.ngrok.io/api/user/image",
+                    headers: {
+                        "Authorization": controller.authAccessToken,
+                      }),
             fit: BoxFit.cover,
           ),
           shape: BoxShape.circle,

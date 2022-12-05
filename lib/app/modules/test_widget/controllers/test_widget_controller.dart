@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TestWidgetController extends GetxController {
-  //TODO: Implement TestWidgetController
-
   // static FocusNode _emailFocusNode = FocusNode();
   // static FocusNode _emailFocusNode2 = FocusNode();
 

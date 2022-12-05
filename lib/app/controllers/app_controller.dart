@@ -13,14 +13,16 @@ class AppController extends GetxController {
     installerStore: 'Unknown',
   );
 
-  Future<void> getPackageInfo() async {
+  late String appVersion = packageInfo.version;
+
+  getPackageInfo() async {
     PackageInfo info = await PackageInfo.fromPlatform();
     packageInfo = info;
   }
 
   @override
-  void onInit() async {
-    await getPackageInfo();
+  void onInit() {
+    getPackageInfo();
     super.onInit();
   }
 

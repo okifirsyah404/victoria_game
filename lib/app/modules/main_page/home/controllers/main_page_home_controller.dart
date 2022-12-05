@@ -1,23 +1,23 @@
-import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
 import 'package:get/get.dart';
+
 import 'package:victoria_game/app/core/network/response/game_center/game_centers_res.dart';
 import 'package:victoria_game/app/core/repository/game_center_repository.dart';
+import 'package:victoria_game/app/core/repository/user_repository.dart';
 
-import 'package:victoria_game/app/global/themes/colors_theme.dart';
-import 'package:victoria_game/app/global/themes/typography_theme.dart';
+import 'package:victoria_game/utils/secure_storage.dart';
 
 class MainPageHomeController extends GetxController {
-  //TODO: Implement MainPageHomeController
+  final storage = SecureStorage();
 
-  // FirebaseAuthServices firebaseAuthServices = FirebaseAuthServices();
+  late UserRepository userRepository;
 
-  // void signOut() {
-  //   firebaseAuthServices.signOutUserPasswordBased();
-  //   Get.offAllNamed(Routes.AUTH_SIGN_IN);
-  // }
+  late String authAccessToken;
+
+  String username = "John Doe";
+  int ballance = 1000;
+  int playTime = 0;
 
   late GameCenterRepository gameCenterRepository;
 
@@ -126,6 +126,7 @@ class MainPageHomeController extends GetxController {
     ),
   ];
 
+  // FIXME: Use Permisson Service
   Future<void> determinePosition() async {
     LocationPermission locationPermission;
 
@@ -148,16 +149,30 @@ class MainPageHomeController extends GetxController {
     myPosition = await Geolocator.getCurrentPosition();
   }
 
-  // @override
-  // void onInit() {
-  //   determinePosition();
-  //   // fetchGameCentersData();
-  //   super.onInit();
-  // }
+  Future<String> fetchUserImage() async {
+    String authToken = await storage.readDataFromStrorage("token") ?? "";
+    return authToken;
+  }
+
+  Future<void> fetchUserData() async {
+    userRepository = UserRepository.instance;
+    String authToken = await storage.readDataFromStrorage("token") ?? "";
+
+    var userData = await userRepository.fetchUserData(authToken);
+
+    username = userData.data?.username ?? "";
+    ballance = userData.data?.ballance ?? 1;
+    playTime = userData.data?.playTime ?? 1;
+  }
+
+  Future<void> initUserData() async {
+    authAccessToken = await fetchUserImage();
+    await fetchUserData();
+  }
 
   @override
   void onInit() {
-    // TODO: implement onInit
+    initUserData();
     determinePosition();
     super.onInit();
   }

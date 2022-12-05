@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
+import 'package:victoria_game/app/global/widgets/text_field/regular_text_field/views/regular_text_field_widget.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
 
 import '../../../../global/themes/colors_theme.dart';
@@ -42,6 +44,12 @@ class AuthSignUpView extends GetView<AuthSignUpController> {
                   SizedBox(height: 8.0),
                   EmailTextField(
                       textEditingController: controller.emailController),
+                  SizedBox(height: 8.0),
+                  RegularTextField(
+                    controller: controller.phoneController,
+                    label: "Nomor Handphone",
+                    icon: Icons.phone,
+                  ),
                   SizedBox(height: 8.0),
                   PasswordTextField(
                     textEditingController: controller.passwordController,

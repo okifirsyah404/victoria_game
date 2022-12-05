@@ -5,8 +5,6 @@ import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import '../../themes/typography_theme.dart';
 
 class GenericDropdown extends StatelessWidget {
-  // TODO: Fixing focus node and dropdown style
-
   const GenericDropdown(
       {super.key,
       required this.selectedItem,
@@ -19,7 +17,6 @@ class GenericDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // FIXME: Change from Material to Material
     return Material(
       elevation: 2,
       borderRadius: BorderRadius.circular(8),

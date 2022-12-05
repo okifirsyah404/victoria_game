@@ -3,7 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class SecureStorage {
   SecureStorage();
 
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
 
   SecureStorage._privateConstructor();
 

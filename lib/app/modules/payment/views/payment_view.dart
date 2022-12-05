@@ -15,23 +15,37 @@ class PaymentView extends GetView<PaymentController> {
       appBar: AppBar(
         title: const Text('Pilih Pembayaran'),
         centerTitle: true,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: ColorsTheme.primaryColor,
+          ),
+          onPressed: controller.selectedIndex == -1
+              ? () {
+                  Get.back();
+                }
+              : () {
+                  controller.backWithOption();
+                },
+        ),
       ),
       body: Container(
         child: Column(
           children: [
             Expanded(
               child: ListView.separated(
-                padding: EdgeInsets.all(16.0),
-                separatorBuilder: (context, index) => SizedBox(height: 8),
+                padding: const EdgeInsets.all(16.0),
+                separatorBuilder: (context, index) => const SizedBox(height: 8),
                 itemCount: controller.paymentMethods.length,
                 itemBuilder: (context, index) {
                   return Obx(
                     () {
                       int? ballance =
-                          controller.getPaymentMethods[index]["ballance"];
+                          controller.paymentMethods[index]["ballance"];
 
                       return ListTile(
-                        contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 16.0),
                         tileColor: ColorsTheme.neutralColor[900],
                         textColor: ColorsTheme.primaryColor,
                         selectedColor: ColorsTheme.neutralColor[900],
@@ -41,17 +55,16 @@ class PaymentView extends GetView<PaymentController> {
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         title: Text(
-                          controller.getPaymentMethods[index]["methodTitle"],
+                          controller.paymentMethods[index]["method"],
                           style: TypographyTheme.titleSmall,
                         ),
-                        trailing: controller.getPaymentMethods[index]
-                                    ["ballance"] !=
-                                null
-                            ? Text(
-                                ballance?.toRupiah() ?? "",
-                                style: TypographyTheme.bodyRegular,
-                              )
-                            : null,
+                        trailing:
+                            controller.paymentMethods[index]["ballance"] != null
+                                ? Text(
+                                    ballance?.toRupiah() ?? "",
+                                    style: TypographyTheme.bodyRegular,
+                                  )
+                                : null,
                         onTap: () {
                           controller.changeIndex(index);
                         },
@@ -63,7 +76,7 @@ class PaymentView extends GetView<PaymentController> {
             ),
             Container(
               width: double.infinity,
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               color: ColorsTheme.neutralColor[900],
               child: Obx(
                 () => OutlinedButton(
@@ -78,7 +91,7 @@ class PaymentView extends GetView<PaymentController> {
                         ? ColorsTheme.neutralColor[400]
                         : ColorsTheme.primaryColor,
                   ),
-                  child: Text("Pilih Metode Pembayaran"),
+                  child: const Text("Pilih Metode Pembayaran"),
                 ),
               ),
             ),

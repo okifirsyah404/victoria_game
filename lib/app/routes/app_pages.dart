@@ -4,18 +4,24 @@ import '../modules/auth/sign_in/bindings/auth_sign_in_binding.dart';
 import '../modules/auth/sign_in/views/auth_sign_in_view.dart';
 import '../modules/auth/sign_up/bindings/auth_sign_up_binding.dart';
 import '../modules/auth/sign_up/views/auth_sign_up_view.dart';
+import '../modules/auth/verify_sign_up/bindings/auth_verify_sign_up_binding.dart';
+import '../modules/auth/verify_sign_up/views/auth_verify_sign_up_view.dart';
 import '../modules/detail_game_center/bindings/detail_game_center_binding.dart';
 import '../modules/detail_game_center/views/detail_game_center_view.dart';
 import '../modules/main_page/history/bindings/main_page_history_binding.dart';
 import '../modules/main_page/history/views/main_page_history_view.dart';
 import '../modules/main_page/home/bindings/main_page_home_binding.dart';
-import '../modules/main_page/home/bindings/main_page_home_binding.dart';
-import '../modules/main_page/home/views/main_page_home_view.dart';
 import '../modules/main_page/home/views/main_page_home_view.dart';
 import '../modules/main_page/ps_services/bindings/main_page_ps_services_binding.dart';
 import '../modules/main_page/ps_services/views/main_page_ps_services_view.dart';
 import '../modules/main_page/rent/bindings/main_page_rent_binding.dart';
 import '../modules/main_page/rent/views/main_page_rent_view.dart';
+import '../modules/maps/bindings/maps_binding.dart';
+import '../modules/maps/views/maps_view.dart';
+import '../modules/order_details/at_home/bindings/order_details_at_home_binding.dart';
+import '../modules/order_details/at_home/views/order_details_at_home_view.dart';
+import '../modules/order_details/at_home_overview/bindings/order_details_at_home_overview_binding.dart';
+import '../modules/order_details/at_home_overview/views/order_details_at_home_overview_view.dart';
 import '../modules/order_details/on_site/bindings/order_details_on_site_binding.dart';
 import '../modules/order_details/on_site/views/order_details_on_site_view.dart';
 import '../modules/payment/bindings/payment_binding.dart';
@@ -24,6 +30,10 @@ import '../modules/profile_settings/edit_user_profile/bindings/profile_settings_
 import '../modules/profile_settings/edit_user_profile/views/profile_settings_edit_user_profile_view.dart';
 import '../modules/profile_settings/user_profile/bindings/profile_settings_user_profile_binding.dart';
 import '../modules/profile_settings/user_profile/views/profile_settings_user_profile_view.dart';
+import '../modules/shipment/bindings/shipment_binding.dart';
+import '../modules/shipment/views/shipment_view.dart';
+import '../modules/splash/bindings/splash_binding.dart';
+import '../modules/splash/views/splash_view.dart';
 import '../modules/test_widget/bindings/test_widget_binding.dart';
 import '../modules/test_widget/views/test_widget_view.dart';
 
@@ -99,6 +109,36 @@ class AppPages {
       name: _Paths.PROFILE_SETTINGS_EDIT_USER_PROFILE,
       page: () => const ProfileSettingsEditUserProfileView(),
       binding: ProfileSettingsEditUserProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDER_DETAILS_AT_HOME,
+      page: () => const OrderDetailsAtHomeView(),
+      binding: OrderDetailsAtHomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.SHIPMENT,
+      page: () => const ShipmentView(),
+      binding: ShipmentBinding(),
+    ),
+    GetPage(
+      name: _Paths.MAPS,
+      page: () => const MapsView(),
+      binding: MapsBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDER_DETAILS_AT_HOME_OVERVIEW,
+      page: () => const OrderDetailsAtHomeOverviewView(),
+      binding: OrderDetailsAtHomeOverviewBinding(),
+    ),
+    GetPage(
+      name: _Paths.SPLASH,
+      page: () => SplashView(),
+      binding: SplashBinding(),
+    ),
+    GetPage(
+      name: _Paths.AUTH_VERIFY_SIGN_UP,
+      page: () => const AuthVerifySignUpView(),
+      binding: AuthVerifySignUpBinding(),
     ),
   ];
 }

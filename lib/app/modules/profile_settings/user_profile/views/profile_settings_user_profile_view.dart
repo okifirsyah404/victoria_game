@@ -1,10 +1,13 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import 'package:victoria_game/app/controllers/app_controller.dart';
 import 'package:victoria_game/app/global/widgets/list_tile/divider_list_tile.dart';
+import 'package:victoria_game/app/global/widgets/shimmer_widget.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
+import 'package:victoria_game/utils/int_extensions.dart';
 
 import '../../../../global/icons/custom_icon_data_icons.dart';
 import '../../../../global/themes/colors_theme.dart';
@@ -33,7 +36,7 @@ class ProfileSettingsUserProfileView
           centerTitle: true,
           leading: IconButton(
             onPressed: () {
-              Get.back();
+              Get.offAllNamed(Routes.MAIN_PAGE_HOME);
             },
             icon: Icon(Icons.close),
           ),
@@ -55,26 +58,69 @@ class ProfileSettingsUserProfileView
                   children: [
                     Row(
                       children: [
-                        Container(
-                          height: 48,
-                          width: 48,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: ColorsTheme.primaryColor,
-                              width: 1,
-                            ),
-                            image: DecorationImage(
-                              image: AssetImage(
-                                  "assets/images/drawable/profile/avatar-profile-100.jpg"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
+                        FutureBuilder(
+                          future: controller.initUserData(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              return Container(
+                                height: 48,
+                                width: 48,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: ColorsTheme.primaryColor,
+                                    width: 1,
+                                  ),
+                                  image: DecorationImage(
+                                    // image: NetworkImage(
+                                    //     "https://9a7c-125-166-116-213.ap.ngrok.io/api/user/image",
+                                    //     headers: {
+                                    //       "Authorization":
+                                    //           controller.authAccessToken,
+                                    //     }),
+                                    image: MemoryImage(Uint8List.fromList(
+                                        controller.imageByte)),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              );
+                            }
+                            return ShimmerWidget(
+                              child: Container(
+                                height: 48,
+                                width: 48,
+                                decoration: BoxDecoration(
+                                  color: ColorsTheme.neutralColor,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            );
+                          },
                         ),
                         SizedBox(width: 16),
-                        Text(
-                          "Hi, John Doe",
-                          style: TypographyTheme.bodyMedium,
+                        FutureBuilder(
+                          future: controller.initUserData(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              return Text(
+                                "Hi, ${controller.username}",
+                                style: TypographyTheme.bodyMedium,
+                              );
+                            }
+                            return ShimmerWidget(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: ColorsTheme.neutralColor,
+                                    borderRadius: BorderRadius.circular(8)),
+                                child: Text(
+                                  "Hi, Lorem Ipsum Dolor",
+                                  style: TypographyTheme.bodyMedium,
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -131,12 +177,37 @@ class ProfileSettingsUserProfileView
                                     style: TypographyTheme.bodySmall,
                                   ),
                                   SizedBox(height: 8),
-                                  Text(
-                                    "Rp 1.000.000",
-                                    style: TypographyTheme.bodyMedium.copyWith(
-                                      color: ColorsTheme.primaryColor,
-                                      letterSpacing: 0.6,
-                                    ),
+                                  FutureBuilder(
+                                    future: controller.initUserData(),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.done) {
+                                        return Text(
+                                          controller.ballance.toRupiah(),
+                                          style: TypographyTheme.bodyMedium
+                                              .copyWith(
+                                            color: ColorsTheme.primaryColor,
+                                            letterSpacing: 0.6,
+                                          ),
+                                        );
+                                      }
+                                      return ShimmerWidget(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              color: ColorsTheme.neutralColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(8)),
+                                          child: Text(
+                                            "Rp 10.000.000",
+                                            style: TypographyTheme.bodyMedium
+                                                .copyWith(
+                                              color: ColorsTheme.primaryColor,
+                                              letterSpacing: 0.6,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
                                   ),
                                 ],
                               ),
@@ -160,11 +231,37 @@ class ProfileSettingsUserProfileView
                                     style: TypographyTheme.bodySmall,
                                   ),
                                   SizedBox(height: 8),
-                                  Text(
-                                    "36 Jam",
-                                    style: TypographyTheme.bodyMedium.copyWith(
-                                      color: ColorsTheme.primaryColor,
-                                    ),
+                                  FutureBuilder(
+                                    future: controller.initUserData(),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.done) {
+                                        return Text(
+                                          "${controller.playTime} Jam",
+                                          style: TypographyTheme.bodyMedium
+                                              .copyWith(
+                                            color: ColorsTheme.primaryColor,
+                                            letterSpacing: 0.6,
+                                          ),
+                                        );
+                                      }
+                                      return ShimmerWidget(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              color: ColorsTheme.neutralColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(8)),
+                                          child: Text(
+                                            "Rp 10.000.000",
+                                            style: TypographyTheme.bodyMedium
+                                                .copyWith(
+                                              color: ColorsTheme.primaryColor,
+                                              letterSpacing: 0.6,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
                                   ),
                                 ],
                               ),

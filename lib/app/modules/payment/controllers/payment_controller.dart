@@ -1,19 +1,25 @@
 import 'package:get/get.dart';
+import 'package:victoria_game/app/routes/app_pages.dart';
 
 class PaymentController extends GetxController {
-  //TODO: Implement PaymentController
+  final _arguments = Get.arguments;
 
-  final selectedIndex = (-1).obs;
+  Map<String, dynamic> get itemData => _arguments[0];
+  Map<String, dynamic>? get paymentMethod => _arguments[1];
 
-  List<Map<String, dynamic>> paymentMethods = [
-    {
-      "methodTitle": "Saldo",
-      "ballance": 1000000,
-    },
-    {"methodTitle": "Tunai"},
-  ];
+  late Rxn<int> selectedIndex;
 
-  List<Map<String, dynamic>> get getPaymentMethods => paymentMethods;
+  List<Map<String, dynamic>> get _paymentMethods => [
+        {
+          "method": "Saldo",
+          "ballance": 1000000,
+        },
+        {
+          "method": "Tunai",
+        },
+      ];
+
+  List<Map<String, dynamic>> get paymentMethods => _paymentMethods;
 
   void changeIndex(int index) {
     selectedIndex.value = index;
@@ -22,15 +28,27 @@ class PaymentController extends GetxController {
   void backWithOption() {
     Get.back(
       result: {
-        "method": paymentMethods[selectedIndex.value]["methodTitle"],
-        "ballance": paymentMethods[selectedIndex.value]["ballance"],
+        "method": paymentMethods[selectedIndex.value ?? 1]["method"],
+        "ballance": paymentMethods[selectedIndex.value ?? 1]["ballance"],
       },
     );
   }
 
-  final count = 0.obs;
+  void initialPaymentMethod() {
+    selectedIndex.value = -1;
+    if (paymentMethod != null && paymentMethod?["method"] != "") {
+      for (var i = 0; i < paymentMethods.length; i++) {
+        if (paymentMethods[i]["method"] == paymentMethod?["method"]) {
+          selectedIndex.value = i;
+        }
+      }
+    }
+  }
+
   @override
   void onInit() {
+    selectedIndex = Rxn<int>();
+    initialPaymentMethod();
     super.onInit();
   }
 
@@ -43,6 +61,4 @@ class PaymentController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }
