@@ -41,102 +41,162 @@ class ProfileSettingsUserProfileView
             icon: Icon(Icons.close),
           ),
         ),
-        body: ListView(
-          padding: EdgeInsets.all(16.0),
-          children: [
-            Material(
-              borderRadius: BorderRadius.circular(8.0),
+        body: FutureBuilder(
+          future: controller.initUserData(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return onDataDone();
+            }
+            return onDataLoading();
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget onDataDone() {
+    return ListView(
+      padding: EdgeInsets.all(16.0),
+      children: [
+        Material(
+          borderRadius: BorderRadius.circular(8.0),
+          elevation: 2,
+          child: Container(
+            decoration: BoxDecoration(
+              color: ColorsTheme.neutralColor[900],
+              borderRadius: BorderRadius.circular(8),
+            ),
+            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      height: 48,
+                      width: 48,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: ColorsTheme.primaryColor,
+                          width: 1,
+                        ),
+                        image: DecorationImage(
+                          image: MemoryImage(
+                              Uint8List.fromList(controller.imageByte)),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 16),
+                    Text(
+                      "Hi, ${controller.username}",
+                      style: TypographyTheme.bodyMedium,
+                    ),
+                  ],
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: ColorsTheme.neutralColor[900],
+                  ),
+                  child: IconButton(
+                    onPressed: () {
+                      Get.toNamed(Routes.PROFILE_SETTINGS_EDIT_USER_PROFILE);
+                    },
+                    icon: Icon(
+                      CustomIconData.pencil,
+                      color: ColorsTheme.primaryColor,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 16.0, 0, 16.0),
+          child: AspectRatio(
+            aspectRatio: 328 / 130,
+            child: Material(
+              borderRadius: BorderRadius.circular(8),
               elevation: 2,
               child: Container(
+                width: Get.width,
+                // height: 64,5
                 decoration: BoxDecoration(
                   color: ColorsTheme.neutralColor[900],
                   borderRadius: BorderRadius.circular(8),
                 ),
-                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        FutureBuilder(
-                          future: controller.initUserData(),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.done) {
-                              return Container(
-                                height: 48,
-                                width: 48,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: ColorsTheme.primaryColor,
-                                    width: 1,
-                                  ),
-                                  image: DecorationImage(
-                                    // image: NetworkImage(
-                                    //     "https://9a7c-125-166-116-213.ap.ngrok.io/api/user/image",
-                                    //     headers: {
-                                    //       "Authorization":
-                                    //           controller.authAccessToken,
-                                    //     }),
-                                    image: MemoryImage(Uint8List.fromList(
-                                        controller.imageByte)),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              );
-                            }
-                            return ShimmerWidget(
-                              child: Container(
-                                height: 48,
-                                width: 48,
-                                decoration: BoxDecoration(
-                                  color: ColorsTheme.neutralColor,
-                                  shape: BoxShape.circle,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Saldo Kamu",
+                                style: TypographyTheme.bodySmall,
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                controller.ballance.toRupiah(),
+                                style: TypographyTheme.bodyMedium.copyWith(
+                                  color: ColorsTheme.primaryColor,
+                                  letterSpacing: 0.6,
                                 ),
                               ),
-                            );
-                          },
+                            ],
+                          ),
                         ),
-                        SizedBox(width: 16),
-                        FutureBuilder(
-                          future: controller.initUserData(),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.done) {
-                              return Text(
-                                "Hi, ${controller.username}",
-                                style: TypographyTheme.bodyMedium,
-                              );
-                            }
-                            return ShimmerWidget(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: ColorsTheme.neutralColor,
-                                    borderRadius: BorderRadius.circular(8)),
-                                child: Text(
-                                  "Hi, Lorem Ipsum Dolor",
-                                  style: TypographyTheme.bodyMedium,
+                        Container(
+                          height: 48,
+                          child: VerticalDivider(
+                            width: 20,
+                            thickness: 1,
+                            color: ColorsTheme.neutralColor[50],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Play Time Kamu",
+                                style: TypographyTheme.bodySmall,
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                "${controller.playTime} Jam",
+                                style: TypographyTheme.bodyMedium.copyWith(
+                                  color: ColorsTheme.primaryColor,
+                                  letterSpacing: 0.6,
                                 ),
                               ),
-                            );
-                          },
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: ColorsTheme.neutralColor[900],
-                      ),
-                      child: IconButton(
-                        onPressed: () {
-                          Get.toNamed(
-                              Routes.PROFILE_SETTINGS_EDIT_USER_PROFILE);
-                        },
-                        icon: Icon(
-                          CustomIconData.pencil,
-                          color: ColorsTheme.primaryColor,
+                    SizedBox(height: 8),
+                    OutlinedButton.icon(
+                      onPressed: () {
+                        controller.intentWhatsappTopUp();
+                      },
+                      icon: FaIcon(FontAwesomeIcons.whatsapp),
+                      label: Text("Chat Admin untuk Top Up"),
+                      style: OutlinedButton.styleFrom(
+                        backgroundColor: Color(0xFF25D366),
+                        foregroundColor: ColorsTheme.neutralColor[50],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
                     ),
@@ -144,216 +204,323 @@ class ProfileSettingsUserProfileView
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 16.0, 0, 16.0),
-              child: AspectRatio(
-                aspectRatio: 328 / 130,
-                child: Material(
-                  borderRadius: BorderRadius.circular(8),
-                  elevation: 2,
-                  child: Container(
-                    width: Get.width,
-                    // height: 64,5
-                    decoration: BoxDecoration(
-                      color: ColorsTheme.neutralColor[900],
-                      borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 16.0, top: 6.0),
+          child: Text(
+            "Pengaturan Aplikasi",
+            style: TypographyTheme.titleSmall.copyWith(
+              color: ColorsTheme.primaryColor,
+            ),
+          ),
+        ),
+        DividerListTile(
+          title: "Pengaturan Notifikasi",
+          topBorder: true,
+        ),
+        DividerListTile(
+          title: "Laporkan Masalah",
+          topBorder: true,
+          bottomBorder: true,
+          trailing: Text("v${appController.packageInfo.version}"),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 16.0, top: 24.0),
+          child: Text(
+            "Kebijakan Dan Pertanyaan",
+            style: TypographyTheme.titleSmall.copyWith(
+              color: ColorsTheme.primaryColor,
+            ),
+          ),
+        ),
+        DividerListTile(
+          title: "Kebijakan Aplikasi",
+          topBorder: true,
+        ),
+        DividerListTile(
+          title: "FaQ",
+          topBorder: true,
+          bottomBorder: true,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 16.0, top: 24.0),
+          child: Text(
+            "Pengaturan Akun",
+            style: TypographyTheme.titleSmall.copyWith(
+              color: ColorsTheme.primaryColor,
+            ),
+          ),
+        ),
+        DividerListTile(
+          title: "Ubah Email",
+          topBorder: true,
+        ),
+        DividerListTile(
+          title: "Ubah Kata Sandi",
+          bottomBorder: true,
+          topBorder: true,
+        ),
+        DividerListTile(
+          title: "Keluar",
+          bottomBorder: true,
+          onTap: () {
+            controller.signOut();
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget onDataLoading() {
+    return ListView(
+      padding: EdgeInsets.all(16.0),
+      children: [
+        Material(
+          borderRadius: BorderRadius.circular(8.0),
+          elevation: 2,
+          child: Container(
+            decoration: BoxDecoration(
+              color: ColorsTheme.neutralColor[900],
+              borderRadius: BorderRadius.circular(8),
+            ),
+            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    FutureBuilder(
+                      future: controller.initUserData(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return Container(
+                            height: 48,
+                            width: 48,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: ColorsTheme.primaryColor,
+                                width: 1,
+                              ),
+                              image: DecorationImage(
+                                image: MemoryImage(
+                                    Uint8List.fromList(controller.imageByte)),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          );
+                        }
+                        return ShimmerWidget(
+                          child: Container(
+                            height: 48,
+                            width: 48,
+                            decoration: BoxDecoration(
+                              color: ColorsTheme.neutralColor,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                        );
+                      },
                     ),
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-                    child: Column(
+                    SizedBox(width: 16),
+                    ShimmerWidget(
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: ColorsTheme.neutralColor,
+                            borderRadius: BorderRadius.circular(8)),
+                        child: Text(
+                          "Hi, Lorem Ipsum Dolor",
+                          style: TypographyTheme.bodyMedium,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: ColorsTheme.neutralColor[900],
+                  ),
+                  child: IconButton(
+                    onPressed: () {
+                      Get.toNamed(Routes.PROFILE_SETTINGS_EDIT_USER_PROFILE);
+                    },
+                    icon: Icon(
+                      CustomIconData.pencil,
+                      color: ColorsTheme.primaryColor,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 16.0, 0, 16.0),
+          child: AspectRatio(
+            aspectRatio: 328 / 130,
+            child: Material(
+              borderRadius: BorderRadius.circular(8),
+              elevation: 2,
+              child: Container(
+                width: Get.width,
+                // height: 64,5
+                decoration: BoxDecoration(
+                  color: ColorsTheme.neutralColor[900],
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Saldo Kamu",
-                                    style: TypographyTheme.bodySmall,
-                                  ),
-                                  SizedBox(height: 8),
-                                  FutureBuilder(
-                                    future: controller.initUserData(),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.connectionState ==
-                                          ConnectionState.done) {
-                                        return Text(
-                                          controller.ballance.toRupiah(),
-                                          style: TypographyTheme.bodyMedium
-                                              .copyWith(
-                                            color: ColorsTheme.primaryColor,
-                                            letterSpacing: 0.6,
-                                          ),
-                                        );
-                                      }
-                                      return ShimmerWidget(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              color: ColorsTheme.neutralColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(8)),
-                                          child: Text(
-                                            "Rp 10.000.000",
-                                            style: TypographyTheme.bodyMedium
-                                                .copyWith(
-                                              color: ColorsTheme.primaryColor,
-                                              letterSpacing: 0.6,
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Saldo Kamu",
+                                style: TypographyTheme.bodySmall,
                               ),
-                            ),
-                            Container(
-                              height: 48,
-                              child: VerticalDivider(
-                                width: 20,
-                                thickness: 1,
-                                color: ColorsTheme.neutralColor[50],
-                              ),
-                            ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Play Time Kamu",
-                                    style: TypographyTheme.bodySmall,
+                              SizedBox(height: 8),
+                              ShimmerWidget(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: ColorsTheme.neutralColor,
+                                      borderRadius: BorderRadius.circular(8)),
+                                  child: Text(
+                                    "Rp 10.000.000",
+                                    style: TypographyTheme.bodyMedium.copyWith(
+                                      color: ColorsTheme.primaryColor,
+                                      letterSpacing: 0.6,
+                                    ),
                                   ),
-                                  SizedBox(height: 8),
-                                  FutureBuilder(
-                                    future: controller.initUserData(),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.connectionState ==
-                                          ConnectionState.done) {
-                                        return Text(
-                                          "${controller.playTime} Jam",
-                                          style: TypographyTheme.bodyMedium
-                                              .copyWith(
-                                            color: ColorsTheme.primaryColor,
-                                            letterSpacing: 0.6,
-                                          ),
-                                        );
-                                      }
-                                      return ShimmerWidget(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              color: ColorsTheme.neutralColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(8)),
-                                          child: Text(
-                                            "Rp 10.000.000",
-                                            style: TypographyTheme.bodyMedium
-                                                .copyWith(
-                                              color: ColorsTheme.primaryColor,
-                                              letterSpacing: 0.6,
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                        SizedBox(height: 8),
-                        OutlinedButton.icon(
-                          onPressed: () {
-                            controller.intentWhatsappTopUp();
-                          },
-                          icon: FaIcon(FontAwesomeIcons.whatsapp),
-                          label: Text("Chat Admin untuk Top Up"),
-                          style: OutlinedButton.styleFrom(
-                            backgroundColor: Color(0xFF25D366),
-                            foregroundColor: ColorsTheme.neutralColor[50],
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
+                        Container(
+                          height: 48,
+                          child: VerticalDivider(
+                            width: 20,
+                            thickness: 1,
+                            color: ColorsTheme.neutralColor[50],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Play Time Kamu",
+                                style: TypographyTheme.bodySmall,
+                              ),
+                              SizedBox(height: 8),
+                              ShimmerWidget(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: ColorsTheme.neutralColor,
+                                      borderRadius: BorderRadius.circular(8)),
+                                  child: Text(
+                                    "Rp 10.000.000",
+                                    style: TypographyTheme.bodyMedium.copyWith(
+                                      color: ColorsTheme.primaryColor,
+                                      letterSpacing: 0.6,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
-                  ),
+                    SizedBox(height: 8),
+                    OutlinedButton.icon(
+                      onPressed: () {},
+                      icon: FaIcon(FontAwesomeIcons.whatsapp),
+                      label: Text("Chat Admin untuk Top Up"),
+                      style: OutlinedButton.styleFrom(
+                        backgroundColor: Color(0xFF25D366),
+                        foregroundColor: ColorsTheme.neutralColor[50],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16.0, top: 6.0),
-              child: Text(
-                "Pengaturan Aplikasi",
-                style: TypographyTheme.titleSmall.copyWith(
-                  color: ColorsTheme.primaryColor,
-                ),
-              ),
-            ),
-            DividerListTile(
-              title: "Pengaturan Notifikasi",
-              topBorder: true,
-            ),
-            DividerListTile(
-              title: "Laporkan Masalah",
-              topBorder: true,
-              bottomBorder: true,
-              trailing: Text("v${appController.packageInfo.version}"),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16.0, top: 24.0),
-              child: Text(
-                "Kebijakan Dan Pertanyaan",
-                style: TypographyTheme.titleSmall.copyWith(
-                  color: ColorsTheme.primaryColor,
-                ),
-              ),
-            ),
-            DividerListTile(
-              title: "Kebijakan Aplikasi",
-              topBorder: true,
-            ),
-            DividerListTile(
-              title: "FaQ",
-              topBorder: true,
-              bottomBorder: true,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16.0, top: 24.0),
-              child: Text(
-                "Pengaturan Akun",
-                style: TypographyTheme.titleSmall.copyWith(
-                  color: ColorsTheme.primaryColor,
-                ),
-              ),
-            ),
-            DividerListTile(
-              title: "Ubah Email",
-              topBorder: true,
-            ),
-            DividerListTile(
-              title: "Ubah Kata Sandi",
-              bottomBorder: true,
-              topBorder: true,
-            ),
-            DividerListTile(
-              title: "Keluar",
-              bottomBorder: true,
-              onTap: () {
-                controller.signOut();
-              },
-            ),
-          ],
+          ),
         ),
-      ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 16.0, top: 6.0),
+          child: Text(
+            "Pengaturan Aplikasi",
+            style: TypographyTheme.titleSmall.copyWith(
+              color: ColorsTheme.primaryColor,
+            ),
+          ),
+        ),
+        DividerListTile(
+          title: "Pengaturan Notifikasi",
+          topBorder: true,
+        ),
+        DividerListTile(
+          title: "Laporkan Masalah",
+          topBorder: true,
+          bottomBorder: true,
+          trailing: Text("v${appController.packageInfo.version}"),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 16.0, top: 24.0),
+          child: Text(
+            "Kebijakan Dan Pertanyaan",
+            style: TypographyTheme.titleSmall.copyWith(
+              color: ColorsTheme.primaryColor,
+            ),
+          ),
+        ),
+        DividerListTile(
+          title: "Kebijakan Aplikasi",
+          topBorder: true,
+        ),
+        DividerListTile(
+          title: "FaQ",
+          topBorder: true,
+          bottomBorder: true,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 16.0, top: 24.0),
+          child: Text(
+            "Pengaturan Akun",
+            style: TypographyTheme.titleSmall.copyWith(
+              color: ColorsTheme.primaryColor,
+            ),
+          ),
+        ),
+        DividerListTile(
+          title: "Ubah Email",
+          topBorder: true,
+        ),
+        DividerListTile(
+          title: "Ubah Kata Sandi",
+          bottomBorder: true,
+          topBorder: true,
+        ),
+        DividerListTile(
+          title: "Keluar",
+          bottomBorder: true,
+          onTap: () {},
+        ),
+      ],
     );
   }
 }

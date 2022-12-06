@@ -11,7 +11,7 @@ class GameCenterRepository extends NetworkServices {
 
   // Future<GameCenters> fetchGameCenters() async {
   //   var response = await getMethod(
-  //       "https://0ce5-118-99-121-209.ap.ngrok.io/game-centers", {"": ""});
+  //       "https://7fec-125-166-116-213.ap.ngrok.io/game-centers", {"": ""});
 
   //   var gameCenterData = GameCenters.fromJson(response);
 

@@ -31,10 +31,14 @@ class SplashController extends GetxController {
 
     return Timer(duration, () {
       if (connection) {
-        if (authToken.isEmpty) {
-          Get.offNamed(Routes.AUTH_SIGN_IN);
+        if (introduction.isNotEmpty) {
+          if (authToken.isEmpty) {
+            Get.offNamed(Routes.AUTH_SIGN_IN);
+          } else {
+            Get.offNamed(Routes.MAIN_PAGE_HOME);
+          }
         } else {
-          Get.offNamed(Routes.MAIN_PAGE_HOME);
+          Get.offNamed(Routes.ON_BOARDING);
         }
       } else {
         Get.dialog(SingleActionDialog(
@@ -73,8 +77,7 @@ class SplashController extends GetxController {
 
   Future<void> getSharedPreferences() async {
     authToken = await secureStorage.readDataFromStrorage('token') ?? "";
-    print(authToken);
-    // introduction = await userRepository
+    introduction = await secureStorage.readDataFromStrorage('intro') ?? "";
   }
 
   @override

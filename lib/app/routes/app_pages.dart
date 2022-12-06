@@ -1,5 +1,13 @@
 import 'package:get/get.dart';
 
+import '../modules/auth/forgot_password/email_input/bindings/auth_forgot_password_email_input_binding.dart';
+import '../modules/auth/forgot_password/email_input/views/auth_forgot_password_email_input_view.dart';
+import '../modules/auth/forgot_password/forgot_password_email/bindings/auth_forgot_password_forgot_password_email_binding.dart';
+import '../modules/auth/forgot_password/forgot_password_email/views/auth_forgot_password_forgot_password_email_view.dart';
+import '../modules/auth/forgot_password/otp_input/bindings/auth_forgot_password_otp_input_binding.dart';
+import '../modules/auth/forgot_password/otp_input/views/auth_forgot_password_otp_input_view.dart';
+import '../modules/auth/forgot_password/reset_password/bindings/auth_forgot_password_reset_password_binding.dart';
+import '../modules/auth/forgot_password/reset_password/views/auth_forgot_password_reset_password_view.dart';
 import '../modules/auth/sign_in/bindings/auth_sign_in_binding.dart';
 import '../modules/auth/sign_in/views/auth_sign_in_view.dart';
 import '../modules/auth/sign_up/bindings/auth_sign_up_binding.dart';
@@ -18,6 +26,8 @@ import '../modules/main_page/rent/bindings/main_page_rent_binding.dart';
 import '../modules/main_page/rent/views/main_page_rent_view.dart';
 import '../modules/maps/bindings/maps_binding.dart';
 import '../modules/maps/views/maps_view.dart';
+import '../modules/on_boarding/bindings/on_boarding_binding.dart';
+import '../modules/on_boarding/views/on_boarding_view.dart';
 import '../modules/order_details/at_home/bindings/order_details_at_home_binding.dart';
 import '../modules/order_details/at_home/views/order_details_at_home_view.dart';
 import '../modules/order_details/at_home_overview/bindings/order_details_at_home_overview_binding.dart';
@@ -42,13 +52,18 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.MAIN_PAGE_HOME;
+  static const INITIAL = Routes.SPLASH;
 
   static final routes = [
     GetPage(
       name: _Paths.TEST_WIDGET,
       page: () => TestWidgetView(),
       binding: TestWidgetBinding(),
+    ),
+    GetPage(
+      name: _Paths.ON_BOARDING,
+      page: () => OnBoardingView(),
+      binding: OnBoardingBinding(),
     ),
     GetPage(
       name: _Paths.AUTH_SIGN_IN,
@@ -139,6 +154,21 @@ class AppPages {
       name: _Paths.AUTH_VERIFY_SIGN_UP,
       page: () => const AuthVerifySignUpView(),
       binding: AuthVerifySignUpBinding(),
+    ),
+    GetPage(
+      name: _Paths.AUTH_FORGOT_PASSWORD_EMAIL_INPUT,
+      page: () => const AuthForgotPasswordEmailInputView(),
+      binding: AuthForgotPasswordEmailInputBinding(),
+    ),
+    GetPage(
+      name: _Paths.AUTH_FORGOT_PASSWORD_OTP_INPUT,
+      page: () => const AuthForgotPasswordOtpInputView(),
+      binding: AuthForgotPasswordOtpInputBinding(),
+    ),
+    GetPage(
+      name: _Paths.AUTH_FORGOT_PASSWORD_RESET_PASSWORD,
+      page: () => const AuthForgotPasswordResetPasswordView(),
+      binding: AuthForgotPasswordResetPasswordBinding(),
     ),
   ];
 }

@@ -7,12 +7,18 @@ import '../../../../themes/typography_theme.dart';
 
 class RegularTextField extends StatefulWidget {
   const RegularTextField(
-      {super.key, required this.controller, this.icon, this.label, this.onTap});
+      {super.key,
+      required this.controller,
+      this.icon,
+      this.label,
+      this.onTap,
+      this.keyboardType});
 
   final TextEditingController controller;
   final String? label;
   final IconData? icon;
   final VoidCallback? onTap;
+  final TextInputType? keyboardType;
 
   @override
   State<RegularTextField> createState() => _RegularTextFieldState();
@@ -81,6 +87,7 @@ class _RegularTextFieldState extends State<RegularTextField>
               height: 64,
               child: Center(
                 child: TextField(
+                  keyboardType: widget.keyboardType ?? TextInputType.text,
                   onTap: widget.onTap,
                   controller: widget.controller,
                   style: TypographyTheme.bodyRegular.copyWith(

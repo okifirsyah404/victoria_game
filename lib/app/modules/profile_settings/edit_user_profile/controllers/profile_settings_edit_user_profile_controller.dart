@@ -23,6 +23,8 @@ class ProfileSettingsEditUserProfileController extends GetxController {
   late TextEditingController usernameController;
   late String authAccessToken;
 
+  bool isFileChange = false;
+
   Future<void> openCamera() async {
     var cameraPermission = await requestCameraGaleryPermissions();
 
@@ -32,8 +34,10 @@ class ProfileSettingsEditUserProfileController extends GetxController {
             await imagePicker.pickImage(source: ImageSource.camera);
         if (imagePicked != null) {
           File tempFile = await compressFile(File(imagePicked.path));
-
           imageFile.value = tempFile;
+          isFileChange = true;
+
+          Get.back();
         }
       } on PlatformException catch (e) {
         print(e);
@@ -49,7 +53,11 @@ class ProfileSettingsEditUserProfileController extends GetxController {
         final imagePicked =
             await imagePicker.pickImage(source: ImageSource.gallery);
         if (imagePicked != null) {
-          imageFile.value = File(imagePicked.path);
+          File tempFile = await compressFile(File(imagePicked.path));
+          imageFile.value = tempFile;
+          isFileChange = true;
+
+          Get.back();
         }
       } on PlatformException catch (e) {
         print(e);
@@ -101,17 +109,18 @@ class ProfileSettingsEditUserProfileController extends GetxController {
   onSubmitEdit() async {
     authAccessToken = await storage.readDataFromStrorage("token") ?? "";
 
+    if (isFileChange) {
+      await userRepository.updateUserProfile(
+          authToken: authAccessToken, file: imageFile.value);
+    }
+
     await userRepository
-        .updateUserProfile(authToken: authAccessToken, file: imageFile.value)
+        .updateUsername(
+            authToken: authAccessToken, newUsername: usernameController.text)
         .then((value) => Get.offNamedUntil(
               Routes.PROFILE_SETTINGS_USER_PROFILE,
               (route) => route.isFirst,
             ));
-
-    // Get.offNamedUntil(
-    //   Routes.PROFILE_SETTINGS_USER_PROFILE,
-    //   (route) => route.isFirst,
-    // );
   }
 
   @override
@@ -130,7 +139,9 @@ class ProfileSettingsEditUserProfileController extends GetxController {
 
   @override
   void onClose() {
-    imageFile.value.delete();
+    if (isFileChange) {
+      imageFile.value.delete();
+    }
     super.onClose();
   }
 }

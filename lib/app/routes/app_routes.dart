@@ -25,6 +25,12 @@ abstract class Routes {
       _Paths.ORDER_DETAILS_AT_HOME_OVERVIEW;
   static const SPLASH = _Paths.SPLASH;
   static const AUTH_VERIFY_SIGN_UP = _Paths.AUTH_VERIFY_SIGN_UP;
+  static const AUTH_FORGOT_PASSWORD_EMAIL_INPUT =
+      _Paths.AUTH_FORGOT_PASSWORD_EMAIL_INPUT;
+  static const AUTH_FORGOT_PASSWORD_OTP_INPUT =
+      _Paths.AUTH_FORGOT_PASSWORD_OTP_INPUT;
+  static const AUTH_FORGOT_PASSWORD_RESET_PASSWORD =
+      _Paths.AUTH_FORGOT_PASSWORD_RESET_PASSWORD;
 }
 
 abstract class _Paths {
@@ -48,4 +54,7 @@ abstract class _Paths {
   static const ORDER_DETAILS_AT_HOME_OVERVIEW = '/at-home-overview';
   static const SPLASH = '/splash';
   static const AUTH_VERIFY_SIGN_UP = '/verify-sign-up';
+  static const AUTH_FORGOT_PASSWORD_EMAIL_INPUT = '/email-input';
+  static const AUTH_FORGOT_PASSWORD_OTP_INPUT = '/otp-input';
+  static const AUTH_FORGOT_PASSWORD_RESET_PASSWORD = '/reset-password';
 }

@@ -41,16 +41,17 @@ class AuthSignUpView extends GetView<AuthSignUpController> {
               Column(
                 children: [
                   UsernameTextField(controller: controller.usernameController),
-                  SizedBox(height: 8.0),
+                  const SizedBox(height: 8.0),
                   EmailTextField(
                       textEditingController: controller.emailController),
-                  SizedBox(height: 8.0),
+                  const SizedBox(height: 8.0),
                   RegularTextField(
                     controller: controller.phoneController,
                     label: "Nomor Handphone",
                     icon: Icons.phone,
+                    keyboardType: TextInputType.phone,
                   ),
-                  SizedBox(height: 8.0),
+                  const SizedBox(height: 8.0),
                   PasswordTextField(
                     textEditingController: controller.passwordController,
                     passwordCondition: "(Angka dan Huruf)",
@@ -60,14 +61,14 @@ class AuthSignUpView extends GetView<AuthSignUpController> {
                     onPressed: () {
                       controller.signUp();
                     },
-                    child: Text("Daftar"),
+                    child: const Text("Daftar"),
                   ),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Sudah punya akun? "),
+                  const Text("Sudah punya akun? "),
                   GestureDetector(
                     onTap: () {
                       Get.offNamed(Routes.AUTH_SIGN_IN);

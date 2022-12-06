@@ -38,7 +38,17 @@ class ProfileSettingsEditUserProfileView
                         _buildImagePicker(
                           onTap: () {
                             print("Tapped");
-                            controller.openCamera();
+                            Get.dialog(
+                              ImageSourceDialog(
+                                cameraAction: () {
+                                  controller.openCamera();
+                                },
+                                galeryAction: () {
+                                  controller.openGallery();
+                                },
+                              ),
+                            );
+                            // controller.openCamera();
                             // showModalBottomSheet(
                             //   context: context,
                             //   builder: (context) => Container(
@@ -100,7 +110,7 @@ class ProfileSettingsEditUserProfileView
                     controller.imageFile.value.path != ""
                 ? Image.file(controller.imageFile.value).image
                 : NetworkImage(
-                    "https://9a7c-125-166-116-213.ap.ngrok.io/api/user/image",
+                    "https://7fec-125-166-116-213.ap.ngrok.io/api/user/image",
                     headers: {
                         "Authorization": controller.authAccessToken,
                       }),

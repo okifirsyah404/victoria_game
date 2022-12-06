@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
+import 'package:victoria_game/utils/secure_storage.dart';
 
 import '../../../global/themes/colors_theme.dart';
 
 class OnBoardingController extends GetxController {
   final PageController pageController = PageController();
+  late SecureStorage secureStorage;
 
   RxInt pageIndex = 0.obs;
 
@@ -47,6 +49,7 @@ class OnBoardingController extends GetxController {
           ),
           curve: Curves.ease);
     } else {
+      secureStorage.writeDataToStorage(key: 'intro', value: "true");
       Get.offAllNamed(Routes.AUTH_SIGN_IN);
     }
   }
@@ -84,6 +87,7 @@ class OnBoardingController extends GetxController {
 
   @override
   void onInit() {
+    secureStorage = SecureStorage.instance;
     super.onInit();
   }
 
