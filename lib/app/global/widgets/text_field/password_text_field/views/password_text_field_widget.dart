@@ -9,10 +9,12 @@ class PasswordTextField extends StatefulWidget {
   const PasswordTextField(
       {super.key,
       required this.textEditingController,
-      this.passwordCondition = ""});
+      this.passwordCondition = "",
+      this.passwordPrefixText = ""});
 
   final TextEditingController textEditingController;
   final String? passwordCondition;
+  final String? passwordPrefixText;
   @override
   State<PasswordTextField> createState() => _PasswordTextFieldState();
 }
@@ -117,9 +119,9 @@ class _PasswordTextFieldState extends State<PasswordTextField>
                     focusColor: Theme.of(context).colorScheme.secondary,
                     labelText: !widget.textEditingController.text.isEmpty
                         ? hasFocus
-                            ? 'Kata Sandi ${widget.passwordCondition}'
+                            ? '${widget.passwordPrefixText}Kata Sandi ${widget.passwordCondition}'
                             : null
-                        : 'Kata Sandi ${widget.passwordCondition}',
+                        : '${widget.passwordPrefixText}Kata Sandi ${widget.passwordCondition}',
                     labelStyle: hasFocus
                         ? TypographyTheme.bodySmall
                             .copyWith(color: ColorsTheme.neutralColor[600])

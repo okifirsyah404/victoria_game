@@ -77,6 +77,9 @@ class AuthVerifySignUpView extends GetView<AuthVerifySignUpController> {
                   ),
                   SizedBox(height: 16),
                   InkWell(
+                    onTap: () {
+                      controller.onResendOtp();
+                    },
                     child: Text(
                       "Kirim Ulang",
                       style: TypographyTheme.bodyRegular.copyWith(

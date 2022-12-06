@@ -1,17 +1,18 @@
 // To parse this JSON data, do
 //
-//     final otpResponse = otpResponseFromJson(jsonString);
+//     final forgetPasswordResponse = forgetPasswordResponseFromJson(jsonString);
 
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-OtpResponse otpResponseFromJson(String str) =>
-    OtpResponse.fromJson(json.decode(str));
+ForgetPasswordResponse forgetPasswordResponseFromJson(String str) =>
+    ForgetPasswordResponse.fromJson(json.decode(str));
 
-String otpResponseToJson(OtpResponse data) => json.encode(data.toJson());
+String forgetPasswordResponseToJson(ForgetPasswordResponse data) =>
+    json.encode(data.toJson());
 
-class OtpResponse {
-  OtpResponse({
+class ForgetPasswordResponse {
+  ForgetPasswordResponse({
     required this.status,
     required this.statusCode,
     required this.message,
@@ -23,7 +24,8 @@ class OtpResponse {
   final String message;
   final Data? data;
 
-  factory OtpResponse.fromJson(Map<String, dynamic> json) => OtpResponse(
+  factory ForgetPasswordResponse.fromJson(Map<String, dynamic> json) =>
+      ForgetPasswordResponse(
         status: json["status"] == null ? null : json["status"],
         statusCode: json["statusCode"] == null ? null : json["statusCode"],
         message: json["message"] == null ? null : json["message"],
@@ -39,17 +41,9 @@ class OtpResponse {
 }
 
 class Data {
-  Data({
-    required this.otp,
-  });
+  Data();
 
-  final String? otp;
+  factory Data.fromJson(Map<String, dynamic> json) => Data();
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-        otp: json["OTP"] == null ? null : json["OTP"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "OTP": otp == null ? null : otp,
-      };
+  Map<String, dynamic> toJson() => {};
 }

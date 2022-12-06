@@ -53,7 +53,9 @@ class AuthSignInView extends GetView<AuthSignInController> {
                             color: ColorsTheme.primaryColor,
                           ),
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          Get.toNamed(Routes.AUTH_FORGOT_PASSWORD_EMAIL_INPUT);
+                        },
                       ),
                     ],
                   ),
@@ -61,17 +63,6 @@ class AuthSignInView extends GetView<AuthSignInController> {
                   ElevatedButton(
                     onPressed: () {
                       controller.signIn();
-                      // if (controller.emailController.text.isEmpty &&
-                      //     controller.passwordController.text.isEmpty) {
-                      //   showDialog(
-                      //     context: context,
-                      //     builder: (context) => SingleActionDialog(
-                      //       title: "Email Sudah Terpakai",
-                      //       description:
-                      //           "Yah, Email yang kamu masukkan sudah pernah dipakai. Coba pakai email lain ya!",
-                      //     ),
-                      //   );
-                      // }
                     },
                     child: const Text("Login"),
                   ),

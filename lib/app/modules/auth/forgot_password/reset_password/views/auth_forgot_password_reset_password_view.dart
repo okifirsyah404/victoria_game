@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:victoria_game/app/global/themes/colors_theme.dart';
+import 'package:victoria_game/app/global/themes/typography_theme.dart';
+import 'package:victoria_game/app/global/widgets/text_field/password_text_field/views/password_text_field_widget.dart';
 
 import '../controllers/auth_forgot_password_reset_password_controller.dart';
 
@@ -11,13 +14,43 @@ class AuthForgotPasswordResetPasswordView
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AuthForgotPasswordResetPasswordView'),
+        title: const Text('Reset Password'),
         centerTitle: true,
       ),
-      body: Center(
-        child: Text(
-          'AuthForgotPasswordResetPasswordView is working',
-          style: TextStyle(fontSize: 20),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Text(
+              "Harap Memasukkan Password Baru",
+              style: TypographyTheme.bodyMedium.copyWith(
+                color: ColorsTheme.primaryColor,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              "Gunakan password yang kuat dan mudah diingat olehmu ya! Seperti kenangan dengan mantan",
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 32),
+            PasswordTextField(
+              textEditingController: controller.passwordController,
+              passwordCondition: "Baru",
+            ),
+            const SizedBox(height: 16),
+            PasswordTextField(
+              textEditingController: controller.rePasswordController,
+              passwordPrefixText: "Ulangi ",
+              passwordCondition: "Baru",
+            ),
+            const SizedBox(height: 32),
+            ElevatedButton(
+              onPressed: () {
+                controller.onSubmitUpdatePassword();
+              },
+              child: Text("Reset Password"),
+            ),
+          ],
         ),
       ),
     );

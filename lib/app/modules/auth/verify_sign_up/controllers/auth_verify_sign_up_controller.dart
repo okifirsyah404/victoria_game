@@ -13,16 +13,30 @@ class AuthVerifySignUpController extends GetxController {
 
   late TextEditingController otpController;
 
-  String get otp => _arguments["otp"];
+  late String otp = _arguments["otp"];
   String get userMail => _arguments["email"];
+  String get username => _arguments["username"];
+  String get userPassword => _arguments["password"];
+  String get userPhone => _arguments["phone"];
+
+  void onResendOtp() async {
+    var result = await userRepository.submitVerifySignUp(
+      email: userMail,
+      password: userPassword,
+      username: username,
+      phone: userPassword,
+    );
+
+    otp = result.data?.otp ?? "";
+  }
 
   void onSubmitOtp() async {
     if (otpController.text == otp) {
       var userResponse = await userRepository.submitSignUp(
-        email: _arguments["email"],
-        password: _arguments["password"],
-        username: _arguments["username"],
-        phone: _arguments["phone"],
+        email: userMail,
+        password: userPassword,
+        username: username,
+        phone: userPhone,
       );
       var putToStorage = secureStorage.writeDataToStorage(
           key: "token", value: userResponse.data?.token ?? "");

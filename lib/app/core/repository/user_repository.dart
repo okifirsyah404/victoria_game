@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:victoria_game/app/core/network/response/auth/reset_password_response.dart';
 import 'package:victoria_game/app/core/network/response/auth/sign_in_res.dart';
 import 'package:victoria_game/app/core/network/response/auth/sign_out_res.dart';
 import 'package:victoria_game/app/core/network/response/auth/sign_up_res.dart';
@@ -21,7 +22,7 @@ class UserRepository extends NetworkServices with PermissionServices {
 
   static UserRepository get instance => _instance;
 
-  Future<VerifySignUpResponse> submitVerifySignUp({
+  Future<OtpResponse> submitVerifySignUp({
     required String email,
     required String password,
     required String username,
@@ -39,7 +40,7 @@ class UserRepository extends NetworkServices with PermissionServices {
     var response = await postMethod("/api/auth/signup/verify",
         headers: headers, body: body);
 
-    var result = VerifySignUpResponse.fromJson(response);
+    var result = OtpResponse.fromJson(response);
     return result;
   }
 
@@ -80,6 +81,33 @@ class UserRepository extends NetworkServices with PermissionServices {
     return userData;
   }
 
+  Future<OtpResponse> submitForgetPassword({
+    required String email,
+  }) async {
+    var headers = {contentType: applicationJson};
+
+    var body = {"email": email};
+
+    var response = await postMethod("/api/auth/forgot-password/verify",
+        headers: headers, body: body);
+
+    var result = OtpResponse.fromJson(response);
+    return result;
+  }
+
+  Future<ForgetPasswordResponse> submitNewForgetPassword(
+      {required String newPassword, required String email}) async {
+    var headers = {contentType: applicationJson};
+
+    var body = {"email": email, "password": newPassword};
+
+    var response = await putMethod("/api/auth/forgot-password",
+        headers: headers, body: body);
+
+    var result = ForgetPasswordResponse.fromJson(response);
+    return result;
+  }
+
   Future<UserDataResponse> fetchUserData(String authToken) async {
     var headers = {
       contentType: applicationJson,
@@ -97,7 +125,10 @@ class UserRepository extends NetworkServices with PermissionServices {
       authorization: authToken,
     };
 
-    var response = await getMethod("/api/auth/signout", headers: headers);
+    var response = await getMethod(
+      "/api/auth/signout",
+      headers: headers,
+    );
     return SignOutResponse.fromJson(response);
   }
 
@@ -124,7 +155,10 @@ class UserRepository extends NetworkServices with PermissionServices {
     var requestFile = {"file": file};
 
     var result = await multipartPostMethod(
-        endpoint: "/api/user/image", files: requestFile, headers: header);
+      endpoint: "/api/user/image",
+      files: requestFile,
+      headers: header,
+    );
 
     return MultipartProfileResponse.fromJson(result);
   }
@@ -145,5 +179,34 @@ class UserRepository extends NetworkServices with PermissionServices {
 
     var userData = UserDataResponse.fromJson(result);
     return userData;
+  }
+
+  Future<OtpResponse> submitResetOtpPassword({
+    required String authToken,
+  }) async {
+    var headers = {contentType: applicationJson, authorization: authToken};
+
+    var response = await postMethod(
+      "/api/auth/password/verify",
+      headers: headers,
+    );
+
+    var result = OtpResponse.fromJson(response);
+    return result;
+  }
+
+  Future<UserDataResponse> submitResetPassword(
+      {required String authToken, required String newPassword}) async {
+    var headers = {contentType: applicationJson, authorization: authToken};
+    var body = {"password": newPassword};
+
+    var response = await putMethod(
+      "/api/user/password",
+      headers: headers,
+      body: body,
+    );
+
+    var result = UserDataResponse.fromJson(response);
+    return result;
   }
 }

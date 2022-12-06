@@ -2,8 +2,6 @@ import 'package:get/get.dart';
 
 import '../modules/auth/forgot_password/email_input/bindings/auth_forgot_password_email_input_binding.dart';
 import '../modules/auth/forgot_password/email_input/views/auth_forgot_password_email_input_view.dart';
-import '../modules/auth/forgot_password/forgot_password_email/bindings/auth_forgot_password_forgot_password_email_binding.dart';
-import '../modules/auth/forgot_password/forgot_password_email/views/auth_forgot_password_forgot_password_email_view.dart';
 import '../modules/auth/forgot_password/otp_input/bindings/auth_forgot_password_otp_input_binding.dart';
 import '../modules/auth/forgot_password/otp_input/views/auth_forgot_password_otp_input_view.dart';
 import '../modules/auth/forgot_password/reset_password/bindings/auth_forgot_password_reset_password_binding.dart';
