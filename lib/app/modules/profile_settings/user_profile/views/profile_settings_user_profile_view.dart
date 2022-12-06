@@ -260,6 +260,8 @@ class ProfileSettingsUserProfileView
           title: "Ubah Kata Sandi",
           bottomBorder: true,
           topBorder: true,
+          onTap: () =>
+              Get.toNamed(Routes.PROFILE_SETTINGS_CHANGE_PASSWORD_OTP_INPUT),
         ),
         DividerListTile(
           title: "Keluar",
@@ -290,38 +292,20 @@ class ProfileSettingsUserProfileView
               children: [
                 Row(
                   children: [
-                    FutureBuilder(
-                      future: controller.initUserData(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          return Container(
-                            height: 48,
-                            width: 48,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: ColorsTheme.primaryColor,
-                                width: 1,
-                              ),
-                              image: DecorationImage(
-                                image: MemoryImage(
-                                    Uint8List.fromList(controller.imageByte)),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          );
-                        }
-                        return ShimmerWidget(
-                          child: Container(
-                            height: 48,
-                            width: 48,
-                            decoration: BoxDecoration(
-                              color: ColorsTheme.neutralColor,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                        );
-                      },
+                    ShimmerWidget(
+                      child: Container(
+                        height: 48,
+                        width: 48,
+                        decoration: BoxDecoration(
+                          color: ColorsTheme.neutralColor[400],
+                          shape: BoxShape.circle,
+                          // image: DecorationImage(
+                          //   image: MemoryImage(
+                          //       Uint8List.fromList(controller.imageByte)),
+                          //   fit: BoxFit.cover,
+                          // ),
+                        ),
+                      ),
                     ),
                     SizedBox(width: 16),
                     ShimmerWidget(

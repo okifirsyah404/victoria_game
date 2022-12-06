@@ -1,18 +1,19 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:victoria_game/app/core/repository/user_repository.dart';
 import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
+import 'package:victoria_game/utils/secure_storage.dart';
 
-class AuthForgotPasswordResetPasswordController extends GetxController {
-  final _arguments = Get.arguments;
-
-  late String userMail = _arguments["email"];
-
+class ProfileSettingsChangePasswordNewPasswordInputController
+    extends GetxController {
+  late SecureStorage secureStorage;
   late UserRepository userRepository;
 
   late TextEditingController passwordController;
   late TextEditingController rePasswordController;
+
+  String authAccessToken = "";
 
   bool validatePassword() {
     if (passwordController.text.isEmpty) {
@@ -66,19 +67,24 @@ class AuthForgotPasswordResetPasswordController extends GetxController {
 
   onSubmitUpdatePassword() async {
     if (validatePassword()) {
-      await userRepository.submitNewForgetPassword(
-        email: userMail,
-        newPassword: passwordController.text,
-      );
-      Get.offNamedUntil(Routes.AUTH_SIGN_IN, (route) => route.isFirst);
+      await userRepository.submitResetPassword(
+          authToken: authAccessToken, newPassword: passwordController.text);
+      Get.offNamedUntil(
+          Routes.PROFILE_SETTINGS_USER_PROFILE, (route) => route.isFirst);
     }
+  }
+
+  Future<void> onUserDataInit() async {
+    authAccessToken = await secureStorage.readDataFromStrorage("token") ?? "";
   }
 
   @override
   void onInit() {
+    secureStorage = SecureStorage.instance;
     userRepository = UserRepository.instance;
     passwordController = TextEditingController();
     rePasswordController = TextEditingController();
+    onUserDataInit();
     super.onInit();
   }
 

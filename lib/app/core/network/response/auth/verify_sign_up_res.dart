@@ -40,7 +40,7 @@ class OtpResponse {
 
 class Data {
   Data({
-    required this.otp,
+    this.otp,
   });
 
   final String? otp;

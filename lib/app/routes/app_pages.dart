@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 
-import '../modules/auth/forgot_password/email_input/bindings/auth_forgot_password_email_input_binding.dart';
-import '../modules/auth/forgot_password/email_input/views/auth_forgot_password_email_input_view.dart';
-import '../modules/auth/forgot_password/otp_input/bindings/auth_forgot_password_otp_input_binding.dart';
-import '../modules/auth/forgot_password/otp_input/views/auth_forgot_password_otp_input_view.dart';
-import '../modules/auth/forgot_password/reset_password/bindings/auth_forgot_password_reset_password_binding.dart';
-import '../modules/auth/forgot_password/reset_password/views/auth_forgot_password_reset_password_view.dart';
+import '../modules/auth/sign_up/forgot_password/email_input/bindings/auth_forgot_password_email_input_binding.dart';
+import '../modules/auth/sign_up/forgot_password/email_input/views/auth_forgot_password_email_input_view.dart';
+import '../modules/auth/sign_up/forgot_password/otp_input/bindings/auth_forgot_password_otp_input_binding.dart';
+import '../modules/auth/sign_up/forgot_password/otp_input/views/auth_forgot_password_otp_input_view.dart';
+import '../modules/auth/sign_up/forgot_password/reset_password/bindings/auth_forgot_password_reset_password_binding.dart';
+import '../modules/auth/sign_up/forgot_password/reset_password/views/auth_forgot_password_reset_password_view.dart';
 import '../modules/auth/sign_in/bindings/auth_sign_in_binding.dart';
 import '../modules/auth/sign_in/views/auth_sign_in_view.dart';
 import '../modules/auth/sign_up/bindings/auth_sign_up_binding.dart';
@@ -34,6 +34,10 @@ import '../modules/order_details/on_site/bindings/order_details_on_site_binding.
 import '../modules/order_details/on_site/views/order_details_on_site_view.dart';
 import '../modules/payment/bindings/payment_binding.dart';
 import '../modules/payment/views/payment_view.dart';
+import '../modules/profile_settings/change_password/new_password_input/bindings/profile_settings_change_password_new_password_input_binding.dart';
+import '../modules/profile_settings/change_password/new_password_input/views/profile_settings_change_password_new_password_input_view.dart';
+import '../modules/profile_settings/change_password/otp_input/bindings/profile_settings_change_password_otp_input_binding.dart';
+import '../modules/profile_settings/change_password/otp_input/views/profile_settings_change_password_otp_input_view.dart';
 import '../modules/profile_settings/edit_user_profile/bindings/profile_settings_edit_user_profile_binding.dart';
 import '../modules/profile_settings/edit_user_profile/views/profile_settings_edit_user_profile_view.dart';
 import '../modules/profile_settings/user_profile/bindings/profile_settings_user_profile_binding.dart';
@@ -167,6 +171,16 @@ class AppPages {
       name: _Paths.AUTH_FORGOT_PASSWORD_RESET_PASSWORD,
       page: () => const AuthForgotPasswordResetPasswordView(),
       binding: AuthForgotPasswordResetPasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE_SETTINGS_CHANGE_PASSWORD_OTP_INPUT,
+      page: () => const ProfileSettingsChangePasswordOtpInputView(),
+      binding: ProfileSettingsChangePasswordOtpInputBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE_SETTINGS_CHANGE_PASSWORD_NEW_PASSWORD_INPUT,
+      page: () => const ProfileSettingsChangePasswordNewPasswordInputView(),
+      binding: ProfileSettingsChangePasswordNewPasswordInputBinding(),
     ),
   ];
 }

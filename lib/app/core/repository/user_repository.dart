@@ -186,8 +186,8 @@ class UserRepository extends NetworkServices with PermissionServices {
   }) async {
     var headers = {contentType: applicationJson, authorization: authToken};
 
-    var response = await postMethod(
-      "/api/auth/password/verify",
+    var response = await getMethod(
+      "/api/user/password/verify",
       headers: headers,
     );
 

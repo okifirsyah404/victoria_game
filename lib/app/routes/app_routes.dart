@@ -31,6 +31,10 @@ abstract class Routes {
       _Paths.AUTH_FORGOT_PASSWORD_OTP_INPUT;
   static const AUTH_FORGOT_PASSWORD_RESET_PASSWORD =
       _Paths.AUTH_FORGOT_PASSWORD_RESET_PASSWORD;
+  static const PROFILE_SETTINGS_CHANGE_PASSWORD_OTP_INPUT =
+      _Paths.PROFILE_SETTINGS_CHANGE_PASSWORD_OTP_INPUT;
+  static const PROFILE_SETTINGS_CHANGE_PASSWORD_NEW_PASSWORD_INPUT =
+      _Paths.PROFILE_SETTINGS_CHANGE_PASSWORD_NEW_PASSWORD_INPUT;
 }
 
 abstract class _Paths {
@@ -57,4 +61,8 @@ abstract class _Paths {
   static const AUTH_FORGOT_PASSWORD_EMAIL_INPUT = '/email-input';
   static const AUTH_FORGOT_PASSWORD_OTP_INPUT = '/otp-input';
   static const AUTH_FORGOT_PASSWORD_RESET_PASSWORD = '/reset-password';
+  static const PROFILE_SETTINGS_CHANGE_PASSWORD_OTP_INPUT =
+      '/new-password-otp-input';
+  static const PROFILE_SETTINGS_CHANGE_PASSWORD_NEW_PASSWORD_INPUT =
+      '/new-password-input';
 }

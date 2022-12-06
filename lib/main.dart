@@ -56,7 +56,7 @@ class _MainAppState extends State<MainApp> {
     return GetMaterialApp(
       title: "Application",
       initialRoute: AppPages.INITIAL,
-      // initialRoute: Routes.AUTH_FORGOT_PASSWORD_EMAIL_INPUT,
+      // initialRoute: Routes.PROFILE_SETTINGS_CHANGE_PASSWORD_OTP_INPUT,
       theme: MainTheme.darkTheme(context),
       getPages: AppPages.routes,
       localizationsDelegates: [

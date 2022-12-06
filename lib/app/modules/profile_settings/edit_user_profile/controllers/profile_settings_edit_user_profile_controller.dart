@@ -128,7 +128,6 @@ class ProfileSettingsEditUserProfileController extends GetxController {
     userRepository = UserRepository.instance;
     requestCameraGaleryPermissions();
     usernameController = TextEditingController();
-    fetchUserData();
     super.onInit();
   }
 
