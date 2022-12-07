@@ -11,6 +11,7 @@ import 'package:victoria_game/app/core/network/response/multipart_profile_respon
 import 'package:victoria_game/app/core/network/response/user_data_response.dart';
 import 'package:victoria_game/app/core/services/network_service.dart';
 import 'package:victoria_game/app/core/services/permission_services.dart';
+import 'package:victoria_game/utils/string_extensions.dart';
 
 class UserRepository extends NetworkServices with PermissionServices {
   UserRepository();
@@ -52,9 +53,11 @@ class UserRepository extends NetworkServices with PermissionServices {
   }) async {
     var headers = {contentType: applicationJson};
 
+    var cryptoPassword = password.convertToSHA256();
+
     var body = {
       "email": email,
-      "password": password,
+      "password": cryptoPassword,
       "username": username,
       "phone": phone,
     };
@@ -70,9 +73,11 @@ class UserRepository extends NetworkServices with PermissionServices {
       {required String email, required String password}) async {
     var headers = {contentType: applicationJson};
 
+    var cryptoPassword = password.convertToSHA256();
+
     var body = {
       "email": email,
-      "password": password,
+      "password": cryptoPassword,
     };
     var response =
         await postMethod("/api/auth/signin", body: body, headers: headers);
@@ -99,7 +104,9 @@ class UserRepository extends NetworkServices with PermissionServices {
       {required String newPassword, required String email}) async {
     var headers = {contentType: applicationJson};
 
-    var body = {"email": email, "password": newPassword};
+    var cryptoPassword = newPassword.convertToSHA256();
+
+    var body = {"email": email, "password": cryptoPassword};
 
     var response = await putMethod("/api/auth/forgot-password",
         headers: headers, body: body);
@@ -198,7 +205,9 @@ class UserRepository extends NetworkServices with PermissionServices {
   Future<UserDataResponse> submitResetPassword(
       {required String authToken, required String newPassword}) async {
     var headers = {contentType: applicationJson, authorization: authToken};
-    var body = {"password": newPassword};
+
+    var cryptoPassword = newPassword.convertToSHA256();
+    var body = {"password": cryptoPassword};
 
     var response = await putMethod(
       "/api/user/password",

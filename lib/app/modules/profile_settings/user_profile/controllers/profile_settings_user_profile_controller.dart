@@ -20,6 +20,9 @@ class ProfileSettingsUserProfileController extends GetxController {
   late UserRepository userRepository;
   late String authAccessToken;
 
+  late String phoneNumber;
+  late String email;
+
   String username = "John Doe";
   int ballance = 1000;
   int playTime = 0;
@@ -30,17 +33,16 @@ class ProfileSettingsUserProfileController extends GetxController {
     final message = """
 Saya ingin topup mas Popo Onichan
 
+Terima Kasih
+
 INFORMASI :
 
-    Nomor Handphone: {Nomor Anda},
-    Alamat Email : {Email Anda},
+    Nomor Handphone: ${phoneNumber},
+    Alamat Email : ${email},
+    Username : ${username}
     Tanggal : ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(DateTime.now())},
     Jam : ${DateFormat("Hm", "id_ID").format(DateTime.now())}
     Saldo TopUp : {Saldo},
-
-Terima Kasih
-
-Cuma testing Intent WA
 
 """;
 
@@ -63,7 +65,7 @@ Cuma testing Intent WA
   Future<String> fetchUserToken() async {
     String authToken = await storage.readDataFromStrorage("token") ?? "";
     var result = await http.get(
-        Uri.parse("https://1ba2-125-166-117-149.ap.ngrok.io/api/user/image"),
+        Uri.parse("https://e554-125-166-117-149.ap.ngrok.io/api/user/image"),
         headers: {userRepository.authorization: authToken});
     return authToken;
   }
@@ -77,13 +79,15 @@ Cuma testing Intent WA
     username = userData.data?.username ?? "";
     ballance = userData.data?.ballance ?? 1;
     playTime = userData.data?.playTime ?? 1;
+    phoneNumber = userData.data?.phone ?? "";
+    email = userData.data?.email ?? "";
 
     return userData;
   }
 
   Future<Uint8List> fetchUserImage() async {
     var result = await http.get(
-        Uri.parse("https://1ba2-125-166-117-149.ap.ngrok.io/api/user/image"),
+        Uri.parse("https://e554-125-166-117-149.ap.ngrok.io/api/user/image"),
         headers: {userRepository.authorization: authAccessToken});
 
     print(result.bodyBytes);

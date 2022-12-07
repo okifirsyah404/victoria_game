@@ -253,7 +253,7 @@ class ProfileSettingsUserProfileView
           ),
         ),
         DividerListTile(
-          title: "Ubah Email",
+          title: "Ubah Nomor Handphone",
           topBorder: true,
         ),
         DividerListTile(
@@ -491,7 +491,7 @@ class ProfileSettingsUserProfileView
           ),
         ),
         DividerListTile(
-          title: "Ubah Email",
+          title: "Ubah Nomor Handphone",
           topBorder: true,
         ),
         DividerListTile(
