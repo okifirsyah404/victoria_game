@@ -1,17 +1,19 @@
 import 'package:get/get.dart';
 
+import '../modules/auth/sign_in/bindings/auth_sign_in_binding.dart';
+import '../modules/auth/sign_in/views/auth_sign_in_view.dart';
+import '../modules/auth/sign_up/bindings/auth_sign_up_binding.dart';
 import '../modules/auth/sign_up/forgot_password/email_input/bindings/auth_forgot_password_email_input_binding.dart';
 import '../modules/auth/sign_up/forgot_password/email_input/views/auth_forgot_password_email_input_view.dart';
 import '../modules/auth/sign_up/forgot_password/otp_input/bindings/auth_forgot_password_otp_input_binding.dart';
 import '../modules/auth/sign_up/forgot_password/otp_input/views/auth_forgot_password_otp_input_view.dart';
 import '../modules/auth/sign_up/forgot_password/reset_password/bindings/auth_forgot_password_reset_password_binding.dart';
 import '../modules/auth/sign_up/forgot_password/reset_password/views/auth_forgot_password_reset_password_view.dart';
-import '../modules/auth/sign_in/bindings/auth_sign_in_binding.dart';
-import '../modules/auth/sign_in/views/auth_sign_in_view.dart';
-import '../modules/auth/sign_up/bindings/auth_sign_up_binding.dart';
 import '../modules/auth/sign_up/views/auth_sign_up_view.dart';
 import '../modules/auth/verify_sign_up/bindings/auth_verify_sign_up_binding.dart';
 import '../modules/auth/verify_sign_up/views/auth_verify_sign_up_view.dart';
+import '../modules/detail_banner/bindings/detail_banner_binding.dart';
+import '../modules/detail_banner/views/detail_banner_view.dart';
 import '../modules/detail_game_center/bindings/detail_game_center_binding.dart';
 import '../modules/detail_game_center/views/detail_game_center_view.dart';
 import '../modules/main_page/history/bindings/main_page_history_binding.dart';
@@ -181,6 +183,11 @@ class AppPages {
       name: _Paths.PROFILE_SETTINGS_CHANGE_PASSWORD_NEW_PASSWORD_INPUT,
       page: () => const ProfileSettingsChangePasswordNewPasswordInputView(),
       binding: ProfileSettingsChangePasswordNewPasswordInputBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_BANNER,
+      page: () => const DetailBannerView(),
+      binding: DetailBannerBinding(),
     ),
   ];
 }

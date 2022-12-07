@@ -18,6 +18,7 @@ void main() async {
   // await initializeDateFormatting(
   //   'id_ID',
   // );
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -39,8 +40,17 @@ class _MainAppState extends State<MainApp> {
 
   @override
   void initState() {
-    userRepository = UserRepository.instance;
     super.initState();
+
+    () async {
+      userRepository = UserRepository.instance;
+      await preRenderImages();
+    };
+  }
+
+  Future<void> preRenderImages() async {
+    await precacheImage(
+        AssetImage("assets/images/logo/brand-logo.png"), context);
   }
 
   AppController appController = Get.put(

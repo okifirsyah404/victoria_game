@@ -35,6 +35,7 @@ abstract class Routes {
       _Paths.PROFILE_SETTINGS_CHANGE_PASSWORD_OTP_INPUT;
   static const PROFILE_SETTINGS_CHANGE_PASSWORD_NEW_PASSWORD_INPUT =
       _Paths.PROFILE_SETTINGS_CHANGE_PASSWORD_NEW_PASSWORD_INPUT;
+  static const DETAIL_BANNER = _Paths.DETAIL_BANNER;
 }
 
 abstract class _Paths {
@@ -65,4 +66,5 @@ abstract class _Paths {
       '/new-password-otp-input';
   static const PROFILE_SETTINGS_CHANGE_PASSWORD_NEW_PASSWORD_INPUT =
       '/new-password-input';
+  static const DETAIL_BANNER = '/detail-banner';
 }

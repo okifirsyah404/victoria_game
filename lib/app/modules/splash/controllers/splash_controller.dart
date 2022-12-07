@@ -2,8 +2,9 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:victoria_game/app/controllers/app_controller.dart';
 import 'package:victoria_game/app/core/repository/user_repository.dart';
 import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
@@ -23,6 +24,33 @@ class SplashController extends GetxController {
 
   String authToken = "";
   String introduction = "";
+
+  Future<void> preCachedSvgImages() async {
+    Future.wait(
+      [
+        precachePicture(
+          ExactAssetPicture(SvgPicture.svgStringDecoderBuilder,
+              'assets/images/illustrations/play-onsite.svg'),
+          null,
+        ),
+        precachePicture(
+          ExactAssetPicture(SvgPicture.svgStringDecoderBuilder,
+              'assets/images/illustrations/play-at-home.svg'),
+          null,
+        ),
+        precachePicture(
+          ExactAssetPicture(SvgPicture.svgStringDecoderBuilder,
+              'assets/images/illustrations/play.svg'),
+          null,
+        ),
+        precachePicture(
+          ExactAssetPicture(SvgPicture.svgStringDecoderBuilder,
+              'assets/images/illustrations/play-service.svg'),
+          null,
+        ),
+      ],
+    );
+  }
 
   onInitSplashScreen() async {
     var duration = const Duration(seconds: 5);
@@ -59,7 +87,7 @@ class SplashController extends GetxController {
     bool previousConnection = hasConnection;
     try {
       final result =
-          await InternetAddress.lookup('e554-125-166-117-149.ap.ngrok.io');
+          await InternetAddress.lookup('82ad-114-125-84-49.ap.ngrok.io');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         hasConnection = true;
       } else {
@@ -88,6 +116,7 @@ class SplashController extends GetxController {
     userRepository = UserRepository.instance;
     getSharedPreferences();
     onInitSplashScreen();
+    preCachedSvgImages();
     super.onInit();
   }
 

@@ -4,6 +4,10 @@ import 'package:victoria_game/app/routes/app_pages.dart';
 class MainPageIndexController extends GetxController {
   RxInt pageIndex = 0.obs;
 
+  void changeIndex(int index) {
+    pageIndex.value = index;
+  }
+
   void onTappedItem(int index) {
     pageIndex.value = index;
 

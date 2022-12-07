@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:victoria_game/app/core/network/response/auth/reset_password_response.dart';
+import 'package:victoria_game/app/core/network/response/auth/reset_password_res.dart';
 import 'package:victoria_game/app/core/network/response/auth/sign_in_res.dart';
 import 'package:victoria_game/app/core/network/response/auth/sign_out_res.dart';
 import 'package:victoria_game/app/core/network/response/auth/sign_up_res.dart';

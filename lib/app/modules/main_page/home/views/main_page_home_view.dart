@@ -30,7 +30,7 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
 
     return Scaffold(
       body: FutureBuilder(
-        future: controller.fetchUserData(),
+        future: controller.initData(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return mainView();
@@ -72,24 +72,25 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                             borderRadius: BorderRadius.circular(8)),
                         child: Text(
                           "Hi, Lorem Ipsum Dolor",
-                          style: TypographyTheme.bodyMedium,
+                          style: TypographyTheme.bodyMedium
+                              .copyWith(fontSize: 14.0),
                         ),
                       ),
                     ),
                   ],
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: ColorsTheme.neutralColor[900],
-                  ),
-                  child: IconButton(
-                    onPressed: () {
-                      Get.toNamed(Routes.PROFILE_SETTINGS_USER_PROFILE);
-                    },
-                    icon: Icon(
-                      CustomIconData.setting,
-                      color: ColorsTheme.primaryColor,
+                ShimmerWidget(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: ColorsTheme.neutralColor[900],
+                    ),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        CustomIconData.setting,
+                        color: ColorsTheme.primaryColor,
+                      ),
                     ),
                   ),
                 ),
@@ -310,33 +311,42 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Container(
-                      height: 48,
-                      width: 48,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: ColorsTheme.primaryColor,
-                          width: 1,
-                        ),
-                        image: DecorationImage(
-                          image: NetworkImage(
-                              "https://e554-125-166-117-149.ap.ngrok.io/api/user/image",
-                              headers: {
-                                "Authorization": controller.authAccessToken,
-                              }),
-                          fit: BoxFit.cover,
+                Expanded(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Container(
+                        height: 48,
+                        width: 48,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: ColorsTheme.primaryColor,
+                            width: 1,
+                          ),
+                          image: DecorationImage(
+                            image: NetworkImage(
+                                "https://82ad-114-125-84-49.ap.ngrok.io/api/user/image",
+                                headers: {
+                                  "Authorization": controller.authAccessToken,
+                                }),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 16),
-                    Text(
-                      "Hi, ${controller.username}",
-                      style: TypographyTheme.bodyMedium,
-                    ),
-                  ],
+                      const SizedBox(width: 16),
+                      Flexible(
+                        child: Text(
+                          "Hi, ${controller.username}",
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: TypographyTheme.bodyMedium
+                              .copyWith(fontSize: 14.0),
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                    ],
+                  ),
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -434,22 +444,22 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                     style: TypographyTheme.titleSmall,
                   ),
                 ),
-                InkWell(
-                  onTap: () {
-                    // print("Hehe");
-                  },
-                  child: AspectRatio(
-                    aspectRatio: 19 / 8,
-                    child: SizedBox(
-                      child: PageView.builder(
-                        controller: PageController(
-                          viewportFraction: 0.85,
-                          initialPage: 0,
-                        ),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 3,
-                        itemBuilder: (context, index) {
-                          return Padding(
+                AspectRatio(
+                  aspectRatio: 19 / 8,
+                  child: SizedBox(
+                    child: PageView.builder(
+                      controller: PageController(
+                        viewportFraction: 0.85,
+                        initialPage: 0,
+                      ),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 3,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            Get.toNamed(Routes.DETAIL_BANNER);
+                          },
+                          child: Padding(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 8,
                             ),
@@ -467,9 +477,9 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                                 ),
                               ),
                             ),
-                          );
-                        },
-                      ),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -493,8 +503,8 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                   child: InkWell(
                     onTap: () {
-                      Get.toNamed(Routes.DETAIL_GAME_CENTER,
-                          arguments: controller.listItem[index]);
+                      // Get.toNamed(Routes.DETAIL_GAME_CENTER,
+                      //     arguments: controller.listItem[index]);
                     },
                     child: Material(
                       elevation: 2,
@@ -511,14 +521,14 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Text(
-                              controller.listItem[index].name,
+                              controller.gameCenterList[index].name ?? "",
                               style: TypographyTheme.titleSmall.copyWith(
                                 color: ColorsTheme.primaryColor,
                               ),
                             ),
                             const SizedBox(height: 16),
                             Text(
-                              controller.listItem[index].address,
+                              controller.gameCenterList[index].address ?? "",
                               maxLines: 2,
                             ),
                           ],
@@ -528,9 +538,9 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                   ),
                 ),
                 separatorBuilder: (context, index) => const SizedBox(height: 4),
-                itemCount: controller.listItem.length,
+                itemCount: controller.gameCenterList.length,
               ),
-              // ...controller.listItem,
+              SizedBox(height: 16),
             ],
           ),
         ],

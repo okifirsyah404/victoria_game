@@ -6,16 +6,16 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:victoria_game/app/core/network/response/game_center/game_centers_res.dart';
 
 class DetailGameCenterController extends GetxController {
-  var gameCenterArguments = Get.arguments;
+  // var gameCenterArguments = Get.arguments;
 
-  double get markedLatitude => gameCenterArguments.latitude;
-  double get markedLongitude => gameCenterArguments.longitude;
-  String get placeName => gameCenterArguments.name;
-  int get totalPlaystation => gameCenterArguments.totalPlaystaion;
-  int get playstation3 => gameCenterArguments.playstation3;
-  int get playstation4 => gameCenterArguments.playstation4;
-  List<PlaystationsData> get playstationsData =>
-      gameCenterArguments.playstationsData;
+  // double get markedLatitude => gameCenterArguments.latitude;
+  // double get markedLongitude => gameCenterArguments.longitude;
+  // String get placeName => gameCenterArguments.name;
+  // int get totalPlaystation => gameCenterArguments.totalPlaystaion;
+  // int get playstation3 => gameCenterArguments.playstation3;
+  // int get playstation4 => gameCenterArguments.playstation4;
+  // List<PlaystationsData> get playstationsData =>
+  //     gameCenterArguments.playstationsData;
 
   RxList<Marker> myMarker = <Marker>[].obs;
   RxString locationMessage = "Belum mendapat Lat dan Long".obs;
@@ -96,34 +96,34 @@ class DetailGameCenterController extends GetxController {
         "Lat : ${position.latitude}, Long : ${position.longitude}";
   }
 
-  void onMapCreated(GoogleMapController controller) {
-    controller.animateCamera(
-      CameraUpdate.newCameraPosition(
-        CameraPosition(
-          target: LatLng(markedLatitude, markedLongitude),
-          zoom: 15,
-        ),
-      ),
-    );
-    Marker initialLicationMarker = Marker(
-      markerId: MarkerId("1"),
-      position: LatLng(markedLatitude, markedLongitude),
-      icon: BitmapDescriptor.defaultMarker,
-      consumeTapEvents: true,
-    );
-    myMarker.add(initialLicationMarker);
-  }
+  // void onMapCreated(GoogleMapController controller) {
+  //   controller.animateCamera(
+  //     CameraUpdate.newCameraPosition(
+  //       CameraPosition(
+  //         target: LatLng(markedLatitude, markedLongitude),
+  //         zoom: 15,
+  //       ),
+  //     ),
+  //   );
+  //   Marker initialLicationMarker = Marker(
+  //     markerId: MarkerId("1"),
+  //     position: LatLng(markedLatitude, markedLongitude),
+  //     icon: BitmapDescriptor.defaultMarker,
+  //     consumeTapEvents: true,
+  //   );
+  //   myMarker.add(initialLicationMarker);
+  // }
 
-  void intentGoogleMaps() {
-    var intentPlaceName = placeName.replaceAll(RegExp("\\s+"), '+');
-    final intent = AndroidIntent(
-        action: "android.intent.action.VIEW",
-        data: Uri.encodeFull(
-            "geo:$markedLatitude,$markedLongitude?q=$intentPlaceName"),
-        package: "com.google.android.apps.maps");
+  // void intentGoogleMaps() {
+  //   var intentPlaceName = placeName.replaceAll(RegExp("\\s+"), '+');
+  //   final intent = AndroidIntent(
+  //       action: "android.intent.action.VIEW",
+  //       data: Uri.encodeFull(
+  //           "geo:$markedLatitude,$markedLongitude?q=$intentPlaceName"),
+  //       package: "com.google.android.apps.maps");
 
-    intent.launch();
-  }
+  //   intent.launch();
+  // }
 
   @override
   void onInit() {
