@@ -1,23 +1,29 @@
 import 'package:get/get.dart';
+import 'package:victoria_game/app/core/repository/user_repository.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
+import 'package:victoria_game/utils/secure_storage.dart';
 
 class PaymentController extends GetxController {
   final _arguments = Get.arguments;
 
-  Map<String, dynamic> get itemData => _arguments[0];
-  Map<String, dynamic>? get paymentMethod => _arguments[1];
+  Map<String, dynamic> get itemData => _arguments["psData"];
+  Map<String, dynamic>? get paymentMethod => _arguments["previousMethod"];
+
+  late UserRepository userRepository;
+  late SecureStorage secureStorage;
 
   late Rxn<int> selectedIndex;
+  // int userBallance = 0;
 
-  List<Map<String, dynamic>> get _paymentMethods => [
-        {
-          "method": "Saldo",
-          "ballance": 1000000,
-        },
-        {
-          "method": "Tunai",
-        },
-      ];
+  late final List<Map<String, dynamic>> _paymentMethods = [
+    {
+      "method": "Saldo",
+      "ballance": 0,
+    },
+    {
+      "method": "Tunai",
+    },
+  ];
 
   List<Map<String, dynamic>> get paymentMethods => _paymentMethods;
 
@@ -45,8 +51,17 @@ class PaymentController extends GetxController {
     }
   }
 
+  Future<void> fetchUserData() async {
+    String authToken = await secureStorage.readDataFromStrorage("token") ?? "";
+
+    var userData = await userRepository.fetchUserData(authToken);
+    _paymentMethods[0]['ballance'] = userData.data?.ballance ?? 0;
+  }
+
   @override
   void onInit() {
+    userRepository = UserRepository.instance;
+    secureStorage = SecureStorage.instance;
     selectedIndex = Rxn<int>();
     initialPaymentMethod();
     super.onInit();

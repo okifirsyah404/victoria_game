@@ -1,71 +1,122 @@
-// class GameCenters {
-//   GameCenters({
-//     required this.id,
-//     required this.name,
-//     required this.address,
-//     required this.latitude,
-//     required this.longitude,
-//     required this.playstation3,
-//     required this.playstation4,
-//     required this.totalPlaystaion,
-//     required this.playstationsData,
-//   });
+// To parse this JSON data, do
+//
+//     final gameCentersResponse = gameCentersResponseFromJson(jsonString);
 
-//   final String id;
-//   final String name;
-//   final String address;
-//   final double latitude;
-//   final double longitude;
-//   final int playstation3;
-//   final int playstation4;
-//   final int totalPlaystaion;
-//   final List<PlaystationsData>? playstationsData;
-// }
+import 'package:meta/meta.dart';
+import 'dart:convert';
 
-// class PlaystationsData {
-//   PlaystationsData({
-//     required this.psId,
-//     required this.psName,
-//     required this.psNumber,
-//     required this.psStatus,
-//     required this.psPrice,
-//   });
+GameCentersResponse gameCentersResponseFromJson(String str) =>
+    GameCentersResponse.fromJson(json.decode(str));
 
-//   final String psId;
-//   final PsName psName;
-//   final int psNumber;
-//   final PsStatus? psStatus;
-//   final int psPrice;
-// }
+String gameCentersResponseToJson(GameCentersResponse data) =>
+    json.encode(data.toJson());
 
-// enum PsName {
-//   PLAYSTATION_3,
-//   PLAYSTATION_4,
-// }
+class GameCentersResponse {
+  GameCentersResponse({
+    required this.status,
+    required this.statusCode,
+    required this.message,
+    required this.data,
+  });
 
-// final psNameValues = EnumValues({
-//   "Playstation 3": PsName.PLAYSTATION_3,
-//   "Playstation 4": PsName.PLAYSTATION_4
-// });
+  final String status;
+  final int statusCode;
+  final String message;
+  final Data? data;
 
-// enum PsStatus { AVAILABLE, UNAVAILABLE, MAINTENANCE }
+  factory GameCentersResponse.fromJson(Map<String, dynamic> json) =>
+      GameCentersResponse(
+        status: json["status"] == null ? null : json["status"],
+        statusCode: json["statusCode"] == null ? null : json["statusCode"],
+        message: json["message"] == null ? null : json["message"],
+        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+      );
 
-// final psStatusValues = EnumValues({
-//   "available": PsStatus.AVAILABLE,
-//   "maintenance": PsStatus.MAINTENANCE,
-//   "unavailable": PsStatus.UNAVAILABLE
-// });
+  Map<String, dynamic> toJson() => {
+        "status": status == null ? null : status,
+        "statusCode": statusCode == null ? null : statusCode,
+        "message": message == null ? null : message,
+        "data": data == null ? null : data?.toJson(),
+      };
+}
 
-// class EnumValues<T> {
-//   Map<String, T> map;
-//   late Map<T, String> reverseMap;
+class Data {
+  Data({
+    this.name,
+    this.latitude,
+    this.longitude,
+    this.playstation3,
+    this.playstation4,
+    this.playstationTotal,
+    this.playstationList,
+  });
 
-//   EnumValues(this.map);
+  final String? name;
+  final String? latitude;
+  final String? longitude;
+  final int? playstation3;
+  final int? playstation4;
+  final int? playstationTotal;
+  final List<PlaystationList>? playstationList;
 
-//   Map<T, String> get reverse {
-//     if (reverseMap == null) {
-//       reverseMap = map.map((k, v) => new MapEntry(v, k));
-//     }
-//     return reverseMap;
-//   }
-// }
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+        name: json["name"] == null ? null : json["name"],
+        latitude: json["latitude"] == null ? null : json["latitude"],
+        longitude: json["longitude"] == null ? null : json["longitude"],
+        playstation3:
+            json["playstation3"] == null ? null : json["playstation3"],
+        playstation4:
+            json["playstation4"] == null ? null : json["playstation4"],
+        playstationTotal:
+            json["playstationTotal"] == null ? null : json["playstationTotal"],
+        playstationList: json["playstationList"] == null
+            ? null
+            : List<PlaystationList>.from(json["playstationList"]
+                .map((x) => PlaystationList.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "name": name == null ? null : name,
+        "latitude": latitude == null ? null : latitude,
+        "longitude": longitude == null ? null : longitude,
+        "playstation3": playstation3 == null ? null : playstation3,
+        "playstation4": playstation4 == null ? null : playstation4,
+        "playstationTotal": playstationTotal == null ? null : playstationTotal,
+        "playstationList": playstationList == null
+            ? null
+            : List<dynamic>.from(playstationList?.map((x) => x.toJson()) ?? []),
+      };
+}
+
+class PlaystationList {
+  PlaystationList({
+    this.id,
+    this.name,
+    this.type,
+    this.location,
+    this.status,
+  });
+
+  final String? id;
+  final String? name;
+  final String? type;
+  final String? location;
+  final String? status;
+
+  factory PlaystationList.fromJson(Map<String, dynamic> json) =>
+      PlaystationList(
+        id: json["id"] == null ? null : json["id"],
+        name: json["name"] == null ? null : json["name"],
+        type: json["type"] == null ? null : json["type"],
+        location: json["location"] == null ? null : json["location"],
+        status: json["status"] == null ? null : json["status"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id == null ? null : id,
+        "name": name == null ? null : name,
+        "type": type == null ? null : type,
+        "location": location == null ? null : location,
+        "status": status == null ? null : status,
+      };
+}

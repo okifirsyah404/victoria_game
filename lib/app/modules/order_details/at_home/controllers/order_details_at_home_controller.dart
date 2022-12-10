@@ -6,7 +6,7 @@ import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dial
 import 'package:victoria_game/app/routes/app_pages.dart';
 
 class OrderDetailsAtHomeController extends GetxController {
-  var _arguments = Get.arguments;
+  final _arguments = Get.arguments;
 
   final formKey = GlobalKey<FormState>();
 
@@ -25,15 +25,13 @@ class OrderDetailsAtHomeController extends GetxController {
   RxString shipmentMethod = "".obs;
   RxString shipmentMethodDescription = "".obs;
 
-  Map<String, dynamic> get itemData => _arguments[0];
+  Map<String, dynamic> get itemData => _arguments["psData"];
 
   late Rx<int> totalAmount = Rx(itemData["price"]);
   int? timeInterval;
 
   void onChangeDropDown(String? newValue) {
     dropDownInitialSelected.value = newValue ?? "";
-    print(dropDownInitialSelected);
-    // Get.back()
   }
 
   Future<DateTime?> openDatePicker(BuildContext context,
@@ -70,7 +68,7 @@ class OrderDetailsAtHomeController extends GetxController {
   void initTimePicked(BuildContext context) async {
     DateTime? timePicked = await openDatePicker(
       context,
-      lastDate: selectedEndDate.value?.subtract(Duration(days: 1)),
+      lastDate: selectedEndDate.value?.subtract(const Duration(days: 1)),
       initialDate: selectedInitDate.value,
     );
 
@@ -84,21 +82,16 @@ class OrderDetailsAtHomeController extends GetxController {
   void endTimePicked(BuildContext context) async {
     DateTime? timePicked = await openDatePicker(
       context,
-      firstDate: selectedInitDate.value?.add(Duration(days: 1)) ??
-          DateTime.now().add(Duration(days: 1)),
+      firstDate: selectedInitDate.value?.add(const Duration(days: 1)) ??
+          DateTime.now().add(const Duration(days: 1)),
       initialDate:
-          selectedEndDate.value ?? DateTime.now().add(Duration(days: 1)),
+          selectedEndDate.value ?? DateTime.now().add(const Duration(days: 1)),
     );
 
     if (timePicked != null && timePicked != selectedEndDate) {
       selectedEndDate.value = timePicked;
       endCalendarTextController.text = DateFormat("dd MMMM yyyy", "id_ID")
           .format(selectedEndDate.value ?? DateTime.now());
-
-      print(selectedEndDate.value
-          ?.difference(selectedInitDate.value ?? DateTime.now()));
-      print(compareDateInDays(selectedEndDate.value ?? DateTime.now(),
-          selectedInitDate.value ?? DateTime.now()));
 
       timeInterval = compareDateInDays(selectedEndDate.value ?? DateTime.now(),
           selectedInitDate.value ?? DateTime.now());
@@ -122,16 +115,14 @@ class OrderDetailsAtHomeController extends GetxController {
             "Tanggal mulai main atau tanggal selesai main tidak boleh kosong nih!",
       ));
     } else {
-      var result = await Get.toNamed(Routes.PAYMENT, arguments: [
-        itemData,
-        {
+      var result = await Get.toNamed(Routes.PAYMENT, arguments: {
+        "psData": itemData,
+        "previousMethod": {
           "method": paymentMethod.value,
-          "ballance": paymentMethodBallance.value
+          "ballance": paymentMethodBallance.value,
         },
-        totalAmount.value,
-      ]);
-
-      print(result);
+        "totalAmount": totalAmount.value,
+      });
 
       paymentMethod.value = result?["method"] ?? "";
       paymentMethodBallance.value = result?["ballance"] ?? -1;
@@ -160,20 +151,18 @@ class OrderDetailsAtHomeController extends GetxController {
             "Kamu belum memilih metode pembayaran nih! Silahkan pilih ya!",
       ));
     } else {
-      Get.toNamed(Routes.SHIPMENT, arguments: [
-        itemData,
-        {
-          "startDate": selectedInitDate.value,
-          "lastDate": selectedEndDate.value,
-        },
-        {
-          "paymentMethod": paymentMethod.value,
-          "ballance": paymentMethodBallance.value,
-        },
-        {
-          "totalAmount": totalAmount.value,
-        }
-      ]);
+      // Get.toNamed(Routes.SHIPMENT, arguments: {
+      //   "psData": itemData,
+      //   "date": {
+      //     "startDate": selectedInitDate.value,
+      //     "lastDate": selectedEndDate.value,
+      //   },
+      //   "payment": {
+      //     "paymentMethod": paymentMethod.value,
+      //     "ballance": paymentMethodBallance.value,
+      //   },
+      //   "totalAmount": totalAmount.value,
+      // },);
     }
   }
 

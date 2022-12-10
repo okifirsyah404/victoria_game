@@ -22,8 +22,9 @@ class MainPageRentController extends GetxController {
   List<Map<String, dynamic>> get playstationList => _playstationList;
 
   void onItemTap(int index) {
-    Get.toNamed(Routes.ORDER_DETAILS_AT_HOME,
-        arguments: [_playstationList[index]]);
+    Get.toNamed(Routes.ORDER_DETAILS_AT_HOME, arguments: {
+      "psData": _playstationList[index],
+    });
   }
 
   @override

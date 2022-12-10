@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -325,11 +326,8 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                             width: 1,
                           ),
                           image: DecorationImage(
-                            image: NetworkImage(
-                                "https://82ad-114-125-84-49.ap.ngrok.io/api/user/image",
-                                headers: {
-                                  "Authorization": controller.authAccessToken,
-                                }),
+                            image: MemoryImage(
+                                Uint8List.fromList(controller.imageByte)),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -530,6 +528,7 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                             Text(
                               controller.gameCenterList[index].address ?? "",
                               maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ],
                         ),

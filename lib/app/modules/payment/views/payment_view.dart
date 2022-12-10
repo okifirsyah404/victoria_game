@@ -29,75 +29,90 @@ class PaymentView extends GetView<PaymentController> {
                 },
         ),
       ),
-      body: Container(
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView.separated(
-                padding: const EdgeInsets.all(16.0),
-                separatorBuilder: (context, index) => const SizedBox(height: 8),
-                itemCount: controller.paymentMethods.length,
-                itemBuilder: (context, index) {
-                  return Obx(
-                    () {
-                      int? ballance =
-                          controller.paymentMethods[index]["ballance"];
+      body: FutureBuilder(
+        future: controller.fetchUserData(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return onDataDone();
+          }
+          return onDataLoading();
+        },
+      ),
+    );
+  }
 
-                      return ListTile(
-                        contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 16.0),
-                        tileColor: ColorsTheme.neutralColor[900],
-                        textColor: ColorsTheme.primaryColor,
-                        selectedColor: ColorsTheme.neutralColor[900],
-                        selectedTileColor: ColorsTheme.primaryColor,
-                        selected: index == controller.selectedIndex.value,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        title: Text(
-                          controller.paymentMethods[index]["method"],
-                          style: TypographyTheme.titleSmall,
-                        ),
-                        trailing:
-                            controller.paymentMethods[index]["ballance"] != null
-                                ? Text(
-                                    ballance?.toRupiah() ?? "",
-                                    style: TypographyTheme.bodyRegular,
-                                  )
-                                : null,
-                        onTap: () {
-                          controller.changeIndex(index);
-                        },
-                      );
+  Widget onDataLoading() {
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
+  Widget onDataDone() {
+    return Column(
+      children: [
+        Expanded(
+          child: ListView.separated(
+            padding: const EdgeInsets.all(16.0),
+            separatorBuilder: (context, index) => const SizedBox(height: 8),
+            itemCount: controller.paymentMethods.length,
+            itemBuilder: (context, index) {
+              return Obx(
+                () {
+                  int? ballance = controller.paymentMethods[index]["ballance"];
+
+                  return ListTile(
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 16.0),
+                    tileColor: ColorsTheme.neutralColor[900],
+                    textColor: ColorsTheme.primaryColor,
+                    selectedColor: ColorsTheme.neutralColor[900],
+                    selectedTileColor: ColorsTheme.primaryColor,
+                    selected: index == controller.selectedIndex.value,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    title: Text(
+                      controller.paymentMethods[index]["method"],
+                      style: TypographyTheme.titleSmall,
+                    ),
+                    trailing:
+                        controller.paymentMethods[index]["ballance"] != null
+                            ? Text(
+                                ballance?.toRupiah() ?? "",
+                                style: TypographyTheme.bodyRegular,
+                              )
+                            : null,
+                    onTap: () {
+                      controller.changeIndex(index);
                     },
                   );
                 },
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(16.0),
-              color: ColorsTheme.neutralColor[900],
-              child: Obx(
-                () => OutlinedButton(
-                  onPressed: controller.selectedIndex == -1
-                      ? null
-                      : () {
-                          controller.backWithOption();
-                        },
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: ColorsTheme.neutralColor[900],
-                    backgroundColor: controller.selectedIndex == -1
-                        ? ColorsTheme.neutralColor[400]
-                        : ColorsTheme.primaryColor,
-                  ),
-                  child: const Text("Pilih Metode Pembayaran"),
-                ),
-              ),
-            ),
-          ],
+              );
+            },
+          ),
         ),
-      ),
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(16.0),
+          color: ColorsTheme.neutralColor[900],
+          child: Obx(
+            () => OutlinedButton(
+              onPressed: controller.selectedIndex == -1
+                  ? null
+                  : () {
+                      controller.backWithOption();
+                    },
+              style: OutlinedButton.styleFrom(
+                foregroundColor: ColorsTheme.neutralColor[900],
+                backgroundColor: controller.selectedIndex == -1
+                    ? ColorsTheme.neutralColor[400]
+                    : ColorsTheme.primaryColor,
+              ),
+              child: const Text("Pilih Metode Pembayaran"),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

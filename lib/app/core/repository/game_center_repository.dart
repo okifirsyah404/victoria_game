@@ -28,4 +28,22 @@ class GameCenterRepository extends NetworkServices {
     var result = GameCentersListResponse.fromJson(response);
     return result;
   }
+
+  Future<GameCentersResponse> fetchGameCenterDetail({
+    required String authToken,
+    required String locationId,
+  }) async {
+    var headers = {
+      contentType: applicationJson,
+      authorization: authToken,
+    };
+
+    var body = {"location": locationId};
+
+    var response = await postMethod("/api/game-center/detail",
+        headers: headers, body: body);
+
+    var result = GameCentersResponse.fromJson(response);
+    return result;
+  }
 }
