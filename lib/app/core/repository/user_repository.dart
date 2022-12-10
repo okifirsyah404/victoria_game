@@ -170,6 +170,24 @@ class UserRepository extends NetworkServices with PermissionServices {
     return MultipartProfileResponse.fromJson(result);
   }
 
+  Future<UserDataResponse> updatePhoneNumber({
+    required String authToken,
+    required String newPhoneNumber,
+  }) async {
+    var header = {contentType: applicationJson, authorization: authToken};
+
+    var body = {"phone": newPhoneNumber};
+
+    var result = await putMethod(
+      "/api/user/phone",
+      body: body,
+      headers: header,
+    );
+
+    var userData = UserDataResponse.fromJson(result);
+    return userData;
+  }
+
   Future<UserDataResponse> updateUsername({
     required String authToken,
     required String newUsername,

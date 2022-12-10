@@ -36,6 +36,8 @@ abstract class Routes {
   static const PROFILE_SETTINGS_CHANGE_PASSWORD_NEW_PASSWORD_INPUT =
       _Paths.PROFILE_SETTINGS_CHANGE_PASSWORD_NEW_PASSWORD_INPUT;
   static const DETAIL_BANNER = _Paths.DETAIL_BANNER;
+  static const PROFILE_SETTINGS_CHANGE_PHONE_NUMBER =
+      _Paths.PROFILE_SETTINGS_CHANGE_PHONE_NUMBER;
 }
 
 abstract class _Paths {
@@ -67,4 +69,5 @@ abstract class _Paths {
   static const PROFILE_SETTINGS_CHANGE_PASSWORD_NEW_PASSWORD_INPUT =
       '/new-password-input';
   static const DETAIL_BANNER = '/detail-banner';
+  static const PROFILE_SETTINGS_CHANGE_PHONE_NUMBER = '/change-phone-number';
 }

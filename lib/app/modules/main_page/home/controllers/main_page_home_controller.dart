@@ -59,13 +59,11 @@ class MainPageHomeController extends GetxController {
   // }
 
   Future<Uint8List> fetchUserImage() async {
-    String authToken = await storage.readDataFromStrorage("token") ?? "";
+    String authAccessToken = await storage.readDataFromStrorage("token") ?? "";
     var result = await userRepository.getMethodRaw("/api/user/image",
         headers: {userRepository.authorization: authAccessToken});
 
-    result.bodyBytes.forEach((element) {
-      imageByte.add(element);
-    });
+    imageByte = [...result.bodyBytes];
 
     return result.bodyBytes;
   }

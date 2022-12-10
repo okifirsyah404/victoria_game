@@ -255,6 +255,7 @@ class ProfileSettingsUserProfileView
         DividerListTile(
           title: "Ubah Nomor Handphone",
           topBorder: true,
+          onTap: () => Get.toNamed(Routes.PROFILE_SETTINGS_CHANGE_PHONE_NUMBER),
         ),
         DividerListTile(
           title: "Ubah Kata Sandi",

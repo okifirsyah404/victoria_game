@@ -89,11 +89,7 @@ INFORMASI :
     var result = await userRepository.getMethodRaw("/api/user/image",
         headers: {userRepository.authorization: authAccessToken});
 
-    print(result.bodyBytes);
-
-    result.bodyBytes.forEach((element) {
-      imageByte.add(element);
-    });
+    imageByte = [...result.bodyBytes];
 
     return result.bodyBytes;
   }

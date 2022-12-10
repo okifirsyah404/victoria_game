@@ -40,6 +40,8 @@ import '../modules/profile_settings/change_password/new_password_input/bindings/
 import '../modules/profile_settings/change_password/new_password_input/views/profile_settings_change_password_new_password_input_view.dart';
 import '../modules/profile_settings/change_password/otp_input/bindings/profile_settings_change_password_otp_input_binding.dart';
 import '../modules/profile_settings/change_password/otp_input/views/profile_settings_change_password_otp_input_view.dart';
+import '../modules/profile_settings/change_phone_number/bindings/profile_settings_change_phone_number_binding.dart';
+import '../modules/profile_settings/change_phone_number/views/profile_settings_change_phone_number_view.dart';
 import '../modules/profile_settings/edit_user_profile/bindings/profile_settings_edit_user_profile_binding.dart';
 import '../modules/profile_settings/edit_user_profile/views/profile_settings_edit_user_profile_view.dart';
 import '../modules/profile_settings/user_profile/bindings/profile_settings_user_profile_binding.dart';
@@ -188,6 +190,11 @@ class AppPages {
       name: _Paths.DETAIL_BANNER,
       page: () => const DetailBannerView(),
       binding: DetailBannerBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE_SETTINGS_CHANGE_PHONE_NUMBER,
+      page: () => const ProfileSettingsChangePhoneNumberView(),
+      binding: ProfileSettingsChangePhoneNumberBinding(),
     ),
   ];
 }
