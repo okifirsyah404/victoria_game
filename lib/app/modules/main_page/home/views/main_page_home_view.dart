@@ -484,66 +484,69 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
               ],
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 8.0),
-                child: Text(
-                  "Game Center",
-                  style: TypographyTheme.titleSmall,
-                ),
-              ),
-              ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-                  child: InkWell(
-                    onTap: () {
-                      // Get.toNamed(Routes.DETAIL_GAME_CENTER,
-                      //     arguments: controller.listItem[index]);
-                    },
-                    child: Material(
-                      elevation: 2,
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Container(
-                        padding: const EdgeInsets.all(16),
-                        width: Get.width,
-                        decoration: BoxDecoration(
-                          color: ColorsTheme.neutralColor[600],
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              controller.gameCenterList[index].name ?? "",
-                              style: TypographyTheme.titleSmall.copyWith(
-                                color: ColorsTheme.primaryColor,
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              controller.gameCenterList[index].address ?? "",
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                separatorBuilder: (context, index) => const SizedBox(height: 4),
-                itemCount: controller.gameCenterList.length,
-              ),
-              SizedBox(height: 16),
-            ],
-          ),
+          _gameCenterList(),
         ],
       ),
+    );
+  }
+
+  Widget _gameCenterList() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 8.0),
+          child: Text(
+            "Game Center",
+            style: TypographyTheme.titleSmall,
+          ),
+        ),
+        ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) => Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+            child: InkWell(
+              onTap: () {
+                controller.onSelectedGameCenter(index);
+              },
+              child: Material(
+                elevation: 2,
+                borderRadius: BorderRadius.circular(8.0),
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  width: Get.width,
+                  decoration: BoxDecoration(
+                    color: ColorsTheme.neutralColor[600],
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        controller.gameCenterList[index].name ?? "",
+                        style: TypographyTheme.titleSmall.copyWith(
+                          color: ColorsTheme.primaryColor,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        controller.gameCenterList[index].address ?? "",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+          separatorBuilder: (context, index) => const SizedBox(height: 4),
+          itemCount: controller.gameCenterList.length,
+        ),
+        SizedBox(height: 16),
+      ],
     );
   }
 }

@@ -8,6 +8,11 @@ import '../../../../routes/app_pages.dart';
 class OrderDetailsOnSiteController extends GetxController {
   //TODO: Implement OrderDetailsOnSiteController, and cleaning the code
 
+  final _arguments = Get.arguments;
+
+  String get locationId => _arguments["location"];
+  String get playstationId => _arguments["playstationId"];
+
   final formKey = GlobalKey<FormState>();
 
   late TextEditingController calendarTextController;
@@ -109,6 +114,8 @@ class OrderDetailsOnSiteController extends GetxController {
     paymentMethod.value = result["method"];
     paymentMethodBallance.value = result["ballance"] ?? -1;
   }
+
+  Future<void> fetchInitialOrderData() async {}
 
   @override
   void onInit() {

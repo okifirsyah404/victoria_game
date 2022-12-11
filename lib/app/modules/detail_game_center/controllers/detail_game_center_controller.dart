@@ -4,54 +4,60 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:victoria_game/app/core/network/response/game_center/game_centers_res.dart';
+import 'package:victoria_game/app/core/repository/game_center_repository.dart';
+import 'package:victoria_game/app/core/repository/user_repository.dart';
+import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
+import 'package:victoria_game/app/routes/app_pages.dart';
+import 'package:victoria_game/utils/secure_storage.dart';
+import 'package:victoria_game/utils/string_extensions.dart';
 
 class DetailGameCenterController extends GetxController {
-  // var gameCenterArguments = Get.arguments;
+  var _arguments = Get.arguments;
 
-  // double get markedLatitude => gameCenterArguments.latitude;
-  // double get markedLongitude => gameCenterArguments.longitude;
-  // String get placeName => gameCenterArguments.name;
-  // int get totalPlaystation => gameCenterArguments.totalPlaystaion;
-  // int get playstation3 => gameCenterArguments.playstation3;
-  // int get playstation4 => gameCenterArguments.playstation4;
-  // List<PlaystationsData> get playstationsData =>
-  //     gameCenterArguments.playstationsData;
+  String get locationId => _arguments["location"];
+  late SecureStorage secureStorage;
+  late GameCenterRepository gameCenterRepository;
+  late UserRepository userRepository;
+
+  late String authAccessToken;
+  late GoogleMapController mapController;
+
+  late List<int> imageByte;
+  late String gameCenterName;
+  late int playstation3;
+  late int playstation4;
+
+  late List<PlaystationList> playstationList;
+
+  late double markedLatitude;
+  late double markedLongitude;
 
   RxList<Marker> myMarker = <Marker>[].obs;
   RxString locationMessage = "Belum mendapat Lat dan Long".obs;
   RxString addressMessage = "Mencari Lokasi".obs;
 
-  Position _myPosition = Position(
-    longitude: 0,
-    latitude: 0,
-    timestamp: DateTime.now(),
-    accuracy: 0,
-    altitude: 0.0,
-    heading: 0,
-    speed: 0,
-    speedAccuracy: 0,
-  );
+  Future<bool> requestLocationPermission() async {
+    var locationPermission = await userRepository.handleLocationPermission();
 
-  Future<void> determinePosition() async {
-    LocationPermission locationPermission;
+    userRepository.printLog.d(locationPermission);
 
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) return Future.error("Location services belum aktif");
+    if (!locationPermission) {
+      Get.dialog(
+        SingleActionDialog(
+          title: "Akses Lokasi Ditolak",
+          description:
+              "Kami membutuhkan akses lokasi untuk mengetahui jarak kamu dengan game center.",
+          buttonFunction: () async {
+            await userRepository.requestOpenAppSettings();
+            Get.back();
+          },
+        ),
+      );
 
-    locationPermission = await Geolocator.checkPermission();
-    if (locationPermission == LocationPermission.denied) {
-      locationPermission = await Geolocator.requestPermission();
-      if (locationPermission == LocationPermission.denied) {
-        return Future.error("Location Permission Ditolak");
-      }
+      return false;
     }
 
-    if (locationPermission == LocationPermission.deniedForever) {
-      return Future.error(
-          "Location Permission Ditolak, Gagal Request Permissons");
-    }
-
-    _myPosition = await Geolocator.getCurrentPosition();
+    return locationPermission;
   }
 
   Future<Position> getGeoLocationPosition() async {
@@ -66,8 +72,9 @@ class DetailGameCenterController extends GetxController {
     locationPermission = await Geolocator.checkPermission();
     if (locationPermission == LocationPermission.denied) {
       locationPermission = await Geolocator.requestPermission();
-      if (locationPermission == LocationPermission.denied)
+      if (locationPermission == LocationPermission.denied) {
         return Future.error("Location Permission ditolak");
+      }
     }
 
     if (locationPermission == LocationPermission.deniedForever) {
@@ -84,7 +91,6 @@ class DetailGameCenterController extends GetxController {
     List<Placemark> placemarks = await placemarkFromCoordinates(
         position.latitude, position.longitude,
         localeIdentifier: "id_ID");
-    print(placemarks);
     Placemark place = placemarks[0];
 
     addressMessage.value =
@@ -96,38 +102,87 @@ class DetailGameCenterController extends GetxController {
         "Lat : ${position.latitude}, Long : ${position.longitude}";
   }
 
-  // void onMapCreated(GoogleMapController controller) {
-  //   controller.animateCamera(
-  //     CameraUpdate.newCameraPosition(
-  //       CameraPosition(
-  //         target: LatLng(markedLatitude, markedLongitude),
-  //         zoom: 15,
-  //       ),
-  //     ),
-  //   );
-  //   Marker initialLicationMarker = Marker(
-  //     markerId: MarkerId("1"),
-  //     position: LatLng(markedLatitude, markedLongitude),
-  //     icon: BitmapDescriptor.defaultMarker,
-  //     consumeTapEvents: true,
-  //   );
-  //   myMarker.add(initialLicationMarker);
-  // }
+  void onMapCreated(GoogleMapController controller) {
+    mapController = controller;
 
-  // void intentGoogleMaps() {
-  //   var intentPlaceName = placeName.replaceAll(RegExp("\\s+"), '+');
-  //   final intent = AndroidIntent(
-  //       action: "android.intent.action.VIEW",
-  //       data: Uri.encodeFull(
-  //           "geo:$markedLatitude,$markedLongitude?q=$intentPlaceName"),
-  //       package: "com.google.android.apps.maps");
+    mapController.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(markedLatitude, markedLongitude),
+          zoom: 15,
+        ),
+      ),
+    );
+    Marker initialLicationMarker = Marker(
+      markerId: const MarkerId("1"),
+      position: LatLng(markedLatitude, markedLongitude),
+      icon: BitmapDescriptor.defaultMarker,
+      consumeTapEvents: true,
+    );
+    myMarker.add(initialLicationMarker);
+  }
 
-  //   intent.launch();
-  // }
+  void intentGoogleMaps() {
+    var intentPlaceName = gameCenterName.replaceAll(RegExp("\\s+"), '+');
+    final intent = AndroidIntent(
+        action: "android.intent.action.VIEW",
+        data: Uri.encodeFull(
+            "geo:$markedLatitude,$markedLongitude?q=$intentPlaceName"),
+        package: "com.google.android.apps.maps");
+
+    intent.launch();
+  }
+
+  Future<void> fetchGameCenterImage(String authToken, String locationId) async {
+    var headers = {gameCenterRepository.authorization: authToken};
+
+    var body = {"id": locationId};
+
+    var result = await gameCenterRepository
+        .postMethodRaw("/api/game-center/image", headers: headers, body: body);
+
+    imageByte = [...result.bodyBytes];
+  }
+
+  Future<void> fetchGameCenterDetail() async {
+    authAccessToken = await secureStorage.readDataFromStrorage("token") ?? "";
+
+    var result = await gameCenterRepository.fetchGameCenterDetail(
+        authToken: authAccessToken, locationId: locationId);
+
+    await fetchGameCenterImage(authAccessToken, locationId);
+
+    markedLatitude = double.parse(result.data?.latitude ?? "-7.154825");
+    markedLongitude = double.parse(result.data?.longitude ?? "111.875869");
+
+    gameCenterName = "${result.data?.name}".toTitleCase();
+    playstation3 = result.data?.playstation3 ?? 0;
+    playstation4 = result.data?.playstation4 ?? 0;
+
+    playstationList = [...?result.data?.playstationList];
+  }
+
+  void onSelectedPlaystationItem(int index) {
+    if (playstationList[index].status != "tidak aktif") {
+      Get.dialog(const SingleActionDialog(
+        title: "Playstation Masih Dimainkan",
+        description:
+            "Playstation ini masih dimainkan, coba pilih playstation lain ya!",
+      ));
+    } else {
+      Get.toNamed(Routes.ORDER_DETAILS_ON_SITE, arguments: {
+        "location": locationId,
+        "playstationId": playstationList[index].id,
+      });
+    }
+  }
 
   @override
   void onInit() {
-    determinePosition();
+    secureStorage = SecureStorage.instance;
+    gameCenterRepository = GameCenterRepository.instance;
+    userRepository = UserRepository.instance;
+    requestLocationPermission();
     super.onInit();
   }
 
@@ -138,6 +193,7 @@ class DetailGameCenterController extends GetxController {
 
   @override
   void onClose() {
+    mapController.dispose();
     super.onClose();
   }
 }

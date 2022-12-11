@@ -7,6 +7,8 @@ import 'package:victoria_game/app/core/network/response/game_center/game_centers
 import 'package:victoria_game/app/core/network/response/game_center/game_centers_res.dart';
 import 'package:victoria_game/app/core/repository/game_center_repository.dart';
 import 'package:victoria_game/app/core/repository/user_repository.dart';
+import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
+import 'package:victoria_game/app/routes/app_pages.dart';
 
 import 'package:victoria_game/utils/secure_storage.dart';
 
@@ -31,35 +33,39 @@ class MainPageHomeController extends GetxController {
 
   List<GameCenters> gameCenterList = [];
 
-  // FIXME: Use Permisson Service
-  Future<void> determinePosition() async {
-    LocationPermission locationPermission;
+  Future<bool> requestLocationPermission() async {
+    var locationPermission = await userRepository.handleLocationPermission();
 
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) return Future.error("Location services belum aktif");
+    userRepository.printLog.d(locationPermission);
 
-    locationPermission = await Geolocator.checkPermission();
-    if (locationPermission == LocationPermission.denied) {
-      locationPermission = await Geolocator.requestPermission();
-      if (locationPermission == LocationPermission.denied) {
-        return Future.error("Location Permission Ditolak");
-      }
-    }
+    if (!locationPermission) {
+      Get.dialog(
+        SingleActionDialog(
+          title: "Akses Kamera Dan Galeri Ditolak",
+          description:
+              "Kami membutuhkan akses kamera serta galeri untuk mengupdate profile kamu.",
+          buttonFunction: () async {
+            await userRepository.requestOpenAppSettings();
+            Get.back();
+          },
+        ),
+      );
 
-    if (locationPermission == LocationPermission.deniedForever) {
-      return Future.error(
-          "Location Permission Ditolak, Gagal Request Permissons");
+      return false;
     }
 
     myPosition = await Geolocator.getCurrentPosition();
+
+    return locationPermission;
   }
 
-  // Future<String> fetchUserImage() async {
-  //   return authToken;
-  // }
+  void onSelectedGameCenter(int index) {
+    Get.toNamed(Routes.DETAIL_GAME_CENTER,
+        arguments: {"location": gameCenterList[index].id});
+  }
 
   Future<Uint8List> fetchUserImage() async {
-    String authAccessToken = await storage.readDataFromStrorage("token") ?? "";
+    authAccessToken = await storage.readDataFromStrorage("token") ?? "";
     var result = await userRepository.getMethodRaw("/api/user/image",
         headers: {userRepository.authorization: authAccessToken});
 
@@ -69,9 +75,7 @@ class MainPageHomeController extends GetxController {
   }
 
   Future<void> fetchUserData() async {
-    String authToken = await storage.readDataFromStrorage("token") ?? "";
-
-    var userData = await userRepository.fetchUserData(authToken);
+    var userData = await userRepository.fetchUserData(authAccessToken);
 
     username = userData.data?.username ?? "";
     ballance = userData.data?.ballance ?? 1;
@@ -84,7 +88,6 @@ class MainPageHomeController extends GetxController {
     var gameCenterData =
         await gameCenterRepository.fetchGameCentersList(authToken: authToken);
 
-    print(gameCenterData.data?[0].name);
     gameCenterList = gameCenterData.data ?? [];
   }
 
@@ -98,8 +101,8 @@ class MainPageHomeController extends GetxController {
   void onInit() {
     userRepository = UserRepository.instance;
     gameCenterRepository = GameCenterRepository.instance;
+    requestLocationPermission();
     initData();
-    determinePosition();
     super.onInit();
   }
 

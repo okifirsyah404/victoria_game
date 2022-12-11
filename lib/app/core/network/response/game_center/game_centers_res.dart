@@ -95,6 +95,7 @@ class PlaystationList {
     this.type,
     this.location,
     this.status,
+    this.price,
   });
 
   final String? id;
@@ -102,6 +103,7 @@ class PlaystationList {
   final String? type;
   final String? location;
   final String? status;
+  final int? price;
 
   factory PlaystationList.fromJson(Map<String, dynamic> json) =>
       PlaystationList(
@@ -110,6 +112,7 @@ class PlaystationList {
         type: json["type"] == null ? null : json["type"],
         location: json["location"] == null ? null : json["location"],
         status: json["status"] == null ? null : json["status"],
+        price: json["price"] == null ? null : json["price"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -118,5 +121,6 @@ class PlaystationList {
         "type": type == null ? null : type,
         "location": location == null ? null : location,
         "status": status == null ? null : status,
+        "price": price == null ? null : price,
       };
 }

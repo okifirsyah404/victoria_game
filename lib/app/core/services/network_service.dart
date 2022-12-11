@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:victoria_game/app/core/network/response/auth/sign_in_res.dart';
 
 // TODO: Dynamic Base URL
-const BASE_URL = "https://49e7-118-99-121-213.ap.ngrok.io";
+const BASE_URL = "https://767d-118-99-121-213.ap.ngrok.io";
 
 abstract class NetworkServices {
   final printLog = Logger(printer: PrettyPrinter());
@@ -54,6 +54,18 @@ abstract class NetworkServices {
       Map<String, dynamic> res = jsonDecode(response.body);
       printLog.d(res);
       return res;
+    } on SocketException {
+      throw Exception("Connection Failed");
+    }
+  }
+
+  Future<dynamic> postMethodRaw(String endpoint,
+      {dynamic body, Map<String, String>? headers}) async {
+    try {
+      final response = await http.post(Uri.parse("$BASE_URL$endpoint"),
+          body: json.encode(body), headers: headers);
+      printLog.d(response);
+      return response;
     } on SocketException {
       throw Exception("Connection Failed");
     }

@@ -23,6 +23,33 @@ class UserRepository extends NetworkServices with PermissionServices {
 
   static UserRepository get instance => _instance;
 
+  Future<bool> handleCameraGaleryPermission() async {
+    var permissions = await requestCameraGaleryPermission();
+
+    printLog.d(permissions);
+
+    if (permissions[Permission.camera] == PermissionStatus.granted &&
+        permissions[Permission.storage] == PermissionStatus.granted) {
+      printLog.d("Granted");
+      return true;
+    }
+
+    printLog.d("Denied");
+    return false;
+  }
+
+  Future<bool> handleLocationPermission() async {
+    var permission = await requestLocationPermission();
+
+    printLog.d(permission);
+
+    if (permission == PermissionStatus.granted) {
+      printLog.d("Granted");
+      return true;
+    }
+    return false;
+  }
+
   Future<OtpResponse> submitVerifySignUp({
     required String email,
     required String password,
@@ -137,21 +164,6 @@ class UserRepository extends NetworkServices with PermissionServices {
       headers: headers,
     );
     return SignOutResponse.fromJson(response);
-  }
-
-  Future<bool> handleCameraGaleryPermission() async {
-    var permissions = await requestCameraGaleryPermission();
-
-    printLog.d(permissions);
-
-    if (permissions[Permission.camera] == PermissionStatus.granted &&
-        permissions[Permission.storage] == PermissionStatus.granted) {
-      printLog.d("Granted");
-      return true;
-    }
-
-    printLog.d("Denied");
-    return false;
   }
 
   Future<MultipartProfileResponse> updateUserProfile({
