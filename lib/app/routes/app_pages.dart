@@ -46,6 +46,8 @@ import '../modules/profile_settings/edit_user_profile/bindings/profile_settings_
 import '../modules/profile_settings/edit_user_profile/views/profile_settings_edit_user_profile_view.dart';
 import '../modules/profile_settings/user_profile/bindings/profile_settings_user_profile_binding.dart';
 import '../modules/profile_settings/user_profile/views/profile_settings_user_profile_view.dart';
+import '../modules/service/bindings/service_binding.dart';
+import '../modules/service/views/service_view.dart';
 import '../modules/shipment/bindings/shipment_binding.dart';
 import '../modules/shipment/views/shipment_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
@@ -195,6 +197,11 @@ class AppPages {
       name: _Paths.PROFILE_SETTINGS_CHANGE_PHONE_NUMBER,
       page: () => const ProfileSettingsChangePhoneNumberView(),
       binding: ProfileSettingsChangePhoneNumberBinding(),
+    ),
+    GetPage(
+      name: _Paths.SERVICE,
+      page: () => const ServiceView(),
+      binding: ServiceBinding(),
     ),
   ];
 }

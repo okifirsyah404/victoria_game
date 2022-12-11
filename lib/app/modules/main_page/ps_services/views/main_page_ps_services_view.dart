@@ -55,7 +55,9 @@ class MainPagePsServicesView extends GetView<MainPagePsServicesController> {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  controller.onPressedService();
+                },
                 child: Text("Servis Sekarang"),
               ),
             ],

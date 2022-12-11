@@ -5,15 +5,18 @@ import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import '../../themes/typography_theme.dart';
 
 class GenericDropdown extends StatelessWidget {
-  const GenericDropdown(
-      {super.key,
-      required this.selectedItem,
-      required this.items,
-      required this.onChanged});
+  const GenericDropdown({
+    super.key,
+    required this.selectedItem,
+    required this.items,
+    required this.onChanged,
+    this.icon,
+  });
 
   final String selectedItem;
   final List<String> items;
   final Function(String?)? onChanged;
+  final Widget? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -83,16 +86,19 @@ class GenericDropdown extends StatelessWidget {
         // ),
         child: Row(
           children: [
-            SizedBox(
-              height: 32,
-              width: 32,
-              child: Center(
-                child: Icon(
-                  CustomIconData.timer,
-                  color: ColorsTheme.neutralColor[900],
-                ),
-              ),
-            ),
+            icon != null
+                ? SizedBox(
+                    height: 32,
+                    width: 32,
+                    child: Center(
+                      // child: Icon(
+                      //   CustomIconData.timer,
+                      //   color: ColorsTheme.neutralColor[900],
+                      // ),
+                      child: icon,
+                    ),
+                  )
+                : SizedBox(),
             Expanded(
               child: Container(
                 child: DropdownButtonHideUnderline(

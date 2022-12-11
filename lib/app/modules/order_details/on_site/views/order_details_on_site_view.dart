@@ -161,6 +161,10 @@ class OrderDetailsOnSiteView extends GetView<OrderDetailsOnSiteController> {
                       //   controller.dropDownInitialSelected.value,
                       //   ...controller.listItem
                       // ],
+                      icon: Icon(
+                        CustomIconData.timer,
+                        color: ColorsTheme.neutralColor[900],
+                      ),
                       items: controller.listItem,
                       onChanged: (val) {
                         controller.onChangeDropDown(val);
