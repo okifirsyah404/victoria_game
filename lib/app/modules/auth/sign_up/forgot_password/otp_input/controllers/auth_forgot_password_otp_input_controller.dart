@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:get/get.dart';
 import 'package:victoria_game/app/core/repository/user_repository.dart';
 import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
@@ -10,23 +13,52 @@ class AuthForgotPasswordOtpInputController extends GetxController {
 
   late UserRepository userRepository;
   late TextEditingController otpController;
+  late CountdownTimerController countdownTimerController;
 
   late String otp = _arguments["otp"];
   late String userMail = _arguments["email"];
+
+  RxBool isResendOtp = false.obs;
+  bool isOtpExpired = false;
+
+  void onCountdownDone() {
+    isResendOtp.value = true;
+  }
+
+  setExpiresOtp() async {
+    const duration = Duration(minutes: 5);
+
+    return Timer(
+      duration,
+      () {
+        isOtpExpired = true;
+      },
+    );
+  }
 
   void onResendOtp() async {
     var result = await userRepository.submitForgetPassword(email: userMail);
 
     otp = result.data?.otp ?? "";
+
+    isOtpExpired = false;
+    setExpiresOtp();
+    isResendOtp.value = false;
   }
 
   void onSubmitOtp() async {
-    print(otp);
-    print(otpController.text);
     if (otpController.text == otp) {
-      Get.toNamed(Routes.AUTH_FORGOT_PASSWORD_RESET_PASSWORD, arguments: {
-        "email": userMail,
-      });
+      if (isOtpExpired) {
+        Get.dialog(const SingleActionDialog(
+          title: "Kode OTP Kadaluarsa",
+          description:
+              "Kode OTP yang kamu masukkan sudah kadaluarsa, coba lagi ya!",
+        ));
+      } else {
+        Get.toNamed(Routes.AUTH_FORGOT_PASSWORD_RESET_PASSWORD, arguments: {
+          "email": userMail,
+        });
+      }
     } else {
       Get.dialog(const SingleActionDialog(
         title: "Kode OTP Salah",
@@ -39,6 +71,10 @@ class AuthForgotPasswordOtpInputController extends GetxController {
   void onInit() {
     userRepository = UserRepository.instance;
     otpController = TextEditingController();
+    countdownTimerController = CountdownTimerController(
+      endTime: DateTime.now().millisecondsSinceEpoch + 1000 * 60 * 2,
+    );
+    setExpiresOtp();
     super.onInit();
   }
 
@@ -50,6 +86,7 @@ class AuthForgotPasswordOtpInputController extends GetxController {
   @override
   void onClose() {
     otpController.dispose();
+    countdownTimerController.dispose();
     super.onClose();
   }
 }

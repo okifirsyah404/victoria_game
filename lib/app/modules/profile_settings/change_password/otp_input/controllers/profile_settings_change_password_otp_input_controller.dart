@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:get/get.dart';
 import 'package:victoria_game/app/core/repository/user_repository.dart';
 import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
@@ -9,35 +12,30 @@ class ProfileSettingsChangePasswordOtpInputController extends GetxController {
   late SecureStorage secureStorage;
   late UserRepository userRepository;
   late TextEditingController otpController;
+  late CountdownTimerController countdownTimerController;
 
   String authAccessToken = "";
   String otp = "";
   String userMail = "";
 
-  //  void onSubmitOtp() async {
-  //   print(otp);
-  //   print(otpController.text);
-  //   if (otpController.text == otp) {
-  //     Get.toNamed(Routes.AUTH_FORGOT_PASSWORD_RESET_PASSWORD, arguments: {
-  //       "email": userMail,
-  //     });
-  //   } else {
-  //     Get.dialog(const SingleActionDialog(
-  //       title: "Kode OTP Salah",
-  //       description: "Kode OTP yang kamu masukkan salah, coba cek lagi ya!",
-  //     ));
-  //   }
-  // }
+  RxBool isResendOtp = false.obs;
+  bool isOtpExpired = false;
 
-  // void onResendOtp() async {
-  //   var result = await userRepository.submitForgetPassword(email: userMail);
-
-  //   otp = result.data?.otp ?? "";
-  // }
+  void onCountdownDone() {
+    isResendOtp.value = true;
+  }
 
   void onSubmitOtp() async {
     if (otpController.text == otp) {
-      Get.toNamed(Routes.PROFILE_SETTINGS_CHANGE_PASSWORD_NEW_PASSWORD_INPUT);
+      if (isOtpExpired) {
+        Get.dialog(const SingleActionDialog(
+          title: "Kode OTP Kadaluarsa",
+          description:
+              "Kode OTP yang kamu masukkan sudah kadaluarsa, coba lagi ya!",
+        ));
+      } else {
+        Get.toNamed(Routes.PROFILE_SETTINGS_CHANGE_PASSWORD_NEW_PASSWORD_INPUT);
+      }
     } else {
       Get.dialog(
         const SingleActionDialog(
@@ -53,6 +51,21 @@ class ProfileSettingsChangePasswordOtpInputController extends GetxController {
         await userRepository.submitResetOtpPassword(authToken: authAccessToken);
 
     otp = result.data?.otp ?? "";
+
+    isOtpExpired = false;
+    setExpiresOtp();
+    isResendOtp.value = false;
+  }
+
+  setExpiresOtp() async {
+    const duration = Duration(minutes: 5);
+
+    return Timer(
+      duration,
+      () {
+        isOtpExpired = true;
+      },
+    );
   }
 
   Future<void> onUserDataInit() async {
@@ -72,6 +85,10 @@ class ProfileSettingsChangePasswordOtpInputController extends GetxController {
     secureStorage = SecureStorage.instance;
     userRepository = UserRepository.instance;
     otpController = TextEditingController();
+    countdownTimerController = CountdownTimerController(
+      endTime: DateTime.now().millisecondsSinceEpoch + 1000 * 60 * 2,
+    );
+    setExpiresOtp();
     super.onInit();
   }
 
@@ -83,6 +100,7 @@ class ProfileSettingsChangePasswordOtpInputController extends GetxController {
   @override
   void onClose() {
     otpController.dispose();
+    countdownTimerController.dispose();
     super.onClose();
   }
 }

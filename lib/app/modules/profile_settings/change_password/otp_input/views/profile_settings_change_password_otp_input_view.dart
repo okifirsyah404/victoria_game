@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 
 import 'package:get/get.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
@@ -46,7 +47,12 @@ class ProfileSettingsChangePasswordOtpInputView
             ),
             const SizedBox(height: 32),
             Text(
-              "Kami telah mengirim OTP (One-Time Password) Ke alamat email ${controller.userMail}",
+              "Kami telah mengirim OTP (One-Time Password) ke alamat email ${controller.userMail}",
+              style: TypographyTheme.bodyRegular,
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              "Kode OTP akan Expired dalam 5 Menit.",
               style: TypographyTheme.bodyRegular,
               textAlign: TextAlign.center,
             ),
@@ -132,34 +138,48 @@ class ProfileSettingsChangePasswordOtpInputView
                     color: ColorsTheme.neutralColor,
                     borderRadius: BorderRadius.circular(8)),
                 child: Text(
-                  "Kami telah mengirim OTP (One-Time Password) Ke alamat email JohnDoe12345678",
+                  "Kami telah mengirim OTP (One-Time Password) ke alamat email JohnDoe12345678",
+                  style: TypographyTheme.bodyRegular,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            ShimmerWidget(
+              child: Container(
+                decoration: BoxDecoration(
+                    color: ColorsTheme.neutralColor,
+                    borderRadius: BorderRadius.circular(8)),
+                child: Text(
+                  "Kode OTP akan Expired dalam 5 Menit.",
                   style: TypographyTheme.bodyRegular,
                   textAlign: TextAlign.center,
                 ),
               ),
             ),
             const SizedBox(height: 32),
-            SizedBox(
-              width: 240,
-              child: TextField(
-                controller: controller.otpController,
-                textAlign: TextAlign.center,
-                keyboardType: TextInputType.number,
-                maxLength: 6,
-                style: TypographyTheme.bodyMedium.copyWith(
-                  color: ColorsTheme.neutralColor[900],
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 6.0,
-                ),
-                cursorColor: ColorsTheme.neutralColor[900],
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: ColorsTheme.neutralColor[50],
-                  counterText: "",
-                  counterStyle: const TextStyle(height: double.minPositive),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide.none,
+            ShimmerWidget(
+              child: SizedBox(
+                width: 240,
+                child: TextField(
+                  controller: controller.otpController,
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.number,
+                  maxLength: 6,
+                  style: TypographyTheme.bodyMedium.copyWith(
+                    color: ColorsTheme.neutralColor[900],
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 6.0,
+                  ),
+                  cursorColor: ColorsTheme.neutralColor[900],
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: ColorsTheme.neutralColor[50],
+                    counterText: "",
+                    counterStyle: const TextStyle(height: double.minPositive),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: BorderSide.none,
+                    ),
                   ),
                 ),
               ),
@@ -174,15 +194,7 @@ class ProfileSettingsChangePasswordOtpInputView
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 16),
-                InkWell(
-                  child: Text(
-                    "Kirim Ulang",
-                    style: TypographyTheme.bodyRegular.copyWith(
-                      color: ColorsTheme.primaryColor,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
+                _resendOtp(),
               ],
             ),
             const SizedBox(height: 64),
@@ -193,6 +205,48 @@ class ProfileSettingsChangePasswordOtpInputView
           ],
         ),
       ),
+    );
+  }
+
+  Widget _resendOtp() {
+    return Obx(
+      () => controller.isResendOtp.value
+          ? InkWell(
+              onTap: () {
+                controller.onResendOtp();
+              },
+              child: Text(
+                "Kirim Ulang",
+                style: TypographyTheme.bodyRegular.copyWith(
+                  color: ColorsTheme.primaryColor,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text("Kirim ulang dalam "),
+                CountdownTimer(
+                  controller: controller.countdownTimerController,
+                  onEnd: () {
+                    controller.onCountdownDone();
+                  },
+                  widgetBuilder: (_, time) {
+                    if (time != null) {
+                      if (time.min != null) {
+                        return Text("${time.min} : ${time.sec}");
+                      }
+
+                      return Text("${time.sec}");
+                    }
+
+                    return Text("Hola");
+                  },
+                ),
+              ],
+            ),
     );
   }
 }

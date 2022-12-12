@@ -492,7 +492,7 @@ class DetailGameCenterView extends GetView<DetailGameCenterController> {
                   ),
                 ),
                 Text(
-                  "${controller.playstationList[index].name}",
+                  "No. ${controller.playstationList[index].id?.substring(4)}",
                   style: TypographyTheme.titleSmall.copyWith(
                     color: ColorsTheme.neutralColor[900],
                     fontWeight: FontWeight.w800,

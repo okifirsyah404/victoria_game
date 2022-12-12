@@ -17,40 +17,44 @@ class AuthForgotPasswordResetPasswordView
         title: const Text('Reset Password'),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Text(
-              "Harap Memasukkan Password Baru",
-              style: TypographyTheme.bodyMedium.copyWith(
-                color: ColorsTheme.primaryColor,
-              ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                Text(
+                  "Harap Memasukkan Password Baru",
+                  style: TypographyTheme.bodyMedium.copyWith(
+                    color: ColorsTheme.primaryColor,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  "Gunakan password yang kuat dan mudah diingat olehmu ya",
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 32),
+                PasswordTextField(
+                  textEditingController: controller.passwordController,
+                  passwordCondition: "Baru",
+                ),
+                const SizedBox(height: 16),
+                PasswordTextField(
+                  textEditingController: controller.rePasswordController,
+                  passwordPrefixText: "Ulangi ",
+                  passwordCondition: "Baru",
+                ),
+                const SizedBox(height: 32),
+                ElevatedButton(
+                  onPressed: () {
+                    controller.onSubmitUpdatePassword();
+                  },
+                  child: Text("Reset Password"),
+                ),
+              ],
             ),
-            const SizedBox(height: 16),
-            Text(
-              "Gunakan password yang kuat dan mudah diingat olehmu ya! Seperti kenangan dengan mantan",
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 32),
-            PasswordTextField(
-              textEditingController: controller.passwordController,
-              passwordCondition: "Baru",
-            ),
-            const SizedBox(height: 16),
-            PasswordTextField(
-              textEditingController: controller.rePasswordController,
-              passwordPrefixText: "Ulangi ",
-              passwordCondition: "Baru",
-            ),
-            const SizedBox(height: 32),
-            ElevatedButton(
-              onPressed: () {
-                controller.onSubmitUpdatePassword();
-              },
-              child: Text("Reset Password"),
-            ),
-          ],
+          ),
         ),
       ),
     );

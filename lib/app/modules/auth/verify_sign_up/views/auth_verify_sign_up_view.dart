@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 
 import 'package:get/get.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
@@ -36,7 +37,12 @@ class AuthVerifySignUpView extends GetView<AuthVerifySignUpController> {
               ),
               SizedBox(height: 32),
               Text(
-                "Kami telah mengirim OTP (One-Time Password) Ke alamat email ${controller.userMail}",
+                "Kami telah mengirim OTP (One-Time Password) ke alamat email ${controller.userMail}",
+                style: TypographyTheme.bodyRegular,
+                textAlign: TextAlign.center,
+              ),
+              Text(
+                "Kode OTP akan Expired dalam 5 Menit.",
                 style: TypographyTheme.bodyRegular,
                 textAlign: TextAlign.center,
               ),
@@ -76,18 +82,7 @@ class AuthVerifySignUpView extends GetView<AuthVerifySignUpController> {
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 16),
-                  InkWell(
-                    onTap: () {
-                      controller.onResendOtp();
-                    },
-                    child: Text(
-                      "Kirim Ulang",
-                      style: TypographyTheme.bodyRegular.copyWith(
-                        color: ColorsTheme.primaryColor,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
+                  _resendOtp(),
                 ],
               ),
               SizedBox(height: 64),
@@ -101,6 +96,48 @@ class AuthVerifySignUpView extends GetView<AuthVerifySignUpController> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _resendOtp() {
+    return Obx(
+      () => controller.isResendOtp.value
+          ? InkWell(
+              onTap: () {
+                controller.onResendOtp();
+              },
+              child: Text(
+                "Kirim Ulang",
+                style: TypographyTheme.bodyRegular.copyWith(
+                  color: ColorsTheme.primaryColor,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text("Kirim ulang dalam "),
+                CountdownTimer(
+                  controller: controller.countdownTimerController,
+                  onEnd: () {
+                    controller.onCountdownDone();
+                  },
+                  widgetBuilder: (_, time) {
+                    if (time != null) {
+                      if (time.min != null) {
+                        return Text("${time.min} : ${time.sec}");
+                      }
+
+                      return Text("${time.sec}");
+                    }
+
+                    return Text("Hola");
+                  },
+                ),
+              ],
+            ),
     );
   }
 }
