@@ -17,10 +17,11 @@ class AuthSignUpView extends GetView<AuthSignUpController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
+      body: SingleChildScrollView(
+        child: Container(
+          height: Get.height,
+          width: Get.width,
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 64.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

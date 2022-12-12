@@ -12,7 +12,7 @@ import 'package:victoria_game/utils/secure_storage.dart';
 import 'package:victoria_game/utils/string_extensions.dart';
 
 class DetailGameCenterController extends GetxController {
-  var _arguments = Get.arguments;
+  final _arguments = Get.arguments;
 
   String get locationId => _arguments["location"];
   late SecureStorage secureStorage;
