@@ -17,7 +17,7 @@ class ProfileSettingsEditUserProfileView
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Ubah Profile'),
         centerTitle: true,
@@ -48,16 +48,6 @@ class ProfileSettingsEditUserProfileView
                                 },
                               ),
                             );
-                            // controller.openCamera();
-                            // showModalBottomSheet(
-                            //   context: context,
-                            //   builder: (context) => Container(
-                            //     height: 100,
-                            //     decoration: BoxDecoration(
-                            //       color: Colors.white,
-                            //     ),
-                            //   ),
-                            // );
                           },
                         ),
                         SizedBox(height: 32),

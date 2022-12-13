@@ -39,6 +39,7 @@ class ServiceView extends GetView<ServiceController> {
 
   Widget onDataDone() {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Service Playstation'),
         centerTitle: true,
