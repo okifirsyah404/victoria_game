@@ -181,7 +181,7 @@ class OrderDetailsAtHomeView extends GetView<OrderDetailsAtHomeController> {
                     ),
                   ),
                   Container(
-                    width: double.infinity,
+                    width: Get.width,
                     padding: const EdgeInsets.fromLTRB(16, 10, 16, 16),
                     color: ColorsTheme.neutralColor[900],
                     child: Column(

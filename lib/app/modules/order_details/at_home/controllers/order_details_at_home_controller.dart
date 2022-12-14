@@ -116,7 +116,6 @@ class OrderDetailsAtHomeController extends GetxController {
       ));
     } else {
       var result = await Get.toNamed(Routes.PAYMENT, arguments: {
-        "psData": itemData,
         "previousMethod": {
           "method": paymentMethod.value,
           "ballance": paymentMethodBallance.value,
@@ -151,18 +150,21 @@ class OrderDetailsAtHomeController extends GetxController {
             "Kamu belum memilih metode pembayaran nih! Silahkan pilih ya!",
       ));
     } else {
-      // Get.toNamed(Routes.SHIPMENT, arguments: {
-      //   "psData": itemData,
-      //   "date": {
-      //     "startDate": selectedInitDate.value,
-      //     "lastDate": selectedEndDate.value,
-      //   },
-      //   "payment": {
-      //     "paymentMethod": paymentMethod.value,
-      //     "ballance": paymentMethodBallance.value,
-      //   },
-      //   "totalAmount": totalAmount.value,
-      // },);
+      Get.toNamed(
+        Routes.SHIPMENT,
+        arguments: {
+          "psData": itemData,
+          "date": {
+            "startDate": selectedInitDate.value,
+            "lastDate": selectedEndDate.value,
+          },
+          "payment": {
+            "paymentMethod": paymentMethod.value,
+            "ballance": paymentMethodBallance.value,
+          },
+          "totalAmount": totalAmount.value,
+        },
+      );
     }
   }
 

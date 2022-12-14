@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -96,14 +97,14 @@ class ProfileSettingsEditUserProfileView
             width: 1,
           ),
           image: DecorationImage(
-            image: controller.imageFile != null &&
-                    controller.imageFile.value.path != ""
+            image: controller.imageFile.value.path != ""
                 ? Image.file(controller.imageFile.value).image
-                : NetworkImage(
-                    "https://e31b-125-166-116-58.ap.ngrok.io/api/user/image",
-                    headers: {
-                        "Authorization": controller.authAccessToken,
-                      }),
+                // : NetworkImage(
+                //     "https://e066-125-166-116-58.ap.ngrok.io/api/user/image",
+                //     headers: {
+                //         "Authorization": controller.authAccessToken,
+                //       }),
+                : MemoryImage(Uint8List.fromList(controller.imageByte)),
             fit: BoxFit.cover,
           ),
           shape: BoxShape.circle,

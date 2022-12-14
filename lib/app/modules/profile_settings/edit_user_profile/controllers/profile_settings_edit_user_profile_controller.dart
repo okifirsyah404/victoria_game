@@ -23,6 +23,8 @@ class ProfileSettingsEditUserProfileController extends GetxController {
   late TextEditingController usernameController;
   late String authAccessToken;
 
+  List<int> imageByte = [];
+
   bool isFileChange = false;
 
   Future<void> openCamera() async {
@@ -90,11 +92,20 @@ class ProfileSettingsEditUserProfileController extends GetxController {
     return cameraGaleryPermission;
   }
 
+  Future<void> fetchUserImage(String authToken) async {
+    var result = await userRepository.getMethodRaw("/api/user/image",
+        headers: {userRepository.authorization: authToken});
+
+    imageByte = [...result.bodyBytes];
+  }
+
   Future<UserDataResponse> fetchUserData() async {
     authAccessToken = await storage.readDataFromStrorage("token") ?? "";
 
     var userData = await userRepository.fetchUserData(authAccessToken);
     usernameController.text = userData.data?.username ?? "";
+
+    await fetchUserImage(authAccessToken);
 
     return userData;
   }

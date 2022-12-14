@@ -75,6 +75,7 @@ class PaymentView extends GetView<PaymentController> {
                       controller.paymentMethods[index]["method"],
                       style: TypographyTheme.titleSmall,
                     ),
+                    enabled: controller.paymentMethods[index]["enabled"],
                     trailing:
                         controller.paymentMethods[index]["ballance"] != null
                             ? Text(

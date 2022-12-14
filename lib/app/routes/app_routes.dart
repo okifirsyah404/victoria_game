@@ -39,6 +39,8 @@ abstract class Routes {
   static const PROFILE_SETTINGS_CHANGE_PHONE_NUMBER =
       _Paths.PROFILE_SETTINGS_CHANGE_PHONE_NUMBER;
   static const SERVICE = _Paths.SERVICE;
+  static const ORDER_DETAILS_ON_SITE_VERIFY =
+      _Paths.ORDER_DETAILS_ON_SITE_VERIFY;
 }
 
 abstract class _Paths {
@@ -72,4 +74,5 @@ abstract class _Paths {
   static const DETAIL_BANNER = '/detail-banner';
   static const PROFILE_SETTINGS_CHANGE_PHONE_NUMBER = '/change-phone-number';
   static const SERVICE = '/service';
+  static const ORDER_DETAILS_ON_SITE_VERIFY = '/on-site-verify';
 }
