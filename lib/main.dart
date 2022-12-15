@@ -70,7 +70,8 @@ class _MainAppState extends State<MainApp> {
     ]);
     return GetMaterialApp(
       title: "Application",
-      initialRoute: AppPages.INITIAL,
+      // initialRoute: AppPages.INITIAL,
+      initialRoute: Routes.ORDER_DETAILS_ON_SITE_INVOICE,
       theme: MainTheme.darkTheme(context),
       getPages: AppPages.routes,
       localizationsDelegates: [

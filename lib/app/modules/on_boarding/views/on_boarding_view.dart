@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
+import 'package:rive/rive.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
 
@@ -39,8 +40,12 @@ class OnBoardingView extends GetView<OnBoardingController> {
                                 Container(
                                   height: 200,
                                   width: 200,
-                                  child: SvgPicture.asset(
-                                      controller.onBoardingImage[index]),
+                                  // child: SvgPicture.asset(
+                                  //     controller.onBoardingImage[index]),
+                                  child: RiveAnimation.asset(
+                                    "assets/rive/play-service.riv",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                                 SizedBox(height: 88),
                                 Text(

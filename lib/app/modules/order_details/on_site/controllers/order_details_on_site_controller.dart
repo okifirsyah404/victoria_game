@@ -183,7 +183,8 @@ class OrderDetailsOnSiteController extends GetxController {
               "Kamu belum memilih metode pembayaran. Silahkan pilih metode pembayaran ya!",
         ),
       );
-    } else if (totalAmount > paymentMethodBallance.value) {
+    } else if (totalAmount > paymentMethodBallance.value &&
+        paymentMethod.value == "Saldo") {
       Get.dialog(
         const SingleActionDialog(
           title: "Saldo Kamu Tidak Mencukupi",

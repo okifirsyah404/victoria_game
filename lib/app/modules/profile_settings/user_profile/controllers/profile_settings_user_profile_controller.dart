@@ -65,7 +65,7 @@ INFORMASI :
   Future<String> fetchUserToken() async {
     String authToken = await storage.readDataFromStrorage("token") ?? "";
     var result = await http.get(
-        Uri.parse("https://e066-125-166-116-58.ap.ngrok.io/api/user/image"),
+        Uri.parse("https://d73f-125-166-116-58.ap.ngrok.io/api/user/image"),
         headers: {userRepository.authorization: authToken});
     return authToken;
   }

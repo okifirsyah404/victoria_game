@@ -46,8 +46,8 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
   }
 
   Widget loadingData() {
-    return SafeArea(
-      child: const Center(
+    return const SafeArea(
+      child: Center(
         child: RiveAnimation.asset('assets/rive/loading.riv'),
       ),
     );

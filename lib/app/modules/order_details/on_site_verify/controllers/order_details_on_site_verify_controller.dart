@@ -25,7 +25,7 @@ class OrderDetailsOnSiteVerifyController extends GetxController {
       var rentalData = await _orderOnSiteRepository.postOrderOnSiteData(
           authToken: authToken, body: _arguments);
 
-      Get.toNamed(Routes.HISTORY_ORDER_ON_SITE_INVOICE, arguments: {
+      Get.toNamed(Routes.ORDER_DETAILS_ON_SITE_INVOICE, arguments: {
         "rentalId": rentalData.data?.rentalId,
       });
     } else {

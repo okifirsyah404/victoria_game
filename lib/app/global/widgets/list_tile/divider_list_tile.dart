@@ -51,6 +51,12 @@ class DividerListTile extends StatelessWidget {
           title,
           style: TypographyTheme.bodyRegular,
         ),
+        subtitle: subtitle != null
+            ? Text(subtitle!,
+                style: TypographyTheme.bodySmall.copyWith(
+                  color: ColorsTheme.neutralColor[400],
+                ))
+            : null,
         trailing: trailing,
         leading: leading,
       ),
