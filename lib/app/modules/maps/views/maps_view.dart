@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rive/rive.dart';
 
 import '../../../global/themes/colors_theme.dart';
 import '../controllers/maps_controller.dart';
@@ -18,7 +19,7 @@ class MapsView extends GetView<MapsController> {
       body: Obx(
         () => controller.isMapLoading.value
             ? const Center(
-                child: CircularProgressIndicator(),
+                child: RiveAnimation.asset('assets/rive/loading.riv'),
               )
             : Column(
                 children: [

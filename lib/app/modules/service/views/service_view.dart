@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:rive/rive.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
 import 'package:victoria_game/app/global/widgets/dropdown/generic_dropdown.dart';
@@ -32,7 +33,7 @@ class ServiceView extends GetView<ServiceController> {
         centerTitle: true,
       ),
       body: Center(
-        child: CircularProgressIndicator(),
+        child: RiveAnimation.asset('assets/rive/loading.riv'),
       ),
     );
   }

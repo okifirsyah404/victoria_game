@@ -14,13 +14,13 @@ dependencies:
   firebase_core: ^2.1.1
   flutter:
     sdk: flutter
+  flutter_countdown_timer: ^4.1.0
   flutter_localizations:
     sdk: flutter
   flutter_native_image: ^0.0.6+1
   flutter_phoenix: ^1.1.0
   flutter_secure_storage: ^6.0.0
   flutter_svg: ^1.1.6
-  flutter_countdown_timer: ^4.1.0
   font_awesome_flutter: ^10.2.1
   geocoding: ^2.0.5
   geolocator: ^9.0.2
@@ -34,6 +34,7 @@ dependencies:
   location: ^4.4.0
   package_info_plus: ^3.0.1
   permission_handler: ^10.2.0
+  rive: ^0.9.1
   shimmer: ^2.0.0
 
 dev_dependencies:
@@ -61,3 +62,4 @@ flutter:
     - assets/images/drawable/profile/
     - assets/images/logo/
     - assets/fonts/
+    - assets/rive/

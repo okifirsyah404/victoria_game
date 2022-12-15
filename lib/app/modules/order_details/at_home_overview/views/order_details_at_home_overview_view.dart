@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rive/rive.dart';
 import 'package:victoria_game/app/global/icons/custom_icon_data_icons.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
@@ -22,7 +23,7 @@ class OrderDetailsAtHomeOverviewView
       ),
       body: Obx(() => controller.isPageLoading.value
           ? const Center(
-              child: CircularProgressIndicator(),
+              child: RiveAnimation.asset('assets/rive/loading.riv'),
             )
           : Form(
               key: controller.formKey,

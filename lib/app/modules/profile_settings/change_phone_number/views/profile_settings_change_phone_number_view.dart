@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:rive/rive.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/widgets/text_field/regular_text_field/views/regular_text_field_widget.dart';
 
@@ -30,7 +31,7 @@ class ProfileSettingsChangePhoneNumberView
 
   Widget onDataLoading() {
     return Center(
-      child: CircularProgressIndicator(),
+      child: RiveAnimation.asset('assets/rive/loading.riv'),
     );
   }
 

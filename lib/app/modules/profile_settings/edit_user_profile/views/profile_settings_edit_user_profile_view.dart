@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:rive/rive.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
 import 'package:victoria_game/app/global/widgets/alert_dialog/image_source_dialog/image_source_dialog.dart';
@@ -79,7 +80,7 @@ class ProfileSettingsEditUserProfileView
           }
 
           return Center(
-            child: CircularProgressIndicator(),
+            child: RiveAnimation.asset('assets/rive/loading.riv'),
           );
         },
       ),

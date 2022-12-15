@@ -41,6 +41,8 @@ abstract class Routes {
   static const SERVICE = _Paths.SERVICE;
   static const ORDER_DETAILS_ON_SITE_VERIFY =
       _Paths.ORDER_DETAILS_ON_SITE_VERIFY;
+  static const HISTORY_ORDER_ON_SITE_INVOICE =
+      _Paths.HISTORY_ORDER_ON_SITE_INVOICE;
 }
 
 abstract class _Paths {
@@ -75,4 +77,5 @@ abstract class _Paths {
   static const PROFILE_SETTINGS_CHANGE_PHONE_NUMBER = '/change-phone-number';
   static const SERVICE = '/service';
   static const ORDER_DETAILS_ON_SITE_VERIFY = '/on-site-verify';
+  static const HISTORY_ORDER_ON_SITE_INVOICE = '/order-on-site-invoice';
 }

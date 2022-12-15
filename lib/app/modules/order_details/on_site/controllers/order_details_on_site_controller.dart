@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:victoria_game/app/core/repository/order_on_site_repository.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
+import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
 import 'package:victoria_game/utils/secure_storage.dart';
 
 import '../../../../routes/app_pages.dart';
@@ -109,13 +110,12 @@ class OrderDetailsOnSiteController extends GetxController {
     if (timePicked != null) {
       timeTextController.text = "${timePicked.hour}:${timePicked.minute}";
 
-      // TODO: Implement when user submit
-      // selectedDate.value = DateTime(
-      //     selectedDate.value.year,
-      //     selectedDate.value.month,
-      //     selectedDate.value.day,
-      //     timePicked.hour,
-      //     timePicked.minute);
+      selectedDate.value = DateTime(
+          selectedDate.value.year,
+          selectedDate.value.month,
+          selectedDate.value.day,
+          timePicked.hour,
+          timePicked.minute);
       print(selectedDate);
     }
   }
@@ -151,7 +151,59 @@ class OrderDetailsOnSiteController extends GetxController {
   }
 
   void onSubmitOrder() {
-    Get.toNamed(Routes.ORDER_DETAILS_ON_SITE_VERIFY);
+    if (calendarTextController.text.isEmpty) {
+      Get.dialog(
+        const SingleActionDialog(
+          title: "Tanggal Main Belum Diisi",
+          description:
+              "Kamu belum memilih tanggal main. Silahkan pilih tanggal main kamu ya!",
+        ),
+      );
+    } else if (timeTextController.text.isEmpty) {
+      Get.dialog(
+        const SingleActionDialog(
+          title: "Waktu Main Belum Diisi",
+          description:
+              "Kamu belum memilih waktu main. Silahkan pilih waktu main kamu ya!",
+        ),
+      );
+    } else if (selectedDate.value.isBefore(DateTime.now())) {
+      Get.dialog(
+        const SingleActionDialog(
+          title: "Waktu Main Tidak Valid",
+          description:
+              "Kamu memilih waktu main yang tidak valid. Coba pilih waktu lain ya!",
+        ),
+      );
+    } else if (paymentMethod.value.isEmpty) {
+      Get.dialog(
+        const SingleActionDialog(
+          title: "Metode Pembayaran Tidak Valid",
+          description:
+              "Kamu belum memilih metode pembayaran. Silahkan pilih metode pembayaran ya!",
+        ),
+      );
+    } else if (totalAmount > paymentMethodBallance.value) {
+      Get.dialog(
+        const SingleActionDialog(
+          title: "Saldo Kamu Tidak Mencukupi",
+          description:
+              "Saldo kamu tidak mencukupi untuk main nih! Silahkan top up atau pilih metode pembayaran lain.",
+        ),
+      );
+    } else {
+      Get.toNamed(Routes.ORDER_DETAILS_ON_SITE_VERIFY, arguments: {
+        "playtime": selectedDropdownIndex,
+        "totalAmount": totalAmount,
+        "paymentMethod": paymentMethod.value,
+        "gameCenterId": locationId,
+        "playstationId": playstationId,
+        "startPlay": "${selectedDate.value}",
+        "endPlay": "${selectedDate.value.add(
+          Duration(hours: selectedDropdownIndex),
+        )}"
+      });
+    }
   }
 
   @override

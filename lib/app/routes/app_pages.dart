@@ -16,6 +16,8 @@ import '../modules/detail_banner/bindings/detail_banner_binding.dart';
 import '../modules/detail_banner/views/detail_banner_view.dart';
 import '../modules/detail_game_center/bindings/detail_game_center_binding.dart';
 import '../modules/detail_game_center/views/detail_game_center_view.dart';
+import '../modules/history/order_on_site_invoice/bindings/history_order_on_site_invoice_binding.dart';
+import '../modules/history/order_on_site_invoice/views/history_order_on_site_invoice_view.dart';
 import '../modules/main_page/history/bindings/main_page_history_binding.dart';
 import '../modules/main_page/history/views/main_page_history_view.dart';
 import '../modules/main_page/home/bindings/main_page_home_binding.dart';
@@ -209,6 +211,11 @@ class AppPages {
       name: _Paths.ORDER_DETAILS_ON_SITE_VERIFY,
       page: () => const OrderDetailsOnSiteVerifyView(),
       binding: OrderDetailsOnSiteVerifyBinding(),
+    ),
+    GetPage(
+      name: _Paths.HISTORY_ORDER_ON_SITE_INVOICE,
+      page: () => const HistoryOrderOnSiteInvoiceView(),
+      binding: HistoryOrderOnSiteInvoiceBinding(),
     ),
   ];
 }

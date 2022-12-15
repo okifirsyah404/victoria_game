@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
+import 'package:rive/rive.dart';
 import 'package:victoria_game/app/global/icons/custom_icon_data_icons.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
 import 'package:victoria_game/app/global/widgets/dropdown/generic_dropdown.dart';
@@ -23,7 +24,7 @@ class OrderDetailsAtHomeView extends GetView<OrderDetailsAtHomeController> {
       ),
       body: Obx(() => controller.isPageLoading.value
           ? const Center(
-              child: CircularProgressIndicator(),
+              child: RiveAnimation.asset('assets/rive/loading.riv'),
             )
           : Form(
               key: controller.formKey,
