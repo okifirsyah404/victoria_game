@@ -4,8 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:victoria_game/app/core/network/response/user_data_response.dart';
 import 'package:victoria_game/app/core/repository/user_repository.dart';
+import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
 import 'package:victoria_game/utils/secure_storage.dart';
 import 'package:http/http.dart' as http;
 
@@ -29,7 +31,7 @@ class ProfileSettingsUserProfileController extends GetxController {
 
   List<int> imageByte = [];
 
-  void intentWhatsappTopUp() {
+  void intentWhatsappTopUp() async {
     final message = """
 Saya ingin topup mas Popo Onichan
 
@@ -46,13 +48,15 @@ INFORMASI :
 
 """;
 
-    final intent = AndroidIntent(
-        action: "android.intent.action.VIEW",
-        data: Uri.encodeFull(
-            "whatsapp://send?phone=+6281217634111&text=$message"),
-        package: "com.whatsapp");
-
-    intent.launch();
+    try {
+      await launchUrl(
+          Uri.parse("whatsapp://send?phone=+6281217634111&text=$message"));
+    } catch (e) {
+      Get.dialog(SingleActionDialog(
+        title: "Error",
+        description: e.toString(),
+      ));
+    }
   }
 
   void signOut() async {
@@ -65,7 +69,7 @@ INFORMASI :
   Future<String> fetchUserToken() async {
     String authToken = await storage.readDataFromStrorage("token") ?? "";
     var result = await http.get(
-        Uri.parse("https://d73f-125-166-116-58.ap.ngrok.io/api/user/image"),
+        Uri.parse("https://5826-118-99-121-214.ap.ngrok.io/api/user/image"),
         headers: {userRepository.authorization: authToken});
     return authToken;
   }

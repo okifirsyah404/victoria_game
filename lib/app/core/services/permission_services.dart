@@ -17,6 +17,10 @@ abstract class PermissionServices {
     return await Permission.location.request();
   }
 
+  Future<PermissionStatus> requestGaleryPermission() async {
+    return await Permission.storage.request();
+  }
+
   Future<Map<Permission, PermissionStatus>>
       requestCameraGaleryPermission() async {
     return await [

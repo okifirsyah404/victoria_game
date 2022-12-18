@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final detailOrderOnSiteResponse = detailOrderOnSiteResponseFromJson(jsonString);
-
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
@@ -26,73 +22,78 @@ class DetailOrderOnSiteResponse {
 
   factory DetailOrderOnSiteResponse.fromJson(Map<String, dynamic> json) =>
       DetailOrderOnSiteResponse(
-        status: json["status"] == null ? null : json["status"],
-        statusCode: json["statusCode"] == null ? null : json["statusCode"],
-        message: json["message"] == null ? null : json["message"],
+        status: json["status"],
+        statusCode: json["statusCode"],
+        message: json["message"],
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "status": status == null ? null : status,
-        "statusCode": statusCode == null ? null : statusCode,
-        "message": message == null ? null : message,
+        "status": status,
+        "statusCode": statusCode,
+        "message": message,
         "data": data == null ? null : data?.toJson(),
       };
 }
 
 class Data {
   Data({
-    this.idRental,
-    this.idPs,
-    this.waktuOrder,
+    this.rentalId,
+    this.totalAmount,
+    this.gameCenterId,
+    this.gameCenterName,
+    this.playstationId,
+    this.playstationType,
     this.playtime,
-    this.mulaiRental,
-    this.selesaiRental,
-    this.bayar,
-    this.lok,
-    this.idUser,
+    this.startPlay,
+    this.userId,
+    this.userEmail,
+    this.userName,
+    this.userPhone,
   });
 
-  final String? idRental;
-  final String? idPs;
-  final DateTime? waktuOrder;
+  final String? rentalId;
+  final int? totalAmount;
+  final String? gameCenterId;
+  final String? gameCenterName;
+  final String? playstationId;
+  final String? playstationType;
   final int? playtime;
-  final DateTime? mulaiRental;
-  final DateTime? selesaiRental;
-  final int? bayar;
-  final String? lok;
-  final String? idUser;
+  final DateTime? startPlay;
+  final String? userId;
+  final String? userEmail;
+  final String? userName;
+  final String? userPhone;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        idRental: json["id_rental"] == null ? null : json["id_rental"],
-        idPs: json["id_ps"] == null ? null : json["id_ps"],
-        waktuOrder: json["waktu_order"] == null
+        rentalId: json["rentalId"],
+        totalAmount: json["totalAmount"],
+        gameCenterId: json["gameCenterId"],
+        gameCenterName: json["gameCenterName"],
+        playstationId: json["playstationId"],
+        playstationType: json["playstationType"],
+        playtime: json["playtime"],
+        startPlay: json["startPlay"] == null
             ? null
-            : DateTime.parse(json["waktu_order"]),
-        playtime: json["playtime"] == null ? null : json["playtime"],
-        mulaiRental: json["mulai_rental"] == null
-            ? null
-            : DateTime.parse(json["mulai_rental"]),
-        selesaiRental: json["selesai_rental"] == null
-            ? null
-            : DateTime.parse(json["selesai_rental"]),
-        bayar: json["bayar"] == null ? null : json["bayar"],
-        lok: json["lok"] == null ? null : json["lok"],
-        idUser: json["id_user"] == null ? null : json["id_user"],
+            : DateTime.parse(json["startPlay"]),
+        userId: json["userId"],
+        userEmail: json["userEmail"],
+        userName: json["userName"],
+        userPhone: json["userPhone"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id_rental": idRental == null ? null : idRental,
-        "id_ps": idPs == null ? null : idPs,
-        "waktu_order":
-            waktuOrder == null ? null : waktuOrder?.toIso8601String(),
-        "playtime": playtime == null ? null : playtime,
-        "mulai_rental":
-            mulaiRental == null ? null : mulaiRental?.toIso8601String(),
-        "selesai_rental":
-            selesaiRental == null ? null : selesaiRental?.toIso8601String(),
-        "bayar": bayar == null ? null : bayar,
-        "lok": lok == null ? null : lok,
-        "id_user": idUser == null ? null : idUser,
+        "rentalId": rentalId,
+        "totalAmount": totalAmount,
+        "gameCenterId": gameCenterId,
+        "gameCenterName": gameCenterName,
+        "playstationId": playstationId,
+        "playstationType": playstationType,
+        "playtime": playtime,
+        "startPlay": startPlay == null ? null : startPlay?.toIso8601String(),
+        "userId": userId,
+        "userEmail": userEmail,
+        "userName": userName,
+        "userPhone": userPhone,
       };
 }

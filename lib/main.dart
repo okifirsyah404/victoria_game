@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:victoria_game/app/controllers/app_controller.dart';
 import 'package:victoria_game/app/core/repository/user_repository.dart';
 import 'package:victoria_game/app/global/themes/theme.dart';
@@ -70,8 +71,8 @@ class _MainAppState extends State<MainApp> {
     ]);
     return GetMaterialApp(
       title: "Application",
-      // initialRoute: AppPages.INITIAL,
-      initialRoute: Routes.ORDER_DETAILS_ON_SITE_INVOICE,
+      initialRoute: AppPages.INITIAL,
+      // initialRoute: Routes.ORDER_DETAILS_ON_SITE_INVOICE,
       theme: MainTheme.darkTheme(context),
       getPages: AppPages.routes,
       localizationsDelegates: [
@@ -79,7 +80,7 @@ class _MainAppState extends State<MainApp> {
       ],
       supportedLocales: [
         Locale('en'),
-        Locale('id'),
+        Locale('id', 'ID'),
       ],
     );
   }

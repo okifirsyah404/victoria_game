@@ -14,7 +14,7 @@ class OrderDetailsOnSiteController extends GetxController {
   final _arguments = Get.arguments;
 
   late SecureStorage secureStorage;
-  late OrderOnSiteRepository orderOnSiteRepository;
+  late OrderOnSiteRepository _orderOnSiteRepository;
 
   String get locationId => _arguments["location"];
   String get playstationId => _arguments["playstationId"];
@@ -79,7 +79,7 @@ class OrderDetailsOnSiteController extends GetxController {
     }
   }
 
-  Future<TimeOfDay?> openTimePicker(BuildContext context) async {
+  Future<void> openTimePicker(BuildContext context) async {
     final timePicked = await showTimePicker(
       confirmText: "OKE",
       cancelText: "BATAL",
@@ -136,11 +136,19 @@ class OrderDetailsOnSiteController extends GetxController {
 
   Future<void> fetchInitialOrderData() async {
     var authToken = await secureStorage.readDataFromStrorage("token") ?? "";
-    var result = await orderOnSiteRepository.fetchSummaryOrder(
+    var result = await _orderOnSiteRepository.fetchSummaryOrder(
       authToken: authToken,
       gameCenterId: locationId,
       playstationId: playstationId,
     );
+
+    var scheduledTimes = await _orderOnSiteRepository.fetchScheduledOrder(
+      authToken: authToken,
+      gameCenterId: locationId,
+      playstationId: playstationId,
+    );
+
+    print(scheduledTimes.data?.length);
 
     gameCenterName = result.data?.locationName ?? "";
     gameCenterAddress = result.data?.locationAddress ?? "";
@@ -167,7 +175,8 @@ class OrderDetailsOnSiteController extends GetxController {
               "Kamu belum memilih waktu main. Silahkan pilih waktu main kamu ya!",
         ),
       );
-    } else if (selectedDate.value.isBefore(DateTime.now())) {
+    } else if (selectedDate.value
+        .isBefore(DateTime.now().subtract(const Duration(seconds: 59)))) {
       Get.dialog(
         const SingleActionDialog(
           title: "Waktu Main Tidak Valid",
@@ -211,7 +220,7 @@ class OrderDetailsOnSiteController extends GetxController {
   void onInit() {
     calendarTextController = TextEditingController();
     timeTextController = TextEditingController();
-    orderOnSiteRepository = OrderOnSiteRepository.instance;
+    _orderOnSiteRepository = OrderOnSiteRepository.instance;
     secureStorage = SecureStorage.instance;
     dropDownInitialSelected = listItem[0].obs;
     super.onInit();

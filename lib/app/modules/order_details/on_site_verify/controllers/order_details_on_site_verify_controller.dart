@@ -25,13 +25,15 @@ class OrderDetailsOnSiteVerifyController extends GetxController {
       var rentalData = await _orderOnSiteRepository.postOrderOnSiteData(
           authToken: authToken, body: _arguments);
 
-      Get.toNamed(Routes.ORDER_DETAILS_ON_SITE_INVOICE, arguments: {
+      Get.offAllNamed(Routes.ORDER_DETAILS_ON_SITE_INVOICE, arguments: {
         "rentalId": rentalData.data?.rentalId,
+        "paymentMethod": _arguments["paymentMethod"],
       });
     } else {
       Get.dialog(SingleActionDialog(
-        title: result.message,
-        description: "Result ${result.data.verified}, $_arguments",
+        title: "Password Salah",
+        description:
+            "Tolong masukan password yang benar agar kami yakin bahwa itu anda",
       ));
     }
   }

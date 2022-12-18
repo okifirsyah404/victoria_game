@@ -238,6 +238,9 @@ class ProfileSettingsUserProfileView
         DividerListTile(
           title: "Kebijakan Aplikasi",
           topBorder: true,
+          onTap: () {
+            Get.toNamed(Routes.PROFILE_SETTINGS_TERMS_AND_CONDITIONS);
+          },
         ),
         DividerListTile(
           title: "FaQ",

@@ -45,6 +45,8 @@ abstract class Routes {
       _Paths.HISTORY_ORDER_ON_SITE_INVOICE;
   static const ORDER_DETAILS_ON_SITE_INVOICE =
       _Paths.ORDER_DETAILS_ON_SITE_INVOICE;
+  static const PROFILE_SETTINGS_TERMS_AND_CONDITIONS =
+      _Paths.PROFILE_SETTINGS_TERMS_AND_CONDITIONS;
 }
 
 abstract class _Paths {
@@ -81,4 +83,5 @@ abstract class _Paths {
   static const ORDER_DETAILS_ON_SITE_VERIFY = '/on-site-verify';
   static const HISTORY_ORDER_ON_SITE_INVOICE = '/order-on-site-invoice';
   static const ORDER_DETAILS_ON_SITE_INVOICE = '/on-site-invoice';
+  static const PROFILE_SETTINGS_TERMS_AND_CONDITIONS = '/terms-and-conditions';
 }

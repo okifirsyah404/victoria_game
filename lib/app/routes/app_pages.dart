@@ -50,6 +50,8 @@ import '../modules/profile_settings/change_phone_number/bindings/profile_setting
 import '../modules/profile_settings/change_phone_number/views/profile_settings_change_phone_number_view.dart';
 import '../modules/profile_settings/edit_user_profile/bindings/profile_settings_edit_user_profile_binding.dart';
 import '../modules/profile_settings/edit_user_profile/views/profile_settings_edit_user_profile_view.dart';
+import '../modules/profile_settings/terms_and_conditions/bindings/profile_settings_terms_and_conditions_binding.dart';
+import '../modules/profile_settings/terms_and_conditions/views/profile_settings_terms_and_conditions_view.dart';
 import '../modules/profile_settings/user_profile/bindings/profile_settings_user_profile_binding.dart';
 import '../modules/profile_settings/user_profile/views/profile_settings_user_profile_view.dart';
 import '../modules/service/bindings/service_binding.dart';
@@ -223,6 +225,11 @@ class AppPages {
       name: _Paths.ORDER_DETAILS_ON_SITE_INVOICE,
       page: () => const OrderDetailsOnSiteInvoiceView(),
       binding: OrderDetailsOnSiteInvoiceBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE_SETTINGS_TERMS_AND_CONDITIONS,
+      page: () => const ProfileSettingsTermsAndConditionsView(),
+      binding: ProfileSettingsTermsAndConditionsBinding(),
     ),
   ];
 }
