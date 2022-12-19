@@ -38,6 +38,8 @@ import '../modules/order_details/on_site/bindings/order_details_on_site_binding.
 import '../modules/order_details/on_site/views/order_details_on_site_view.dart';
 import '../modules/order_details/on_site_invoice/bindings/order_details_on_site_invoice_binding.dart';
 import '../modules/order_details/on_site_invoice/views/order_details_on_site_invoice_view.dart';
+import '../modules/order_details/on_site_schedule/bindings/order_details_on_site_schedule_binding.dart';
+import '../modules/order_details/on_site_schedule/views/order_details_on_site_schedule_view.dart';
 import '../modules/order_details/on_site_verify/bindings/order_details_on_site_verify_binding.dart';
 import '../modules/order_details/on_site_verify/views/order_details_on_site_verify_view.dart';
 import '../modules/payment/bindings/payment_binding.dart';
@@ -230,6 +232,11 @@ class AppPages {
       name: _Paths.PROFILE_SETTINGS_TERMS_AND_CONDITIONS,
       page: () => const ProfileSettingsTermsAndConditionsView(),
       binding: ProfileSettingsTermsAndConditionsBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDER_DETAILS_ON_SITE_SCHEDULE,
+      page: () => const OrderDetailsOnSiteScheduleView(),
+      binding: OrderDetailsOnSiteScheduleBinding(),
     ),
   ];
 }

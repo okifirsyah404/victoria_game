@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final forgetPasswordResponse = forgetPasswordResponseFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 ForgetPasswordResponse forgetPasswordResponseFromJson(String str) =>

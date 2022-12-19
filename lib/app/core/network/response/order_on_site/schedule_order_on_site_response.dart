@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final scheduleOrderOnSiteResponse = scheduleOrderOnSiteResponseFromJson(jsonString);
+
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
@@ -22,18 +26,18 @@ class ScheduleOrderOnSiteResponse {
 
   factory ScheduleOrderOnSiteResponse.fromJson(Map<String, dynamic> json) =>
       ScheduleOrderOnSiteResponse(
-        status: json["status"],
-        statusCode: json["statusCode"],
-        message: json["message"],
+        status: json["status"] == null ? null : json["status"],
+        statusCode: json["statusCode"] == null ? null : json["statusCode"],
+        message: json["message"] == null ? null : json["message"],
         data: json["data"] == null
             ? null
             : List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "status": status,
-        "statusCode": statusCode,
-        "message": message,
+        "status": status == null ? null : status,
+        "statusCode": statusCode == null ? null : statusCode,
+        "message": message == null ? null : message,
         "data": data == null
             ? null
             : List<dynamic>.from(data?.map((x) => x.toJson()) ?? []),
@@ -42,46 +46,48 @@ class ScheduleOrderOnSiteResponse {
 
 class Datum {
   Datum({
-    this.idRental,
-    this.idPs,
-    this.mulaiRental,
-    this.selesaiRental,
-    this.lok,
-    this.jenis,
-    this.status,
+    this.rentalId,
+    this.playstationId,
+    this.startTime,
+    this.endTime,
+    this.locationId,
+    this.playstationType,
+    this.playstationStatus,
   });
 
-  final String? idRental;
-  final String? idPs;
-  final DateTime? mulaiRental;
-  final DateTime? selesaiRental;
-  final String? lok;
-  final String? jenis;
-  final String? status;
+  final String? rentalId;
+  final String? playstationId;
+  final DateTime? startTime;
+  final DateTime? endTime;
+  final String? locationId;
+  final String? playstationType;
+  final String? playstationStatus;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        idRental: json["id_rental"],
-        idPs: json["id_ps"],
-        mulaiRental: json["mulai_rental"] == null
+        rentalId: json["rentalId"] == null ? null : json["rentalId"],
+        playstationId:
+            json["playstationId"] == null ? null : json["playstationId"],
+        startTime: json["startTime"] == null
             ? null
-            : DateTime.parse(json["mulai_rental"]),
-        selesaiRental: json["selesai_rental"] == null
+            : DateTime.parse(json["startTime"]),
+        endTime:
+            json["endTime"] == null ? null : DateTime.parse(json["endTime"]),
+        locationId: json["locationId"] == null ? null : json["locationId"],
+        playstationType:
+            json["playstationType"] == null ? null : json["playstationType"],
+        playstationStatus: json["playstationStatus"] == null
             ? null
-            : DateTime.parse(json["selesai_rental"]),
-        lok: json["lok"],
-        jenis: json["jenis"],
-        status: json["status"],
+            : json["playstationStatus"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id_rental": idRental,
-        "id_ps": idPs,
-        "mulai_rental":
-            mulaiRental == null ? null : mulaiRental?.toIso8601String(),
-        "selesai_rental":
-            selesaiRental == null ? null : selesaiRental?.toIso8601String(),
-        "lok": lok,
-        "jenis": jenis,
-        "status": status,
+        "rentalId": rentalId == null ? null : rentalId,
+        "playstationId": playstationId == null ? null : playstationId,
+        "startTime": startTime == null ? null : startTime?.toIso8601String(),
+        "endTime": endTime == null ? null : endTime?.toIso8601String(),
+        "locationId": locationId == null ? null : locationId,
+        "playstationType": playstationType == null ? null : playstationType,
+        "playstationStatus":
+            playstationStatus == null ? null : playstationStatus,
       };
 }

@@ -2,8 +2,6 @@ import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class AppController extends GetxController {
-  //TODO: Implement AppController
-
   PackageInfo packageInfo = PackageInfo(
     appName: 'Unknown',
     packageName: 'Unknown',
@@ -24,10 +22,5 @@ class AppController extends GetxController {
   void onInit() {
     getPackageInfo();
     super.onInit();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 }

@@ -164,10 +164,17 @@ class DetailGameCenterController extends GetxController {
 
   void onSelectedPlaystationItem(int index) {
     if (playstationList[index].status != "tidak aktif") {
-      Get.dialog(const SingleActionDialog(
+      Get.dialog(SingleActionDialog(
         title: "Playstation Masih Dimainkan",
         description:
-            "Playstation ini masih dimainkan, coba pilih playstation lain ya!",
+            "Playstation ini masih dimainkan, anda bisa pilih tanggal lain",
+        buttonFunction: () {
+          Get.back();
+          Get.toNamed(Routes.ORDER_DETAILS_ON_SITE, arguments: {
+            "location": locationId,
+            "playstationId": playstationList[index].id,
+          });
+        },
       ));
     } else {
       Get.toNamed(Routes.ORDER_DETAILS_ON_SITE, arguments: {

@@ -13,7 +13,7 @@ class OrderDetailsOnSiteController extends GetxController {
 
   final _arguments = Get.arguments;
 
-  late SecureStorage secureStorage;
+  late SecureStorage _secureStorage;
   late OrderOnSiteRepository _orderOnSiteRepository;
 
   String get locationId => _arguments["location"];
@@ -24,6 +24,12 @@ class OrderDetailsOnSiteController extends GetxController {
   late TextEditingController calendarTextController;
   late TextEditingController timeTextController;
   late RxString dropDownInitialSelected;
+
+  List<Map<String, dynamic>> scheduledTimeListDetail = [];
+  List<Map<String, DateTime>> scheduledTimeList = [];
+
+  late DateTime initialDate;
+  late TimeOfDay initialTime;
 
   late String gameCenterName;
   late String gameCenterAddress;
@@ -50,7 +56,7 @@ class OrderDetailsOnSiteController extends GetxController {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedDate.value,
-      firstDate: DateTime.now(),
+      firstDate: initialDate,
       lastDate: DateTime(2101),
       locale: const Locale("id"),
       builder: (context, child) {
@@ -88,7 +94,7 @@ class OrderDetailsOnSiteController extends GetxController {
       minuteLabelText: "",
       initialEntryMode: TimePickerEntryMode.inputOnly,
       context: context,
-      initialTime: TimeOfDay.now(),
+      initialTime: initialTime,
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
@@ -109,6 +115,7 @@ class OrderDetailsOnSiteController extends GetxController {
     );
     if (timePicked != null) {
       timeTextController.text = "${timePicked.hour}:${timePicked.minute}";
+      initialTime = timePicked;
 
       selectedDate.value = DateTime(
           selectedDate.value.year,
@@ -116,11 +123,9 @@ class OrderDetailsOnSiteController extends GetxController {
           selectedDate.value.day,
           timePicked.hour,
           timePicked.minute);
-      print(selectedDate);
     }
   }
 
-  // FIXME: Fix receiver null
   Future<void> initiatePaymentMethod() async {
     var result = await Get.toNamed(Routes.PAYMENT, arguments: {
       "previousMethod": {
@@ -135,7 +140,7 @@ class OrderDetailsOnSiteController extends GetxController {
   }
 
   Future<void> fetchInitialOrderData() async {
-    var authToken = await secureStorage.readDataFromStrorage("token") ?? "";
+    var authToken = await _secureStorage.readDataFromStrorage("token") ?? "";
     var result = await _orderOnSiteRepository.fetchSummaryOrder(
       authToken: authToken,
       gameCenterId: locationId,
@@ -148,17 +153,92 @@ class OrderDetailsOnSiteController extends GetxController {
       playstationId: playstationId,
     );
 
-    print(scheduledTimes.data?.length);
-
     gameCenterName = result.data?.locationName ?? "";
     gameCenterAddress = result.data?.locationAddress ?? "";
     playstationType = result.data?.playstationType ?? "";
     playstationNumber = result.data?.playstationId ?? "";
     baseRentPrice = result.data?.playstaionPrice ?? 0;
     totalAmount = baseRentPrice;
+
+    if (scheduledTimes.data != null) {
+      if (scheduledTimes.data!.isNotEmpty) {
+        scheduledTimes.data!.forEach((element) {
+          scheduledTimeListDetail.add({
+            "date": DateFormat("dd MMMM yyyy", "id_ID")
+                .format(element.startTime!.toLocal()),
+            "firstTime":
+                DateFormat("Hm", "id_ID").format(element.startTime!.toLocal()),
+            "lastTime":
+                DateFormat("Hm", "id_ID").format(element.endTime!.toLocal()),
+            "isPlaying":
+                (element.startTime!.toLocal().isBefore(DateTime.now()) &&
+                    element.endTime!.toLocal().isAfter(DateTime.now())),
+          });
+          scheduledTimeList.add({
+            "startPlay": element.startTime!.toLocal(),
+            "endPlay": element.endTime!.toLocal(),
+          });
+        });
+
+        var startTime = scheduledTimes.data![0].startTime!.toLocal();
+        var endTime = scheduledTimes.data![0].endTime!.toLocal();
+
+        if (startTime.isBefore(DateTime.now()) &&
+            endTime.isAfter(DateTime.now())) {
+          initialDate = endTime;
+          initialTime =
+              TimeOfDay.fromDateTime(endTime.add(const Duration(minutes: 1)));
+        } else {
+          initialDate = DateTime.now();
+          initialTime = TimeOfDay.now();
+        }
+      } else {
+        initialDate = DateTime.now();
+        initialTime = TimeOfDay.now();
+      }
+    }
   }
 
-  void onSubmitOrder() {
+  bool isTimeIntefernce({
+    required DateTime selectedInit,
+    required DateTime selectedEnd,
+    required List<Map<String, DateTime>> dateTimeList,
+  }) {
+    if (dateTimeList.isEmpty) return false;
+
+    for (int i = 0; i < dateTimeList.length; i++) {
+      DateTime startPlay =
+          dateTimeList[i]["startPlay"]!.subtract(Duration(minutes: 1));
+      DateTime endPlay = dateTimeList[i]["endPlay"]!.add(Duration(minutes: 1));
+
+      if (selectedInit.isBefore(startPlay) && selectedEnd.isAfter(endPlay))
+        return true;
+      if (selectedInit.isBefore(startPlay) && selectedEnd.isAfter(startPlay))
+        return true;
+      if (selectedInit.isBefore(endPlay) && selectedEnd.isAfter(endPlay))
+        return true;
+      if (selectedInit.isAfter(startPlay) && selectedEnd.isBefore(endPlay))
+        return true;
+
+      for (int j = i + 1; j < dateTimeList.length; j++) {
+        if (selectedEnd.isAfter(dateTimeList[j]["startPlay"]!) &&
+            selectedEnd.isBefore(dateTimeList[j]["endPlay"]!)) return true;
+        if (selectedInit.isBefore(dateTimeList[j]["startPlay"]!) &&
+            selectedEnd.isAfter(dateTimeList[j]["endPlay"]!)) return true;
+      }
+    }
+
+    return false;
+  }
+
+  void submitToScheduleScreen() {
+    Get.toNamed(Routes.ORDER_DETAILS_ON_SITE_SCHEDULE, arguments: {
+      "playstationId": playstationId,
+      "data": scheduledTimeListDetail,
+    });
+  }
+
+  void submitOrder() {
     if (calendarTextController.text.isEmpty) {
       Get.dialog(
         const SingleActionDialog(
@@ -182,6 +262,18 @@ class OrderDetailsOnSiteController extends GetxController {
           title: "Waktu Main Tidak Valid",
           description:
               "Kamu memilih waktu main yang tidak valid. Coba pilih waktu lain ya!",
+        ),
+      );
+    } else if (isTimeIntefernce(
+        selectedInit: selectedDate.value,
+        selectedEnd:
+            selectedDate.value.add(Duration(hours: selectedDropdownIndex)),
+        dateTimeList: scheduledTimeList)) {
+      Get.dialog(
+        const SingleActionDialog(
+          title: "Waktu Bertabrakan",
+          description:
+              "Waktu yang kamu pilih bertabrakan nih! Coba pilih waktu lain ya",
         ),
       );
     } else if (paymentMethod.value.isEmpty) {
@@ -221,7 +313,7 @@ class OrderDetailsOnSiteController extends GetxController {
     calendarTextController = TextEditingController();
     timeTextController = TextEditingController();
     _orderOnSiteRepository = OrderOnSiteRepository.instance;
-    secureStorage = SecureStorage.instance;
+    _secureStorage = SecureStorage.instance;
     dropDownInitialSelected = listItem[0].obs;
     super.onInit();
   }
