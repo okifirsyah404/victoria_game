@@ -12,9 +12,9 @@ class OnBoardingController extends GetxController {
   RxInt pageIndex = 0.obs;
 
   final List onBoardingImage = [
-    "assets/images/illustrations/play-onsite.svg",
-    "assets/images/illustrations/play-at-home.svg",
-    "assets/images/illustrations/play.svg"
+    "assets/rive/play-onsite.riv",
+    "assets/rive/play-at-home.riv",
+    "assets/rive/play.riv"
   ];
 
   final List onBoardingTitle = [

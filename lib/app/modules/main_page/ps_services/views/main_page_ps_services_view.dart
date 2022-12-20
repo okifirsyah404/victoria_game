@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
+import 'package:rive/rive.dart';
 
 import '../../../../global/themes/colors_theme.dart';
 import '../../../../global/themes/typography_theme.dart';
@@ -35,8 +36,10 @@ class MainPagePsServicesView extends GetView<MainPagePsServicesController> {
                 margin: EdgeInsets.symmetric(horizontal: 16.0),
                 height: 200,
                 width: 200,
-                child: SvgPicture.asset(
-                    "assets/images/illustrations/play-service.svg"),
+                child: RiveAnimation.asset(
+                  "assets/rive/play-service.riv",
+                  fit: BoxFit.cover,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 16.0, top: 6.0),

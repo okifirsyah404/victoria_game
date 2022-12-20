@@ -33,17 +33,17 @@ class MainPageHomeController extends GetxController {
 
   List<GameCenters> gameCenterList = [];
 
-  Future<bool> requestLocationPermission() async {
-    var locationPermission = await userRepository.handleLocationPermission();
+  Future<bool> requestAllRequiredPermission() async {
+    var requiredPermission = await userRepository.handleAllRequiredPermission();
 
-    userRepository.printLog.d(locationPermission);
+    userRepository.printLog.d(requiredPermission);
 
-    if (!locationPermission) {
+    if (!requiredPermission) {
       Get.dialog(
         SingleActionDialog(
-          title: "Akses Lokasi Ditolak",
+          title: "Akses Permission Ditolak",
           description:
-              "Kami membutuhkan akses lokasi untuk mengetahui jarak kamu dengan game center terdekat.",
+              "Kami membutuhkan semua permission untuk menjalankan aplikasi ini secara optimal.",
           buttonFunction: () async {
             await userRepository.requestOpenAppSettings();
             Get.back();
@@ -56,7 +56,7 @@ class MainPageHomeController extends GetxController {
 
     myPosition = await Geolocator.getCurrentPosition();
 
-    return locationPermission;
+    return requiredPermission;
   }
 
   void onSelectedGameCenter(int index) {
@@ -91,31 +91,6 @@ class MainPageHomeController extends GetxController {
     gameCenterList = gameCenterData.data ?? [];
   }
 
-  Future<bool> requestCameraGaleryPermissions() async {
-    var cameraGaleryPermission =
-        await userRepository.handleCameraGaleryPermission();
-
-    userRepository.printLog.d(cameraGaleryPermission);
-
-    if (!cameraGaleryPermission) {
-      Get.dialog(
-        SingleActionDialog(
-          title: "Akses Kamera Dan Galeri Ditolak",
-          description:
-              "Kami membutuhkan akses kamera serta galeri untuk mengupdate profile kamu.",
-          buttonFunction: () async {
-            await userRepository.requestOpenAppSettings();
-            Get.back();
-          },
-        ),
-      );
-
-      return false;
-    }
-
-    return cameraGaleryPermission;
-  }
-
   Future<void> initData() async {
     imageByte = await fetchUserImage();
     await fetchUserData();
@@ -126,8 +101,7 @@ class MainPageHomeController extends GetxController {
   void onInit() {
     userRepository = UserRepository.instance;
     gameCenterRepository = GameCenterRepository.instance;
-    requestLocationPermission();
-    requestCameraGaleryPermissions();
+    requestAllRequiredPermission();
     initData();
     super.onInit();
   }

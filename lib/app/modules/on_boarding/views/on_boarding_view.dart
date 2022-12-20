@@ -43,11 +43,11 @@ class OnBoardingView extends GetView<OnBoardingController> {
                                   // child: SvgPicture.asset(
                                   //     controller.onBoardingImage[index]),
                                   child: RiveAnimation.asset(
-                                    "assets/rive/play-service.riv",
+                                    controller.onBoardingImage[index],
                                     fit: BoxFit.cover,
                                   ),
                                 ),
-                                SizedBox(height: 88),
+                                const SizedBox(height: 88),
                                 Text(
                                   controller.onBoardingTitle[index],
                                   style: TypographyTheme.titleMedium.copyWith(

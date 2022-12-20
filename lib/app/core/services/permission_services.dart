@@ -28,4 +28,13 @@ abstract class PermissionServices {
       Permission.storage,
     ].request();
   }
+
+  Future<Map<Permission, PermissionStatus>>
+      requestAllRequiredPermission() async {
+    return await [
+      Permission.camera,
+      Permission.storage,
+      Permission.location,
+    ].request();
+  }
 }

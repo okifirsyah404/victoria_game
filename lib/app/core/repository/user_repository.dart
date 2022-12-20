@@ -50,6 +50,20 @@ class UserRepository extends NetworkServices with PermissionServices {
     return false;
   }
 
+  Future<bool> handleAllRequiredPermission() async {
+    var permissions = await requestAllRequiredPermission();
+
+    if (permissions[Permission.camera] == PermissionStatus.granted &&
+        permissions[Permission.storage] == PermissionStatus.granted &&
+        permissions[Permission.location] == PermissionStatus.granted) {
+      printLog.d("Granted");
+      return true;
+    }
+
+    printLog.d("Denied");
+    return false;
+  }
+
   Future<OtpResponse> submitVerifySignUp({
     required String email,
     required String password,
