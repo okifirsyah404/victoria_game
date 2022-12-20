@@ -114,7 +114,6 @@ class OrderDetailsOnSiteController extends GetxController {
       },
     );
     if (timePicked != null) {
-      timeTextController.text = "${timePicked.hour}:${timePicked.minute}";
       initialTime = timePicked;
 
       selectedDate.value = DateTime(
@@ -123,6 +122,9 @@ class OrderDetailsOnSiteController extends GetxController {
           selectedDate.value.day,
           timePicked.hour,
           timePicked.minute);
+
+      timeTextController.text =
+          DateFormat.Hm("id_ID").format(selectedDate.value);
     }
   }
 
