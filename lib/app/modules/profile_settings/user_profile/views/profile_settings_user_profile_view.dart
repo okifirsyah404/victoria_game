@@ -246,6 +246,7 @@ class ProfileSettingsUserProfileView
           title: "FaQ",
           topBorder: true,
           bottomBorder: true,
+          onTap: () => Get.toNamed(Routes.PROFILE_SETTINGS_FAQ_GENERAL),
         ),
         Padding(
           padding: const EdgeInsets.only(bottom: 16.0, top: 24.0),

@@ -52,6 +52,8 @@ import '../modules/profile_settings/change_phone_number/bindings/profile_setting
 import '../modules/profile_settings/change_phone_number/views/profile_settings_change_phone_number_view.dart';
 import '../modules/profile_settings/edit_user_profile/bindings/profile_settings_edit_user_profile_binding.dart';
 import '../modules/profile_settings/edit_user_profile/views/profile_settings_edit_user_profile_view.dart';
+import '../modules/profile_settings/faq_general/bindings/profile_settings_faq_general_binding.dart';
+import '../modules/profile_settings/faq_general/views/profile_settings_faq_general_view.dart';
 import '../modules/profile_settings/terms_and_conditions/bindings/profile_settings_terms_and_conditions_binding.dart';
 import '../modules/profile_settings/terms_and_conditions/views/profile_settings_terms_and_conditions_view.dart';
 import '../modules/profile_settings/user_profile/bindings/profile_settings_user_profile_binding.dart';
@@ -237,6 +239,11 @@ class AppPages {
       name: _Paths.ORDER_DETAILS_ON_SITE_SCHEDULE,
       page: () => const OrderDetailsOnSiteScheduleView(),
       binding: OrderDetailsOnSiteScheduleBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE_SETTINGS_FAQ_GENERAL,
+      page: () => const ProfileSettingsFaqGeneralView(),
+      binding: ProfileSettingsFaqGeneralBinding(),
     ),
   ];
 }
