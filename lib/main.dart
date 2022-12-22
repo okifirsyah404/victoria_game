@@ -52,7 +52,7 @@ class _MainAppState extends State<MainApp> {
 
   Future<void> preRenderImages() async {
     await precacheImage(
-        AssetImage("assets/images/logo/brand-logo.png"), context);
+        const AssetImage("assets/images/logo/brand-logo.png"), context);
   }
 
   AppController appController = Get.put(
