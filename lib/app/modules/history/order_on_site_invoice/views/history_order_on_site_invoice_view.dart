@@ -64,6 +64,17 @@ class HistoryOrderOnSiteInvoiceView
               topBorder: true,
             ),
             DividerListTile(
+              title: "Tanggal Transaksi",
+              trailing: Text(
+                DateFormat("dd MMMM yyyy", "id_ID").format(controller
+                    .detailTransactionDataHistory.orderTime
+                    .toLocal()),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
+              topBorder: true,
+            ),
+            DividerListTile(
               title: "Total",
               trailing: Text(controller.detailTransactionDataHistory.totalAmount
                   .toRupiah()),
@@ -205,7 +216,7 @@ class HistoryOrderOnSiteInvoiceView
               children: [
                 Text(
                   DateFormat("dd MMMM yyyy", "id_ID").format(controller
-                      .detailTransactionDataHistory.orderTime
+                      .detailTransactionDataHistory.startTime
                       .toLocal()),
                   style: TypographyTheme.bodyRegular.copyWith(
                     color: ColorsTheme.neutralColor[900],
