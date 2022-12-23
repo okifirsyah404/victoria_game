@@ -39,7 +39,7 @@ class OrderDetailsOnSiteView extends GetView<OrderDetailsOnSiteController> {
   }
 
   Widget onDataLoading() {
-    return Center(
+    return const Center(
       child: RiveAnimation.asset('assets/rive/loading.riv'),
     );
   }
@@ -52,7 +52,7 @@ class OrderDetailsOnSiteView extends GetView<OrderDetailsOnSiteController> {
           children: [
             Expanded(
               child: ListView(
-                padding: EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16.0),
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
@@ -67,7 +67,7 @@ class OrderDetailsOnSiteView extends GetView<OrderDetailsOnSiteController> {
                       elevation: 2,
                       borderRadius: BorderRadius.circular(8.0),
                       child: Container(
-                        padding: EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -102,7 +102,7 @@ class OrderDetailsOnSiteView extends GetView<OrderDetailsOnSiteController> {
                       elevation: 2,
                       borderRadius: BorderRadius.circular(8.0),
                       child: Container(
-                        padding: EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -141,7 +141,7 @@ class OrderDetailsOnSiteView extends GetView<OrderDetailsOnSiteController> {
                     },
                     label: "Tanggal Main",
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   ShowModalTextField(
                     controller: controller.timeTextController,
                     icon: FaIcon(
@@ -191,7 +191,7 @@ class OrderDetailsOnSiteView extends GetView<OrderDetailsOnSiteController> {
   Widget _inititatePaymentMethod() {
     return controller.paymentMethod.value != ""
         ? ListTile(
-            contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
             tileColor: ColorsTheme.neutralColor[900],
             textColor: ColorsTheme.primaryColor,
             shape: RoundedRectangleBorder(
@@ -222,14 +222,14 @@ class OrderDetailsOnSiteView extends GetView<OrderDetailsOnSiteController> {
                 color: ColorsTheme.primaryColor,
               ),
             ),
-            child: Text("Pilih Pembayaran"),
+            child: const Text("Pilih Pembayaran"),
           );
   }
 
   Widget _submitBottom() {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(16, 10, 16, 16),
+      padding: const EdgeInsets.fromLTRB(16, 10, 16, 16),
       color: ColorsTheme.neutralColor[900],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -249,7 +249,7 @@ class OrderDetailsOnSiteView extends GetView<OrderDetailsOnSiteController> {
               ),
             ],
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           OutlinedButton(
             onPressed: () {
               controller.submitOrder();
@@ -261,7 +261,7 @@ class OrderDetailsOnSiteView extends GetView<OrderDetailsOnSiteController> {
                 color: ColorsTheme.primaryColor,
               ),
             ),
-            child: Text("Checkout"),
+            child: const Text("Checkout"),
           ),
         ],
       ),

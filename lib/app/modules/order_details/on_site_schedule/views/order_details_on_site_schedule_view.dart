@@ -29,7 +29,7 @@ class OrderDetailsOnSiteScheduleView
           return Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(6),
-              color: controller.scheduledTimeListDetail[index]["isPlaying"]
+              color: controller.scheduledTimeListDetail[index].isPlaying
                   ? ColorsTheme.errorColor[500]
                   : ColorsTheme.primaryColor,
             ),
@@ -39,7 +39,7 @@ class OrderDetailsOnSiteScheduleView
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "${controller.scheduledTimeListDetail[index]["date"]}",
+                  controller.scheduledTimeListDetail[index].date,
                   style: TypographyTheme.bodyRegular.copyWith(
                       color: ColorsTheme.neutralColor[900],
                       fontWeight: FontWeight.w600),
@@ -50,7 +50,7 @@ class OrderDetailsOnSiteScheduleView
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "${controller.scheduledTimeListDetail[index]["firstTime"]}",
+                      controller.scheduledTimeListDetail[index].firstTime,
                       style: TypographyTheme.bodyRegular
                           .copyWith(color: ColorsTheme.neutralColor[900]),
                     ),
@@ -60,7 +60,7 @@ class OrderDetailsOnSiteScheduleView
                           .copyWith(color: ColorsTheme.neutralColor[900]),
                     ),
                     Text(
-                      "${controller.scheduledTimeListDetail[index]["lastTime"]}",
+                      controller.scheduledTimeListDetail[index].lastTime,
                       style: TypographyTheme.bodyRegular
                           .copyWith(color: ColorsTheme.neutralColor[900]),
                     ),
