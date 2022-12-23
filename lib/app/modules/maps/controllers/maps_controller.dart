@@ -98,13 +98,8 @@ class MapsController extends GetxController {
   }
 
   double calculateDistance(LatLng coordinates) {
-    // TODO:Tolonto Game
     double gameCenterLatitude = -7.154877;
     double gameCenterLongitude = 111.875865;
-
-    // TODO:Custom Location
-    // double gameCenterLatitude = -8.156475;
-    // double gameCenterLongitude = 113.718335;
 
     return Geolocator.distanceBetween(coordinates.latitude,
         coordinates.longitude, gameCenterLatitude, gameCenterLongitude);

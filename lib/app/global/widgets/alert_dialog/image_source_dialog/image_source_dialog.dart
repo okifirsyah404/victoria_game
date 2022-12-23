@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:victoria_game/app/global/widgets/list_tile/divider_list_tile.dart';
 
-class ImageSourceDialog extends StatelessWidget {
+class ImageSourceDialog extends GetWidget {
   const ImageSourceDialog({super.key, this.cameraAction, this.galeryAction});
   final VoidCallback? cameraAction;
   final VoidCallback? galeryAction;

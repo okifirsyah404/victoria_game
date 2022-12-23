@@ -2,21 +2,24 @@ import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
 
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:victoria_game/app/core/network/response/game_center/game_centers_list_res.dart';
+import 'package:location/location.dart' as loc;
 
 import 'package:victoria_game/app/core/network/response/game_center/game_centers_res.dart';
 import 'package:victoria_game/app/core/repository/game_center_repository.dart';
 import 'package:victoria_game/app/core/repository/user_repository.dart';
 import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
+import 'package:victoria_game/utils/double_extensions.dart';
 
 import 'package:victoria_game/utils/secure_storage.dart';
 
 class MainPageHomeController extends GetxController {
   final storage = SecureStorage();
 
-  late UserRepository userRepository;
-  late GameCenterRepository gameCenterRepository;
+  late UserRepository _userRepository;
+  late GameCenterRepository _gameCenterRepository;
 
   late String authAccessToken;
 
@@ -26,17 +29,17 @@ class MainPageHomeController extends GetxController {
   int ballance = 1000;
   int playTime = 0;
 
-  RxString locationMessage = "Belum mendapat Lat dan Long".obs;
-  RxString addressMessage = "Mencari Lokasi".obs;
-
   late Position myPosition;
+  loc.Location location = loc.Location();
 
   List<GameCenters> gameCenterList = [];
+  RxList<String> gameCenterLocationList = <String>[].obs;
 
-  Future<bool> requestAllRequiredPermission() async {
-    var requiredPermission = await userRepository.handleAllRequiredPermission();
+  Future<void> requestAllRequiredPermission() async {
+    var requiredPermission =
+        await _userRepository.handleAllRequiredPermission();
 
-    userRepository.printLog.d(requiredPermission);
+    _userRepository.printLog.d(requiredPermission);
 
     if (!requiredPermission) {
       Get.dialog(
@@ -45,29 +48,28 @@ class MainPageHomeController extends GetxController {
           description:
               "Kami membutuhkan semua permission untuk menjalankan aplikasi ini secara optimal.",
           buttonFunction: () async {
-            await userRepository.requestOpenAppSettings();
+            await _userRepository.requestOpenAppSettings();
             Get.back();
           },
         ),
       );
-
-      return false;
     }
 
     myPosition = await Geolocator.getCurrentPosition();
-
-    return requiredPermission;
   }
 
-  void onSelectedGameCenter(int index) {
-    Get.toNamed(Routes.DETAIL_GAME_CENTER,
-        arguments: {"location": gameCenterList[index].id});
+  double calculateDistance(LatLng gameCenterCoordiantes) {
+    double gameCenterLatitude = gameCenterCoordiantes.latitude;
+    double gameCenterLongitude = gameCenterCoordiantes.longitude;
+
+    return Geolocator.distanceBetween(myPosition.latitude, myPosition.longitude,
+        gameCenterLatitude, gameCenterLongitude);
   }
 
   Future<Uint8List> fetchUserImage() async {
     authAccessToken = await storage.readDataFromStrorage("token") ?? "";
-    var result = await userRepository.getMethodRaw("/api/user/image",
-        headers: {userRepository.authorization: authAccessToken});
+    var result = await _userRepository.getMethodRaw("/api/user/image",
+        headers: {_userRepository.authorization: authAccessToken});
 
     imageByte = [...result.bodyBytes];
 
@@ -75,7 +77,7 @@ class MainPageHomeController extends GetxController {
   }
 
   Future<void> fetchUserData() async {
-    var userData = await userRepository.fetchUserData(authAccessToken);
+    var userData = await _userRepository.fetchUserData(authAccessToken);
 
     username = userData.data?.username ?? "";
     ballance = userData.data?.ballance ?? 1;
@@ -86,23 +88,38 @@ class MainPageHomeController extends GetxController {
     String authToken = await storage.readDataFromStrorage("token") ?? "";
 
     var gameCenterData =
-        await gameCenterRepository.fetchGameCentersList(authToken: authToken);
+        await _gameCenterRepository.fetchGameCentersList(authToken: authToken);
 
     gameCenterList = gameCenterData.data ?? [];
+
+    gameCenterList.forEach((element) {
+      gameCenterLocationList.add(
+        calculateDistance(
+          LatLng(
+            double.parse(element.latitude!),
+            double.parse(element.longitude!),
+          ),
+        ).toKilometers(),
+      );
+    });
   }
 
   Future<void> initData() async {
+    await requestAllRequiredPermission();
     imageByte = await fetchUserImage();
     await fetchUserData();
     await fetchGameCenters();
   }
 
+  void onSelectedGameCenter(int index) {
+    Get.toNamed(Routes.DETAIL_GAME_CENTER,
+        arguments: {"location": gameCenterList[index].id});
+  }
+
   @override
   void onInit() {
-    userRepository = UserRepository.instance;
-    gameCenterRepository = GameCenterRepository.instance;
-    requestAllRequiredPermission();
-    initData();
+    _userRepository = UserRepository.instance;
+    _gameCenterRepository = GameCenterRepository.instance;
     super.onInit();
   }
 

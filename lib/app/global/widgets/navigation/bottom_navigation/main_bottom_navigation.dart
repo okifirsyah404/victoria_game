@@ -4,10 +4,8 @@ import 'package:victoria_game/app/modules/main_page/controllers/main_page_index_
 
 import '../../../icons/custom_icon_data_icons.dart';
 
-class MainBottomNavigation extends StatelessWidget {
+class MainBottomNavigation extends GetWidget<MainPageIndexController> {
   MainBottomNavigation({super.key});
-
-  MainPageIndexController controller = Get.find<MainPageIndexController>();
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +17,7 @@ class MainBottomNavigation extends StatelessWidget {
           enableFeedback: false,
           unselectedFontSize: 12,
           selectedFontSize: 12,
-          items: [
+          items: const [
             BottomNavigationBarItem(
               icon: Icon(CustomIconData.home),
               label: "Home",

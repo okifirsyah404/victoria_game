@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rive/rive.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:victoria_game/app/global/icons/custom_icon_data_icons.dart';
@@ -19,17 +20,6 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
 
   @override
   Widget build(BuildContext context) {
-    // return FutureBuilder(
-    //   future: controller.fetchUserData(),
-    //   builder: (context, snapshot) {
-    //     if (snapshot.connectionState == ConnectionState.done) {
-    //       return MainView();
-    //     }
-
-    //     return LoadingData();
-    //   },
-    // );
-
     return Scaffold(
       body: FutureBuilder(
         future: controller.initData(),
@@ -290,10 +280,12 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      Text(
-                        controller.gameCenterList[index].address ?? "",
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
+                      Obx(
+                        () => Text(
+                          controller.gameCenterLocationList[index],
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ],
                   ),
