@@ -254,7 +254,7 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) => Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
             child: InkWell(
               onTap: () {
                 controller.onSelectedGameCenter(index);
@@ -279,7 +279,7 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                           color: ColorsTheme.primaryColor,
                         ),
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 16),
                       Obx(
                         () => Text(
                           controller.gameCenterLocationList[index],
@@ -293,7 +293,7 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
               ),
             ),
           ),
-          separatorBuilder: (context, index) => const SizedBox(height: 8),
+          separatorBuilder: (context, index) => const SizedBox(height: 4),
           itemCount: controller.gameCenterList.length,
         ),
         SizedBox(height: 16),
