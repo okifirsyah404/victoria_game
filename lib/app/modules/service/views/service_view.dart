@@ -55,8 +55,6 @@ class ServiceView extends GetView<ServiceController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    _userInformation(),
-                    const SizedBox(height: 16),
                     _serviceDropdown(),
                     const SizedBox(height: 16),
                     Column(
@@ -104,35 +102,21 @@ class ServiceView extends GetView<ServiceController> {
     );
   }
 
-  Widget _userInformation() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          "Informasi Pemilik",
-          style: TypographyTheme.titleSmall,
-        ),
-        const SizedBox(height: 8.0),
-        UsernameTextField(controller: controller.usernameController),
-        const SizedBox(height: 8.0),
-        EmailTextField(textEditingController: controller.emailController),
-        const SizedBox(height: 8.0),
-        RegularTextField(
-          controller: controller.phoneController,
-          label: "Nomor Handphone",
-          keyboardType: TextInputType.phone,
-          icon: Icons.phone,
-        ),
-      ],
-    );
-  }
-
   Widget _serviceDropdown() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
+        Text(
+          "Nama Produk",
+          style: TypographyTheme.titleSmall,
+        ),
+        const SizedBox(height: 8.0),
+        RegularTextField(
+          controller: controller.productController,
+          label: "Nama Produk",
+        ),
+        const SizedBox(height: 16),
         Text(
           "Permasalahan",
           style: TypographyTheme.titleSmall,
@@ -166,7 +150,7 @@ class ServiceView extends GetView<ServiceController> {
               foregroundColor: ColorsTheme.neutralColor[900],
               backgroundColor: ColorsTheme.primaryColor,
             ),
-            child: Text("Pilih Lokasi Pengiriman"),
+            child: Text("Kirim Permohonan Servis"),
           ),
         ],
       ),
