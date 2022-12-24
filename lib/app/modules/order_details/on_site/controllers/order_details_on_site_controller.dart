@@ -210,8 +210,9 @@ class OrderDetailsOnSiteController extends GetxController {
 
     for (int i = 0; i < dateTimeList.length; i++) {
       DateTime startPlay =
-          dateTimeList[i]["startPlay"]!.subtract(Duration(minutes: 1));
-      DateTime endPlay = dateTimeList[i]["endPlay"]!.add(Duration(minutes: 1));
+          dateTimeList[i]["startPlay"]!.subtract(const Duration(minutes: 1));
+      DateTime endPlay =
+          dateTimeList[i]["endPlay"]!.add(const Duration(minutes: 1));
 
       if (selectedInit.isBefore(startPlay) && selectedEnd.isAfter(endPlay))
         return true;

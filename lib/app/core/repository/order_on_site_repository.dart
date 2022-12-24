@@ -105,7 +105,9 @@ class OrderOnSiteRepository extends NetworkServices with PermissionServices {
   }) async {
     var headers = {authorization: authToken};
 
-    var body = {"rentalId": transactionId};
+    var fcmToken = await storage.readDataFromStrorage("fcmToken");
+
+    var body = {"rentalId": transactionId, "fcmToken": fcmToken};
 
     var response = await postMethod("/api/order/on-site/detail",
         headers: headers, body: body);

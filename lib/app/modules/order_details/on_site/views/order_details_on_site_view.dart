@@ -112,7 +112,7 @@ class OrderDetailsOnSiteView extends GetView<OrderDetailsOnSiteController> {
                               style: TypographyTheme.bodyRegular,
                             ),
                             Text(
-                              controller.playstationId,
+                              "No. ${int.parse(controller.playstationId.substring(4))}",
                               style: TypographyTheme.titleSmall.copyWith(
                                 color: ColorsTheme.primaryColor,
                               ),

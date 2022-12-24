@@ -173,7 +173,8 @@ class OrderDetailsOnSiteInvoiceView
             ),
             DividerListTile(
               title: "Nomor Playstation",
-              trailing: Text("No. ${controller.playstationNumber}"),
+              trailing: Text(
+                  "No. ${int.parse(controller.playstationNumber.substring(4))}"),
               topBorder: true,
               bottomBorder: true,
             ),

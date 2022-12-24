@@ -1,18 +1,17 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:victoria_game/utils/firebase_notification.dart';
+import 'package:victoria_game/utils/secure_storage.dart';
 
 class AppController extends GetxController {
+  late SecureStorage _secureStorage;
+
   FirebaseMessaging messaging = FirebaseMessaging.instance;
-
-  Future<void> _firebaseMessagingBackgroundHandler(
-      RemoteMessage message) async {
-    // If you're going to use other Firebase services in the background, such as Firestore,
-    // make sure you call `initializeApp` before using other Firebase services.
-
-    print("Handling a background message: ${message.messageId}");
-  }
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   Future<void> initFirebaseMessaging() async {
     NotificationSettings settings = await messaging.requestPermission(
@@ -26,6 +25,43 @@ class AppController extends GetxController {
     );
 
     print('User granted permission: ${settings.authorizationStatus}');
+
+    FirebaseMessaging.onMessage.listen((event) {
+      showNotification(event, flutterLocalNotificationsPlugin);
+    });
+    FirebaseMessaging.onMessageOpenedApp.listen((event) {
+      showNotification(event, flutterLocalNotificationsPlugin);
+    });
+    FirebaseMessaging.onBackgroundMessage((message) =>
+        showNotification(message, flutterLocalNotificationsPlugin));
+    FirebaseMessaging.instance
+        .getInitialMessage()
+        .then((RemoteMessage? message) {
+      if (message != null) {
+        print(message.messageType);
+      }
+    });
+
+    var fmcToken = await FirebaseMessaging.instance.getToken() ?? "";
+
+    print("FCM : $fmcToken");
+
+    _secureStorage.writeDataToStorage(key: "fcmToken", value: fmcToken);
+  }
+
+  void initNotificationSetting() {
+    var initsettingAndroid =
+        const AndroidInitializationSettings('@mipmap/ic_launcher');
+
+    final InitializationSettings initSetting =
+        InitializationSettings(android: initsettingAndroid);
+
+    flutterLocalNotificationsPlugin.initialize(initSetting,
+        onDidReceiveNotificationResponse: onSelectNotification);
+  }
+
+  Future<dynamic> onSelectNotification(payload) async {
+    Get.toNamed(payload);
   }
 
   PackageInfo packageInfo = PackageInfo(
@@ -46,6 +82,7 @@ class AppController extends GetxController {
 
   @override
   void onInit() {
+    _secureStorage = SecureStorage.instance;
     initFirebaseMessaging();
     getPackageInfo();
     super.onInit();

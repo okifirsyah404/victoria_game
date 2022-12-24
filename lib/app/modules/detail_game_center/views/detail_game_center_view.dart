@@ -186,7 +186,7 @@ class DetailGameCenterView extends GetView<DetailGameCenterController> {
                 onTap: (argument) {
                   controller.intentGoogleMaps();
                 },
-                mapType: MapType.hybrid,
+                mapType: MapType.normal,
                 zoomControlsEnabled: false,
                 zoomGesturesEnabled: false,
                 markers: Set.from(controller.myMarker),
@@ -230,13 +230,6 @@ class DetailGameCenterView extends GetView<DetailGameCenterController> {
           child: Container(
             padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
-              // color: controller.playstationsData[index].psStatus !=
-              //         PsStatus.MAINTENANCE
-              //     ? controller.playstationsData[index].psStatus !=
-              //             PsStatus.UNAVAILABLE
-              //         ? ColorsTheme.primaryColor
-              //         : ColorsTheme.errorColor
-              //     : ColorsTheme.neutralColor,
               color: controller.playstationList[index].status != "aktif"
                   ? ColorsTheme.primaryColor
                   : ColorsTheme.errorColor,
@@ -254,7 +247,7 @@ class DetailGameCenterView extends GetView<DetailGameCenterController> {
                   ),
                 ),
                 Text(
-                  "No. ${controller.playstationList[index].id?.substring(4)}",
+                  "No. ${int.parse(controller.playstationList[index].id?.substring(4) ?? "")}",
                   style: TypographyTheme.titleSmall.copyWith(
                     color: ColorsTheme.neutralColor[900],
                     fontWeight: FontWeight.w800,
