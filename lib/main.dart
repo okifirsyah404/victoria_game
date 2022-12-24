@@ -23,6 +23,11 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  await FirebaseMessaging.instance.subscribeToTopic('topup');
+  await FirebaseMessaging.instance.subscribeToTopic('on-site');
+  await FirebaseMessaging.instance.subscribeToTopic('at-home');
+  await FirebaseMessaging.instance.subscribeToTopic('service');
+
   print("Handling a background message: ${message.messageId}");
 }
 
@@ -30,11 +35,19 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print('Got a message whilst in the foreground!');
+    print('Message data: ${message.data}');
+
+    if (message.notification != null) {
+      print('Message also contained a notification: ${message.notification}');
+    }
+  });
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  print(await FirebaseMessaging.instance.getToken());
 
   runApp(Phoenix(child: MainApp()));
 }

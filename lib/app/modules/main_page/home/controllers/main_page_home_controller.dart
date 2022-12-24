@@ -1,4 +1,6 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geolocator/geolocator.dart';
 
 import 'package:get/get.dart';
@@ -12,6 +14,7 @@ import 'package:victoria_game/app/core/repository/user_repository.dart';
 import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
 import 'package:victoria_game/utils/double_extensions.dart';
+import 'package:victoria_game/utils/firebase_notification.dart';
 
 import 'package:victoria_game/utils/secure_storage.dart';
 
@@ -20,6 +23,9 @@ class MainPageHomeController extends GetxController {
 
   late UserRepository _userRepository;
   late GameCenterRepository _gameCenterRepository;
+
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   late String authAccessToken;
 
@@ -122,10 +128,31 @@ class MainPageHomeController extends GetxController {
         arguments: {"location": gameCenterList[index].id});
   }
 
+  Future<void> initFirebaseMessaging() async {
+    FirebaseMessaging.onMessage.listen((event) {
+      showNotification(event, flutterLocalNotificationsPlugin);
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((event) {
+      showNotification(event, flutterLocalNotificationsPlugin);
+    });
+    FirebaseMessaging.onBackgroundMessage((message) =>
+        showNotification(message, flutterLocalNotificationsPlugin));
+    FirebaseMessaging.instance
+        .getInitialMessage()
+        .then((RemoteMessage? message) {
+      if (message != null) {
+        print(message.messageType);
+      }
+    });
+  }
+
   @override
   void onInit() {
     _userRepository = UserRepository.instance;
     _gameCenterRepository = GameCenterRepository.instance;
+    initFirebaseMessaging();
+
     super.onInit();
   }
 

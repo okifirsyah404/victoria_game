@@ -32,7 +32,7 @@ class ServiceView extends GetView<ServiceController> {
         title: const Text('Service Playstation'),
         centerTitle: true,
       ),
-      body: Center(
+      body: const Center(
         child: RiveAnimation.asset('assets/rive/loading.riv'),
       ),
     );
