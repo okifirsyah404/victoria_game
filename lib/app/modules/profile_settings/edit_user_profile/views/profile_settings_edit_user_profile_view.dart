@@ -101,7 +101,7 @@ class ProfileSettingsEditUserProfileView
             image: controller.imageFile.value.path != ""
                 ? Image.file(controller.imageFile.value).image
                 // : NetworkImage(
-                //     "https://fc9f-125-166-118-213.ap.ngrok.io/api/user/image",
+                //     "https://e126-125-166-118-213.ap.ngrok.io/api/user/image",
                 //     headers: {
                 //         "Authorization": controller.authAccessToken,
                 //       }),
