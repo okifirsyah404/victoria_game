@@ -10,11 +10,14 @@ dependencies:
   connectivity_plus: ^3.0.2
   crypto: ^3.0.2
   cupertino_icons: ^1.0.2
+  firebase_analytics: ^10.0.8
   firebase_auth: ^4.1.1
-  firebase_core: ^2.1.1
+  firebase_core: ^2.4.0
+  firebase_messaging: ^14.2.0
   flutter:
     sdk: flutter
   flutter_countdown_timer: ^4.1.0
+  flutter_local_notifications: ^13.0.0
   flutter_localizations:
     sdk: flutter
   flutter_native_image: ^0.0.6+1

@@ -111,6 +111,12 @@ class MainPageHomeController extends GetxController {
     await fetchGameCenters();
   }
 
+  Future<void> onReadyData() async {
+    imageByte = await fetchUserImage();
+    await fetchUserData();
+    await fetchGameCenters();
+  }
+
   void onSelectedGameCenter(int index) {
     Get.toNamed(Routes.DETAIL_GAME_CENTER,
         arguments: {"location": gameCenterList[index].id});

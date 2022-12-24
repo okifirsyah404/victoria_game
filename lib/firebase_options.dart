@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -49,19 +52,9 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBphF12sVeXlDOyHspeApFcHmmxjbGobkI',
-    appId: '1:81713468961:web:c84532aae574f1277eb560',
-    messagingSenderId: '81713468961',
-    projectId: 'victoria-tolonto',
-    authDomain: 'victoria-tolonto.firebaseapp.com',
-    storageBucket: 'victoria-tolonto.appspot.com',
-    measurementId: 'G-KJ84BQ5MYW',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCcOn8qkCwo8Zu4-ltha1aum7SBemaFWLU',
-    appId: '1:81713468961:android:f9a2709de08779a67eb560',
+    appId: '1:81713468961:android:af7bcd03a6983f077eb560',
     messagingSenderId: '81713468961',
     projectId: 'victoria-tolonto',
     storageBucket: 'victoria-tolonto.appspot.com',
