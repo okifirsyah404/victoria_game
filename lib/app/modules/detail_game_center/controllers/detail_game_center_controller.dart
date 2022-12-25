@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:victoria_game/app/core/network/response/game_center/game_centers_res.dart';
 import 'package:victoria_game/app/core/repository/game_center_repository.dart';
+import 'package:victoria_game/app/core/repository/history_repository.dart';
 import 'package:victoria_game/app/core/repository/user_repository.dart';
 import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
@@ -18,6 +19,7 @@ class DetailGameCenterController extends GetxController {
   late SecureStorage secureStorage;
   late GameCenterRepository gameCenterRepository;
   late UserRepository userRepository;
+  late HistoryRepository _historyRepository;
 
   late String authAccessToken;
   late GoogleMapController mapController;
@@ -35,6 +37,7 @@ class DetailGameCenterController extends GetxController {
   RxList<Marker> myMarker = <Marker>[].obs;
   RxString locationMessage = "Belum mendapat Lat dan Long".obs;
   RxString addressMessage = "Mencari Lokasi".obs;
+  RxBool isRentOnSiteActive = false.obs;
 
   Future<bool> requestLocationPermission() async {
     var locationPermission = await userRepository.handleLocationPermission();
@@ -150,6 +153,13 @@ class DetailGameCenterController extends GetxController {
     var result = await gameCenterRepository.fetchGameCenterDetail(
         authToken: authAccessToken, locationId: locationId);
 
+    var currentPlaying = await _historyRepository.getCurrentPlayingOnSite(
+        authToken: authAccessToken);
+
+    if (currentPlaying.data?.playstationId != null) {
+      isRentOnSiteActive.value = true;
+    }
+
     await fetchGameCenterImage(authAccessToken, locationId);
 
     markedLatitude = double.parse(result.data?.latitude ?? "-7.154825");
@@ -163,24 +173,31 @@ class DetailGameCenterController extends GetxController {
   }
 
   void onSelectedPlaystationItem(int index) {
-    if (playstationList[index].status != "tidak aktif") {
+    if (isRentOnSiteActive.value) {
       Get.dialog(SingleActionDialog(
-        title: "Playstation Masih Dimainkan",
-        description:
-            "Playstation ini masih dimainkan, anda bisa pilih tanggal lain",
-        buttonFunction: () {
-          Get.back();
-          Get.toNamed(Routes.ORDER_DETAILS_ON_SITE, arguments: {
-            "location": locationId,
-            "playstationId": playstationList[index].id,
-          });
-        },
+        title: "Kamu masih bermain",
+        description: "Masih ada playstation yang kamu mainkan",
       ));
     } else {
-      Get.toNamed(Routes.ORDER_DETAILS_ON_SITE, arguments: {
-        "location": locationId,
-        "playstationId": playstationList[index].id,
-      });
+      if (playstationList[index].status != "tidak aktif") {
+        Get.dialog(SingleActionDialog(
+          title: "Playstation Masih Dimainkan",
+          description:
+              "Playstation ini masih dimainkan, anda bisa pilih tanggal lain",
+          buttonFunction: () {
+            Get.back();
+            Get.toNamed(Routes.ORDER_DETAILS_ON_SITE, arguments: {
+              "location": locationId,
+              "playstationId": playstationList[index].id,
+            });
+          },
+        ));
+      } else {
+        Get.toNamed(Routes.ORDER_DETAILS_ON_SITE, arguments: {
+          "location": locationId,
+          "playstationId": playstationList[index].id,
+        });
+      }
     }
   }
 
@@ -189,6 +206,7 @@ class DetailGameCenterController extends GetxController {
     secureStorage = SecureStorage.instance;
     gameCenterRepository = GameCenterRepository.instance;
     userRepository = UserRepository.instance;
+    _historyRepository = HistoryRepository.instance;
     requestLocationPermission();
     super.onInit();
   }

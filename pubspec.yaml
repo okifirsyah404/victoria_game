@@ -17,12 +17,14 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_countdown_timer: ^4.1.0
+  flutter_launcher_icons: ^0.11.0
   flutter_local_notifications: ^13.0.0
   flutter_localizations:
     sdk: flutter
   flutter_native_image: ^0.0.6+1
   flutter_phoenix: ^1.1.0
-  flutter_secure_storage: ^6.0.0
+  flutter_plugin_android_lifecycle: ^2.0.7
+  flutter_secure_storage: ^7.0.1
   flutter_svg: ^1.1.6
   font_awesome_flutter: ^10.2.1
   geocoding: ^2.0.5
@@ -39,7 +41,7 @@ dependencies:
   package_info_plus: ^3.0.1
   path_provider: ^2.0.11
   permission_handler: ^10.2.0
-  rive: ^0.9.1
+  rive: ^0.10.0
   screenshot: ^1.2.3
   share_plus: ^6.3.0
   shimmer: ^2.0.0
@@ -72,3 +74,10 @@ flutter:
     - assets/images/logo/
     - assets/fonts/
     - assets/rive/
+
+flutter_icons:
+  image_path_android: "assets/images/logo/brand-logo.png"
+  android: "ic_launcher" # can specify file name here e.g. "ic_launcher"
+  adaptive_icon_foreground: "assets/images/logo/brand-logo.png"
+  adaptive_icon_background: "#FDFF4C"
+  min_sdk_android: 21 # android min sdk min:16, default 21

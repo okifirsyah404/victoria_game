@@ -1,4 +1,3 @@
-import 'package:android_intent_plus/android_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -69,7 +68,7 @@ INFORMASI :
   Future<String> fetchUserToken() async {
     String authToken = await storage.readDataFromStrorage("token") ?? "";
     var result = await http.get(
-        Uri.parse("https://e126-125-166-118-213.ap.ngrok.io/api/user/image"),
+        Uri.parse("https://a371-125-166-118-213.ap.ngrok.io/api/user/image"),
         headers: {userRepository.authorization: authToken});
     return authToken;
   }

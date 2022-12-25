@@ -54,7 +54,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCcOn8qkCwo8Zu4-ltha1aum7SBemaFWLU',
-    appId: '1:81713468961:android:af7bcd03a6983f077eb560',
+    appId: '1:81713468961:android:e6c14428f2b1c9437eb560',
     messagingSenderId: '81713468961',
     projectId: 'victoria-tolonto',
     storageBucket: 'victoria-tolonto.appspot.com',
