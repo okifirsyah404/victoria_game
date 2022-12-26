@@ -7,6 +7,8 @@ import 'package:victoria_game/utils/secure_storage.dart';
 
 class MainPageHistoryController extends GetxController
     with GetTickerProviderStateMixin {
+  final refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
+
   late TabController mainTabController;
 
   final List<Tab> mainTab = [

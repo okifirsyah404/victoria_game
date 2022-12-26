@@ -96,7 +96,7 @@ class _ShowModalTextFieldState extends State<ShowModalTextField>
                           )
                         : null,
                     border: InputBorder.none,
-                    labelText: !widget.controller.text.isEmpty
+                    labelText: widget.controller.text.isNotEmpty
                         ? hasFocus
                             ? widget.label
                             : null

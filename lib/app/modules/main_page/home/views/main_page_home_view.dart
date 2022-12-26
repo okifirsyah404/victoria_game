@@ -21,15 +21,21 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-        future: controller.initData(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return mainView();
-          }
-
-          return loadingData();
+      body: RefreshIndicator(
+        key: controller.refreshIndicatorKey,
+        onRefresh: () async {
+          Get.offNamed(Routes.MAIN_PAGE_HOME, preventDuplicates: false);
         },
+        child: FutureBuilder(
+          future: controller.initData(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return mainView();
+            }
+
+            return loadingData();
+          },
+        ),
       ),
       bottomNavigationBar: MainBottomNavigation(),
     );
@@ -200,7 +206,7 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
                         style: TypographyTheme.bodySmall,
                       ),
                       Text(
-                        controller.ballance.toRupiah(),
+                        controller.ballance.value.toRupiah(),
                         style: TypographyTheme.bodyMedium.copyWith(
                           color: ColorsTheme.primaryColor,
                         ),
@@ -296,7 +302,7 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
           separatorBuilder: (context, index) => const SizedBox(height: 4),
           itemCount: controller.gameCenterList.length,
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
       ],
     );
   }

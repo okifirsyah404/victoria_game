@@ -9,8 +9,8 @@ import 'package:victoria_game/app/routes/app_pages.dart';
 import 'package:victoria_game/utils/secure_storage.dart';
 
 class ProfileSettingsChangePasswordOtpInputController extends GetxController {
-  late SecureStorage secureStorage;
-  late UserRepository userRepository;
+  late SecureStorage _secureStorage;
+  late UserRepository _userRepository;
   late TextEditingController otpController;
   late CountdownTimerController countdownTimerController;
 
@@ -47,8 +47,8 @@ class ProfileSettingsChangePasswordOtpInputController extends GetxController {
   }
 
   void onResendOtp() async {
-    var result =
-        await userRepository.submitResetOtpPassword(authToken: authAccessToken);
+    var result = await _userRepository.submitResetOtpPassword(
+        authToken: authAccessToken);
 
     otp = result.data?.otp ?? "";
 
@@ -69,11 +69,11 @@ class ProfileSettingsChangePasswordOtpInputController extends GetxController {
   }
 
   Future<void> onUserDataInit() async {
-    var authToken = await secureStorage.readDataFromStrorage("token") ?? "";
+    var authToken = await _secureStorage.readDataFromStrorage("token") ?? "";
 
-    var userDataResult = await userRepository.fetchUserData(authToken);
+    var userDataResult = await _userRepository.fetchUserData(authToken);
     var result =
-        await userRepository.submitResetOtpPassword(authToken: authToken);
+        await _userRepository.submitResetOtpPassword(authToken: authToken);
 
     otp = result.data?.otp ?? "";
     userMail = userDataResult.data?.email ?? "";
@@ -82,8 +82,8 @@ class ProfileSettingsChangePasswordOtpInputController extends GetxController {
 
   @override
   void onInit() {
-    secureStorage = SecureStorage.instance;
-    userRepository = UserRepository.instance;
+    _secureStorage = SecureStorage.instance;
+    _userRepository = UserRepository.instance;
     otpController = TextEditingController();
     countdownTimerController = CountdownTimerController(
       endTime: DateTime.now().millisecondsSinceEpoch + 1000 * 60 * 2,

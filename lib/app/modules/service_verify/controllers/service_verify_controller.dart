@@ -1,33 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:victoria_game/app/core/repository/order_on_site_repository.dart';
-import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
+import 'package:victoria_game/app/core/repository/playstation_service_repository.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
 import 'package:victoria_game/utils/secure_storage.dart';
 import 'package:victoria_game/utils/string_extensions.dart';
 
-class OrderDetailsOnSiteVerifyController extends GetxController {
+import '../../../global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
+
+class ServiceVerifyController extends GetxController {
   final _arguments = Get.arguments;
 
+  String get problem => _arguments["problem"];
+  String get detailProblem => _arguments["detailProblem"];
+  String get productName => _arguments["productName"];
+
   late SecureStorage _secureStorage;
-  late OrderOnSiteRepository _orderOnSiteRepository;
+  late PlaystationServiceRepository _playstationServiceRepository;
 
   late TextEditingController passwordController;
 
   void submitVerifyOrder() async {
     var authToken = await _secureStorage.readDataFromStrorage("token") ?? "";
 
-    var result = await _orderOnSiteRepository.verifyOrderOnSite(
+    var result = await _playstationServiceRepository.verifyPlaystationService(
         password: passwordController.text.convertToSHA256(),
         authToken: authToken);
 
     if (result.data.verified) {
-      var rentalData = await _orderOnSiteRepository.postOrderOnSiteData(
-          authToken: authToken, body: _arguments);
+      var serviceData =
+          await _playstationServiceRepository.postPlaystationServiceRequest(
+        authToken: authToken,
+        problem: problem,
+        detailProblem: detailProblem,
+        productName: productName,
+      );
 
-      Get.offAllNamed(Routes.ORDER_DETAILS_ON_SITE_INVOICE, arguments: {
-        "rentalId": rentalData.data?.rentalId,
-        "paymentMethod": _arguments["paymentMethod"],
+      Get.offAllNamed(Routes.SERVICE_INVOICE, arguments: {
+        "serviceId": serviceData.data?.servisId,
       });
     } else {
       Get.dialog(const SingleActionDialog(
@@ -42,9 +51,11 @@ class OrderDetailsOnSiteVerifyController extends GetxController {
   void onInit() {
     super.onInit();
     _secureStorage = SecureStorage.instance;
-    _orderOnSiteRepository = OrderOnSiteRepository.instance;
+    _playstationServiceRepository = PlaystationServiceRepository.instance;
     passwordController = TextEditingController();
+    print(_arguments);
   }
+
 
   @override
   void onClose() {

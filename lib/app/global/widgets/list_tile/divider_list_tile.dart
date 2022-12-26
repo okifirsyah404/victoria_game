@@ -33,16 +33,16 @@ class DividerListTile extends StatelessWidget {
         border: Border(
           top: topBorder
               ? BorderSide(color: ColorsTheme.neutralColor[600] ?? Colors.white)
-              : BorderSide(color: Colors.transparent),
+              : const BorderSide(color: Colors.transparent),
           bottom: bottomBorder
               ? BorderSide(color: ColorsTheme.neutralColor[600] ?? Colors.white)
-              : BorderSide(color: Colors.transparent),
+              : const BorderSide(color: Colors.transparent),
           left: leftBorder
               ? BorderSide(color: ColorsTheme.neutralColor[600] ?? Colors.white)
-              : BorderSide(color: Colors.transparent),
+              : const BorderSide(color: Colors.transparent),
           right: rightBorder
               ? BorderSide(color: ColorsTheme.neutralColor[600] ?? Colors.white)
-              : BorderSide(color: Colors.transparent),
+              : const BorderSide(color: Colors.transparent),
         ),
       ),
       child: ListTile(

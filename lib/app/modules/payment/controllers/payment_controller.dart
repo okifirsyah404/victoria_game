@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:victoria_game/app/core/repository/user_repository.dart';
-import 'package:victoria_game/app/routes/app_pages.dart';
 import 'package:victoria_game/utils/secure_storage.dart';
 
 class PaymentController extends GetxController {
@@ -69,15 +68,5 @@ class PaymentController extends GetxController {
     secureStorage = SecureStorage.instance;
     initialPaymentMethod();
     super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 }

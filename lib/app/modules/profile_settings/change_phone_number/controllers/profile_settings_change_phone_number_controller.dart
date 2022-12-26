@@ -5,7 +5,6 @@ import 'package:victoria_game/app/routes/app_pages.dart';
 import 'package:victoria_game/utils/secure_storage.dart';
 
 class ProfileSettingsChangePhoneNumberController extends GetxController {
-  //TODO: Implement ProfileSettingsChangePhoneNumberController
   late SecureStorage secureStorage;
   late UserRepository userRepository;
 
@@ -40,12 +39,8 @@ class ProfileSettingsChangePhoneNumberController extends GetxController {
   }
 
   @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
   void onClose() {
+    phoneController.dispose();
     super.onClose();
   }
 }

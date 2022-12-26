@@ -46,7 +46,7 @@ class ProfileSettingsChangePasswordNewPasswordInputView
                 ),
               ),
               const SizedBox(height: 16),
-              Text(
+              const Text(
                 "Gunakan password yang kuat dan mudah diingat olehmu ya! Seperti kenangan dengan mantan",
                 textAlign: TextAlign.center,
               ),
@@ -66,7 +66,7 @@ class ProfileSettingsChangePasswordNewPasswordInputView
                 onPressed: () {
                   controller.onSubmitUpdatePassword();
                 },
-                child: Text("Reset Password"),
+                child: const Text("Reset Password"),
               ),
             ],
           ),

@@ -1,11 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
-import 'package:victoria_game/app/modules/test_widget/views/test_widget_view.dart';
 
 class EmailTextField extends StatefulWidget {
   const EmailTextField({super.key, required this.textEditingController});

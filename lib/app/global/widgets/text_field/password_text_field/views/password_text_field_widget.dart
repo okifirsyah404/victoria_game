@@ -117,7 +117,7 @@ class _PasswordTextFieldState extends State<PasswordTextField>
                     ),
                     border: InputBorder.none,
                     focusColor: Theme.of(context).colorScheme.secondary,
-                    labelText: !widget.textEditingController.text.isEmpty
+                    labelText: widget.textEditingController.text.isNotEmpty
                         ? hasFocus
                             ? '${widget.passwordPrefixText}Kata Sandi ${widget.passwordCondition}'
                             : null

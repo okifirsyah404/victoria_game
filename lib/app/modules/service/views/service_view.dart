@@ -60,7 +60,7 @@ class ServiceView extends GetView<ServiceController> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          "Deskripsi Permasalahan",
+                          "Detail Permasalahan",
                           style: TypographyTheme.titleSmall,
                         ),
                         const SizedBox(height: 8.0),
@@ -70,9 +70,10 @@ class ServiceView extends GetView<ServiceController> {
                             color: ColorsTheme.neutralColor[50],
                             borderRadius: BorderRadius.circular(8.0),
                           ),
-                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: TextField(
                             maxLines: 6,
+                            controller: controller.detailServiceController,
                             cursorColor: ColorsTheme.neutralColor[900],
                             style: TypographyTheme.bodyRegular.copyWith(
                               color: ColorsTheme.neutralColor[900],
@@ -150,7 +151,7 @@ class ServiceView extends GetView<ServiceController> {
               foregroundColor: ColorsTheme.neutralColor[900],
               backgroundColor: ColorsTheme.primaryColor,
             ),
-            child: Text("Kirim Permintaan Servis"),
+            child: const Text("Kirim Permintaan Servis"),
           ),
         ],
       ),

@@ -29,7 +29,7 @@ class OrderOnSiteHistoryView extends GetWidget<OrderOnSiteHistoryController> {
                   children: [
                     TabBarView(
                         controller: controller.playOnSiteTabController,
-                        children: [
+                        children: const [
                           PreviousOrderOnSiteHistoryView(),
                           FutureOrderOnSiteHistoryView(),
                         ]),
@@ -228,7 +228,7 @@ class PreviousOrderOnSiteHistoryView
                           color: ColorsTheme.neutralColor[700],
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       Text(
                         "Belum Ada Transaksi",
                         style: TypographyTheme.bodyMedium.copyWith(
@@ -307,7 +307,7 @@ class FutureOrderOnSiteHistoryView
                           color: ColorsTheme.neutralColor[700],
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       Text(
                         "Belum Ada Transaksi",
                         style: TypographyTheme.bodyMedium.copyWith(

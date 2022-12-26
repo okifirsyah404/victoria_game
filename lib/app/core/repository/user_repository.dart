@@ -11,11 +11,12 @@ import 'package:victoria_game/app/core/network/response/multipart_profile_respon
 import 'package:victoria_game/app/core/network/response/user_data_response.dart';
 import 'package:victoria_game/app/core/services/network_service.dart';
 import 'package:victoria_game/app/core/services/permission_services.dart';
+import 'package:victoria_game/utils/secure_storage.dart';
 import 'package:victoria_game/utils/string_extensions.dart';
 
 class UserRepository extends NetworkServices with PermissionServices {
   UserRepository();
-  final storage = const FlutterSecureStorage();
+  final storage = SecureStorage.instance;
 
   UserRepository._privateConstructor();
 
@@ -157,12 +158,16 @@ class UserRepository extends NetworkServices with PermissionServices {
   }
 
   Future<UserDataResponse> fetchUserData(String authToken) async {
+    var fcmToken = await storage.readDataFromStrorage("fcmToken") ?? "";
+
     var headers = {
       contentType: applicationJson,
       authorization: authToken,
     };
 
-    var response = await getMethod("/api/user", headers: headers);
+    var body = {"fcmToken": fcmToken};
+
+    var response = await postMethod("/api/user", headers: headers, body: body);
     var userData = UserDataResponse.fromJson(response);
     return userData;
   }

@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final orderOnSiteResponse = orderOnSiteResponseFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 OrderOnSiteResponse orderOnSiteResponseFromJson(String str) =>
@@ -26,16 +21,16 @@ class OrderOnSiteResponse {
 
   factory OrderOnSiteResponse.fromJson(Map<String, dynamic> json) =>
       OrderOnSiteResponse(
-        status: json["status"] == null ? null : json["status"],
-        statusCode: json["statusCode"] == null ? null : json["statusCode"],
-        message: json["message"] == null ? null : json["message"],
+        status: json["status"],
+        statusCode: json["statusCode"],
+        message: json["message"],
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "status": status == null ? null : status,
-        "statusCode": statusCode == null ? null : statusCode,
-        "message": message == null ? null : message,
+        "status": status,
+        "statusCode": statusCode,
+        "message": message,
         "data": data == null ? null : data?.toJson(),
       };
 }
@@ -48,10 +43,10 @@ class Data {
   final String? rentalId;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        rentalId: json["rentalId"] == null ? null : json["rentalId"],
+        rentalId: json["rentalId"],
       );
 
   Map<String, dynamic> toJson() => {
-        "rentalId": rentalId == null ? null : rentalId,
+        "rentalId": rentalId,
       };
 }

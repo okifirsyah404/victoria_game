@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final signUpResponse = signUpResponseFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 SignUpResponse signUpResponseFromJson(String str) =>
@@ -24,16 +19,16 @@ class SignUpResponse {
   final UserData? data;
 
   factory SignUpResponse.fromJson(Map<String, dynamic> json) => SignUpResponse(
-        status: json["status"] == null ? null : json["status"],
-        statusCode: json["statusCode"] == null ? null : json["statusCode"],
-        message: json["message"] == null ? null : json["message"],
+        status: json["status"],
+        statusCode: json["statusCode"],
+        message: json["message"],
         data: json["data"] == null ? null : UserData.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "status": status == null ? null : status,
-        "statusCode": statusCode == null ? null : statusCode,
-        "message": message == null ? null : message,
+        "status": status,
+        "statusCode": statusCode,
+        "message": message,
         "data": data == null ? null : data?.toJson(),
       };
 }
@@ -60,28 +55,28 @@ class UserData {
   final String token;
 
   factory UserData.fromJson(Map<String, dynamic> json) => UserData(
-        userId: json["userId"] == null ? null : json["userId"],
-        email: json["email"] == null ? null : json["email"],
-        username: json["username"] == null ? null : json["username"],
-        phone: json["phone"] == null ? null : json["phone"],
-        images: json["images"] == null ? null : json["images"],
+        userId: json["userId"],
+        email: json["email"],
+        username: json["username"],
+        phone: json["phone"],
+        images: json["images"],
         createAt: json["create_at"] == null
             ? null
             : DateTime.parse(json["create_at"]),
         updateAt: json["update_at"] == null
             ? null
             : DateTime.parse(json["update_at"]),
-        token: json["token"] == null ? null : json["token"],
+        token: json["token"],
       );
 
   Map<String, dynamic> toJson() => {
-        "userId": userId == null ? null : userId,
-        "email": email == null ? null : email,
-        "username": username == null ? null : username,
-        "phone": phone == null ? null : phone,
-        "images": images == null ? null : images,
+        "userId": userId,
+        "email": email,
+        "username": username,
+        "phone": phone,
+        "images": images,
         "create_at": createAt == null ? null : createAt?.toIso8601String(),
         "update_at": updateAt == null ? null : updateAt?.toIso8601String(),
-        "token": token == null ? null : token,
+        "token": token,
       };
 }

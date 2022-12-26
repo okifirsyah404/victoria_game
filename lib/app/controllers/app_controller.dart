@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
@@ -24,8 +23,6 @@ class AppController extends GetxController {
       sound: true,
     );
 
-    print('User granted permission: ${settings.authorizationStatus}');
-
     FirebaseMessaging.onMessage.listen((event) {
       showNotification(event, flutterLocalNotificationsPlugin);
     });
@@ -37,9 +34,7 @@ class AppController extends GetxController {
     FirebaseMessaging.instance
         .getInitialMessage()
         .then((RemoteMessage? message) {
-      if (message != null) {
-        print(message.messageType);
-      }
+      if (message != null) {}
     });
 
     var fmcToken = await FirebaseMessaging.instance.getToken() ?? "";

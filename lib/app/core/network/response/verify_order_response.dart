@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final verifyOrderResponse = verifyOrderResponseFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 VerifyOrderResponse verifyOrderResponseFromJson(String str) =>

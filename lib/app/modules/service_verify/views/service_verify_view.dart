@@ -6,11 +6,10 @@ import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
 import 'package:victoria_game/app/global/widgets/text_field/password_text_field/views/password_text_field_widget.dart';
 
-import '../controllers/order_details_on_site_verify_controller.dart';
+import '../controllers/service_verify_controller.dart';
 
-class OrderDetailsOnSiteVerifyView
-    extends GetView<OrderDetailsOnSiteVerifyController> {
-  const OrderDetailsOnSiteVerifyView({Key? key}) : super(key: key);
+class ServiceVerifyView extends GetView<ServiceVerifyController> {
+  const ServiceVerifyView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,10 +32,10 @@ class OrderDetailsOnSiteVerifyView
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Container(
+                        const SizedBox(
                             height: 328,
                             width: 328,
-                            child: const RiveAnimation.asset(
+                            child: RiveAnimation.asset(
                                 "assets/rive/order-verify.riv")),
                         Text(
                           "Harap verifikasi bahwa transaksi ini dibuat olehmu ya!",

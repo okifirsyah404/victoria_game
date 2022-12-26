@@ -26,18 +26,18 @@ class ServiceDetailResponse {
 
   factory ServiceDetailResponse.fromJson(Map<String, dynamic> json) =>
       ServiceDetailResponse(
-        status: json["status"] == null ? null : json["status"],
-        statusCode: json["statusCode"] == null ? null : json["statusCode"],
-        message: json["message"] == null ? null : json["message"],
+        status: json["status"],
+        statusCode: json["statusCode"],
+        message: json["message"],
         data: json["data"] == null
             ? null
             : PlaystationServiceDetailData.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "status": status == null ? null : status,
-        "statusCode": statusCode == null ? null : statusCode,
-        "message": message == null ? null : message,
+        "status": status,
+        "statusCode": statusCode,
+        "message": message,
         "data": data == null ? null : data?.toJson(),
       };
 }
@@ -51,7 +51,12 @@ class PlaystationServiceDetailData {
     this.submitTime,
     this.status,
     this.finishTime,
+    this.gameCenter,
     this.location,
+    this.userId,
+    this.email,
+    this.username,
+    this.phoneNumber,
   });
 
   final String? serviceId;
@@ -61,33 +66,47 @@ class PlaystationServiceDetailData {
   final DateTime? submitTime;
   final String? status;
   final DateTime? finishTime;
+  final String? gameCenter;
   final String? location;
+  final String? userId;
+  final String? email;
+  final String? username;
+  final String? phoneNumber;
 
   factory PlaystationServiceDetailData.fromJson(Map<String, dynamic> json) =>
       PlaystationServiceDetailData(
-        serviceId: json["serviceId"] == null ? null : json["serviceId"],
-        productName: json["productName"] == null ? null : json["productName"],
-        problem: json["problem"] == null ? null : json["problem"],
-        detailProblem:
-            json["detailProblem"] == null ? null : json["detailProblem"],
+        serviceId: json["serviceId"],
+        productName: json["productName"],
+        problem: json["problem"],
+        detailProblem: json["detailProblem"],
         submitTime: json["submitTime"] == null
             ? null
             : DateTime.parse(json["submitTime"]),
-        status: json["status"] == null ? null : json["status"],
+        status: json["status"],
         finishTime: json["finishTime"] == null
             ? null
             : DateTime.parse(json["finishTime"]),
-        location: json["location"] == null ? null : json["location"],
+        gameCenter: json["gameCenter"],
+        location: json["location"],
+        userId: json["userId"],
+        email: json["email"],
+        username: json["username"],
+        phoneNumber: json["phoneNumber"],
       );
 
   Map<String, dynamic> toJson() => {
-        "serviceId": serviceId == null ? null : serviceId,
-        "productName": productName == null ? null : productName,
-        "problem": problem == null ? null : problem,
-        "detailProblem": detailProblem == null ? null : detailProblem,
+        "serviceId": serviceId,
+        "productName": productName,
+        "problem": problem,
+        "detailProblem": detailProblem,
         "submitTime": submitTime == null ? null : submitTime?.toIso8601String(),
-        "status": status == null ? null : status,
+        "status": status,
         "finishTime": finishTime == null ? null : finishTime?.toIso8601String(),
-        "location": location == null ? null : location,
+        "gameCenter": gameCenter,
+        "location": location,
+        "userId": userId,
+        "email": email,
+        "username": username,
+        "phoneNumber": phoneNumber,
       };
 }

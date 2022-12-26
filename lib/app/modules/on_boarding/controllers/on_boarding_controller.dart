@@ -44,7 +44,7 @@ class OnBoardingController extends GetxController {
   void nextPage() {
     if (pageIndex.value < onBoardingTitle.length - 1) {
       pageController.nextPage(
-          duration: Duration(
+          duration: const Duration(
             milliseconds: 300,
           ),
           curve: Curves.ease);
@@ -58,7 +58,7 @@ class OnBoardingController extends GetxController {
     return AnimatedContainer(
       height: 8,
       width: 8,
-      duration: Duration(),
+      duration: const Duration(),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
         color: isCurrentIndex
@@ -74,7 +74,7 @@ class OnBoardingController extends GetxController {
       (index) => AnimatedContainer(
         height: 8,
         width: 8,
-        duration: Duration(),
+        duration: const Duration(),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
           color: index == pageIndex.value
@@ -89,15 +89,5 @@ class OnBoardingController extends GetxController {
   void onInit() {
     secureStorage = SecureStorage.instance;
     super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 }

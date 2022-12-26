@@ -12,19 +12,19 @@ class ImageSourceDialog extends GetWidget {
   Widget build(BuildContext context) {
     return Dialog(
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             DividerListTile(
               title: "Ambil Dari Kamera",
-              leading: FaIcon(FontAwesomeIcons.camera),
+              leading: const FaIcon(FontAwesomeIcons.camera),
               onTap: cameraAction,
               bottomBorder: true,
             ),
             DividerListTile(
               title: "Ambil Dari Galeri",
-              leading: FaIcon(FontAwesomeIcons.image),
+              leading: const FaIcon(FontAwesomeIcons.image),
               onTap: galeryAction,
             ),
           ],

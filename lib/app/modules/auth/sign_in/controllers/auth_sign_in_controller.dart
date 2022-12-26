@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:victoria_game/app/core/services/network_service.dart';
 import 'package:victoria_game/app/core/repository/user_repository.dart';
 import 'package:victoria_game/app/core/services/firebase_auth_services.dart';
 import 'package:victoria_game/utils/secure_storage.dart';
@@ -13,8 +12,8 @@ class AuthSignInController extends GetxController {
   late TextEditingController emailController;
   late TextEditingController passwordController;
 
-  late UserRepository userRepository;
-  late SecureStorage secureStorage;
+  late UserRepository _userRepository;
+  late SecureStorage _secureStorage;
 
   bool validateSingIn() {
     if (emailController.text.isEmpty) {
@@ -53,28 +52,23 @@ class AuthSignInController extends GetxController {
 
   @override
   void onInit() {
-    userRepository = UserRepository.instance;
-    secureStorage = SecureStorage.instance;
+    _userRepository = UserRepository.instance;
+    _secureStorage = SecureStorage.instance;
     emailController = TextEditingController();
     passwordController = TextEditingController();
     super.onInit();
   }
 
   @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
   void onClose() {
-    // emailController.dispose();
-    // passwordController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
     super.onClose();
   }
 
   void signIn() async {
     if (validateSingIn()) {
-      var userResponse = await userRepository.submitSignIn(
+      var userResponse = await _userRepository.submitSignIn(
         email: emailController.text,
         password: passwordController.text,
       );
@@ -96,13 +90,11 @@ class AuthSignInController extends GetxController {
           ),
         );
       } else {
-        var putToStorage = secureStorage.writeDataToStorage(
+        var putToStorage = _secureStorage.writeDataToStorage(
             key: "token", value: userResponse.data?.token ?? "");
         Get.offNamed(Routes.MAIN_PAGE_HOME);
       }
-      var getFromStorage = await secureStorage.readDataFromStrorage("token");
-      print("From API : ${userResponse.data?.token ?? ""}");
-      print("From Storage : $getFromStorage");
+      var getFromStorage = await _secureStorage.readDataFromStrorage("token");
     }
   }
 }

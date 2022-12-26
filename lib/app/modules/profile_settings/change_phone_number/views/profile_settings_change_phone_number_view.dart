@@ -30,7 +30,7 @@ class ProfileSettingsChangePhoneNumberView
   }
 
   Widget onDataLoading() {
-    return Center(
+    return const Center(
       child: RiveAnimation.asset('assets/rive/loading.riv'),
     );
   }
@@ -53,11 +53,11 @@ class ProfileSettingsChangePhoneNumberView
               onPressed: () {
                 controller.onSubmitChangeNumber();
               },
-              child: Text(
-                "Ubah Nomor Handphone",
-              ),
               style: OutlinedButton.styleFrom(
                   backgroundColor: ColorsTheme.primaryColor),
+              child: const Text(
+                "Ubah Nomor Handphone",
+              ),
             ),
           ],
         ),

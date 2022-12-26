@@ -5,7 +5,7 @@ import 'package:victoria_game/app/modules/main_page/controllers/main_page_index_
 import '../../../icons/custom_icon_data_icons.dart';
 
 class MainBottomNavigation extends GetWidget<MainPageIndexController> {
-  MainBottomNavigation({super.key});
+  const MainBottomNavigation({super.key});
 
   @override
   Widget build(BuildContext context) {

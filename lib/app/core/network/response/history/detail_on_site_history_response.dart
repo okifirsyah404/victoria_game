@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final detailOnSiteHistoryResponse = detailOnSiteHistoryResponseFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 DetailOnSiteHistoryResponse detailOnSiteHistoryResponseFromJson(String str) =>
@@ -26,16 +21,16 @@ class DetailOnSiteHistoryResponse {
 
   factory DetailOnSiteHistoryResponse.fromJson(Map<String, dynamic> json) =>
       DetailOnSiteHistoryResponse(
-        status: json["status"] == null ? null : json["status"],
-        statusCode: json["statusCode"] == null ? null : json["statusCode"],
-        message: json["message"] == null ? null : json["message"],
+        status: json["status"],
+        statusCode: json["statusCode"],
+        message: json["message"],
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "status": status == null ? null : status,
-        "statusCode": statusCode == null ? null : statusCode,
-        "message": message == null ? null : message,
+        "status": status,
+        "statusCode": statusCode,
+        "message": message,
         "data": data == null ? null : data?.toJson(),
       };
 }
@@ -76,46 +71,41 @@ class Data {
   final String? phoneNumber;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        rentalId: json["rentalId"] == null ? null : json["rentalId"],
+        rentalId: json["rentalId"],
         orderTime: json["orderTime"] == null
             ? null
             : DateTime.parse(json["orderTime"]),
-        gameCenter: json["gameCenter"] == null ? null : json["gameCenter"],
-        gameCenterLocation: json["gameCenterLocation"] == null
-            ? null
-            : json["gameCenterLocation"],
+        gameCenter: json["gameCenter"],
+        gameCenterLocation: json["gameCenterLocation"],
         startTime: json["startTime"] == null
             ? null
             : DateTime.parse(json["startTime"]),
         endTime:
             json["endTime"] == null ? null : DateTime.parse(json["endTime"]),
-        totalAmount: json["totalAmount"] == null ? null : json["totalAmount"],
-        paymentMethod:
-            json["paymentMethod"] == null ? null : json["paymentMethod"],
-        playtime: json["playtime"] == null ? null : json["playtime"],
-        playstationId:
-            json["playstationId"] == null ? null : json["playstationId"],
-        playstationType:
-            json["playstationType"] == null ? null : json["playstationType"],
-        userId: json["userId"] == null ? null : json["userId"],
-        email: json["email"] == null ? null : json["email"],
-        username: json["username"] == null ? null : json["username"],
-        phoneNumber: json["phoneNumber"] == null ? null : json["phoneNumber"],
+        totalAmount: json["totalAmount"],
+        paymentMethod: json["paymentMethod"],
+        playtime: json["playtime"],
+        playstationId: json["playstationId"],
+        playstationType: json["playstationType"],
+        userId: json["userId"],
+        email: json["email"],
+        username: json["username"],
+        phoneNumber: json["phoneNumber"],
       );
 
   Map<String, dynamic> toJson() => {
-        "rentalId": rentalId == null ? null : rentalId,
+        "rentalId": rentalId,
         "orderTime": orderTime == null ? null : orderTime?.toIso8601String(),
-        "gameCenter": gameCenter == null ? null : gameCenter,
+        "gameCenter": gameCenter,
         "startTime": startTime == null ? null : startTime?.toIso8601String(),
         "endTime": endTime == null ? null : endTime?.toIso8601String(),
-        "totalAmount": totalAmount == null ? null : totalAmount,
-        "playtime": playtime == null ? null : playtime,
-        "playstationId": playstationId == null ? null : playstationId,
-        "playstationType": playstationType == null ? null : playstationType,
-        "userId": userId == null ? null : userId,
-        "email": email == null ? null : email,
-        "username": username == null ? null : username,
-        "phoneNumber": phoneNumber == null ? null : phoneNumber,
+        "totalAmount": totalAmount,
+        "playtime": playtime,
+        "playstationId": playstationId,
+        "playstationType": playstationType,
+        "userId": userId,
+        "email": email,
+        "username": username,
+        "phoneNumber": phoneNumber,
       };
 }

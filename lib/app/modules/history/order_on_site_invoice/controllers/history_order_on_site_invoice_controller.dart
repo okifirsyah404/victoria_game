@@ -43,7 +43,7 @@ class HistoryOrderOnSiteInvoiceController extends GetxController {
       var endTime =
           DateFormat("Hm", "id_ID").format(result.data!.endTime!.toLocal());
 
-      timeInterval = "${startTime} - ${endTime}";
+      timeInterval = "$startTime - $endTime";
 
       countdownTimerController = CountdownTimerController(
         endTime:
@@ -165,16 +165,6 @@ DESKRIPSI
     _secureStorage = SecureStorage.instance;
     _historyRepository = HistoryRepository.instance;
     screenshotController = ScreenshotController();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 }
 

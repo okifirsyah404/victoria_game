@@ -6,7 +6,7 @@ import 'package:victoria_game/app/routes/app_pages.dart';
 import '../../../../global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
 
 class AuthSignUpController extends GetxController {
-  late UserRepository userRepository;
+  late UserRepository _userRepository;
 
   late TextEditingController emailController;
   late TextEditingController passwordController;
@@ -87,7 +87,7 @@ class AuthSignUpController extends GetxController {
 
   void signUp() async {
     if (validateSingUp()) {
-      var result = await userRepository.submitVerifySignUp(
+      var result = await _userRepository.submitVerifySignUp(
           email: emailController.text,
           password: passwordController.text,
           username: usernameController.text,
@@ -114,7 +114,7 @@ class AuthSignUpController extends GetxController {
 
   @override
   void onInit() {
-    userRepository = UserRepository.instance;
+    _userRepository = UserRepository.instance;
     emailController = TextEditingController();
     passwordController = TextEditingController();
     usernameController = TextEditingController();
@@ -123,15 +123,11 @@ class AuthSignUpController extends GetxController {
   }
 
   @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
   void onClose() {
     emailController.dispose();
     passwordController.dispose();
     usernameController.dispose();
+    phoneController.dispose();
     super.onClose();
   }
 }

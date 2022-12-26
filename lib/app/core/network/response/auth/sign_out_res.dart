@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 SignOutResponse signOutResponseFromJson(String str) =>
@@ -22,16 +21,16 @@ class SignOutResponse {
 
   factory SignOutResponse.fromJson(Map<String, dynamic> json) =>
       SignOutResponse(
-        status: json["status"] == null ? null : json["status"],
-        statusCode: json["statusCode"] == null ? null : json["statusCode"],
-        message: json["message"] == null ? null : json["message"],
+        status: json["status"],
+        statusCode: json["statusCode"],
+        message: json["message"],
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "status": status == null ? null : status,
-        "statusCode": statusCode == null ? null : statusCode,
-        "message": message == null ? null : message,
+        "status": status,
+        "statusCode": statusCode,
+        "message": message,
         "data": data == null ? null : data?.toJson(),
       };
 }

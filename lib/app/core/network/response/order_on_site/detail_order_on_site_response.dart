@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 DetailOrderOnSiteResponse detailOrderOnSiteResponseFromJson(String str) =>

@@ -26,17 +26,17 @@ class MainPagePsServicesView extends GetView<MainPagePsServicesController> {
         backgroundColor: Colors.transparent,
       ),
       body: Container(
-        padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
+        padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 16.0),
+                margin: const EdgeInsets.symmetric(horizontal: 16.0),
                 height: 200,
                 width: 200,
-                child: RiveAnimation.asset(
+                child: const RiveAnimation.asset(
                   "assets/rive/play-service.riv",
                   fit: BoxFit.cover,
                 ),
@@ -52,16 +52,33 @@ class MainPagePsServicesView extends GetView<MainPagePsServicesController> {
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 24.0),
-                child: Text(
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit",
+                child: RichText(
                   textAlign: TextAlign.center,
+                  text: TextSpan(
+                    style: TypographyTheme.bodyRegular,
+                    children: [
+                      const TextSpan(
+                          text:
+                              "Servis berbagai macam kerusakan Playstation kamu! Hanya ada di "),
+                      TextSpan(
+                        text: "Tolonto Game Bojonegoro",
+                        style: TypographyTheme.bodyRegular.copyWith(
+                            color: ColorsTheme.primaryColor,
+                            fontWeight: FontWeight.w700),
+                      ),
+                    ],
+                  ),
                 ),
+                // child: Text(
+                //   "Kami menyediakan berbagai macam servis untuk memperbaiki kerusakan Playstation kamu! Hanya ada di Tolonto Game Bojonegoro",
+                //   textAlign: TextAlign.center,
+                // ),
               ),
               ElevatedButton(
                 onPressed: () {
                   controller.onPressedService();
                 },
-                child: Text("Servis Sekarang"),
+                child: const Text("Servis Sekarang"),
               ),
             ],
           ),

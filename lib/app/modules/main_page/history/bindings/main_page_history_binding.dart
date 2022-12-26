@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:victoria_game/app/modules/main_page/history/controllers/order_on_site_history_controller.dart';
+import 'package:victoria_game/app/modules/main_page/history/controllers/playstation_service_history_controller.dart';
 
 import '../controllers/main_page_history_controller.dart';
 
@@ -17,6 +18,9 @@ class MainPageHistoryBinding extends Bindings {
     );
     Get.lazyPut<FutureOrderOnSiteHistoryController>(
       () => FutureOrderOnSiteHistoryController(),
+    );
+    Get.lazyPut<PlaystationServiceHistoryController>(
+      () => PlaystationServiceHistoryController(),
     );
   }
 }

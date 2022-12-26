@@ -22,8 +22,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  print("Handling a background message: ${message.messageId}");
 }
 
 void main() async {
@@ -34,11 +32,15 @@ void main() async {
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-  runApp(Phoenix(child: MainApp()));
+  runApp(
+    Phoenix(
+      child: const MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatefulWidget {
-  MainApp({Key? key}) : super(key: key);
+  const MainApp({Key? key}) : super(key: key);
 
   @override
   State<MainApp> createState() => _MainAppState();
@@ -85,10 +87,10 @@ class _MainAppState extends State<MainApp> {
       theme: MainTheme.darkTheme(context),
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
-      localizationsDelegates: [
+      localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
       ],
-      supportedLocales: [
+      supportedLocales: const [
         Locale('en'),
         Locale('id', 'ID'),
       ],

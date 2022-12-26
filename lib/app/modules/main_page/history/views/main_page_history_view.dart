@@ -4,7 +4,10 @@ import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rive/rive.dart';
+import 'package:victoria_game/app/core/network/response/game_center/game_centers_res.dart';
 import 'package:victoria_game/app/modules/main_page/history/views/order_on_site_history_view.dart';
+import 'package:victoria_game/app/modules/main_page/history/views/playstation_service_history_view.dart';
+import 'package:victoria_game/app/routes/app_pages.dart';
 import 'package:victoria_game/utils/int_extensions.dart';
 import 'package:victoria_game/utils/string_extensions.dart';
 
@@ -28,14 +31,20 @@ class MainPageHistoryView extends GetView<MainPageHistoryController> {
         centerTitle: true,
         elevation: 0,
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            _mainTabBarBuilder(),
-            Expanded(
-              child: _mainTabView(),
-            ),
-          ],
+      body: RefreshIndicator(
+        key: controller.refreshIndicatorKey,
+        onRefresh: () async {
+          Get.offNamed(Routes.MAIN_PAGE_HISTORY, preventDuplicates: false);
+        },
+        child: SafeArea(
+          child: Column(
+            children: [
+              _mainTabBarBuilder(),
+              Expanded(
+                child: _mainTabView(),
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: MainBottomNavigation(),
@@ -71,7 +80,7 @@ class MainPageHistoryView extends GetView<MainPageHistoryController> {
       children: [
         OrderOnSiteHistoryView(),
         const Text("Test 2"),
-        const Text("Test 3"),
+        PlaystationServiceHistoryView()
       ],
     );
   }

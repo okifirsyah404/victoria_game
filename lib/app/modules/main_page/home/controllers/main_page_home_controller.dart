@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -8,7 +9,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:victoria_game/app/core/network/response/game_center/game_centers_list_res.dart';
 import 'package:location/location.dart' as loc;
 
-import 'package:victoria_game/app/core/network/response/game_center/game_centers_res.dart';
 import 'package:victoria_game/app/core/repository/game_center_repository.dart';
 import 'package:victoria_game/app/core/repository/user_repository.dart';
 import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
@@ -21,6 +21,8 @@ import 'package:victoria_game/utils/secure_storage.dart';
 class MainPageHomeController extends GetxController {
   final storage = SecureStorage();
 
+  final refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
+
   late UserRepository _userRepository;
   late GameCenterRepository _gameCenterRepository;
 
@@ -31,9 +33,9 @@ class MainPageHomeController extends GetxController {
 
   List<int> imageByte = [];
 
-  String username = "John Doe";
-  int ballance = 1000;
-  int playTime = 0;
+  RxString username = "John Doe".obs;
+  RxInt ballance = 1000.obs;
+  RxInt playTime = 0.obs;
 
   late Position myPosition;
   loc.Location location = loc.Location();
@@ -85,9 +87,9 @@ class MainPageHomeController extends GetxController {
   Future<void> fetchUserData() async {
     var userData = await _userRepository.fetchUserData(authAccessToken);
 
-    username = userData.data?.username ?? "";
-    ballance = userData.data?.ballance ?? 1;
-    playTime = userData.data?.playTime ?? 1;
+    username.value = userData.data?.username ?? "";
+    ballance.value = userData.data?.ballance ?? 1;
+    playTime.value = userData.data?.playTime ?? 1;
   }
 
   Future<void> fetchGameCenters() async {
@@ -98,7 +100,7 @@ class MainPageHomeController extends GetxController {
 
     gameCenterList = gameCenterData.data ?? [];
 
-    gameCenterList.forEach((element) {
+    for (var element in gameCenterList) {
       gameCenterLocationList.add(
         calculateDistance(
           LatLng(
@@ -107,7 +109,7 @@ class MainPageHomeController extends GetxController {
           ),
         ).toKilometers(),
       );
-    });
+    }
   }
 
   Future<void> initData() async {
@@ -141,9 +143,7 @@ class MainPageHomeController extends GetxController {
     FirebaseMessaging.instance
         .getInitialMessage()
         .then((RemoteMessage? message) {
-      if (message != null) {
-        print(message.messageType);
-      }
+      if (message != null) {}
     });
   }
 
@@ -154,15 +154,5 @@ class MainPageHomeController extends GetxController {
     initFirebaseMessaging();
 
     super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 }

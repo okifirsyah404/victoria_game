@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:rive/rive.dart';
 import 'package:victoria_game/app/controllers/app_controller.dart';
 import 'package:victoria_game/app/global/widgets/list_tile/divider_list_tile.dart';
-import 'package:victoria_game/app/global/widgets/shimmer_widget.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
 import 'package:victoria_game/utils/int_extensions.dart';
 
@@ -39,7 +38,7 @@ class ProfileSettingsUserProfileView
             onPressed: () {
               Get.offAllNamed(Routes.MAIN_PAGE_HOME);
             },
-            icon: Icon(Icons.close),
+            icon: const Icon(Icons.close),
           ),
         ),
         body: FutureBuilder(
@@ -57,7 +56,7 @@ class ProfileSettingsUserProfileView
 
   Widget onDataDone() {
     return ListView(
-      padding: EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
       children: [
         Material(
           borderRadius: BorderRadius.circular(8.0),
@@ -67,7 +66,8 @@ class ProfileSettingsUserProfileView
               color: ColorsTheme.neutralColor[900],
               borderRadius: BorderRadius.circular(8),
             ),
-            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -89,7 +89,7 @@ class ProfileSettingsUserProfileView
                         ),
                       ),
                     ),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     Text(
                       "Hi, ${controller.username}",
                       style: TypographyTheme.bodyMedium,
@@ -129,7 +129,8 @@ class ProfileSettingsUserProfileView
                   color: ColorsTheme.neutralColor[900],
                   borderRadius: BorderRadius.circular(8),
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0, vertical: 12.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -145,7 +146,7 @@ class ProfileSettingsUserProfileView
                                 "Saldo Kamu",
                                 style: TypographyTheme.bodySmall,
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               Text(
                                 controller.ballance.toRupiah(),
                                 style: TypographyTheme.bodyMedium.copyWith(
@@ -173,7 +174,7 @@ class ProfileSettingsUserProfileView
                                 "Play Time Kamu",
                                 style: TypographyTheme.bodySmall,
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               Text(
                                 "${controller.playTime} Jam",
                                 style: TypographyTheme.bodyMedium.copyWith(
@@ -186,15 +187,15 @@ class ProfileSettingsUserProfileView
                         ),
                       ],
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     OutlinedButton.icon(
                       onPressed: () {
                         controller.intentWhatsappTopUp();
                       },
-                      icon: FaIcon(FontAwesomeIcons.whatsapp),
-                      label: Text("Chat Admin untuk Top Up"),
+                      icon: const FaIcon(FontAwesomeIcons.whatsapp),
+                      label: const Text("Chat Admin untuk Top Up"),
                       style: OutlinedButton.styleFrom(
-                        backgroundColor: Color(0xFF25D366),
+                        backgroundColor: const Color(0xFF25D366),
                         foregroundColor: ColorsTheme.neutralColor[50],
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0),
@@ -215,10 +216,6 @@ class ProfileSettingsUserProfileView
               color: ColorsTheme.primaryColor,
             ),
           ),
-        ),
-        DividerListTile(
-          title: "Pengaturan Notifikasi",
-          topBorder: true,
         ),
         DividerListTile(
           title: "Laporkan Masalah",

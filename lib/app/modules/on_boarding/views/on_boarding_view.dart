@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:rive/rive.dart';
@@ -21,52 +20,49 @@ class OnBoardingView extends GetView<OnBoardingController> {
             children: [
               Expanded(
                 child: Center(
-                  child: Container(
-                    // padding: EdgeInsets.only(bottom: 105.0),
-                    child: AspectRatio(
-                      aspectRatio: 328 / 372,
-                      child: SizedBox(
-                        height: 150,
-                        child: PageView.builder(
-                          // physics: NeverScrollableScrollPhysics(),
-                          controller: controller.pageController,
-                          itemCount: controller.onBoardingTitle.length,
-                          onPageChanged: (value) {
-                            controller.onChangePage(value);
-                          },
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: [
-                                Container(
-                                  height: 200,
-                                  width: 200,
-                                  // child: SvgPicture.asset(
-                                  //     controller.onBoardingImage[index]),
-                                  child: RiveAnimation.asset(
-                                    controller.onBoardingImage[index],
-                                    fit: BoxFit.cover,
-                                  ),
+                  child: AspectRatio(
+                    aspectRatio: 328 / 372,
+                    child: SizedBox(
+                      height: 150,
+                      child: PageView.builder(
+                        // physics: NeverScrollableScrollPhysics(),
+                        controller: controller.pageController,
+                        itemCount: controller.onBoardingTitle.length,
+                        onPageChanged: (value) {
+                          controller.onChangePage(value);
+                        },
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [
+                              SizedBox(
+                                height: 200,
+                                width: 200,
+                                // child: SvgPicture.asset(
+                                //     controller.onBoardingImage[index]),
+                                child: RiveAnimation.asset(
+                                  controller.onBoardingImage[index],
+                                  fit: BoxFit.cover,
                                 ),
-                                const SizedBox(height: 88),
-                                Text(
-                                  controller.onBoardingTitle[index],
-                                  style: TypographyTheme.titleMedium.copyWith(
-                                    color: ColorsTheme.primaryColor,
-                                  ),
+                              ),
+                              const SizedBox(height: 88),
+                              Text(
+                                controller.onBoardingTitle[index],
+                                style: TypographyTheme.titleMedium.copyWith(
+                                  color: ColorsTheme.primaryColor,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 16.0, right: 16.0, top: 16.0),
-                                  child: Text(
-                                    controller.onBoardingDescription[index],
-                                    textAlign: TextAlign.center,
-                                    style: TypographyTheme.bodyRegular,
-                                  ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 16.0, right: 16.0, top: 16.0),
+                                child: Text(
+                                  controller.onBoardingDescription[index],
+                                  textAlign: TextAlign.center,
+                                  style: TypographyTheme.bodyRegular,
                                 ),
-                              ],
-                            );
-                          },
-                        ),
+                              ),
+                            ],
+                          );
+                        },
                       ),
                     ),
                   ),

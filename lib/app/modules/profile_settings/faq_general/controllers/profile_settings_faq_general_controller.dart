@@ -35,21 +35,6 @@ class ProfileSettingsFaqGeneralController extends GetxController {
         description:
             "Untuk jasa servis PS tentu saja terdapat garansi karena kepuasan pelanggan yang paling utama untuk waktu garansi tergantung kerusakan PS tersebut."),
   ].obs;
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
 }
 
 class FaqItem {

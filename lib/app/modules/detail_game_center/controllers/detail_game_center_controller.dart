@@ -16,7 +16,7 @@ class DetailGameCenterController extends GetxController {
   final _arguments = Get.arguments;
 
   String get locationId => _arguments["location"];
-  late SecureStorage secureStorage;
+  late SecureStorage _secureStorage;
   late GameCenterRepository gameCenterRepository;
   late UserRepository userRepository;
   late HistoryRepository _historyRepository;
@@ -148,7 +148,7 @@ class DetailGameCenterController extends GetxController {
   }
 
   Future<void> fetchGameCenterDetail() async {
-    authAccessToken = await secureStorage.readDataFromStrorage("token") ?? "";
+    authAccessToken = await _secureStorage.readDataFromStrorage("token") ?? "";
 
     var result = await gameCenterRepository.fetchGameCenterDetail(
         authToken: authAccessToken, locationId: locationId);
@@ -174,10 +174,12 @@ class DetailGameCenterController extends GetxController {
 
   void onSelectedPlaystationItem(int index) {
     if (isRentOnSiteActive.value) {
-      Get.dialog(SingleActionDialog(
-        title: "Kamu masih bermain",
-        description: "Masih ada playstation yang kamu mainkan",
-      ));
+      Get.dialog(
+        const SingleActionDialog(
+          title: "Kamu masih bermain",
+          description: "Masih ada playstation yang kamu mainkan",
+        ),
+      );
     } else {
       if (playstationList[index].status != "tidak aktif") {
         Get.dialog(SingleActionDialog(
@@ -203,17 +205,12 @@ class DetailGameCenterController extends GetxController {
 
   @override
   void onInit() {
-    secureStorage = SecureStorage.instance;
+    _secureStorage = SecureStorage.instance;
     gameCenterRepository = GameCenterRepository.instance;
     userRepository = UserRepository.instance;
     _historyRepository = HistoryRepository.instance;
     requestLocationPermission();
     super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
   }
 
   @override

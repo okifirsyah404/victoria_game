@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -8,18 +6,15 @@ import 'package:victoria_game/app/core/network/response/user_data_response.dart'
 import 'package:victoria_game/app/core/repository/user_repository.dart';
 import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
 import 'package:victoria_game/utils/secure_storage.dart';
-import 'package:http/http.dart' as http;
 
-import '../../../../core/services/firebase_auth_services.dart';
 import '../../../../routes/app_pages.dart';
 
 class ProfileSettingsUserProfileController extends GetxController {
   //TODO: Implement ProfileSettingsUserProfileController
 
-  final storage = SecureStorage();
+  late SecureStorage _storage;
 
-  late UserRepository userRepository;
-  late String authAccessToken;
+  late UserRepository _userRepository;
 
   late String phoneNumber;
   late String email;
@@ -38,9 +33,9 @@ Terima Kasih
 
 INFORMASI :
 
-    Nomor Handphone: ${phoneNumber},
-    Alamat Email : ${email},
-    Username : ${username}
+    Nomor Handphone: $phoneNumber,
+    Alamat Email : $email,
+    Username : $username
     Tanggal : ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(DateTime.now())},
     Jam : ${DateFormat("Hm", "id_ID").format(DateTime.now())}
     Saldo TopUp : {Saldo},
@@ -59,25 +54,16 @@ INFORMASI :
   }
 
   void signOut() async {
-    String authToken = await storage.readDataFromStrorage("token") ?? "";
-    await userRepository.sumbitSignOut(authToken);
-    storage.writeDataToStorage(key: "token", value: "");
+    String authToken = await _storage.readDataFromStrorage("token") ?? "";
+    await _userRepository.sumbitSignOut(authToken);
+    _storage.writeDataToStorage(key: "token", value: "");
     Get.offAllNamed(Routes.AUTH_SIGN_IN);
   }
 
-  Future<String> fetchUserToken() async {
-    String authToken = await storage.readDataFromStrorage("token") ?? "";
-    var result = await http.get(
-        Uri.parse("https://d74d-125-166-118-213.ap.ngrok.io/api/user/image"),
-        headers: {userRepository.authorization: authToken});
-    return authToken;
-  }
-
   Future<UserDataResponse> fetchUserData() async {
-    userRepository = UserRepository.instance;
-    String authToken = await storage.readDataFromStrorage("token") ?? "";
+    String authToken = await _storage.readDataFromStrorage("token") ?? "";
 
-    var userData = await userRepository.fetchUserData(authToken);
+    var userData = await _userRepository.fetchUserData(authToken);
 
     username = userData.data?.username ?? "";
     ballance = userData.data?.ballance ?? 1;
@@ -89,8 +75,9 @@ INFORMASI :
   }
 
   Future<Uint8List> fetchUserImage() async {
-    var result = await userRepository.getMethodRaw("/api/user/image",
-        headers: {userRepository.authorization: authAccessToken});
+    String authToken = await _storage.readDataFromStrorage("token") ?? "";
+    var result = await _userRepository.getMethodRaw("/api/user/image",
+        headers: {_userRepository.authorization: authToken});
 
     imageByte = [...result.bodyBytes];
 
@@ -98,24 +85,14 @@ INFORMASI :
   }
 
   Future<void> initUserData() async {
-    authAccessToken = await fetchUserToken();
     await fetchUserData();
     await fetchUserImage();
   }
 
   @override
   void onInit() async {
-    userRepository = UserRepository.instance;
+    _storage = SecureStorage.instance;
+    _userRepository = UserRepository.instance;
     super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 }

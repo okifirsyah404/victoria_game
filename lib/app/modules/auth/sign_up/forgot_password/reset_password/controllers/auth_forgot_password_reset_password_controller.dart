@@ -9,7 +9,7 @@ class AuthForgotPasswordResetPasswordController extends GetxController {
 
   late String userMail = _arguments["email"];
 
-  late UserRepository userRepository;
+  late UserRepository _userRepository;
 
   late TextEditingController passwordController;
   late TextEditingController rePasswordController;
@@ -66,7 +66,7 @@ class AuthForgotPasswordResetPasswordController extends GetxController {
 
   onSubmitUpdatePassword() async {
     if (validatePassword()) {
-      await userRepository.submitNewForgetPassword(
+      await _userRepository.submitNewForgetPassword(
         email: userMail,
         newPassword: passwordController.text,
       );
@@ -76,15 +76,10 @@ class AuthForgotPasswordResetPasswordController extends GetxController {
 
   @override
   void onInit() {
-    userRepository = UserRepository.instance;
+    _userRepository = UserRepository.instance;
     passwordController = TextEditingController();
     rePasswordController = TextEditingController();
     super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
   }
 
   @override

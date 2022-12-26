@@ -41,7 +41,7 @@ class SplashView extends GetView<SplashController> {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      "${controller.appName}",
+                      controller.appName,
                       style: TextStyle(
                         fontFamily: "NotoSans",
                         fontSize: 20,

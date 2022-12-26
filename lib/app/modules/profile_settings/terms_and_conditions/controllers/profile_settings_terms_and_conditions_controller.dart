@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 
 class ProfileSettingsTermsAndConditionsController extends GetxController {
-  //TODO: Implement ProfileSettingsTermsAndConditionsController
-
   List<String> terms = [
     "Pengguna dengan ini menyatakan bahwa pengguna adalah orang yang cakap dan mampu untuk menggunakan aplikasi ini dengan bijak.",
     "Victoria game tidak memungut biaya pendaftaran kepada pengguna.",

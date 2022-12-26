@@ -93,7 +93,7 @@ class _UsernameTextFieldState extends State<UsernameTextField>
                       ),
                     ),
                     border: InputBorder.none,
-                    labelText: !widget.controller.text.isEmpty
+                    labelText: widget.controller.text.isNotEmpty
                         ? hasFocus
                             ? "Username"
                             : null

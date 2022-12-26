@@ -24,7 +24,7 @@ class AuthVerifySignUpView extends GetView<AuthVerifySignUpController> {
       ),
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -35,7 +35,7 @@ class AuthVerifySignUpView extends GetView<AuthVerifySignUpController> {
                     .copyWith(color: ColorsTheme.primaryColor),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
               Text(
                 "Kami telah mengirim OTP (One-Time Password) ke alamat email ${controller.userMail}",
                 style: TypographyTheme.bodyRegular,
@@ -46,8 +46,8 @@ class AuthVerifySignUpView extends GetView<AuthVerifySignUpController> {
                 style: TypographyTheme.bodyRegular,
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 32),
-              Container(
+              const SizedBox(height: 32),
+              SizedBox(
                 width: 240,
                 child: TextField(
                   controller: controller.otpController,
@@ -72,7 +72,7 @@ class AuthVerifySignUpView extends GetView<AuthVerifySignUpController> {
                   ),
                 ),
               ),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -81,11 +81,11 @@ class AuthVerifySignUpView extends GetView<AuthVerifySignUpController> {
                     style: TypographyTheme.bodyRegular,
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   _resendOtp(),
                 ],
               ),
-              SizedBox(height: 64),
+              const SizedBox(height: 64),
               ElevatedButton(
                 onPressed: () {
                   controller.onSubmitOtp();
@@ -133,7 +133,7 @@ class AuthVerifySignUpView extends GetView<AuthVerifySignUpController> {
                       return Text("${time.sec}");
                     }
 
-                    return Text("Hola");
+                    return const Text("Hola");
                   },
                 ),
               ],

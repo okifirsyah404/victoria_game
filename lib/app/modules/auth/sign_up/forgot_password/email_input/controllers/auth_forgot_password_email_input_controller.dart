@@ -5,7 +5,7 @@ import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dial
 import 'package:victoria_game/app/routes/app_pages.dart';
 
 class AuthForgotPasswordEmailInputController extends GetxController {
-  late UserRepository userRepository;
+  late UserRepository _userRepository;
   late TextEditingController emailController;
 
   bool validateEmail() {
@@ -35,7 +35,7 @@ class AuthForgotPasswordEmailInputController extends GetxController {
 
   void onSubmitEmail() async {
     if (validateEmail()) {
-      var result = await userRepository.submitForgetPassword(
+      var result = await _userRepository.submitForgetPassword(
           email: emailController.text);
 
       if (result.message != "Email not registered") {
@@ -57,14 +57,9 @@ class AuthForgotPasswordEmailInputController extends GetxController {
 
   @override
   void onInit() {
-    userRepository = UserRepository.instance;
+    _userRepository = UserRepository.instance;
     emailController = TextEditingController();
     super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
   }
 
   @override

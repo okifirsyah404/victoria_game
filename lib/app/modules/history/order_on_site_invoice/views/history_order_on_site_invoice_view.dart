@@ -49,9 +49,9 @@ class HistoryOrderOnSiteInvoiceView
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _screenshotBuilder(),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           _actionButtons(),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
         ],
       ),
     );
@@ -185,7 +185,7 @@ class HistoryOrderOnSiteInvoiceView
       borderRadius: BorderRadius.circular(8.0),
       child: Container(
         width: Get.width,
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: ColorsTheme.primaryColor,
           borderRadius: BorderRadius.circular(8.0),

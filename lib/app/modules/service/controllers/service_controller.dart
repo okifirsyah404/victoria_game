@@ -3,14 +3,12 @@ import 'package:get/get.dart';
 import 'package:victoria_game/app/core/repository/playstation_service_repository.dart';
 import 'package:victoria_game/app/core/repository/user_repository.dart';
 import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
+import 'package:victoria_game/app/routes/app_pages.dart';
 import 'package:victoria_game/utils/secure_storage.dart';
 
 class ServiceController extends GetxController {
-  //TODO: Implement ServiceController
-
   late SecureStorage _secureStorage;
   late UserRepository _userRepository;
-  late PlaystationServiceRepository _playstationServiceRepository;
 
   late TextEditingController productController;
   late TextEditingController detailServiceController;
@@ -29,6 +27,7 @@ class ServiceController extends GetxController {
     "Kontroler Tidak Terbaca",
     "Instalasi Harddisk",
     "Ganti atau Isi Game",
+    "Kerusakan Lain",
   ];
 
   void onChangeDropDown(String? newValue) {
@@ -44,25 +43,31 @@ class ServiceController extends GetxController {
   }
 
   void submitPlaystationServiceRequest() async {
-    var result =
-        await _playstationServiceRepository.postPlaystationServiceRequest(
-            authToken: authToken,
-            productName: productController.text,
-            problem: dropDownInitialSelected.value,
-            detailProblem: detailServiceController.text);
-    Get.dialog(
-      SingleActionDialog(
-        title: "Done",
-        description: result.data!.servisId!,
-      ),
-    );
+    if (productController.text.isNotEmpty &&
+        detailServiceController.text.isNotEmpty) {
+      Get.toNamed(
+        Routes.SERVICE_VERIFY,
+        arguments: {
+          "productName": productController.text,
+          "problem": dropDownInitialSelected.value,
+          "detailProblem": detailServiceController.text,
+        },
+      );
+    } else {
+      Get.dialog(
+        const SingleActionDialog(
+          title: "Terdapat Form Yang Kosong",
+          description:
+              "Pastikan Nama Produk dan Detail Permasalahan kamu terisi ya!",
+        ),
+      );
+    }
   }
 
   @override
   void onInit() {
     _secureStorage = SecureStorage.instance;
     _userRepository = UserRepository.instance;
-    _playstationServiceRepository = PlaystationServiceRepository.instance;
     productController = TextEditingController();
     detailServiceController = TextEditingController();
 
@@ -71,12 +76,9 @@ class ServiceController extends GetxController {
   }
 
   @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
   void onClose() {
+    productController.dispose();
+    detailServiceController.dispose();
     super.onClose();
   }
 }

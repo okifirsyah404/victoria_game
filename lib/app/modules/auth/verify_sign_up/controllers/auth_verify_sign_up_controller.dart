@@ -9,10 +9,10 @@ import 'package:victoria_game/app/routes/app_pages.dart';
 import 'package:victoria_game/utils/secure_storage.dart';
 
 class AuthVerifySignUpController extends GetxController {
-  var _arguments = Get.arguments;
+  final _arguments = Get.arguments;
 
-  late UserRepository userRepository;
-  late SecureStorage secureStorage;
+  late UserRepository _userRepository;
+  late SecureStorage _secureStorage;
 
   late TextEditingController otpController;
   late CountdownTimerController countdownTimerController;
@@ -31,7 +31,7 @@ class AuthVerifySignUpController extends GetxController {
   }
 
   void onResendOtp() async {
-    var result = await userRepository.submitVerifySignUp(
+    var result = await _userRepository.submitVerifySignUp(
       email: userMail,
       password: userPassword,
       username: username,
@@ -53,13 +53,13 @@ class AuthVerifySignUpController extends GetxController {
               "Kode OTP yang kamu masukkan sudah kadaluarsa, coba lagi ya!",
         ));
       } else {
-        var userResponse = await userRepository.submitSignUp(
+        var userResponse = await _userRepository.submitSignUp(
           email: userMail,
           password: userPassword,
           username: username,
           phone: userPhone,
         );
-        secureStorage.writeDataToStorage(
+        _secureStorage.writeDataToStorage(
             key: "token", value: userResponse.data?.token ?? "");
         Get.offAllNamed(Routes.MAIN_PAGE_HOME);
       }
@@ -84,8 +84,8 @@ class AuthVerifySignUpController extends GetxController {
 
   @override
   void onInit() {
-    userRepository = UserRepository.instance;
-    secureStorage = SecureStorage.instance;
+    _userRepository = UserRepository.instance;
+    _secureStorage = SecureStorage.instance;
     otpController = TextEditingController();
     countdownTimerController = CountdownTimerController(
       endTime: DateTime.now().millisecondsSinceEpoch + 1000 * 60 * 2,
@@ -95,12 +95,8 @@ class AuthVerifySignUpController extends GetxController {
   }
 
   @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
   void onClose() {
+    otpController.dispose();
     countdownTimerController.dispose();
     super.onClose();
   }

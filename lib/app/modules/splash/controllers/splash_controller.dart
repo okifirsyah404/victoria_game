@@ -12,8 +12,6 @@ import 'package:victoria_game/utils/secure_storage.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 class SplashController extends GetxController {
-  //TODO: Implement SplashController
-
   late Connectivity connectivity;
   late SecureStorage secureStorage;
   late UserRepository userRepository;
@@ -79,7 +77,6 @@ class SplashController extends GetxController {
           },
         ));
       }
-      // Get.offNamed(Routes.AUTH_SIGN_IN);
     });
   }
 
@@ -118,15 +115,5 @@ class SplashController extends GetxController {
     onInitSplashScreen();
     preCachedSvgImages();
     super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 }

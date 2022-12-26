@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:rive/rive.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
-import 'package:victoria_game/app/global/widgets/shimmer_widget.dart';
 
 import '../controllers/profile_settings_change_password_otp_input_controller.dart';
 
@@ -17,7 +16,7 @@ class ProfileSettingsChangePasswordOtpInputView
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text("Verifikasi"),
+        title: const Text("Verifikasi"),
         centerTitle: true,
       ),
       body: FutureBuilder(
@@ -93,16 +92,7 @@ class ProfileSettingsChangePasswordOtpInputView
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 16),
-                InkWell(
-                  onTap: () => controller.onResendOtp(),
-                  child: Text(
-                    "Kirim Ulang",
-                    style: TypographyTheme.bodyRegular.copyWith(
-                      color: ColorsTheme.primaryColor,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
+                _resendOtp(),
               ],
             ),
             const SizedBox(height: 64),
@@ -158,7 +148,7 @@ class ProfileSettingsChangePasswordOtpInputView
                       return Text("${time.sec}");
                     }
 
-                    return Text("Hola");
+                    return const Text("Hola");
                   },
                 ),
               ],

@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final otpResponse = otpResponseFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 OtpResponse otpResponseFromJson(String str) =>
@@ -24,16 +19,16 @@ class OtpResponse {
   final Data? data;
 
   factory OtpResponse.fromJson(Map<String, dynamic> json) => OtpResponse(
-        status: json["status"] == null ? null : json["status"],
-        statusCode: json["statusCode"] == null ? null : json["statusCode"],
-        message: json["message"] == null ? null : json["message"],
+        status: json["status"],
+        statusCode: json["statusCode"],
+        message: json["message"],
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "status": status == null ? null : status,
-        "statusCode": statusCode == null ? null : statusCode,
-        "message": message == null ? null : message,
+        "status": status,
+        "statusCode": statusCode,
+        "message": message,
         "data": data == null ? null : data?.toJson(),
       };
 }
@@ -46,10 +41,10 @@ class Data {
   final String? otp;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        otp: json["OTP"] == null ? null : json["OTP"],
+        otp: json["OTP"],
       );
 
   Map<String, dynamic> toJson() => {
-        "OTP": otp == null ? null : otp,
+        "OTP": otp,
       };
 }

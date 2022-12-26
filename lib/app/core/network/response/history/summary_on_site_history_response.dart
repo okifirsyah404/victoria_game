@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final previousOnSiteHistoryResponse = previousOnSiteHistoryResponseFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 SummaryOnSiteHistoryResponse summaryOnSiteHistoryResponseFromJson(String str) =>
@@ -26,18 +21,18 @@ class SummaryOnSiteHistoryResponse {
 
   factory SummaryOnSiteHistoryResponse.fromJson(Map<String, dynamic> json) =>
       SummaryOnSiteHistoryResponse(
-        status: json["status"] == null ? null : json["status"],
-        statusCode: json["statusCode"] == null ? null : json["statusCode"],
-        message: json["message"] == null ? null : json["message"],
+        status: json["status"],
+        statusCode: json["statusCode"],
+        message: json["message"],
         data: json["data"] == null
             ? null
             : List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "status": status == null ? null : status,
-        "statusCode": statusCode == null ? null : statusCode,
-        "message": message == null ? null : message,
+        "status": status,
+        "statusCode": statusCode,
+        "message": message,
         "data": data == null
             ? null
             : List<dynamic>.from(data?.map((x) => x.toJson()) ?? []),
@@ -68,33 +63,31 @@ class Datum {
   final String? playstationType;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        rentalId: json["rentalId"] == null ? null : json["rentalId"],
+        rentalId: json["rentalId"],
         orderTime: json["orderTime"] == null
             ? null
             : DateTime.parse(json["orderTime"]),
         startTime: json["startTime"] == null
             ? null
             : DateTime.parse(json["startTime"]),
-        gameCenter: json["gameCenter"] == null ? null : json["gameCenter"],
+        gameCenter: json["gameCenter"],
         endTime:
             json["endTime"] == null ? null : DateTime.parse(json["endTime"]),
-        totalAmount: json["totalAmount"] == null ? null : json["totalAmount"],
-        playtime: json["playtime"] == null ? null : json["playtime"],
-        playstationId:
-            json["playstationId"] == null ? null : json["playstationId"],
-        playstationType:
-            json["playstationType"] == null ? null : json["playstationType"],
+        totalAmount: json["totalAmount"],
+        playtime: json["playtime"],
+        playstationId: json["playstationId"],
+        playstationType: json["playstationType"],
       );
 
   Map<String, dynamic> toJson() => {
-        "rentalId": rentalId == null ? null : rentalId,
+        "rentalId": rentalId,
         "orderTime": orderTime == null ? null : orderTime?.toIso8601String(),
         "startTime": startTime == null ? null : startTime?.toIso8601String(),
-        "gameCenter": gameCenter == null ? null : gameCenter,
+        "gameCenter": gameCenter,
         "endTime": endTime == null ? null : endTime?.toIso8601String(),
-        "totalAmount": totalAmount == null ? null : totalAmount,
-        "playtime": playtime == null ? null : playtime,
-        "playstationId": playstationId == null ? null : playstationId,
-        "playstationType": playstationType == null ? null : playstationType,
+        "totalAmount": totalAmount,
+        "playtime": playtime,
+        "playstationId": playstationId,
+        "playstationType": playstationType,
       };
 }

@@ -1,5 +1,6 @@
 import 'package:victoria_game/app/core/network/response/service/service_detail_response.dart';
 import 'package:victoria_game/app/core/network/response/service/service_post_response.dart';
+import 'package:victoria_game/app/core/network/response/verify_order_response.dart';
 import 'package:victoria_game/app/core/services/network_service.dart';
 import 'package:victoria_game/utils/secure_storage.dart';
 
@@ -39,6 +40,19 @@ class PlaystationServiceRepository extends NetworkServices {
 
     var result = ServicePostResponse.fromJson(response);
     return result;
+  }
+
+  Future<VerifyOrderResponse> verifyPlaystationService({
+    required String password,
+    required String authToken,
+  }) async {
+    var headers = {authorization: authToken};
+    var body = {"password": password};
+
+    var response = await postMethod("/api/order/service/verify",
+        headers: headers, body: body);
+
+    return VerifyOrderResponse.fromJson(response);
   }
 
   Future<ServiceDetailResponse> getPlaystationServiceRequestData(

@@ -62,6 +62,8 @@ import '../modules/service/bindings/service_binding.dart';
 import '../modules/service/views/service_view.dart';
 import '../modules/service_invoice/bindings/service_invoice_binding.dart';
 import '../modules/service_invoice/views/service_invoice_view.dart';
+import '../modules/service_verify/bindings/service_verify_binding.dart';
+import '../modules/service_verify/views/service_verify_view.dart';
 import '../modules/shipment/bindings/shipment_binding.dart';
 import '../modules/shipment/views/shipment_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
@@ -84,7 +86,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ON_BOARDING,
-      page: () => OnBoardingView(),
+      page: () => const OnBoardingView(),
       binding: OnBoardingBinding(),
     ),
     GetPage(
@@ -251,6 +253,11 @@ class AppPages {
       name: _Paths.SERVICE_INVOICE,
       page: () => const ServiceInvoiceView(),
       binding: ServiceInvoiceBinding(),
+    ),
+    GetPage(
+      name: _Paths.SERVICE_VERIFY,
+      page: () => const ServiceVerifyView(),
+      binding: ServiceVerifyBinding(),
     ),
   ];
 }

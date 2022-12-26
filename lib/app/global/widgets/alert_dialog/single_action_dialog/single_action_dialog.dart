@@ -43,11 +43,11 @@ class SingleActionDialog extends StatelessWidget {
               () {
                 Get.back();
               },
-          child: Text("Ok"),
           style: OutlinedButton.styleFrom(
-            minimumSize: Size.fromHeight(50),
+            minimumSize: const Size.fromHeight(50),
             backgroundColor: ColorsTheme.primaryColor,
           ),
+          child: const Text("Ok"),
         ),
       ],
       backgroundColor: ColorsTheme.neutralColor[50],

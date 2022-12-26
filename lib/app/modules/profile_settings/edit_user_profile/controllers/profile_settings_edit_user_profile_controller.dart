@@ -12,14 +12,12 @@ import 'package:victoria_game/app/routes/app_pages.dart';
 import 'package:victoria_game/utils/secure_storage.dart';
 
 class ProfileSettingsEditUserProfileController extends GetxController {
-  //TODO: Implement ProfileSettingsEditUserProfileController
-
-  final storage = SecureStorage();
+  final _secureStorage = SecureStorage();
 
   var imagePicker = ImagePicker();
   Rx<File> imageFile = File("").obs;
 
-  late UserRepository userRepository;
+  late UserRepository _userRepository;
   late TextEditingController usernameController;
   late String authAccessToken;
 
@@ -69,9 +67,9 @@ class ProfileSettingsEditUserProfileController extends GetxController {
 
   Future<bool> requestCameraGaleryPermissions() async {
     var cameraGaleryPermission =
-        await userRepository.handleCameraGaleryPermission();
+        await _userRepository.handleCameraGaleryPermission();
 
-    userRepository.printLog.d(cameraGaleryPermission);
+    _userRepository.printLog.d(cameraGaleryPermission);
 
     if (!cameraGaleryPermission) {
       Get.dialog(
@@ -80,7 +78,7 @@ class ProfileSettingsEditUserProfileController extends GetxController {
           description:
               "Kami membutuhkan akses kamera serta galeri untuk mengupdate profile kamu.",
           buttonFunction: () async {
-            await userRepository.requestOpenAppSettings();
+            await _userRepository.requestOpenAppSettings();
             Get.back();
           },
         ),
@@ -93,16 +91,16 @@ class ProfileSettingsEditUserProfileController extends GetxController {
   }
 
   Future<void> fetchUserImage(String authToken) async {
-    var result = await userRepository.getMethodRaw("/api/user/image",
-        headers: {userRepository.authorization: authToken});
+    var result = await _userRepository.getMethodRaw("/api/user/image",
+        headers: {_userRepository.authorization: authToken});
 
     imageByte = [...result.bodyBytes];
   }
 
   Future<UserDataResponse> fetchUserData() async {
-    authAccessToken = await storage.readDataFromStrorage("token") ?? "";
+    authAccessToken = await _secureStorage.readDataFromStrorage("token") ?? "";
 
-    var userData = await userRepository.fetchUserData(authAccessToken);
+    var userData = await _userRepository.fetchUserData(authAccessToken);
     usernameController.text = userData.data?.username ?? "";
 
     await fetchUserImage(authAccessToken);
@@ -118,14 +116,14 @@ class ProfileSettingsEditUserProfileController extends GetxController {
   }
 
   onSubmitEdit() async {
-    authAccessToken = await storage.readDataFromStrorage("token") ?? "";
+    authAccessToken = await _secureStorage.readDataFromStrorage("token") ?? "";
 
     if (isFileChange) {
-      await userRepository.updateUserProfile(
+      await _userRepository.updateUserProfile(
           authToken: authAccessToken, file: imageFile.value);
     }
 
-    await userRepository
+    await _userRepository
         .updateUsername(
             authToken: authAccessToken, newUsername: usernameController.text)
         .then((value) => Get.offNamedUntil(
@@ -136,15 +134,10 @@ class ProfileSettingsEditUserProfileController extends GetxController {
 
   @override
   void onInit() {
-    userRepository = UserRepository.instance;
+    super.onInit();
+    _userRepository = UserRepository.instance;
     requestCameraGaleryPermissions();
     usernameController = TextEditingController();
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
   }
 
   @override
@@ -152,6 +145,7 @@ class ProfileSettingsEditUserProfileController extends GetxController {
     if (isFileChange) {
       imageFile.value.delete();
     }
+    usernameController.dispose();
     super.onClose();
   }
 }

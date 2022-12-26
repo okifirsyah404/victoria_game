@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
@@ -169,7 +168,7 @@ class OrderDetailsOnSiteInvoiceView
             DividerListTile(
               title: "Tanggal Main",
               trailing: Text(
-                "${controller.playingDate}",
+                controller.playingDate,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),
@@ -177,7 +176,7 @@ class OrderDetailsOnSiteInvoiceView
             ),
             DividerListTile(
               title: "Jam Main",
-              trailing: Text("${controller.playingTime}"),
+              trailing: Text(controller.playingTime),
               topBorder: true,
             ),
           ],

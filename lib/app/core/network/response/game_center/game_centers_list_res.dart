@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 GameCentersListResponse gameCentersListResponseFromJson(String str) =>
@@ -22,9 +21,9 @@ class GameCentersListResponse {
 
   factory GameCentersListResponse.fromJson(Map<String, dynamic> json) =>
       GameCentersListResponse(
-        status: json["status"] == null ? null : json["status"],
-        statusCode: json["statusCode"] == null ? null : json["statusCode"],
-        message: json["message"] == null ? null : json["message"],
+        status: json["status"],
+        statusCode: json["statusCode"],
+        message: json["message"],
         data: json["data"] == null
             ? null
             : List<GameCenters>.from(
@@ -32,9 +31,9 @@ class GameCentersListResponse {
       );
 
   Map<String, dynamic> toJson() => {
-        "status": status == null ? null : status,
-        "statusCode": statusCode == null ? null : statusCode,
-        "message": message == null ? null : message,
+        "status": status,
+        "statusCode": statusCode,
+        "message": message,
         "data": data == null
             ? null
             : List<dynamic>.from(data?.map((x) => x.toJson()) ?? []),
@@ -57,18 +56,18 @@ class GameCenters {
   final String? longitude;
 
   factory GameCenters.fromJson(Map<String, dynamic> json) => GameCenters(
-        id: json["id"] == null ? null : json["id"],
-        name: json["name"] == null ? null : json["name"],
-        address: json["address"] == null ? null : json["address"],
-        latitude: json["latitude"] == null ? null : json["latitude"],
-        longitude: json["longitude"] == null ? null : json["longitude"],
+        id: json["id"],
+        name: json["name"],
+        address: json["address"],
+        latitude: json["latitude"],
+        longitude: json["longitude"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "name": name == null ? null : name,
-        "address": address == null ? null : address,
-        "latitude": latitude == null ? null : latitude,
-        "longitude": longitude == null ? null : longitude,
+        "id": id,
+        "name": name,
+        "address": address,
+        "latitude": latitude,
+        "longitude": longitude,
       };
 }

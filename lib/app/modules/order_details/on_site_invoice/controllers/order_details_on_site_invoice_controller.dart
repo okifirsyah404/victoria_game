@@ -166,14 +166,4 @@ DESKRIPSI
     _orderOnSiteRepository = OrderOnSiteRepository.instance;
     screenshotController = ScreenshotController();
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
 }

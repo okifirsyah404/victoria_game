@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../../icons/custom_icon_data_icons.dart';
 import '../../../../themes/colors_theme.dart';
 import '../../../../themes/typography_theme.dart';
 
@@ -108,7 +106,7 @@ class _RegularTextFieldState extends State<RegularTextField>
                           )
                         : null,
                     border: InputBorder.none,
-                    labelText: !widget.controller.text.isEmpty
+                    labelText: widget.controller.text.isNotEmpty
                         ? hasFocus
                             ? widget.label
                             : null

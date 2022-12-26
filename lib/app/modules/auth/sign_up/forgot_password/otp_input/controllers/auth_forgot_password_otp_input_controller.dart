@@ -11,7 +11,7 @@ class AuthForgotPasswordOtpInputController extends GetxController {
   //TODO: Implement AuthForgotPasswordOtpInputController
   final _arguments = Get.arguments;
 
-  late UserRepository userRepository;
+  late UserRepository _userRepository;
   late TextEditingController otpController;
   late CountdownTimerController countdownTimerController;
 
@@ -37,7 +37,7 @@ class AuthForgotPasswordOtpInputController extends GetxController {
   }
 
   void onResendOtp() async {
-    var result = await userRepository.submitForgetPassword(email: userMail);
+    var result = await _userRepository.submitForgetPassword(email: userMail);
 
     otp = result.data?.otp ?? "";
 
@@ -69,18 +69,13 @@ class AuthForgotPasswordOtpInputController extends GetxController {
 
   @override
   void onInit() {
-    userRepository = UserRepository.instance;
+    _userRepository = UserRepository.instance;
     otpController = TextEditingController();
     countdownTimerController = CountdownTimerController(
       endTime: DateTime.now().millisecondsSinceEpoch + 1000 * 60 * 2,
     );
     setExpiresOtp();
     super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
   }
 
   @override

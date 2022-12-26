@@ -7,8 +7,8 @@ import 'package:victoria_game/utils/secure_storage.dart';
 
 class ProfileSettingsChangePasswordNewPasswordInputController
     extends GetxController {
-  late SecureStorage secureStorage;
-  late UserRepository userRepository;
+  late SecureStorage _secureStorage;
+  late UserRepository _userRepository;
 
   late TextEditingController passwordController;
   late TextEditingController rePasswordController;
@@ -67,7 +67,7 @@ class ProfileSettingsChangePasswordNewPasswordInputController
 
   onSubmitUpdatePassword() async {
     if (validatePassword()) {
-      await userRepository.submitResetPassword(
+      await _userRepository.submitResetPassword(
           authToken: authAccessToken, newPassword: passwordController.text);
       Get.offNamedUntil(
           Routes.PROFILE_SETTINGS_USER_PROFILE, (route) => route.isFirst);
@@ -75,22 +75,17 @@ class ProfileSettingsChangePasswordNewPasswordInputController
   }
 
   Future<void> onUserDataInit() async {
-    authAccessToken = await secureStorage.readDataFromStrorage("token") ?? "";
+    authAccessToken = await _secureStorage.readDataFromStrorage("token") ?? "";
   }
 
   @override
   void onInit() {
-    secureStorage = SecureStorage.instance;
-    userRepository = UserRepository.instance;
+    _secureStorage = SecureStorage.instance;
+    _userRepository = UserRepository.instance;
     passwordController = TextEditingController();
     rePasswordController = TextEditingController();
     onUserDataInit();
     super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
   }
 
   @override

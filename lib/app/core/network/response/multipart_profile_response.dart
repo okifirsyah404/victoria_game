@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 MultipartProfileResponse multipartProfileResponseFromJson(String str) =>
@@ -22,16 +21,16 @@ class MultipartProfileResponse {
 
   factory MultipartProfileResponse.fromJson(Map<String, dynamic> json) =>
       MultipartProfileResponse(
-        status: json["status"] == null ? null : json["status"],
-        statusCode: json["statusCode"] == null ? null : json["statusCode"],
-        message: json["message"] == null ? null : json["message"],
+        status: json["status"],
+        statusCode: json["statusCode"],
+        message: json["message"],
         data: json["data"] == null ? null : UserData.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "status": status == null ? null : status,
-        "statusCode": statusCode == null ? null : statusCode,
-        "message": message == null ? null : message,
+        "status": status,
+        "statusCode": statusCode,
+        "message": message,
         "data": data == null ? null : data?.toJson(),
       };
 }
@@ -58,12 +57,12 @@ class UserData {
   final DateTime? updateAt;
 
   factory UserData.fromJson(Map<String, dynamic> json) => UserData(
-        email: json["email"] == null ? null : json["email"],
-        username: json["username"] == null ? null : json["username"],
-        images: json["images"] == null ? null : json["images"],
-        ballance: json["ballance"] == null ? null : json["ballance"],
-        playTime: json["playTime"] == null ? null : json["playTime"],
-        token: json["token"] == null ? null : json["token"],
+        email: json["email"],
+        username: json["username"],
+        images: json["images"],
+        ballance: json["ballance"],
+        playTime: json["playTime"],
+        token: json["token"],
         createAt: json["create_at"] == null
             ? null
             : DateTime.parse(json["create_at"]),
@@ -73,12 +72,12 @@ class UserData {
       );
 
   Map<String, dynamic> toJson() => {
-        "email": email == null ? null : email,
-        "username": username == null ? null : username,
-        "images": images == null ? null : images,
-        "ballance": ballance == null ? null : ballance,
-        "playTime": playTime == null ? null : playTime,
-        "token": token == null ? null : token,
+        "email": email,
+        "username": username,
+        "images": images,
+        "ballance": ballance,
+        "playTime": playTime,
+        "token": token,
         "create_at": createAt == null ? null : createAt?.toIso8601String(),
         "update_at": updateAt == null ? null : updateAt?.toIso8601String(),
       };

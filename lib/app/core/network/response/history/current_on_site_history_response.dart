@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final currentOnSiteHistoryResponse = currentOnSiteHistoryResponseFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 CurrentOnSiteHistoryResponse currentOnSiteHistoryResponseFromJson(String str) =>
@@ -26,16 +21,16 @@ class CurrentOnSiteHistoryResponse {
 
   factory CurrentOnSiteHistoryResponse.fromJson(Map<String, dynamic> json) =>
       CurrentOnSiteHistoryResponse(
-        status: json["status"] == null ? null : json["status"],
-        statusCode: json["statusCode"] == null ? null : json["statusCode"],
-        message: json["message"] == null ? null : json["message"],
+        status: json["status"],
+        statusCode: json["statusCode"],
+        message: json["message"],
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "status": status == null ? null : status,
-        "statusCode": statusCode == null ? null : statusCode,
-        "message": message == null ? null : message,
+        "status": status,
+        "statusCode": statusCode,
+        "message": message,
         "data": data == null ? null : data?.toJson(),
       };
 }
@@ -60,7 +55,7 @@ class Data {
   final String? playstationType;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        rentalId: json["rentalId"] == null ? null : json["rentalId"],
+        rentalId: json["rentalId"],
         orderTime: json["orderTime"] == null
             ? null
             : DateTime.parse(json["orderTime"]),
@@ -69,20 +64,18 @@ class Data {
             : DateTime.parse(json["startTime"]),
         endTime:
             json["endTime"] == null ? null : DateTime.parse(json["endTime"]),
-        playtime: json["playtime"] == null ? null : json["playtime"],
-        playstationId:
-            json["playstationId"] == null ? null : json["playstationId"],
-        playstationType:
-            json["playstationType"] == null ? null : json["playstationType"],
+        playtime: json["playtime"],
+        playstationId: json["playstationId"],
+        playstationType: json["playstationType"],
       );
 
   Map<String, dynamic> toJson() => {
-        "rentalId": rentalId == null ? null : rentalId,
+        "rentalId": rentalId,
         "orderTime": orderTime == null ? null : orderTime?.toIso8601String(),
         "startTime": startTime == null ? null : startTime?.toIso8601String(),
         "endTime": endTime == null ? null : endTime?.toIso8601String(),
-        "playtime": playtime == null ? null : playtime,
-        "playstationId": playstationId == null ? null : playstationId,
-        "playstationType": playstationType == null ? null : playstationType,
+        "playtime": playtime,
+        "playstationId": playstationId,
+        "playstationType": playstationType,
       };
 }

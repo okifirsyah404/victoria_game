@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -32,8 +30,8 @@ class ProfileSettingsEditUserProfileView
               children: [
                 Expanded(
                   child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 32.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -52,7 +50,7 @@ class ProfileSettingsEditUserProfileView
                             );
                           },
                         ),
-                        SizedBox(height: 32),
+                        const SizedBox(height: 32),
                         UsernameTextField(
                           controller: controller.usernameController,
                         ),
@@ -62,7 +60,7 @@ class ProfileSettingsEditUserProfileView
                 ),
                 Container(
                   width: double.infinity,
-                  padding: EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(16.0),
                   color: ColorsTheme.neutralColor[900],
                   child: OutlinedButton(
                     onPressed: () {
@@ -72,14 +70,14 @@ class ProfileSettingsEditUserProfileView
                       foregroundColor: ColorsTheme.neutralColor[900],
                       backgroundColor: ColorsTheme.primaryColor,
                     ),
-                    child: Text("Ubah Profile"),
+                    child: const Text("Ubah Profile"),
                   ),
                 ),
               ],
             );
           }
 
-          return Center(
+          return const Center(
             child: RiveAnimation.asset('assets/rive/loading.riv'),
           );
         },
@@ -100,11 +98,6 @@ class ProfileSettingsEditUserProfileView
           image: DecorationImage(
             image: controller.imageFile.value.path != ""
                 ? Image.file(controller.imageFile.value).image
-                // : NetworkImage(
-                //     "https://d74d-125-166-118-213.ap.ngrok.io/api/user/image",
-                //     headers: {
-                //         "Authorization": controller.authAccessToken,
-                //       }),
                 : MemoryImage(Uint8List.fromList(controller.imageByte)),
             fit: BoxFit.cover,
           ),

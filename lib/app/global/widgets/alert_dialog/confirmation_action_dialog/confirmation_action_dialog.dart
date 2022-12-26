@@ -38,21 +38,21 @@ class ConfirmationActionDialog extends StatelessWidget {
           onPressed: () {
             Get.back();
           },
-          child: Text("Batal"),
           style: OutlinedButton.styleFrom(
-            minimumSize: Size(120, 50),
+            minimumSize: const Size(120, 50),
             backgroundColor: ColorsTheme.neutralColor[50],
           ),
+          child: const Text("Batal"),
         ),
         OutlinedButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          child: Text("Ok"),
           style: OutlinedButton.styleFrom(
-            minimumSize: Size(120, 50),
+            minimumSize: const Size(120, 50),
             backgroundColor: ColorsTheme.primaryColor,
           ),
+          child: const Text("Ok"),
         ),
       ],
       backgroundColor: ColorsTheme.neutralColor[50],

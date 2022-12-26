@@ -4,12 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rive/rive.dart';
-import 'package:victoria_game/app/core/network/response/game_center/game_centers_res.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
-import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
-import 'package:victoria_game/app/global/widgets/shimmer_widget.dart';
-import 'package:victoria_game/app/routes/app_pages.dart';
 import 'package:victoria_game/utils/string_extensions.dart';
 
 import '../controllers/detail_game_center_controller.dart';
@@ -35,7 +31,8 @@ class DetailGameCenterView extends GetView<DetailGameCenterController> {
       appBar: AppBar(
         title: const Text('Detail Game Center'),
         centerTitle: true,
-        leading: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
+        leading:
+            IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_back)),
       ),
       body: const Center(
         child: RiveAnimation.asset('assets/rive/loading.riv'),

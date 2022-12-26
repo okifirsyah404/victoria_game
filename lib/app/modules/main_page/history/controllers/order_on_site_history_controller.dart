@@ -86,7 +86,8 @@ class PreviousOrderOnSiteHistoryController extends GetxController {
   late SecureStorage _secureStorage;
   late HistoryRepository _historyRepository;
 
-  List<Map<String, dynamic>> previousPlayOnSiteHistoryList = [];
+  RxList<Map<String, dynamic>> previousPlayOnSiteHistoryList =
+      <Map<String, dynamic>>[].obs;
 
   Future<void> fetchPreviousOnSiteHistory() async {
     var authToken = await _secureStorage.readDataFromStrorage("token") ?? "";
@@ -95,7 +96,8 @@ class PreviousOrderOnSiteHistoryController extends GetxController {
 
     if (result.data != null) {
       if (result.data!.isNotEmpty) {
-        result.data!.forEach((element) {
+        previousPlayOnSiteHistoryList.clear();
+        for (var element in result.data!) {
           previousPlayOnSiteHistoryList.add({
             "rentalId": element.rentalId,
             "gameCenter": element.gameCenter,
@@ -103,7 +105,7 @@ class PreviousOrderOnSiteHistoryController extends GetxController {
             "orderDate": element.orderTime,
             "playstationType": element.playstationType,
           });
-        });
+        }
       }
     }
   }
@@ -120,18 +122,14 @@ class PreviousOrderOnSiteHistoryController extends GetxController {
     _historyRepository = HistoryRepository.instance;
     super.onInit();
   }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
 }
 
 class FutureOrderOnSiteHistoryController extends GetxController {
   late SecureStorage _secureStorage;
   late HistoryRepository _historyRepository;
 
-  List<Map<String, dynamic>> futurePlayOnSiteHistoryList = [];
+  RxList<Map<String, dynamic>> futurePlayOnSiteHistoryList =
+      <Map<String, dynamic>>[].obs;
 
   Future<void> fetchFutureOnSiteHistory() async {
     var authToken = await _secureStorage.readDataFromStrorage("token") ?? "";
@@ -140,7 +138,8 @@ class FutureOrderOnSiteHistoryController extends GetxController {
 
     if (result.data != null) {
       if (result.data!.isNotEmpty) {
-        result.data!.forEach((element) {
+        futurePlayOnSiteHistoryList.clear();
+        for (var element in result.data!) {
           futurePlayOnSiteHistoryList.add({
             "rentalId": element.rentalId,
             "gameCenter": element.gameCenter,
@@ -148,7 +147,7 @@ class FutureOrderOnSiteHistoryController extends GetxController {
             "orderDate": element.orderTime,
             "playstationType": element.playstationType,
           });
-        });
+        }
       }
     }
   }
@@ -164,10 +163,5 @@ class FutureOrderOnSiteHistoryController extends GetxController {
     _secureStorage = SecureStorage.instance;
     _historyRepository = HistoryRepository.instance;
     super.onInit();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 }

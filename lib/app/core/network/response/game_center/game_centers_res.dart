@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final gameCentersResponse = gameCentersResponseFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 GameCentersResponse gameCentersResponseFromJson(String str) =>
@@ -26,16 +21,16 @@ class GameCentersResponse {
 
   factory GameCentersResponse.fromJson(Map<String, dynamic> json) =>
       GameCentersResponse(
-        status: json["status"] == null ? null : json["status"],
-        statusCode: json["statusCode"] == null ? null : json["statusCode"],
-        message: json["message"] == null ? null : json["message"],
+        status: json["status"],
+        statusCode: json["statusCode"],
+        message: json["message"],
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "status": status == null ? null : status,
-        "statusCode": statusCode == null ? null : statusCode,
-        "message": message == null ? null : message,
+        "status": status,
+        "statusCode": statusCode,
+        "message": message,
         "data": data == null ? null : data?.toJson(),
       };
 }
@@ -60,15 +55,12 @@ class Data {
   final List<PlaystationList>? playstationList;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        name: json["name"] == null ? null : json["name"],
-        latitude: json["latitude"] == null ? null : json["latitude"],
-        longitude: json["longitude"] == null ? null : json["longitude"],
-        playstation3:
-            json["playstation3"] == null ? null : json["playstation3"],
-        playstation4:
-            json["playstation4"] == null ? null : json["playstation4"],
-        playstationTotal:
-            json["playstationTotal"] == null ? null : json["playstationTotal"],
+        name: json["name"],
+        latitude: json["latitude"],
+        longitude: json["longitude"],
+        playstation3: json["playstation3"],
+        playstation4: json["playstation4"],
+        playstationTotal: json["playstationTotal"],
         playstationList: json["playstationList"] == null
             ? null
             : List<PlaystationList>.from(json["playstationList"]
@@ -76,12 +68,12 @@ class Data {
       );
 
   Map<String, dynamic> toJson() => {
-        "name": name == null ? null : name,
-        "latitude": latitude == null ? null : latitude,
-        "longitude": longitude == null ? null : longitude,
-        "playstation3": playstation3 == null ? null : playstation3,
-        "playstation4": playstation4 == null ? null : playstation4,
-        "playstationTotal": playstationTotal == null ? null : playstationTotal,
+        "name": name,
+        "latitude": latitude,
+        "longitude": longitude,
+        "playstation3": playstation3,
+        "playstation4": playstation4,
+        "playstationTotal": playstationTotal,
         "playstationList": playstationList == null
             ? null
             : List<dynamic>.from(playstationList?.map((x) => x.toJson()) ?? []),
@@ -107,20 +99,20 @@ class PlaystationList {
 
   factory PlaystationList.fromJson(Map<String, dynamic> json) =>
       PlaystationList(
-        id: json["id"] == null ? null : json["id"],
-        name: json["name"] == null ? null : json["name"],
-        type: json["type"] == null ? null : json["type"],
-        location: json["location"] == null ? null : json["location"],
-        status: json["status"] == null ? null : json["status"],
-        price: json["price"] == null ? null : json["price"],
+        id: json["id"],
+        name: json["name"],
+        type: json["type"],
+        location: json["location"],
+        status: json["status"],
+        price: json["price"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "name": name == null ? null : name,
-        "type": type == null ? null : type,
-        "location": location == null ? null : location,
-        "status": status == null ? null : status,
-        "price": price == null ? null : price,
+        "id": id,
+        "name": name,
+        "type": type,
+        "location": location,
+        "status": status,
+        "price": price,
       };
 }

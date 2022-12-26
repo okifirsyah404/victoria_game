@@ -14,13 +14,6 @@ class TestWidgetController extends GetxController {
   // RxBool isFocused2 = _emailFocusNode2.hasFocus.obs;
 
   @override
-  void onInit() {
-    // _emailFocusNode = FocusNode();
-    // _emailFocusNode2 = FocusNode();
-    super.onInit();
-  }
-
-  @override
   void onReady() {
     log("OnReady");
     super.onReady();
