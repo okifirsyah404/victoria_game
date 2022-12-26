@@ -33,10 +33,10 @@ class OrderDetailsOnSiteVerifyView
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Container(
+                        const SizedBox(
                             height: 328,
                             width: 328,
-                            child: const RiveAnimation.asset(
+                            child: RiveAnimation.asset(
                                 "assets/rive/order-verify.riv")),
                         Text(
                           "Harap verifikasi bahwa transaksi ini dibuat olehmu ya!",
