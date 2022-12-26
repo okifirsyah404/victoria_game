@@ -127,19 +127,25 @@ class MainPageHomeView extends GetView<MainPageHomeController> {
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Container(
-                  height: 48,
-                  width: 48,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: ColorsTheme.primaryColor,
-                      width: 1,
-                    ),
-                    image: DecorationImage(
-                      image:
-                          MemoryImage(Uint8List.fromList(controller.imageByte)),
-                      fit: BoxFit.cover,
+                InkWell(
+                  onTap: () {
+                    Get.toNamed(Routes.PROFILE_SETTINGS_EDIT_USER_PROFILE);
+                  },
+                  borderRadius: BorderRadius.circular(24),
+                  child: Container(
+                    height: 48,
+                    width: 48,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: ColorsTheme.primaryColor,
+                        width: 1,
+                      ),
+                      image: DecorationImage(
+                        image: MemoryImage(
+                            Uint8List.fromList(controller.imageByte)),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
