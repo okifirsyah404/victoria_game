@@ -51,6 +51,7 @@ abstract class Routes {
       _Paths.ORDER_DETAILS_ON_SITE_SCHEDULE;
   static const PROFILE_SETTINGS_FAQ_GENERAL =
       _Paths.PROFILE_SETTINGS_FAQ_GENERAL;
+  static const SERVICE_INVOICE = _Paths.SERVICE_INVOICE;
 }
 
 abstract class _Paths {
@@ -90,4 +91,5 @@ abstract class _Paths {
   static const PROFILE_SETTINGS_TERMS_AND_CONDITIONS = '/terms-and-conditions';
   static const ORDER_DETAILS_ON_SITE_SCHEDULE = '/on-site-schedule';
   static const PROFILE_SETTINGS_FAQ_GENERAL = '/faq-general';
+  static const SERVICE_INVOICE = '/service-invoice';
 }

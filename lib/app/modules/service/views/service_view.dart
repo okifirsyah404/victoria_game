@@ -5,9 +5,7 @@ import 'package:rive/rive.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
 import 'package:victoria_game/app/global/widgets/dropdown/generic_dropdown.dart';
-import 'package:victoria_game/app/global/widgets/text_field/email_text_field/views/email_text_field_widget.dart';
 import 'package:victoria_game/app/global/widgets/text_field/regular_text_field/views/regular_text_field_widget.dart';
-import 'package:victoria_game/app/global/widgets/text_field/username_text_field/views/username_text_field_widget.dart';
 
 import '../controllers/service_controller.dart';
 
@@ -95,7 +93,9 @@ class ServiceView extends GetView<ServiceController> {
             ),
           ),
           _submitButton(
-            onTap: () {},
+            onTap: () {
+              controller.submitPlaystationServiceRequest();
+            },
           ),
         ],
       ),
@@ -150,7 +150,7 @@ class ServiceView extends GetView<ServiceController> {
               foregroundColor: ColorsTheme.neutralColor[900],
               backgroundColor: ColorsTheme.primaryColor,
             ),
-            child: Text("Kirim Permohonan Servis"),
+            child: Text("Kirim Permintaan Servis"),
           ),
         ],
       ),

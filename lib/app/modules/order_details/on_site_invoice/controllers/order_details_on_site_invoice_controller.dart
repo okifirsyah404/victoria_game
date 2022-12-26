@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
@@ -84,7 +85,7 @@ class OrderDetailsOnSiteInvoiceController extends GetxController {
     return galeryPermission;
   }
 
-  Future<void> shareTransactionData() async {
+  void shareTransactionData() async {
     await screenshotController
         .capture(delay: const Duration(milliseconds: 10))
         .then((Uint8List? image) async {
@@ -97,36 +98,53 @@ class OrderDetailsOnSiteInvoiceController extends GetxController {
         await Share.shareXFiles(
           [XFile(imagePath.path)],
           text:
-              "Ayo kawan! Kita main bersama di $gameCenter. Sudah saya pesan ${playstationType.toTitleCase()} dengan No. $playstationNumber",
+              "Ayo kawan! Kita main bersama di $gameCenter. Sudah saya pesan ${playstationType.toTitleCase()} dengan No. ${int.parse(playstationNumber.substring(4))}",
         );
       }
     });
   }
 
-  Future<void> intentWhatsapp() async {
+  void saveScreenshotGalery() async {
+    await screenshotController
+        .capture(delay: const Duration(milliseconds: 10))
+        .then((Uint8List? image) async {
+      if (image != null) {
+        await ImageGallerySaver.saveImage(image,
+            quality: 60, name: transactionId);
+      }
+    });
+
+    Get.dialog(const SingleActionDialog(
+      title: "Screenshot Berhasil",
+      description: "Screenshot transaksi ini berhasil disimpan di galery",
+    ));
+  }
+
+  void intentWhatsapp() async {
     String message = """
 Saya ingin bertanya dengan transaksi ini.
 
 INFORMASI PENGGUNA:
 
-    Username : $username,
-    Nomor Handphone: $userPhone,
-    Alamat Email : $userMail,
-    Tanggal : ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(DateTime.now())},
+    Username : $username
+    Nomor Handphone: $userPhone
+    Alamat Email : $userMail
+    Tanggal : ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(DateTime.now())}
     Jam : ${DateFormat("Hm", "id_ID").format(DateTime.now().toLocal())}
 
 INFORMASI TRANSAKSI
 
-    Kode Transaksi : $transactionId,
+    Kode Transaksi : $transactionId
     Total Biaya : ${totalAmount.toRupiah()}
-    Game Center : $gameCenter,
-    Jenis Playstation : $playstationType,
-    Nomor Playstation : $playstationNumber,
-    Tanggal Main : $playingDate,
-    Jam Main : $playingTime,
-    Playtime : $playtime,
+    Game Center : $gameCenter
+    Jenis Playstation : $playstationType
+    Nomor Playstation : $playstationNumber
+    Tanggal Main : $playingDate
+    Jam Main : $playingTime
+    Playtime : $playtime Jam
 
 DESKRIPSI
+
 """;
 
     String url = "whatsapp://send?phone=+6282143212404&text=$message";

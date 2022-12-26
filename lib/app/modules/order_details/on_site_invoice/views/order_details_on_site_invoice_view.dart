@@ -43,13 +43,6 @@ class OrderDetailsOnSiteInvoiceView
       appBar: AppBar(
         title: const Text('Invoice Order'),
         centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: () {
-                controller.shareTransactionData();
-              },
-              icon: Icon(Icons.share))
-        ],
       ),
       body: SafeArea(
         child: Column(
@@ -62,31 +55,13 @@ class OrderDetailsOnSiteInvoiceView
                     Container(
                       height: 200,
                       width: 200,
-                      child:
-                          RiveAnimation.asset('assets/rive/checkmark_icon.riv'),
+                      child: const RiveAnimation.asset(
+                          'assets/rive/checkmark_icon.riv'),
                     ),
                     _detailInvoice(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16.0, vertical: 16.0),
-                      child: OutlinedButton.icon(
-                        onPressed: () {
-                          controller.intentWhatsapp();
-                        },
-                        icon: FaIcon(FontAwesomeIcons.whatsapp),
-                        label: Text(
-                          "Ada Masalah? Hubungi Kami",
-                          style: TypographyTheme.buttonTextStyle,
-                        ),
-                        style: OutlinedButton.styleFrom(
-                          backgroundColor: Color(0xFF25D366),
-                          foregroundColor: ColorsTheme.neutralColor[50],
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                      ),
-                    ),
+                    const SizedBox(height: 24),
+                    _actionButtons(),
+                    const SizedBox(height: 24),
                   ],
                 ),
               ),
@@ -120,7 +95,7 @@ class OrderDetailsOnSiteInvoiceView
     return Screenshot(
       controller: controller.screenshotController,
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -208,6 +183,76 @@ class OrderDetailsOnSiteInvoiceView
           ],
         ),
       ),
+    );
+  }
+
+  Widget _actionButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        InkWell(
+          onTap: () {
+            controller.intentWhatsapp();
+          },
+          borderRadius: BorderRadius.circular(24),
+          child: Container(
+            height: 48,
+            width: 48,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Color(0xFF25D366),
+            ),
+            child: Center(
+              child: FaIcon(
+                FontAwesomeIcons.whatsapp,
+                color: ColorsTheme.neutralColor[50],
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 24),
+        InkWell(
+          onTap: () {
+            controller.saveScreenshotGalery();
+          },
+          borderRadius: BorderRadius.circular(24),
+          child: Container(
+            height: 48,
+            width: 48,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: ColorsTheme.neutralColor[900],
+            ),
+            child: Center(
+              child: Icon(
+                Icons.copy,
+                color: ColorsTheme.neutralColor[50],
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 24),
+        InkWell(
+          onTap: () {
+            controller.shareTransactionData();
+          },
+          borderRadius: BorderRadius.circular(24),
+          child: Container(
+            height: 48,
+            width: 48,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: ColorsTheme.neutralColor[900],
+            ),
+            child: Center(
+              child: Icon(
+                Icons.share,
+                color: ColorsTheme.neutralColor[50],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

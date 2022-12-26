@@ -60,6 +60,8 @@ import '../modules/profile_settings/user_profile/bindings/profile_settings_user_
 import '../modules/profile_settings/user_profile/views/profile_settings_user_profile_view.dart';
 import '../modules/service/bindings/service_binding.dart';
 import '../modules/service/views/service_view.dart';
+import '../modules/service_invoice/bindings/service_invoice_binding.dart';
+import '../modules/service_invoice/views/service_invoice_view.dart';
 import '../modules/shipment/bindings/shipment_binding.dart';
 import '../modules/shipment/views/shipment_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
@@ -244,6 +246,11 @@ class AppPages {
       name: _Paths.PROFILE_SETTINGS_FAQ_GENERAL,
       page: () => const ProfileSettingsFaqGeneralView(),
       binding: ProfileSettingsFaqGeneralBinding(),
+    ),
+    GetPage(
+      name: _Paths.SERVICE_INVOICE,
+      page: () => const ServiceInvoiceView(),
+      binding: ServiceInvoiceBinding(),
     ),
   ];
 }

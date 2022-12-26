@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rive/rive.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
 import 'package:victoria_game/app/global/widgets/list_tile/divider_list_tile.dart';
@@ -43,8 +44,24 @@ class HistoryOrderOnSiteInvoiceView
 
   Widget onDataDone() {
     return SingleChildScrollView(
-      child: Container(
-        padding: EdgeInsets.all(16),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _screenshotBuilder(),
+          SizedBox(height: 8),
+          _actionButtons(),
+          SizedBox(height: 16),
+        ],
+      ),
+    );
+  }
+
+  Widget _screenshotBuilder() {
+    return Screenshot(
+      controller: controller.screenshotController,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,8 +132,12 @@ class HistoryOrderOnSiteInvoiceView
             ),
             DividerListTile(
               title: "Nomor Playstation",
-              trailing:
-                  Text(controller.detailTransactionDataHistory.playstationId),
+              trailing: Text(
+                "No. ${int.parse(
+                  controller.detailTransactionDataHistory.playstationId
+                      .substring(4),
+                )}",
+              ),
               topBorder: true,
               bottomBorder: true,
             ),
@@ -152,9 +173,6 @@ class HistoryOrderOnSiteInvoiceView
               topBorder: true,
               bottomBorder: true,
             ),
-            SizedBox(height: 24),
-            _actionButtons(),
-            SizedBox(height: 16),
           ],
         ),
       ),
@@ -237,10 +255,14 @@ class HistoryOrderOnSiteInvoiceView
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         InkWell(
+          onTap: () {
+            controller.intentWhatsapp();
+          },
+          borderRadius: BorderRadius.circular(24),
           child: Container(
             height: 48,
             width: 48,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               shape: BoxShape.circle,
               color: Color(0xFF25D366),
             ),
@@ -252,8 +274,12 @@ class HistoryOrderOnSiteInvoiceView
             ),
           ),
         ),
-        SizedBox(width: 24),
+        const SizedBox(width: 24),
         InkWell(
+          onTap: () {
+            controller.saveScreenshotGalery();
+          },
+          borderRadius: BorderRadius.circular(24),
           child: Container(
             height: 48,
             width: 48,
@@ -269,8 +295,12 @@ class HistoryOrderOnSiteInvoiceView
             ),
           ),
         ),
-        SizedBox(width: 24),
+        const SizedBox(width: 24),
         InkWell(
+          onTap: () {
+            controller.shareTransactionData();
+          },
+          borderRadius: BorderRadius.circular(24),
           child: Container(
             height: 48,
             width: 48,
