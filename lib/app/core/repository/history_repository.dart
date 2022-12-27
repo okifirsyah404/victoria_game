@@ -2,6 +2,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:victoria_game/app/core/network/response/history/current_on_site_history_response.dart';
 import 'package:victoria_game/app/core/network/response/history/detail_on_site_history_response.dart';
 import 'package:victoria_game/app/core/network/response/history/summary_on_site_history_response.dart';
+import 'package:victoria_game/app/core/network/response/history/summary_playstation_service_history_response.dart';
+import 'package:victoria_game/app/core/network/response/service/service_detail_response.dart';
 import 'package:victoria_game/app/core/services/network_service.dart';
 
 class HistoryRepository extends NetworkServices {
@@ -74,6 +76,85 @@ class HistoryRepository extends NetworkServices {
         headers: headers, body: body);
 
     var result = DetailOnSiteHistoryResponse.fromJson(response);
+    return result;
+  }
+
+  Future<SummaryPlaystationServiceHistoryResponse>
+      getPendingPlaystationServiceHistory({required String authToken}) async {
+    var headers = {
+      contentType: applicationJson,
+      authorization: authToken,
+    };
+
+    var response =
+        await getMethod("/api/history/service/pending", headers: headers);
+
+    var result = SummaryPlaystationServiceHistoryResponse.fromJson(response);
+    return result;
+  }
+
+  Future<SummaryPlaystationServiceHistoryResponse>
+      getProgressPlaystationServiceHistory({required String authToken}) async {
+    var headers = {
+      contentType: applicationJson,
+      authorization: authToken,
+    };
+
+    var response =
+        await getMethod("/api/history/service/progress", headers: headers);
+
+    var result = SummaryPlaystationServiceHistoryResponse.fromJson(response);
+    return result;
+  }
+
+  Future<SummaryPlaystationServiceHistoryResponse>
+      getFinishedPlaystationServiceHistory({required String authToken}) async {
+    var headers = {
+      contentType: applicationJson,
+      authorization: authToken,
+    };
+
+    var response =
+        await getMethod("/api/history/service/finished", headers: headers);
+
+    var result = SummaryPlaystationServiceHistoryResponse.fromJson(response);
+    return result;
+  }
+
+  Future<SummaryPlaystationServiceHistoryResponse>
+      getCanceledPlaystationServiceHistory({required String authToken}) async {
+    var headers = {
+      contentType: applicationJson,
+      authorization: authToken,
+    };
+
+    var response =
+        await getMethod("/api/history/service/canceled", headers: headers);
+
+    var result = SummaryPlaystationServiceHistoryResponse.fromJson(response);
+    return result;
+  }
+
+  Future<ServiceDetailResponse> getPlaystationServiceHistoryDetail({
+    required String authToken,
+    required String serviceId,
+  }) async {
+    var headers = {
+      contentType: applicationJson,
+      authorization: authToken,
+    };
+
+    var body = {
+      "serviceId": serviceId,
+    };
+
+    var response = await postMethod(
+      "/api/history/service/detail",
+      headers: headers,
+      body: body,
+    );
+
+    var result = ServiceDetailResponse.fromJson(response);
     return result;
   }
 }

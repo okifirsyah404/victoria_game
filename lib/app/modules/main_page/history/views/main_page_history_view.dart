@@ -47,7 +47,7 @@ class MainPageHistoryView extends GetView<MainPageHistoryController> {
           ),
         ),
       ),
-      bottomNavigationBar: MainBottomNavigation(),
+      bottomNavigationBar: const MainBottomNavigation(),
     );
   }
 
@@ -77,9 +77,9 @@ class MainPageHistoryView extends GetView<MainPageHistoryController> {
   Widget _mainTabView() {
     return TabBarView(
       controller: controller.mainTabController,
-      children: [
+      children: const [
         OrderOnSiteHistoryView(),
-        const Text("Test 2"),
+        Text("Test 2"),
         PlaystationServiceHistoryView()
       ],
     );
@@ -105,7 +105,6 @@ class HistoryCardItem extends GetWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return InkWell(
       onTap: onTap,
       child: Container(

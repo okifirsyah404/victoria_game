@@ -22,5 +22,17 @@ class MainPageHistoryBinding extends Bindings {
     Get.lazyPut<PlaystationServiceHistoryController>(
       () => PlaystationServiceHistoryController(),
     );
+    Get.lazyPut<PendingPlaystationServiceHistoryController>(
+      () => PendingPlaystationServiceHistoryController(),
+    );
+    Get.lazyPut<ProgressPlaystationServiceHistoryController>(
+      () => ProgressPlaystationServiceHistoryController(),
+    );
+    Get.lazyPut<FinishedPlaystationServiceHistoryController>(
+      () => FinishedPlaystationServiceHistoryController(),
+    );
+    Get.lazyPut<CanceledPlaystationServiceHistoryController>(
+      () => CanceledPlaystationServiceHistoryController(),
+    );
   }
 }

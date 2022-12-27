@@ -1,5 +1,3 @@
-// ignore_for_file: constant_identifier_names
-
 import 'package:get/get.dart';
 
 import '../modules/auth/sign_in/bindings/auth_sign_in_binding.dart';
@@ -20,6 +18,8 @@ import '../modules/detail_game_center/bindings/detail_game_center_binding.dart';
 import '../modules/detail_game_center/views/detail_game_center_view.dart';
 import '../modules/history/order_on_site_invoice/bindings/history_order_on_site_invoice_binding.dart';
 import '../modules/history/order_on_site_invoice/views/history_order_on_site_invoice_view.dart';
+import '../modules/history/service_invoice/bindings/history_service_invoice_binding.dart';
+import '../modules/history/service_invoice/views/history_service_invoice_view.dart';
 import '../modules/main_page/history/bindings/main_page_history_binding.dart';
 import '../modules/main_page/history/views/main_page_history_view.dart';
 import '../modules/main_page/home/bindings/main_page_home_binding.dart';
@@ -70,8 +70,8 @@ import '../modules/shipment/bindings/shipment_binding.dart';
 import '../modules/shipment/views/shipment_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
-import '../modules/test_widget/bindings/test_widget_binding.dart';
-import '../modules/test_widget/views/test_widget_view.dart';
+
+// ignore_for_file: constant_identifier_names
 
 part 'app_routes.dart';
 
@@ -81,11 +81,6 @@ class AppPages {
   static const INITIAL = Routes.SPLASH;
 
   static final routes = [
-    GetPage(
-      name: _Paths.TEST_WIDGET,
-      page: () => TestWidgetView(),
-      binding: TestWidgetBinding(),
-    ),
     GetPage(
       name: _Paths.ON_BOARDING,
       page: () => const OnBoardingView(),
@@ -260,6 +255,11 @@ class AppPages {
       name: _Paths.SERVICE_VERIFY,
       page: () => const ServiceVerifyView(),
       binding: ServiceVerifyBinding(),
+    ),
+    GetPage(
+      name: _Paths.HISTORY_SERVICE_INVOICE,
+      page: () => const HistoryServiceInvoiceView(),
+      binding: HistoryServiceInvoiceBinding(),
     ),
   ];
 }

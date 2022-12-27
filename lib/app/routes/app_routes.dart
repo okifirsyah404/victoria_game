@@ -5,7 +5,6 @@ part of 'app_pages.dart';
 
 abstract class Routes {
   Routes._();
-  static const TEST_WIDGET = _Paths.TEST_WIDGET;
   static const AUTH_SIGN_IN = _Paths.AUTH_SIGN_IN;
   static const AUTH_SIGN_UP = _Paths.AUTH_SIGN_UP;
   static const MAIN_PAGE_HOME = _Paths.MAIN_PAGE_HOME;
@@ -55,11 +54,11 @@ abstract class Routes {
       _Paths.PROFILE_SETTINGS_FAQ_GENERAL;
   static const SERVICE_INVOICE = _Paths.SERVICE_INVOICE;
   static const SERVICE_VERIFY = _Paths.SERVICE_VERIFY;
+  static const HISTORY_SERVICE_INVOICE = _Paths.HISTORY_SERVICE_INVOICE;
 }
 
 abstract class _Paths {
   _Paths._();
-  static const TEST_WIDGET = '/test-widget';
   static const AUTH_SIGN_IN = '/sign-in';
   static const AUTH_SIGN_UP = '/sign-up';
   static const MAIN_PAGE_HOME = '/home';
@@ -96,4 +95,5 @@ abstract class _Paths {
   static const PROFILE_SETTINGS_FAQ_GENERAL = '/faq-general';
   static const SERVICE_INVOICE = '/service-invoice';
   static const SERVICE_VERIFY = '/service-verify';
+  static const HISTORY_SERVICE_INVOICE = '/history-service-invoice';
 }

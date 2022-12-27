@@ -130,7 +130,7 @@ DESKRIPSI
   }
 
   void onBackToHome() {
-    Get.offNamedUntil(Routes.MAIN_PAGE_HOME, (route) => route.isFirst);
+    Get.offAllNamed(Routes.MAIN_PAGE_HOME);
     _mainPageIndexController.changeIndex(0);
   }
 

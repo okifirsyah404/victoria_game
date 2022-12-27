@@ -3,14 +3,11 @@ import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:rive/rive.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
-import 'package:victoria_game/app/modules/main_page/history/controllers/main_page_history_controller.dart';
 import 'package:victoria_game/app/modules/main_page/history/controllers/order_on_site_history_controller.dart';
 import 'package:victoria_game/app/modules/main_page/history/views/main_page_history_view.dart';
-import 'package:victoria_game/utils/int_extensions.dart';
 import 'package:victoria_game/utils/string_extensions.dart';
 
 class OrderOnSiteHistoryView extends GetWidget<OrderOnSiteHistoryController> {
@@ -220,7 +217,7 @@ class PreviousOrderOnSiteHistoryView
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
+                      SizedBox(
                         height: 100,
                         width: 100,
                         child: SvgPicture.asset(
@@ -299,7 +296,7 @@ class FutureOrderOnSiteHistoryView
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
+                      SizedBox(
                         height: 100,
                         width: 100,
                         child: SvgPicture.asset(

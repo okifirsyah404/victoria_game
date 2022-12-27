@@ -26,7 +26,7 @@ class HistoryOrderOnSiteInvoiceController extends GetxController {
 
   String get rentalId => _arguments["rentalId"];
 
-  late DetailTransactionDataHistory detailTransactionDataHistory;
+  late DetailOnSiteTransactionDataHistory detailTransactionDataHistory;
 
   RxBool isCurrentPlaying = false.obs;
   String timeInterval = "";
@@ -62,7 +62,7 @@ class HistoryOrderOnSiteInvoiceController extends GetxController {
         isCurrentPlaying.value = true;
       }
 
-      detailTransactionDataHistory = DetailTransactionDataHistory(
+      detailTransactionDataHistory = DetailOnSiteTransactionDataHistory(
         rentalId: result.data!.rentalId!,
         orderTime: result.data!.orderTime!.toLocal(),
         gameCenter: result.data!.gameCenter!,
@@ -168,8 +168,8 @@ DESKRIPSI
   }
 }
 
-class DetailTransactionDataHistory {
-  DetailTransactionDataHistory({
+class DetailOnSiteTransactionDataHistory {
+  DetailOnSiteTransactionDataHistory({
     required this.rentalId,
     required this.orderTime,
     required this.gameCenter,

@@ -329,6 +329,7 @@ class OrderDetailsOnSiteController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-    // calendarTextController.dispose();
+    calendarTextController.dispose();
+    timeTextController.dispose();
   }
 }

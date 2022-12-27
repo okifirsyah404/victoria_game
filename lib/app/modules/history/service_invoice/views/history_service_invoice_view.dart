@@ -5,89 +5,58 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rive/rive.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
 import 'package:victoria_game/app/global/widgets/list_tile/divider_list_tile.dart';
+import 'package:victoria_game/utils/int_extensions.dart';
 import 'package:victoria_game/utils/string_extensions.dart';
 
-import '../../../global/themes/colors_theme.dart';
-import '../controllers/service_invoice_controller.dart';
+import '../controllers/history_service_invoice_controller.dart';
 
-class ServiceInvoiceView extends GetView<ServiceInvoiceController> {
-  const ServiceInvoiceView({Key? key}) : super(key: key);
+class HistoryServiceInvoiceView
+    extends GetView<HistoryServiceInvoiceController> {
+  const HistoryServiceInvoiceView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: controller.fetchTransactionData(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          return onDataDone();
-        }
-        return onDataLoading();
-      },
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Detail Servis'),
+        centerTitle: true,
+      ),
+      body: FutureBuilder(
+        future: controller.fetchTransactionDetail(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return onDataDone();
+          }
+          return onDataLoading();
+        },
+      ),
     );
   }
 
   Widget onDataLoading() {
-    return const Scaffold(
-      body: Center(
-        child: RiveAnimation.asset('assets/rive/loading.riv'),
-      ),
+    return const Center(
+      child: RiveAnimation.asset('assets/rive/loading.riv'),
     );
   }
 
   Widget onDataDone() {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Invoice Order'),
-        centerTitle: true,
-      ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const SizedBox(
-                      height: 200,
-                      width: 200,
-                      child:
-                          RiveAnimation.asset('assets/rive/checkmark_icon.riv'),
-                    ),
-                    _detailInvoice(),
-                    const SizedBox(height: 24),
-                    _actionButtons(),
-                    const SizedBox(height: 24),
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(16.0),
-              color: ColorsTheme.neutralColor[900],
-              child: OutlinedButton(
-                onPressed: () {
-                  controller.onBackToHome();
-                },
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: ColorsTheme.neutralColor[900],
-                  backgroundColor: ColorsTheme.primaryColor,
-                ),
-                child: Text(
-                  "Kembali ke Home",
-                  style: TypographyTheme.buttonTextStyle,
-                ),
-              ),
-            ),
-          ],
-        ),
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _screenshotBuilder(),
+          const SizedBox(height: 8),
+          _actionButtons(),
+          const SizedBox(height: 16),
+        ],
       ),
     );
   }
 
-  Widget _detailInvoice() {
+  Widget _screenshotBuilder() {
     return Screenshot(
       controller: controller.screenshotController,
       child: Padding(
@@ -96,6 +65,7 @@ class ServiceInvoiceView extends GetView<ServiceInvoiceController> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            _cardBuilder(),
             const SizedBox(height: 16),
             Text(
               "Data Servis",
@@ -115,7 +85,7 @@ class ServiceInvoiceView extends GetView<ServiceInvoiceController> {
                 alignment: Alignment.centerRight,
                 width: 180,
                 child: Text(
-                  controller.gameCenter,
+                  controller.serviceData.gameCenter!,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
@@ -124,7 +94,7 @@ class ServiceInvoiceView extends GetView<ServiceInvoiceController> {
             ),
             DividerListTile(
               title: "Lokasi Game Center",
-              trailing: Text(controller.gameCenterLocation),
+              trailing: Text(controller.serviceData.location!),
               topBorder: true,
             ),
             DividerListTile(
@@ -133,7 +103,7 @@ class ServiceInvoiceView extends GetView<ServiceInvoiceController> {
                 alignment: Alignment.centerRight,
                 width: 180,
                 child: Text(
-                  controller.productName,
+                  controller.serviceData.productName!,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
@@ -143,7 +113,7 @@ class ServiceInvoiceView extends GetView<ServiceInvoiceController> {
             ),
             DividerListTile(
               title: "Status Servis",
-              trailing: Text(controller.status.toTitleCase()),
+              trailing: Text(controller.serviceData.status!.toTitleCase()),
               topBorder: true,
             ),
             DividerListTile(
@@ -152,7 +122,7 @@ class ServiceInvoiceView extends GetView<ServiceInvoiceController> {
                 alignment: Alignment.centerRight,
                 width: 180,
                 child: Text(
-                  controller.problem,
+                  controller.serviceData.problem!,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
@@ -171,8 +141,8 @@ class ServiceInvoiceView extends GetView<ServiceInvoiceController> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                controller.detailProblem.isNotEmpty
-                    ? controller.detailProblem
+                controller.serviceData.detailProblem!.isNotEmpty
+                    ? controller.serviceData.detailProblem!
                     : "Tidak ada detail Permasalahan",
                 style: TypographyTheme.bodyRegular,
               ),
@@ -189,7 +159,7 @@ class ServiceInvoiceView extends GetView<ServiceInvoiceController> {
               title: "Tanggal Transaksi",
               trailing: Text(
                 DateFormat("EEEE, dd MMMM yyyy", "id_ID")
-                    .format(controller.submitTime),
+                    .format(controller.serviceData.submitTime!),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),
@@ -198,7 +168,8 @@ class ServiceInvoiceView extends GetView<ServiceInvoiceController> {
             DividerListTile(
               title: "Waktu Transaksi",
               trailing: Text(
-                DateFormat("Hm", "id_ID").format(controller.submitTime),
+                DateFormat("Hm", "id_ID")
+                    .format(controller.serviceData.submitTime!),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),
@@ -207,10 +178,12 @@ class ServiceInvoiceView extends GetView<ServiceInvoiceController> {
             DividerListTile(
               title: "Tanggal Selesai",
               trailing: Text(
-                controller.finishTime != null
-                    ? DateFormat("EEEE, dd MMMM yyyy", "id_ID")
-                        .format(controller.finishTime ?? DateTime.now())
-                    : "Menunggu Konfirmasi",
+                controller.serviceData.finishTime != null
+                    ? DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(
+                        controller.serviceData.finishTime ?? DateTime.now())
+                    : controller.serviceData.status! == "Dibatalkan"
+                        ? "Dibatalkan"
+                        : "Menunggu Konfirmasi",
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),
@@ -219,15 +192,81 @@ class ServiceInvoiceView extends GetView<ServiceInvoiceController> {
             DividerListTile(
               title: "Waktu Selesai",
               trailing: Text(
-                controller.finishTime != null
-                    ? DateFormat("Hm", "id_ID")
-                        .format(controller.finishTime ?? DateTime.now())
-                    : "Menunggu Konfirmasi",
+                controller.serviceData.finishTime != null
+                    ? DateFormat("Hm", "id_ID").format(
+                        controller.serviceData.finishTime ?? DateTime.now())
+                    : controller.serviceData.status! == "Dibatalkan"
+                        ? "Dibatalkan"
+                        : "Menunggu Konfirmasi",
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),
               topBorder: true,
               bottomBorder: true,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _cardBuilder() {
+    return Material(
+      elevation: 2,
+      borderRadius: BorderRadius.circular(8.0),
+      child: Container(
+        width: Get.width,
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: ColorsTheme.primaryColor,
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              controller.serviceData.productName!.toTitleCase(),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TypographyTheme.bodyMedium.copyWith(
+                color: ColorsTheme.neutralColor[900],
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Divider(
+              color: ColorsTheme.neutralColor[800],
+              height: 8,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              controller.serviceData.gameCenter!,
+              style: TypographyTheme.bodyRegular.copyWith(
+                color: ColorsTheme.neutralColor[900],
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  DateFormat("dd MMMM yyyy", "id_ID")
+                      .format(controller.serviceData.submitTime!),
+                  style: TypographyTheme.bodyRegular.copyWith(
+                    color: ColorsTheme.neutralColor[900],
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Text(
+                  controller.serviceData.status!,
+                  style: TypographyTheme.bodyRegular.copyWith(
+                    color: ColorsTheme.neutralColor[900],
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
