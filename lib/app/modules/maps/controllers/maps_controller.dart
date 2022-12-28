@@ -112,7 +112,7 @@ class MapsController extends GetxController {
 
     if (distance > 10000.0) {
       Get.dialog(
-        SingleActionDialog(
+        const SingleActionDialog(
           title: "Jarak Kamu Terlalu Jauh",
           description:
               "Jarak posisi kamu terlalu jauh dari Game Center, Seperti jarak dia sama kamu!",

@@ -164,7 +164,8 @@ class OrderDetailsOnSiteController extends GetxController {
 
     if (scheduledTimes.data != null) {
       if (scheduledTimes.data!.isNotEmpty) {
-        scheduledTimes.data!.forEach((element) {
+        scheduledTimeListDetail.clear();
+        for (var element in scheduledTimes.data!) {
           scheduledTimeListDetail.add({
             "date": DateFormat("dd MMMM yyyy", "id_ID")
                 .format(element.startTime!.toLocal()),
@@ -180,7 +181,7 @@ class OrderDetailsOnSiteController extends GetxController {
             "startPlay": element.startTime!.toLocal(),
             "endPlay": element.endTime!.toLocal(),
           });
-        });
+        }
 
         var startTime = scheduledTimes.data![0].startTime!.toLocal();
         var endTime = scheduledTimes.data![0].endTime!.toLocal();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:victoria_game/app/core/network/response/order_at_home/summary_at_home_playstation_list_response.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
@@ -25,9 +26,9 @@ class OrderDetailsAtHomeController extends GetxController {
   RxString shipmentMethod = "".obs;
   RxString shipmentMethodDescription = "".obs;
 
-  Map<String, dynamic> get itemData => _arguments["psData"];
+  SummaryAtHomePlaystationType get itemData => _arguments["playstationData"];
 
-  late Rx<int> totalAmount = Rx(itemData["price"]);
+  late Rx<int> totalAmount = Rx(itemData.price ?? 0);
   int? timeInterval;
 
   void onChangeDropDown(String? newValue) {
@@ -96,7 +97,7 @@ class OrderDetailsAtHomeController extends GetxController {
       timeInterval = compareDateInDays(selectedEndDate.value ?? DateTime.now(),
           selectedInitDate.value ?? DateTime.now());
 
-      var tempTotal = itemData["price"] * timeInterval;
+      var tempTotal = itemData.price! * timeInterval!;
       totalAmount.value = tempTotal;
     }
   }
@@ -151,7 +152,7 @@ class OrderDetailsAtHomeController extends GetxController {
       ));
     } else {
       Get.toNamed(
-        Routes.SHIPMENT,
+        Routes.ORDER_DETAILS_AT_HOME_PLAYSTATION_LIST,
         arguments: {
           "psData": itemData,
           "date": {

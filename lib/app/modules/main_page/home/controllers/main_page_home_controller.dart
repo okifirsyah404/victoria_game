@@ -87,9 +87,13 @@ class MainPageHomeController extends GetxController {
   Future<void> fetchUserData() async {
     var userData = await _userRepository.fetchUserData(authAccessToken);
 
-    username.value = userData.data?.username ?? "";
-    ballance.value = userData.data?.ballance ?? 1;
-    playTime.value = userData.data?.playTime ?? 1;
+    if (userData.statusCode != 404) {
+      username.value = userData.data!.username!;
+      ballance.value = userData.data!.ballance!;
+      playTime.value = userData.data!.playTime!;
+    } else {
+      Get.offAndToNamed(Routes.AUTH_SIGN_IN);
+    }
   }
 
   Future<void> fetchGameCenters() async {

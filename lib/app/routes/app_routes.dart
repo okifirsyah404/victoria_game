@@ -55,6 +55,8 @@ abstract class Routes {
   static const SERVICE_INVOICE = _Paths.SERVICE_INVOICE;
   static const SERVICE_VERIFY = _Paths.SERVICE_VERIFY;
   static const HISTORY_SERVICE_INVOICE = _Paths.HISTORY_SERVICE_INVOICE;
+  static const ORDER_DETAILS_AT_HOME_PLAYSTATION_LIST =
+      _Paths.ORDER_DETAILS_AT_HOME_PLAYSTATION_LIST;
 }
 
 abstract class _Paths {
@@ -96,4 +98,6 @@ abstract class _Paths {
   static const SERVICE_INVOICE = '/service-invoice';
   static const SERVICE_VERIFY = '/service-verify';
   static const HISTORY_SERVICE_INVOICE = '/history-service-invoice';
+  static const ORDER_DETAILS_AT_HOME_PLAYSTATION_LIST =
+      '/at-home-playstation-list';
 }

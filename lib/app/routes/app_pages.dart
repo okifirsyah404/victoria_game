@@ -36,6 +36,8 @@ import '../modules/order_details/at_home/bindings/order_details_at_home_binding.
 import '../modules/order_details/at_home/views/order_details_at_home_view.dart';
 import '../modules/order_details/at_home_overview/bindings/order_details_at_home_overview_binding.dart';
 import '../modules/order_details/at_home_overview/views/order_details_at_home_overview_view.dart';
+import '../modules/order_details/at_home_playstation_list/bindings/order_details_at_home_playstation_list_binding.dart';
+import '../modules/order_details/at_home_playstation_list/views/order_details_at_home_playstation_list_view.dart';
 import '../modules/order_details/on_site/bindings/order_details_on_site_binding.dart';
 import '../modules/order_details/on_site/views/order_details_on_site_view.dart';
 import '../modules/order_details/on_site_invoice/bindings/order_details_on_site_invoice_binding.dart';
@@ -260,6 +262,11 @@ class AppPages {
       name: _Paths.HISTORY_SERVICE_INVOICE,
       page: () => const HistoryServiceInvoiceView(),
       binding: HistoryServiceInvoiceBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDER_DETAILS_AT_HOME_PLAYSTATION_LIST,
+      page: () => const OrderDetailsAtHomePlaystationListView(),
+      binding: OrderDetailsAtHomePlaystationListBinding(),
     ),
   ];
 }

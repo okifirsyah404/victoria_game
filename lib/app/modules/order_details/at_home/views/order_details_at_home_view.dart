@@ -9,6 +9,7 @@ import 'package:victoria_game/app/global/widgets/dropdown/generic_dropdown.dart'
 import 'package:victoria_game/app/global/widgets/text_field/show_modal_text_field/views/show_modal_text_field.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
 import 'package:victoria_game/utils/int_extensions.dart';
+import 'package:victoria_game/utils/string_extensions.dart';
 
 import '../../../../global/themes/colors_theme.dart';
 import '../controllers/order_details_at_home_controller.dart';
@@ -60,14 +61,16 @@ class OrderDetailsAtHomeView extends GetView<OrderDetailsAtHomeController> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          controller.itemData["playstation"],
+                                          controller
+                                              .itemData.playstationTypeName!
+                                              .toTitleCase(),
                                           style: TypographyTheme.bodyMedium,
                                         ),
                                         Row(
                                           children: [
                                             Text(
                                               int.parse(controller
-                                                      .itemData["price"]
+                                                      .itemData.price
                                                       .toString())
                                                   .toRupiah(),
                                               style: TypographyTheme.bodyMedium

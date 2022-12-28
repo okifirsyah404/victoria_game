@@ -92,9 +92,13 @@ class AuthSignInController extends GetxController {
       } else {
         var putToStorage = _secureStorage.writeDataToStorage(
             key: "token", value: userResponse.data?.token ?? "");
+        var getFromStorage = await _secureStorage.readDataFromStrorage("token");
+
+        print(putToStorage);
+        print(getFromStorage);
+
         Get.offNamed(Routes.MAIN_PAGE_HOME);
       }
-      var getFromStorage = await _secureStorage.readDataFromStrorage("token");
     }
   }
 }

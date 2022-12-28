@@ -1,35 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:victoria_game/app/core/network/response/order_at_home/summary_at_home_playstation_list_response.dart';
+import 'package:victoria_game/app/core/repository/order_at_home_repository.dart';
+import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
+import 'package:victoria_game/utils/secure_storage.dart';
 
 import '../../../../global/themes/colors_theme.dart';
 import '../../../../global/themes/typography_theme.dart';
 
 class MainPageRentController extends GetxController {
-  final List<Map<String, dynamic>> _playstationList = [
-    {
-      "playstation": "Playstation 3",
-      "price": 100000,
-      "stock": 15,
-    },
-    {
-      "playstation": "Playstation 4",
-      "price": 120000,
-      "stock": 10,
-    },
-  ];
+  late SecureStorage _secureStorage;
+  late OrderAtHomeRepository _orderAtHomeRepository;
 
-  List<Map<String, dynamic>> get playstationList => _playstationList;
+  final List<SummaryAtHomePlaystationType> playstationList = [];
+
+  Future<void> fetchPlaystationList() async {
+    var authToken = await _secureStorage.readDataFromStrorage("token") ?? "";
+
+    var result = await _orderAtHomeRepository.fetchAvailablePlaystationList(
+        authToken: authToken);
+
+    if (result.data != null) {
+      if (result.data!.isNotEmpty) {
+        playstationList.clear();
+        for (var element in result.data!) {
+          playstationList.add(element);
+        }
+      }
+    } else {
+      Get.dialog(
+        const SingleActionDialog(
+          title: "Terjadi Keasalahan",
+          description: "Terjadi Keasalahan",
+        ),
+      );
+    }
+  }
 
   void onItemTap(int index) {
     Get.toNamed(Routes.ORDER_DETAILS_AT_HOME, arguments: {
-      "psData": _playstationList[index],
+      "playstationData": playstationList[index],
     });
   }
 
   @override
   void onInit() {
     super.onInit();
+    _secureStorage = SecureStorage.instance;
+    _orderAtHomeRepository = OrderAtHomeRepository.instance;
   }
 
   @override

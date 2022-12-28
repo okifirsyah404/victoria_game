@@ -13,7 +13,8 @@ class OrderDetailsOnSiteScheduleView
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Jadwal Rental ${controller.playstationId}'),
+        title: Text(
+            'Jadwal Rental Playstation No. ${int.parse(controller.playstationId.substring(4))}'),
         centerTitle: true,
       ),
       body: GridView.builder(
