@@ -4,7 +4,7 @@ import 'package:victoria_game/app/core/network/response/order_at_home/summary_at
 class OrderDetailsAtHomePlaystationListController extends GetxController {
   final _arguments = Get.arguments;
 
-  SummaryAtHomePlaystationType get itemData => _arguments["playstationData"];
+  SummaryAtHomePlaystationType get itemData => _arguments["playstationType"];
 
   @override
   void onInit() {

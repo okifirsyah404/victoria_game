@@ -1,13 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:victoria_game/app/core/network/response/order_at_home/summary_at_home_playstation_list_response.dart';
 import 'package:victoria_game/app/core/repository/order_at_home_repository.dart';
 import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
 import 'package:victoria_game/utils/secure_storage.dart';
-
-import '../../../../global/themes/colors_theme.dart';
-import '../../../../global/themes/typography_theme.dart';
 
 class MainPageRentController extends GetxController {
   late SecureStorage _secureStorage;
@@ -40,7 +36,7 @@ class MainPageRentController extends GetxController {
 
   void onItemTap(int index) {
     Get.toNamed(Routes.ORDER_DETAILS_AT_HOME, arguments: {
-      "playstationData": playstationList[index],
+      "playstationType": playstationList[index].playstationType,
     });
   }
 

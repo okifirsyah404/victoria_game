@@ -5,7 +5,7 @@ import 'package:logger/logger.dart';
 import 'package:http/http.dart' as http;
 
 // TODO: Dynamic Base URL
-const BASE_URL = "https://2db1-125-166-118-213.ap.ngrok.io";
+const BASE_URL = "https://fda5-125-166-118-213.ap.ngrok.io";
 
 abstract class NetworkServices {
   final printLog = Logger(printer: PrettyPrinter());

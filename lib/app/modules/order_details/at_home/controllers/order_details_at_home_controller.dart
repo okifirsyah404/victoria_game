@@ -2,54 +2,63 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:victoria_game/app/core/network/response/order_at_home/summary_at_home_playstation_list_response.dart';
+import 'package:victoria_game/app/core/repository/order_at_home_repository.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
+import 'package:victoria_game/utils/secure_storage.dart';
 
 class OrderDetailsAtHomeController extends GetxController {
   final _arguments = Get.arguments;
 
+  String get playstationType => _arguments["playstationType"];
+
+  late SecureStorage _secureStorage;
+  late OrderAtHomeRepository _orderAtHomeRepository;
   final formKey = GlobalKey<FormState>();
 
-  RxBool isPageLoading = true.obs;
+  late SummaryAtHomePlaystationType itemData;
 
-  late TextEditingController initCalendarTextController;
-  late TextEditingController endCalendarTextController;
-  late RxString dropDownInitialSelected;
-
-  Rx<DateTime?> selectedInitDate = Rx<DateTime?>(null);
-  Rx<DateTime?> selectedEndDate = Rx<DateTime?>(null);
+  late TextEditingController calendarTextController;
+  late Rx<DateTimeRange?> selectedDateRange;
 
   RxString paymentMethod = "".obs;
   RxInt paymentMethodBallance = (-1).obs;
 
-  RxString shipmentMethod = "".obs;
-  RxString shipmentMethodDescription = "".obs;
+  late int baseRentPrice;
+  RxInt totalAmount = 0.obs;
+  late int playtime;
 
-  SummaryAtHomePlaystationType get itemData => _arguments["playstationData"];
+  Future<void> fetchItemData() async {
+    var authToken = await _secureStorage.readDataFromStrorage("token") ?? "";
 
-  late Rx<int> totalAmount = Rx(itemData.price ?? 0);
-  int? timeInterval;
+    var result = await _orderAtHomeRepository.getAvailablePlaystationDataByType(
+        authToken: authToken, playstationType: playstationType);
 
-  void onChangeDropDown(String? newValue) {
-    dropDownInitialSelected.value = newValue ?? "";
+    if (result.data != null) {
+      itemData = result.data!;
+
+      baseRentPrice = itemData.price!;
+      totalAmount.value = baseRentPrice;
+    }
   }
 
-  Future<DateTime?> openDatePicker(BuildContext context,
-      {DateTime? firstDate, DateTime? lastDate, DateTime? initialDate}) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: initialDate ?? DateTime.now(),
+  Future<DateTimeRange?> openDateRangePicker(
+      {DateTime? firstDate, DateTimeRange? initalDateRange}) async {
+    final DateTimeRange? dateTimeRange = await showDateRangePicker(
+      context: Get.context!,
       firstDate: firstDate ?? DateTime.now(),
-      lastDate: lastDate ?? DateTime(2101),
-      locale: const Locale("id"),
+      lastDate: DateTime(2101),
+      initialDateRange: initalDateRange ??
+          DateTimeRange(
+              start: DateTime.now(),
+              end: DateTime.now().add(const Duration(days: 1))),
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: ColorScheme.light(
+            colorScheme: ColorScheme.dark(
               primary: ColorsTheme.primaryColor,
-              onPrimary:
-                  ColorsTheme.neutralColor[900] ?? ColorsTheme.neutralColor,
+              onPrimary: ColorsTheme.neutralColor[900]!,
               onSurface: ColorsTheme.primaryColor,
             ),
             textButtonTheme: TextButtonThemeData(
@@ -61,55 +70,37 @@ class OrderDetailsAtHomeController extends GetxController {
           child: child!,
         );
       },
+      locale: const Locale('id', 'ID'),
+      confirmText: "Konfirmasi",
+      saveText: "Konfirmasi",
     );
-
-    return picked;
+    return dateTimeRange;
   }
 
-  void initTimePicked(BuildContext context) async {
-    DateTime? timePicked = await openDatePicker(
-      context,
-      lastDate: selectedEndDate.value?.subtract(const Duration(days: 1)),
-      initialDate: selectedInitDate.value,
+  void openDatePicker() async {
+    DateTimeRange? timePicked = await openDateRangePicker(
+      firstDate: DateTime.now(),
+      initalDateRange: selectedDateRange.value,
     );
 
-    if (timePicked != null && timePicked != selectedInitDate) {
-      selectedInitDate.value = timePicked;
-      initCalendarTextController.text = DateFormat("dd MMMM yyyy", "id_ID")
-          .format(selectedInitDate.value ?? DateTime.now());
-    }
-  }
+    if (timePicked != null) {
+      selectedDateRange.value = timePicked;
+      calendarTextController.text =
+          "${DateFormat("dd MMMM yyyy", "id_ID").format(selectedDateRange.value!.start)} - ${DateFormat("dd MMMM yyyy", "id_ID").format(selectedDateRange.value!.end)}";
 
-  void endTimePicked(BuildContext context) async {
-    DateTime? timePicked = await openDatePicker(
-      context,
-      firstDate: selectedInitDate.value?.add(const Duration(days: 1)) ??
-          DateTime.now().add(const Duration(days: 1)),
-      initialDate:
-          selectedEndDate.value ?? DateTime.now().add(const Duration(days: 1)),
-    );
-
-    if (timePicked != null && timePicked != selectedEndDate) {
-      selectedEndDate.value = timePicked;
-      endCalendarTextController.text = DateFormat("dd MMMM yyyy", "id_ID")
-          .format(selectedEndDate.value ?? DateTime.now());
-
-      timeInterval = compareDateInDays(selectedEndDate.value ?? DateTime.now(),
-          selectedInitDate.value ?? DateTime.now());
-
-      var tempTotal = itemData.price! * timeInterval!;
-      totalAmount.value = tempTotal;
+      playtime = compareDateInDays(
+          selectedDateRange.value!.start, selectedDateRange.value!.end);
+      totalAmount.value = baseRentPrice * playtime;
     }
   }
 
   int compareDateInDays(DateTime firstDate, DateTime lastDate) {
     var timeInterval = firstDate.difference(lastDate);
-    return (timeInterval.inHours / 24).round();
+    return -(timeInterval.inHours / 24).round();
   }
 
   Future<void> initiatePaymentMethod() async {
-    if (initCalendarTextController.text.isEmpty ||
-        endCalendarTextController.text.isEmpty) {
+    if (calendarTextController.text.isEmpty) {
       Get.dialog(const SingleActionDialog(
         title: "Silahkan Pilih Tanggal",
         description:
@@ -129,58 +120,61 @@ class OrderDetailsAtHomeController extends GetxController {
     }
   }
 
-  void initiateShipmentMethod() {
-    if (initCalendarTextController.text.isEmpty ||
-        endCalendarTextController.text.isEmpty) {
+  void onSumbit() {
+    if (selectedDateRange.value != null) {
+      if (calendarTextController.text.isEmpty) {
+        Get.dialog(const SingleActionDialog(
+          title: "Silahkan Pilih Tanggal",
+          description:
+              "Tanggal mulai main atau tanggal selesai main tidak boleh kosong nih!",
+        ));
+      } else if (paymentMethodBallance.value < totalAmount.value &&
+          paymentMethodBallance.value > -1) {
+        Get.dialog(const SingleActionDialog(
+          title: "Jumlah Saldo Kamu Kurang Nih",
+          description:
+              "Jumlah saldo kamu tidak mencukupi nih! Coba pakai metode pembayaran lain",
+        ));
+      } else if (paymentMethod.value.isEmpty) {
+        Get.dialog(const SingleActionDialog(
+          title: "Metode Pembayaran Belum Dipilih",
+          description:
+              "Kamu belum memilih metode pembayaran nih! Silahkan pilih ya!",
+        ));
+      } else {
+        Get.toNamed(
+          Routes.ORDER_DETAILS_AT_HOME_PLAYSTATION_LIST,
+          arguments: {
+            "playstationType": itemData.playstationType,
+            "date": {
+              "start": selectedDateRange.value!.start,
+              "finish": selectedDateRange.value!.end,
+            },
+            "payment": {
+              "paymentMethod": paymentMethod.value,
+              "ballance": paymentMethodBallance.value,
+            },
+            "totalAmount": totalAmount.value,
+            "playtime": playtime,
+          },
+        );
+      }
+    } else {
       Get.dialog(const SingleActionDialog(
         title: "Silahkan Pilih Tanggal",
         description:
             "Tanggal mulai main atau tanggal selesai main tidak boleh kosong nih!",
       ));
-    } else if (paymentMethodBallance.value < totalAmount.value &&
-        paymentMethodBallance.value > -1) {
-      Get.dialog(const SingleActionDialog(
-        title: "Jumlah Saldo Kamu Kurang Nih",
-        description:
-            "Jumlah saldo kamu tidak mencukupi nih! Coba pakai metode pembayaran lain",
-      ));
-    } else if (paymentMethod.value.isEmpty) {
-      Get.dialog(const SingleActionDialog(
-        title: "Metode Pembayaran Belum Dipilih",
-        description:
-            "Kamu belum memilih metode pembayaran nih! Silahkan pilih ya!",
-      ));
-    } else {
-      Get.toNamed(
-        Routes.ORDER_DETAILS_AT_HOME_PLAYSTATION_LIST,
-        arguments: {
-          "psData": itemData,
-          "date": {
-            "startDate": selectedInitDate.value,
-            "lastDate": selectedEndDate.value,
-          },
-          "payment": {
-            "paymentMethod": paymentMethod.value,
-            "ballance": paymentMethodBallance.value,
-          },
-          "totalAmount": totalAmount.value,
-        },
-      );
     }
-  }
-
-  void initiatePage() {
-    isPageLoading.value = false;
   }
 
   @override
   void onInit() {
-    initCalendarTextController = TextEditingController();
-    endCalendarTextController = TextEditingController();
-
-    initiatePage();
-
     super.onInit();
+    _secureStorage = SecureStorage.instance;
+    _orderAtHomeRepository = OrderAtHomeRepository.instance;
+    calendarTextController = TextEditingController();
+    selectedDateRange = Rx<DateTimeRange?>(null);
   }
 
   @override
@@ -190,8 +184,7 @@ class OrderDetailsAtHomeController extends GetxController {
 
   @override
   void onClose() {
-    initCalendarTextController.dispose();
-    endCalendarTextController.dispose();
+    calendarTextController.dispose();
     super.onClose();
   }
 }

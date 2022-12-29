@@ -1,5 +1,48 @@
 import 'dart:convert';
 
+SummaryAtHomePlaystationTypesResponse
+    summaryAtHomePlaystationTypesResponseFromJson(String str) =>
+        SummaryAtHomePlaystationTypesResponse.fromJson(json.decode(str));
+
+String summaryAtHomePlaystationTypesResponseToJson(
+        SummaryAtHomePlaystationTypesResponse data) =>
+    json.encode(data.toJson());
+
+class SummaryAtHomePlaystationTypesResponse {
+  SummaryAtHomePlaystationTypesResponse({
+    required this.status,
+    required this.statusCode,
+    required this.message,
+    required this.data,
+  });
+
+  final String status;
+  final int statusCode;
+  final String message;
+  final List<SummaryAtHomePlaystationType>? data;
+
+  factory SummaryAtHomePlaystationTypesResponse.fromJson(
+          Map<String, dynamic> json) =>
+      SummaryAtHomePlaystationTypesResponse(
+        status: json["status"] == null ? null : json["status"],
+        statusCode: json["statusCode"] == null ? null : json["statusCode"],
+        message: json["message"] == null ? null : json["message"],
+        data: json["data"] == null
+            ? null
+            : List<SummaryAtHomePlaystationType>.from(json["data"]
+                .map((x) => SummaryAtHomePlaystationType.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "status": status == null ? null : status,
+        "statusCode": statusCode == null ? null : statusCode,
+        "message": message == null ? null : message,
+        "data": data == null
+            ? null
+            : List<dynamic>.from(data?.map((x) => x.toJson()) ?? []),
+      };
+}
+
 SummaryAtHomePlaystationTypeResponse
     summaryAtHomePlaystationTypeResponseFromJson(String str) =>
         SummaryAtHomePlaystationTypeResponse.fromJson(json.decode(str));
@@ -19,7 +62,7 @@ class SummaryAtHomePlaystationTypeResponse {
   final String status;
   final int statusCode;
   final String message;
-  final List<SummaryAtHomePlaystationType>? data;
+  final SummaryAtHomePlaystationType? data;
 
   factory SummaryAtHomePlaystationTypeResponse.fromJson(
           Map<String, dynamic> json) =>
@@ -29,17 +72,14 @@ class SummaryAtHomePlaystationTypeResponse {
         message: json["message"] == null ? null : json["message"],
         data: json["data"] == null
             ? null
-            : List<SummaryAtHomePlaystationType>.from(json["data"]
-                .map((x) => SummaryAtHomePlaystationType.fromJson(x))),
+            : SummaryAtHomePlaystationType.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
         "status": status == null ? null : status,
         "statusCode": statusCode == null ? null : statusCode,
         "message": message == null ? null : message,
-        "data": data == null
-            ? null
-            : List<dynamic>.from(data?.map((x) => x.toJson()) ?? []),
+        "data": data == null ? null : data?.toJson(),
       };
 }
 
