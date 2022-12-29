@@ -44,26 +44,26 @@ class OrderAtHomeAvailablePlaystationResponse {
 }
 
 class OrderAtHomeAvailablePlaystation {
-  OrderAtHomeAvailablePlaystation({
-    this.playstationId,
-    this.playstationType,
-    this.status,
-  });
+  OrderAtHomeAvailablePlaystation(
+      {this.playstationId, this.playstationType, this.status, this.price});
 
   final String? playstationId;
   final String? playstationType;
   final String? status;
+  final int? price;
 
   factory OrderAtHomeAvailablePlaystation.fromJson(Map<String, dynamic> json) =>
       OrderAtHomeAvailablePlaystation(
         playstationId: json["playstationId"],
         playstationType: json["playstationType"],
         status: json["status"],
+        price: json["price"],
       );
 
   Map<String, dynamic> toJson() => {
         "playstationId": playstationId,
         "playstationType": playstationType,
         "status": status,
+        "price": price,
       };
 }

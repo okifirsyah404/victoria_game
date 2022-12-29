@@ -6,10 +6,14 @@ import '../../../themes/typography_theme.dart';
 
 class ConfirmationActionDialog extends StatelessWidget {
   const ConfirmationActionDialog(
-      {super.key, this.title = "Title", this.description = "Description"});
+      {super.key,
+      this.title = "Title",
+      this.description = "Description",
+      this.buttonFunction});
 
   final String title;
   final String description;
+  final VoidCallback? buttonFunction;
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +49,10 @@ class ConfirmationActionDialog extends StatelessWidget {
           child: const Text("Batal"),
         ),
         OutlinedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: buttonFunction ??
+              () {
+                Get.back();
+              },
           style: OutlinedButton.styleFrom(
             minimumSize: const Size(120, 50),
             backgroundColor: ColorsTheme.primaryColor,

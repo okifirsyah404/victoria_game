@@ -2,57 +2,78 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:victoria_game/app/core/network/response/order_at_home/order_at_home_available_playstation_response.dart';
+import 'package:victoria_game/app/core/network/response/order_at_home/order_at_home_playstation_detail_response.dart';
+import 'package:victoria_game/app/core/repository/order_at_home_repository.dart';
+import 'package:victoria_game/app/core/repository/order_on_site_repository.dart';
+import 'package:victoria_game/app/global/widgets/alert_dialog/confirmation_action_dialog/confirmation_action_dialog.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
+import 'package:victoria_game/utils/secure_storage.dart';
 
 class OrderDetailsAtHomeOverviewController extends GetxController {
-  //TODO: Implement OrderDetailsAtHomeOverviewController
+  final _arguments = Get.arguments;
 
-  var arguments = Get.arguments;
+  late SecureStorage _secureStorage;
+  late OrderAtHomeRepository _orderAtHomeRepository;
 
-  Map<String, dynamic> get itemData => arguments[0];
-  Map<String, DateTime?> get dateData => arguments[1];
-  Map<String, dynamic> get paymentData => arguments[2];
-  Map<String, int?> get totalAmountData => arguments[3];
-  Map<String?, dynamic>? get shipmentData => arguments[4];
+  String get playstationType => _arguments["playstationType"];
+  DateTime get startDate => _arguments["date"]["start"];
+  DateTime get finishDate => _arguments["date"]["finish"];
+  Map<String, dynamic> get payment => _arguments["payment"];
+  int get totalAmount => _arguments["totalAmount"];
+  int get playtime => _arguments["playtime"];
+  String get playstationId => _arguments["playstationData"].playstationId;
+  Map<String, dynamic> get shipment => _arguments["shipment"];
 
   final formKey = GlobalKey<FormState>();
 
   RxBool isPageLoading = true.obs;
 
   late GoogleMapController mapController;
+  late TextEditingController descriptionController;
+  late OrderAtHomePlaystationDetail playstationData;
 
   RxList<Marker> myMarker = <Marker>[].obs;
 
   RxDouble markedLatitude = 0.0.obs;
   RxDouble markedLongitude = 0.0.obs;
+  bool isUseMap = false;
 
-  RxString startDate = "".obs;
-  RxString lastDate = "".obs;
+  RxString startDateText = "".obs;
+  RxString lastDateText = "".obs;
   RxString? paymentMethod = "".obs;
   RxInt? paymentMethodBallance = 0.obs;
-  late int? totalAmount;
   RxString? shipmentMethod = "".obs;
   RxString? shipmentMethodDescription = "".obs;
 
   void initiatePage() {
-    startDate.value = DateFormat("dd MMMM yyyy", "id_ID")
-        .format(dateData["startDate"] ?? DateTime.now());
-    lastDate.value = DateFormat("dd MMMM yyyy", "id_ID")
-        .format(dateData["lastDate"] ?? DateTime.now());
+    startDateText.value = DateFormat("dd MMMM yyyy", "id_ID").format(startDate);
+    lastDateText.value = DateFormat("dd MMMM yyyy", "id_ID").format(finishDate);
 
-    paymentMethod?.value = paymentData["paymentMethod"] ?? "";
-    paymentMethodBallance?.value = paymentData["ballance"] ?? -1;
+    paymentMethod?.value = payment["paymentMethod"];
+    paymentMethodBallance?.value = payment["ballance"];
 
-    totalAmount = totalAmountData["totalAmount"];
+    shipmentMethod?.value = shipment["method"];
+    shipmentMethodDescription?.value = shipment["description"];
 
-    shipmentMethod?.value = shipmentData?["methodTitle"];
-    shipmentMethodDescription?.value = shipmentData?["description"];
-
-    markedLatitude.value = shipmentData?["latitude"] ?? 0;
-    markedLongitude.value = shipmentData?["longitude"] ?? 0;
+    if (shipment["latitude"] != null && shipment["longitude"] != null) {
+      markedLatitude.value = shipment["latitude"];
+      markedLongitude.value = shipment["longitude"];
+      isUseMap = true;
+    }
 
     isPageLoading.value = false;
-    print(arguments);
+  }
+
+  Future<void> fetchOrderData() async {
+    var authToken = await _secureStorage.readDataFromStrorage("token") ?? "";
+    var result = await _orderAtHomeRepository.fetchPlaystationData(
+        authToken: authToken, playstationId: playstationId);
+
+    if (result.data != null) {
+      playstationData = result.data!;
+      initiatePage();
+    }
   }
 
   void onMapCreated(GoogleMapController controller) {
@@ -76,43 +97,30 @@ class OrderDetailsAtHomeOverviewController extends GetxController {
     myMarker.add(initialLicationMarker);
   }
 
-  void onTimeAndPaymentChange() {
-    Get.offNamedUntil(
-      Routes.ORDER_DETAILS_AT_HOME,
-      (route) => route.isFirst,
-      arguments: [
-        arguments[0],
-      ],
-    );
-  }
-
-  void onShipmentMethodChange() {
-    Get.offNamedUntil(
-      Routes.SHIPMENT,
-      (route) => route.isFirst,
-      arguments: [
-        arguments[0],
-        arguments[1],
-        arguments[2],
-        arguments[3],
-      ],
+  void onSubmitOrder() {
+    Get.dialog(
+      ConfirmationActionDialog(
+        title: "Tolong Cek Pesanan Kamu Ya!",
+        description:
+            "Harap periksa ulang pesanan kamu, agar tidak terjadi kesalahan ya!",
+      ),
     );
   }
 
   @override
   void onInit() {
-    initiatePage();
     super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
+    _secureStorage = SecureStorage.instance;
+    _orderAtHomeRepository = OrderAtHomeRepository.instance;
+    descriptionController = TextEditingController();
   }
 
   @override
   void onClose() {
-    mapController.dispose();
+    descriptionController.dispose();
+    if (isUseMap) {
+      mapController.dispose();
+    }
     super.onClose();
   }
 }

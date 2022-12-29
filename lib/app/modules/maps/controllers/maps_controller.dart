@@ -5,14 +5,23 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as loc;
+import 'package:victoria_game/app/core/network/response/order_at_home/order_at_home_available_playstation_response.dart';
 import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
 
 import '../../../routes/app_pages.dart';
 
 class MapsController extends GetxController {
-  var arguments = Get.arguments;
+  final _arguments = Get.arguments;
 
-  Map<String?, dynamic>? get shipmentData => arguments[4];
+  String get playstationType => _arguments["playstationType"];
+  DateTime get startDate => _arguments["date"]["start"];
+  DateTime get finishDate => _arguments["date"]["finish"];
+  Map<String, dynamic> get payment => _arguments["payment"];
+  int get totalAmount => _arguments["totalAmount"];
+  int get playtime => _arguments["playtime"];
+  OrderAtHomeAvailablePlaystation get playstationData =>
+      _arguments["playstationData"];
+  Map<String, dynamic> get shipment => _arguments["shipment"];
 
   loc.Location location = loc.Location();
   late GoogleMapController mapController;
@@ -108,7 +117,25 @@ class MapsController extends GetxController {
   void onSubmitMap() {
     var distance =
         calculateDistance(LatLng(markedLatitude.value, markedLongitude.value));
-    print(distance);
+
+    print({
+      "playstationType": playstationType,
+      "date": {
+        "start": startDate,
+        "finish": finishDate,
+      },
+      "payment": payment,
+      "totalAmount": totalAmount,
+      "playtime": playtime,
+      "playstationData": playstationData,
+      "shipment": {
+        "method": shipment["method"],
+        "description": shipment["description"],
+        "latitude": markedLatitude.value,
+        "longitude": markedLongitude.value,
+        "distance": distance,
+      },
+    });
 
     if (distance > 10000.0) {
       Get.dialog(
@@ -121,19 +148,24 @@ class MapsController extends GetxController {
     } else {
       Get.toNamed(
         Routes.ORDER_DETAILS_AT_HOME_OVERVIEW,
-        arguments: [
-          arguments[0],
-          arguments[1],
-          arguments[2],
-          arguments[3],
-          {
-            "methodTitle": shipmentData?["methodTitle"],
-            "description": shipmentData?["description"],
-            "address": locationPlacemark.value,
+        arguments: {
+          "playstationType": playstationType,
+          "date": {
+            "start": startDate,
+            "finish": finishDate,
+          },
+          "payment": payment,
+          "totalAmount": totalAmount,
+          "playtime": playtime,
+          "playstationData": playstationData,
+          "shipment": {
+            "method": shipment["method"],
+            "description": shipment["description"],
             "latitude": markedLatitude.value,
             "longitude": markedLongitude.value,
+            "distance": distance,
           },
-        ],
+        },
       );
     }
   }

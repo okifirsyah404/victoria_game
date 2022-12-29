@@ -28,7 +28,7 @@ class MapsView extends GetView<MapsController> {
                       onTap: (argument) {
                         controller.handleMapOnTap(argument);
                       },
-                      mapType: MapType.hybrid,
+                      mapType: MapType.normal,
                       myLocationButtonEnabled: false,
                       myLocationEnabled: true,
                       zoomControlsEnabled: false,

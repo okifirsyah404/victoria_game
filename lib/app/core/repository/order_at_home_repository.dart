@@ -1,4 +1,5 @@
 import 'package:victoria_game/app/core/network/response/order_at_home/order_at_home_available_playstation_response.dart';
+import 'package:victoria_game/app/core/network/response/order_at_home/order_at_home_playstation_detail_response.dart';
 import 'package:victoria_game/app/core/network/response/order_at_home/summary_at_home_playstation_list_response.dart';
 import 'package:victoria_game/app/core/services/network_service.dart';
 import 'package:victoria_game/app/core/services/permission_services.dart';
@@ -49,8 +50,8 @@ class OrderAtHomeRepository extends NetworkServices with PermissionServices {
   Future<OrderAtHomeAvailablePlaystationResponse> getAvailablePlaystationList({
     required String authToken,
     required String playstationType,
-    required DateTime startDate,
-    required DateTime finishDate,
+    required String startDate,
+    required String finishDate,
   }) async {
     var headers = {
       authorization: authToken,
@@ -66,5 +67,23 @@ class OrderAtHomeRepository extends NetworkServices with PermissionServices {
         headers: headers, body: body);
 
     return OrderAtHomeAvailablePlaystationResponse.fromJson(response);
+  }
+
+  Future<OrderAtHomePlaystationDetailResponse> fetchPlaystationData({
+    required String authToken,
+    required String playstationId,
+  }) async {
+    var headers = {
+      authorization: authToken,
+    };
+
+    var body = {
+      "playstationId": playstationId,
+    };
+
+    var response = await postMethod("/api/order/at-home/playstation-detail",
+        headers: headers, body: body);
+
+    return OrderAtHomePlaystationDetailResponse.fromJson(response);
   }
 }

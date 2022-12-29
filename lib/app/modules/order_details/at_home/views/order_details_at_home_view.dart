@@ -55,7 +55,7 @@ class OrderDetailsAtHomeView extends GetView<OrderDetailsAtHomeController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0, top: 16.0),
+                        padding: const EdgeInsets.only(bottom: 8.0),
                         child: Text(
                           "Nomor Playstation",
                           style: TypographyTheme.titleSmall,
@@ -212,7 +212,7 @@ class OrderDetailsAtHomeView extends GetView<OrderDetailsAtHomeController> {
                 color: ColorsTheme.primaryColor,
               ),
             ),
-            child: const Text("Pilih Metode Pengiriman"),
+            child: const Text("Pilih Playstation"),
           ),
         ],
       ),
