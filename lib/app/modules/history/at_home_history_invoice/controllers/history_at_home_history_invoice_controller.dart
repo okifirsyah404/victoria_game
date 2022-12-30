@@ -8,26 +8,23 @@ import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:victoria_game/app/core/network/response/order_at_home/order_at_home_detail_response.dart';
-import 'package:victoria_game/app/core/repository/order_at_home_repository.dart';
+import 'package:victoria_game/app/core/network/response/history/detail_order_at_home_history_response.dart';
+import 'package:victoria_game/app/core/repository/history_repository.dart';
 import 'package:victoria_game/app/global/widgets/alert_dialog/single_action_dialog/single_action_dialog.dart';
-import 'package:victoria_game/app/modules/main_page/controllers/main_page_index_controller.dart';
-import 'package:victoria_game/app/routes/app_pages.dart';
 import 'package:victoria_game/utils/int_extensions.dart';
 import 'package:victoria_game/utils/secure_storage.dart';
 import 'package:victoria_game/utils/string_extensions.dart';
 
-class OrderDetailsAtHomeInvoiceController extends GetxController {
+class HistoryAtHomeHistoryInvoiceController extends GetxController {
   final _arguments = Get.arguments;
 
   String get rentalId => _arguments["rentalId"];
 
   late SecureStorage _secureStorage;
-  late OrderAtHomeRepository _orderAtHomeRepository;
-  late MainPageIndexController _mainPageIndexController;
+  late HistoryRepository _historyRepository;
   late ScreenshotController screenshotController;
 
-  late OrderAtHomeDetail orderAtHomeDetail;
+  late DetailOrderAtHomeHistory orderAtHomeDetail;
 
   late String status;
   late String shipmentMethod;
@@ -44,21 +41,6 @@ class OrderDetailsAtHomeInvoiceController extends GetxController {
     if (shipment == "ambil") return "Take Away";
     if (shipment == "delivery") return "Shipment By Official";
     return "";
-  }
-
-  Future<void> fetchTransactionData() async {
-    var authToken = await _secureStorage.readDataFromStrorage("token") ?? "";
-
-    var result = await _orderAtHomeRepository.getOrderAtHomeDetail(
-        authToken: authToken, transactionId: rentalId);
-
-    if (result.data != null) {
-      if (result.data!.rentalId != null) {
-        orderAtHomeDetail = result.data!;
-        status = _statusConverter(result.data!.status!);
-        shipmentMethod = _shipmentConverter(result.data!.shipmentMethod!);
-      }
-    }
   }
 
   void shareTransactionData() async {
@@ -98,7 +80,8 @@ class OrderDetailsAtHomeInvoiceController extends GetxController {
   }
 
   void intentWhatsapp() async {
-    String message = """
+    String message =
+        """
 Saya ingin bertanya dengan transaksi ini.
 
 INFORMASI PENGGUNA:
@@ -111,10 +94,10 @@ INFORMASI TRANSAKSI
 
     Kode Transaksi : ${orderAtHomeDetail.rentalId}
     Playstation : ${orderAtHomeDetail.playstationType?.toTitleCase()}
-    Tanggal Transaksi : ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(orderAtHomeDetail.orderTime!.toLocal())}
-    Jam Transaksi : ${DateFormat("Hm", "id_ID").format(orderAtHomeDetail.orderTime!.toLocal())}
-    Tanggal Mulai : ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(orderAtHomeDetail.startTime!.toLocal())}
-    Tanggal Selesai : ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(orderAtHomeDetail.endTime!.toLocal())}
+    Tanggal Transaksi : ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(orderAtHomeDetail.orderTime!)}
+    Jam Transaksi : ${DateFormat("Hm", "id_ID").format(orderAtHomeDetail.orderTime!)}
+    Tanggal Mulai : ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(orderAtHomeDetail.startTime!)}
+    Tanggal Selesai : ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(orderAtHomeDetail.endTime!)}
     Playtime : ${orderAtHomeDetail.playtime} Hari
     Total : ${orderAtHomeDetail.totalAmount!.toRupiah()}
     Metode Pembayaran : ${orderAtHomeDetail.paymentMethod!.toTitleCase()}
@@ -136,17 +119,27 @@ DESKRIPSI
     }
   }
 
-  void onBackToHome() {
-    Get.offAllNamed(Routes.MAIN_PAGE_HOME);
-    _mainPageIndexController.changeIndex(0);
+  Future<void> fetchTransactionDetail() async {
+    var authToken = await _secureStorage.readDataFromStrorage("token") ?? "";
+    var result = await _historyRepository.getOrderAtHomeDetail(
+      authToken: authToken,
+      transactionId: rentalId,
+    );
+
+    if (result.data != null) {
+      if (result.data!.rentalId != null) {
+        orderAtHomeDetail = result.data!;
+        status = _statusConverter(result.data!.status!);
+        shipmentMethod = _shipmentConverter(result.data!.shipmentMethod!);
+      }
+    }
   }
 
   @override
   void onInit() {
     super.onInit();
     _secureStorage = SecureStorage.instance;
-    _orderAtHomeRepository = OrderAtHomeRepository.instance;
-    _mainPageIndexController = Get.find<MainPageIndexController>();
+    _historyRepository = HistoryRepository.instance;
     screenshotController = ScreenshotController();
   }
 

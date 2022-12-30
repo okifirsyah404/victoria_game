@@ -43,6 +43,11 @@ class SplashController extends GetxController {
         ),
         precachePicture(
           ExactAssetPicture(SvgPicture.svgStringDecoderBuilder,
+              'assets/images/illustrations/no-transactions.svg'),
+          null,
+        ),
+        precachePicture(
+          ExactAssetPicture(SvgPicture.svgStringDecoderBuilder,
               'assets/images/illustrations/play-service.svg'),
           null,
         ),

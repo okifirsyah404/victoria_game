@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rive/rive.dart';
 import 'package:victoria_game/app/core/network/response/game_center/game_centers_res.dart';
+import 'package:victoria_game/app/modules/main_page/history/views/order_at_home_history_view.dart';
 import 'package:victoria_game/app/modules/main_page/history/views/order_on_site_history_view.dart';
 import 'package:victoria_game/app/modules/main_page/history/views/playstation_service_history_view.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
@@ -79,7 +80,7 @@ class MainPageHistoryView extends GetView<MainPageHistoryController> {
       controller: controller.mainTabController,
       children: const [
         OrderOnSiteHistoryView(),
-        Text("Test 2"),
+        OrderAtHomeHistoryView(),
         PlaystationServiceHistoryView()
       ],
     );

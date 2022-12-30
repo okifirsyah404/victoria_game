@@ -8,89 +8,55 @@ import 'package:screenshot/screenshot.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
 import 'package:victoria_game/app/global/widgets/list_tile/divider_list_tile.dart';
-import 'package:victoria_game/app/routes/app_pages.dart';
 import 'package:victoria_game/utils/int_extensions.dart';
 import 'package:victoria_game/utils/string_extensions.dart';
 
-import '../controllers/order_details_at_home_invoice_controller.dart';
+import '../controllers/history_at_home_history_invoice_controller.dart';
 
-class OrderDetailsAtHomeInvoiceView
-    extends GetView<OrderDetailsAtHomeInvoiceController> {
-  const OrderDetailsAtHomeInvoiceView({Key? key}) : super(key: key);
+class HistoryAtHomeHistoryInvoiceView
+    extends GetView<HistoryAtHomeHistoryInvoiceController> {
+  const HistoryAtHomeHistoryInvoiceView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: controller.fetchTransactionData(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          return onDataDone();
-        }
-        return onDataLoading();
-      },
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Detail Servis'),
+        centerTitle: true,
+      ),
+      body: FutureBuilder(
+        future: controller.fetchTransactionDetail(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return onDataDone();
+          }
+          return onDataLoading();
+        },
+      ),
     );
   }
 
   Widget onDataLoading() {
-    return const Scaffold(
-      body: Center(
-        child: RiveAnimation.asset('assets/rive/loading.riv'),
-      ),
+    return const Center(
+      child: RiveAnimation.asset('assets/rive/loading.riv'),
     );
   }
 
   Widget onDataDone() {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Invoice Order'),
-        centerTitle: true,
-      ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      height: 200,
-                      width: 200,
-                      child: const RiveAnimation.asset(
-                          'assets/rive/checkmark_icon.riv'),
-                    ),
-                    _detailInvoice(),
-                    const SizedBox(height: 24),
-                    _actionButtons(),
-                    const SizedBox(height: 24),
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(16.0),
-              color: ColorsTheme.neutralColor[900],
-              child: OutlinedButton(
-                onPressed: () {
-                  controller.onBackToHome();
-                },
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: ColorsTheme.neutralColor[900],
-                  backgroundColor: ColorsTheme.primaryColor,
-                ),
-                child: Text(
-                  "Kembali ke Home",
-                  style: TypographyTheme.buttonTextStyle,
-                ),
-              ),
-            ),
-          ],
-        ),
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _screenshotBuilder(),
+          const SizedBox(height: 8),
+          _actionButtons(),
+          const SizedBox(height: 16),
+        ],
       ),
     );
   }
 
-  Widget _detailInvoice() {
+  Widget _screenshotBuilder() {
     return Screenshot(
       controller: controller.screenshotController,
       child: Padding(
@@ -99,6 +65,7 @@ class OrderDetailsAtHomeInvoiceView
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            _cardBuilder(),
             const SizedBox(height: 16),
             Text(
               "Data Rental",
@@ -183,13 +150,13 @@ class OrderDetailsAtHomeInvoiceView
             DividerListTile(
               title: "Tanggal Transaksi",
               trailing: Text(DateFormat("EEEE, dd MMMM yyyy", "id_ID")
-                  .format(controller.orderAtHomeDetail.orderTime!.toLocal())),
+                  .format(controller.orderAtHomeDetail.orderTime!)),
               topBorder: true,
             ),
             DividerListTile(
               title: "Jam Transaksi",
               trailing: Text(DateFormat("Hm", "id_ID")
-                  .format(controller.orderAtHomeDetail.orderTime!.toLocal())),
+                  .format(controller.orderAtHomeDetail.orderTime!)),
               topBorder: true,
             ),
             DividerListTile(
@@ -201,7 +168,7 @@ class OrderDetailsAtHomeInvoiceView
               title: "Tanggal Mulai Main",
               trailing: Text(
                 DateFormat("EEEE, dd MMMM yyyy", "id_ID")
-                    .format(controller.orderAtHomeDetail.startTime!.toLocal()),
+                    .format(controller.orderAtHomeDetail.startTime!),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),
@@ -211,7 +178,7 @@ class OrderDetailsAtHomeInvoiceView
               title: "Tanggal Selesai Main",
               trailing: Text(
                 DateFormat("EEEE, dd MMMM yyyy", "id_ID")
-                    .format(controller.orderAtHomeDetail.endTime!.toLocal()),
+                    .format(controller.orderAtHomeDetail.endTime!),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),
@@ -248,6 +215,70 @@ class OrderDetailsAtHomeInvoiceView
             ],
           )
         : const SizedBox();
+  }
+
+  Widget _cardBuilder() {
+    return Material(
+      elevation: 2,
+      borderRadius: BorderRadius.circular(8.0),
+      child: Container(
+        width: Get.width,
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: ColorsTheme.primaryColor,
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              controller.orderAtHomeDetail.playstationType!.toTitleCase(),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TypographyTheme.bodyMedium.copyWith(
+                color: ColorsTheme.neutralColor[900],
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Divider(
+              color: ColorsTheme.neutralColor[800],
+              height: 8,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              controller.orderAtHomeDetail.location!,
+              style: TypographyTheme.bodyRegular.copyWith(
+                color: ColorsTheme.neutralColor[900],
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  DateFormat("dd MMMM yyyy", "id_ID")
+                      .format(controller.orderAtHomeDetail.orderTime!),
+                  style: TypographyTheme.bodyRegular.copyWith(
+                    color: ColorsTheme.neutralColor[900],
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Text(
+                  controller.status,
+                  style: TypographyTheme.bodyRegular.copyWith(
+                    color: ColorsTheme.neutralColor[900],
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _actionButtons() {

@@ -61,6 +61,8 @@ abstract class Routes {
       _Paths.ORDER_DETAILS_AT_HOME_VERIFY;
   static const ORDER_DETAILS_AT_HOME_INVOICE =
       _Paths.ORDER_DETAILS_AT_HOME_INVOICE;
+  static const HISTORY_AT_HOME_HISTORY_INVOICE =
+      _Paths.HISTORY_AT_HOME_HISTORY_INVOICE;
 }
 
 abstract class _Paths {
@@ -106,4 +108,5 @@ abstract class _Paths {
       '/at-home-playstation-list';
   static const ORDER_DETAILS_AT_HOME_VERIFY = '/at-home-verify';
   static const ORDER_DETAILS_AT_HOME_INVOICE = '/at-home-invoice';
+  static const HISTORY_AT_HOME_HISTORY_INVOICE = '/at-home-history-invoice';
 }

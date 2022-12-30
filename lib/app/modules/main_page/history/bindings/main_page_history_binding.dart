@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:victoria_game/app/modules/main_page/history/controllers/order_at_home_history_controller.dart';
 import 'package:victoria_game/app/modules/main_page/history/controllers/order_on_site_history_controller.dart';
 import 'package:victoria_game/app/modules/main_page/history/controllers/playstation_service_history_controller.dart';
 
@@ -33,6 +34,21 @@ class MainPageHistoryBinding extends Bindings {
     );
     Get.lazyPut<CanceledPlaystationServiceHistoryController>(
       () => CanceledPlaystationServiceHistoryController(),
+    );
+    Get.lazyPut<OrderAtHomeHistoryController>(
+      () => OrderAtHomeHistoryController(),
+    );
+    Get.lazyPut<PendingOrderAtHomeHistoryController>(
+      () => PendingOrderAtHomeHistoryController(),
+    );
+    Get.lazyPut<ActiveOrderAtHomeHistoryController>(
+      () => ActiveOrderAtHomeHistoryController(),
+    );
+    Get.lazyPut<FinishedOrderAtHomeHistoryController>(
+      () => FinishedOrderAtHomeHistoryController(),
+    );
+    Get.lazyPut<CanceledOrderAtHomeHistoryController>(
+      () => CanceledOrderAtHomeHistoryController(),
     );
   }
 }
