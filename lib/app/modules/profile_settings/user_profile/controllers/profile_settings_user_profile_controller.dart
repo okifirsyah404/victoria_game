@@ -1,3 +1,4 @@
+import 'package:android_intent_plus/android_intent.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -27,7 +28,7 @@ class ProfileSettingsUserProfileController extends GetxController {
 
   void intentWhatsappTopUp() async {
     final message = """
-Saya ingin topup mas Popo Onichan
+Hi, Kak. Saya ingin topup untuk bermain di Tolonto
 
 Terima Kasih
 
@@ -38,7 +39,7 @@ INFORMASI :
     Username : $username
     Tanggal : ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(DateTime.now())},
     Jam : ${DateFormat("Hm", "id_ID").format(DateTime.now())}
-    Saldo TopUp : {Saldo},
+    Saldo TopUp : {Isi Saldo},
 
 """;
 
@@ -51,6 +52,16 @@ INFORMASI :
         description: e.toString(),
       ));
     }
+  }
+
+  void intentMail() {
+    // var intentPlaceName = gameCenterName.replaceAll(RegExp("\\s+"), '+');
+    final intent = AndroidIntent(
+        action: "android.intent.action.VIEW",
+        data: Uri.encodeFull("mailto:tolontobjn43@gmail.com?subject=Issue"),
+        package: "com.google.android.gm");
+
+    intent.launch();
   }
 
   void signOut() async {

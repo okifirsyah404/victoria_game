@@ -26,7 +26,6 @@ class ProfileSettingsUserProfileView
       onVerticalDragUpdate: (details) {
         int sensitivity = 8;
         if (details.delta.dy > sensitivity) {
-          // Down Swipe
           Get.back();
         }
       },
@@ -157,7 +156,7 @@ class ProfileSettingsUserProfileView
                             ],
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           height: 48,
                           child: VerticalDivider(
                             width: 20,
@@ -222,6 +221,9 @@ class ProfileSettingsUserProfileView
           topBorder: true,
           bottomBorder: true,
           trailing: Text("v${appController.packageInfo.version}"),
+          onTap: () {
+            controller.intentMail();
+          },
         ),
         Padding(
           padding: const EdgeInsets.only(bottom: 16.0, top: 24.0),
