@@ -159,7 +159,7 @@ class HistoryServiceInvoiceView
               title: "Tanggal Transaksi",
               trailing: Text(
                 DateFormat("EEEE, dd MMMM yyyy", "id_ID")
-                    .format(controller.serviceData.submitTime!),
+                    .format(controller.serviceData.submitTime!.toLocal()),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),
@@ -169,7 +169,7 @@ class HistoryServiceInvoiceView
               title: "Waktu Transaksi",
               trailing: Text(
                 DateFormat("Hm", "id_ID")
-                    .format(controller.serviceData.submitTime!),
+                    .format(controller.serviceData.submitTime!.toLocal()),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),
@@ -179,8 +179,8 @@ class HistoryServiceInvoiceView
               title: "Tanggal Selesai",
               trailing: Text(
                 controller.serviceData.finishTime != null
-                    ? DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(
-                        controller.serviceData.finishTime ?? DateTime.now())
+                    ? DateFormat("EEEE, dd MMMM yyyy", "id_ID")
+                        .format(controller.serviceData.finishTime!.toLocal())
                     : controller.serviceData.status! == "Dibatalkan"
                         ? "Dibatalkan"
                         : "Menunggu Konfirmasi",
@@ -193,8 +193,8 @@ class HistoryServiceInvoiceView
               title: "Waktu Selesai",
               trailing: Text(
                 controller.serviceData.finishTime != null
-                    ? DateFormat("Hm", "id_ID").format(
-                        controller.serviceData.finishTime ?? DateTime.now())
+                    ? DateFormat("Hm", "id_ID")
+                        .format(controller.serviceData.finishTime!.toLocal())
                     : controller.serviceData.status! == "Dibatalkan"
                         ? "Dibatalkan"
                         : "Menunggu Konfirmasi",
@@ -253,7 +253,7 @@ class HistoryServiceInvoiceView
               children: [
                 Text(
                   DateFormat("dd MMMM yyyy", "id_ID")
-                      .format(controller.serviceData.submitTime!),
+                      .format(controller.serviceData.submitTime!.toLocal()),
                   style: TypographyTheme.bodyRegular.copyWith(
                     color: ColorsTheme.neutralColor[900],
                     fontWeight: FontWeight.w600,

@@ -150,13 +150,13 @@ class HistoryAtHomeHistoryInvoiceView
             DividerListTile(
               title: "Tanggal Transaksi",
               trailing: Text(DateFormat("EEEE, dd MMMM yyyy", "id_ID")
-                  .format(controller.orderAtHomeDetail.orderTime!)),
+                  .format(controller.orderAtHomeDetail.orderTime!.toLocal())),
               topBorder: true,
             ),
             DividerListTile(
               title: "Jam Transaksi",
               trailing: Text(DateFormat("Hm", "id_ID")
-                  .format(controller.orderAtHomeDetail.orderTime!)),
+                  .format(controller.orderAtHomeDetail.orderTime!.toLocal())),
               topBorder: true,
             ),
             DividerListTile(
@@ -168,7 +168,7 @@ class HistoryAtHomeHistoryInvoiceView
               title: "Tanggal Mulai Main",
               trailing: Text(
                 DateFormat("EEEE, dd MMMM yyyy", "id_ID")
-                    .format(controller.orderAtHomeDetail.startTime!),
+                    .format(controller.orderAtHomeDetail.startTime!.toLocal()),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),
@@ -178,7 +178,7 @@ class HistoryAtHomeHistoryInvoiceView
               title: "Tanggal Selesai Main",
               trailing: Text(
                 DateFormat("EEEE, dd MMMM yyyy", "id_ID")
-                    .format(controller.orderAtHomeDetail.endTime!),
+                    .format(controller.orderAtHomeDetail.endTime!.toLocal()),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),
@@ -259,8 +259,8 @@ class HistoryAtHomeHistoryInvoiceView
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  DateFormat("dd MMMM yyyy", "id_ID")
-                      .format(controller.orderAtHomeDetail.orderTime!),
+                  DateFormat("dd MMMM yyyy", "id_ID").format(
+                      controller.orderAtHomeDetail.orderTime!.toLocal()),
                   style: TypographyTheme.bodyRegular.copyWith(
                     color: ColorsTheme.neutralColor[900],
                     fontWeight: FontWeight.w600,

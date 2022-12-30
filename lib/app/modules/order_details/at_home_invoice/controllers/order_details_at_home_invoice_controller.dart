@@ -75,7 +75,7 @@ class OrderDetailsAtHomeInvoiceController extends GetxController {
         await Share.shareXFiles(
           [XFile(imagePath.path)],
           text:
-              "Hi kawan! Mari kita main ${orderAtHomeDetail.playstationType?.toTitleCase()} yang saya sewa. Kita dapat bermain mulai ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(orderAtHomeDetail.startTime!)}",
+              "Hi kawan! Mari kita main ${orderAtHomeDetail.playstationType?.toTitleCase()} yang saya sewa. Kita dapat bermain mulai ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(orderAtHomeDetail.startTime!.toLocal())}",
         );
       }
     });

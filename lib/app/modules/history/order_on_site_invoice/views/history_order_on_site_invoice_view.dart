@@ -92,6 +92,17 @@ class HistoryOrderOnSiteInvoiceView
               topBorder: true,
             ),
             DividerListTile(
+              title: "Jam Transaksi",
+              trailing: Text(
+                DateFormat("Hm", "id_ID").format(controller
+                    .detailTransactionDataHistory.orderTime
+                    .toLocal()),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
+              topBorder: true,
+            ),
+            DividerListTile(
               title: "Total",
               trailing: Text(controller.detailTransactionDataHistory.totalAmount
                   .toRupiah()),

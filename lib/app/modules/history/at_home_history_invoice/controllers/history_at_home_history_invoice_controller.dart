@@ -57,7 +57,7 @@ class HistoryAtHomeHistoryInvoiceController extends GetxController {
         await Share.shareXFiles(
           [XFile(imagePath.path)],
           text:
-              "Hi kawan! Mari kita main ${orderAtHomeDetail.playstationType?.toTitleCase()} yang saya sewa. Kita dapat bermain mulai ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(orderAtHomeDetail.startTime!)}",
+              "Hi kawan! Mari kita main ${orderAtHomeDetail.playstationType?.toTitleCase()} yang saya sewa. Kita dapat bermain mulai ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(orderAtHomeDetail.startTime!.toLocal())}",
         );
       }
     });
@@ -94,10 +94,10 @@ INFORMASI TRANSAKSI
 
     Kode Transaksi : ${orderAtHomeDetail.rentalId}
     Playstation : ${orderAtHomeDetail.playstationType?.toTitleCase()}
-    Tanggal Transaksi : ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(orderAtHomeDetail.orderTime!)}
-    Jam Transaksi : ${DateFormat("Hm", "id_ID").format(orderAtHomeDetail.orderTime!)}
-    Tanggal Mulai : ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(orderAtHomeDetail.startTime!)}
-    Tanggal Selesai : ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(orderAtHomeDetail.endTime!)}
+    Tanggal Transaksi : ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(orderAtHomeDetail.orderTime!.toLocal())}
+    Jam Transaksi : ${DateFormat("Hm", "id_ID").format(orderAtHomeDetail.orderTime!.toLocal())}
+    Tanggal Mulai : ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(orderAtHomeDetail.startTime!.toLocal())}
+    Tanggal Selesai : ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(orderAtHomeDetail.endTime!.toLocal())}
     Playtime : ${orderAtHomeDetail.playtime} Hari
     Total : ${orderAtHomeDetail.totalAmount!.toRupiah()}
     Metode Pembayaran : ${orderAtHomeDetail.paymentMethod!.toTitleCase()}

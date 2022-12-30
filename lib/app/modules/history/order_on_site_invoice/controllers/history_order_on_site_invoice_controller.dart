@@ -134,13 +134,13 @@ INFORMASI PENGGUNA:
 INFORMASI TRANSAKSI
 
     Kode Transaksi : ${detailTransactionDataHistory.rentalId}
-    Tanggal Transaksi : ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(detailTransactionDataHistory.orderTime)}
+    Tanggal Transaksi : ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(detailTransactionDataHistory.orderTime.toLocal())}
     Total Biaya : ${detailTransactionDataHistory.totalAmount.toRupiah()}
     Game Center : ${detailTransactionDataHistory.gameCenter}
     Jenis Playstation : ${detailTransactionDataHistory.playstationType.toTitleCase()}
     Nomor Playstation : ${detailTransactionDataHistory.playstationId}
-    Tanggal Main : ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(detailTransactionDataHistory.startTime)}
-    Jam Main : ${DateFormat("Hm", "id_ID").format(detailTransactionDataHistory.startTime)}
+    Tanggal Main : ${DateFormat("EEEE, dd MMMM yyyy", "id_ID").format(detailTransactionDataHistory.startTime.toLocal())}
+    Jam Main : ${DateFormat("Hm", "id_ID").format(detailTransactionDataHistory.startTime.toLocal())}
     Playtime : ${detailTransactionDataHistory.playtime} Jam
 
 DESKRIPSI
