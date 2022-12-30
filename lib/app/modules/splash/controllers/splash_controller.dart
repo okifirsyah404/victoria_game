@@ -84,7 +84,7 @@ class SplashController extends GetxController {
     bool previousConnection = hasConnection;
     try {
       final result =
-          await InternetAddress.lookup('a086-125-166-118-213.ap.ngrok.io');
+          await InternetAddress.lookup('cdee-125-166-119-235.ap.ngrok.io');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         hasConnection = true;
       } else {

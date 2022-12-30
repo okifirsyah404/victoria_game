@@ -118,25 +118,6 @@ class MapsController extends GetxController {
     var distance =
         calculateDistance(LatLng(markedLatitude.value, markedLongitude.value));
 
-    print({
-      "playstationType": playstationType,
-      "date": {
-        "start": startDate,
-        "finish": finishDate,
-      },
-      "payment": payment,
-      "totalAmount": totalAmount,
-      "playtime": playtime,
-      "playstationData": playstationData,
-      "shipment": {
-        "method": shipment["method"],
-        "description": shipment["description"],
-        "latitude": markedLatitude.value,
-        "longitude": markedLongitude.value,
-        "distance": distance,
-      },
-    });
-
     if (distance > 10000.0) {
       Get.dialog(
         const SingleActionDialog(
@@ -164,6 +145,7 @@ class MapsController extends GetxController {
             "latitude": markedLatitude.value,
             "longitude": markedLongitude.value,
             "distance": distance,
+            "address": locationPlacemark.value,
           },
         },
       );

@@ -37,6 +37,7 @@ class OrderDetailsAtHomeOverviewController extends GetxController {
 
   RxDouble markedLatitude = 0.0.obs;
   RxDouble markedLongitude = 0.0.obs;
+  RxString address = "".obs;
   bool isUseMap = false;
 
   RxString startDateText = "".obs;
@@ -59,6 +60,7 @@ class OrderDetailsAtHomeOverviewController extends GetxController {
     if (shipment["latitude"] != null && shipment["longitude"] != null) {
       markedLatitude.value = shipment["latitude"];
       markedLongitude.value = shipment["longitude"];
+      address.value = shipment["address"];
       isUseMap = true;
     }
 
@@ -103,6 +105,22 @@ class OrderDetailsAtHomeOverviewController extends GetxController {
         title: "Tolong Cek Pesanan Kamu Ya!",
         description:
             "Harap periksa ulang pesanan kamu, agar tidak terjadi kesalahan ya!",
+        buttonFunction: () {
+          Get.back();
+          Get.toNamed(Routes.ORDER_DETAILS_AT_HOME_VERIFY, arguments: {
+            "playstationType": playstationType,
+            "date": {
+              "start": startDate,
+              "finish": finishDate,
+            },
+            "payment": payment,
+            "totalAmount": totalAmount,
+            "playtime": playtime,
+            "playstationData": playstationData,
+            "shipment": shipment,
+            "notes": descriptionController.text,
+          });
+        },
       ),
     );
   }

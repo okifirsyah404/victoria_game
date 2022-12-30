@@ -361,6 +361,12 @@ class OrderDetailsAtHomeOverviewView
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8.0,
+                    ),
+                    child: Text(controller.address.value),
+                  ),
                 ],
               ),
       ],
