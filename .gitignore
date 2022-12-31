@@ -31,4 +31,5 @@ doc/api/
 .vscode/
 
 **/android/key.properties
+**/**/**.properties
 
