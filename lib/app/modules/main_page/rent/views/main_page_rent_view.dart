@@ -83,7 +83,7 @@ class MainPageRentView extends GetView<MainPageRentController> {
     return Expanded(
       child: ListView.builder(
         itemCount: controller.playstationList.length,
-        itemBuilder: (context, index) => Padding(
+        itemBuilder: (context, index) => controller.playstationList[index].available! != 0? Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
           child: InkWell(
             onTap: () {
@@ -117,7 +117,7 @@ class MainPageRentView extends GetView<MainPageRentController> {
                         children: [
                           Text(
                             int.parse(controller.playstationList[index].price!
-                                    .toString())
+                                .toString())
                                 .toRupiah(),
                             style: TypographyTheme.bodyMedium.copyWith(
                               color: ColorsTheme.primaryColor,
@@ -144,7 +144,7 @@ class MainPageRentView extends GetView<MainPageRentController> {
               ),
             ),
           ),
-        ),
+        ) : const SizedBox(),
       ),
     );
   }

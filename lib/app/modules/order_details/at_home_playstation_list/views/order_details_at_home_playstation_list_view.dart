@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:rive/rive.dart';
+import 'package:victoria_game/app/global/icons/custom_icon_data_icons.dart';
 import 'package:victoria_game/app/global/themes/colors_theme.dart';
 import 'package:victoria_game/app/global/themes/typography_theme.dart';
 import 'package:victoria_game/utils/string_extensions.dart';
@@ -74,7 +75,7 @@ class OrderDetailsAtHomePlaystationListView
   }
 
   Widget _playstationListBuilder() {
-    return Expanded(
+    return controller.availablePlaystationList.isNotEmpty ? Expanded(
       child: GridView.builder(
         padding: const EdgeInsets.all(16.0),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -124,6 +125,16 @@ class OrderDetailsAtHomePlaystationListView
               ),
             ),
           ),
+        ),
+      ),
+    ) : Container(
+      height: Get.height,
+      width: Get.width,
+      child: Center(
+        child: Container(
+          height: 200,
+          width: 200,
+          child: const Icon(CustomIconData.joystick),
         ),
       ),
     );

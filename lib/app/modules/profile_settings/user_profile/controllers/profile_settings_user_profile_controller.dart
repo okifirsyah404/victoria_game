@@ -45,7 +45,7 @@ INFORMASI :
 
     try {
       await launchUrl(
-          Uri.parse("whatsapp://send?phone=+6281217634111&text=$message"));
+          Uri.parse("whatsapp://send?phone=+6285158304448&text=$message"));
     } catch (e) {
       Get.dialog(SingleActionDialog(
         title: "Error",
@@ -55,7 +55,6 @@ INFORMASI :
   }
 
   void intentMail() {
-    // var intentPlaceName = gameCenterName.replaceAll(RegExp("\\s+"), '+');
     final intent = AndroidIntent(
         action: "android.intent.action.VIEW",
         data: Uri.encodeFull("mailto:tolontobjn43@gmail.com?subject=Issue"),

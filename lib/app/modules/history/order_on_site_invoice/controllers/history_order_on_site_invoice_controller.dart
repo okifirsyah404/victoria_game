@@ -147,7 +147,7 @@ DESKRIPSI
 
 """;
 
-    String url = "whatsapp://send?phone=+6282143212404&text=$message";
+    String url = "whatsapp://send?phone=+6285158304448&text=$message";
 
     try {
       await launchUrl(Uri.parse(url));

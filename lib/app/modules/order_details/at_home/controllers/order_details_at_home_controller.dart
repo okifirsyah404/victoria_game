@@ -41,6 +41,7 @@ class OrderDetailsAtHomeController extends GetxController {
       baseRentPrice = itemData.price!;
       totalAmount.value = baseRentPrice;
     }
+
   }
 
   Future<DateTimeRange?> openDateRangePicker(

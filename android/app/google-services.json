@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "81713468961-77fn3i7ig7lq0amdksf41c2k11gfstol.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tolonto.victoria_game",
+            "certificate_hash": "62611c5b7b61ecc33bcc298f6d1c522dfc808b1c"
+          }
+        },
+        {
           "client_id": "81713468961-c2n5qmmgmph5vo5igq4mc8o47vpp33a5.apps.googleusercontent.com",
           "client_type": 3
         }
