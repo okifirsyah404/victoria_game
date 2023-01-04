@@ -10,6 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f9769789-2c75-4f38-9ba7-a131ffdc514f" name="Changes" comment="">
+<<<<<<< Updated upstream
       <change afterPath="$PROJECT_DIR$/android/app/src/release/ic_launcher-playstore.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/android/app/src/release/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/android/app/src/release/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
@@ -90,6 +91,12 @@
       <change beforePath="$PROJECT_DIR$/lib/app/modules/service_invoice/controllers/service_invoice_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/service_invoice/controllers/service_invoice_controller.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/modules/splash/controllers/splash_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/splash/controllers/splash_controller.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/firebase_options.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/firebase_options.dart" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/order_details/at_home/controllers/order_details_at_home_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/order_details/at_home/controllers/order_details_at_home_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/order_details/at_home_overview/controllers/order_details_at_home_overview_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/order_details/at_home_overview/controllers/order_details_at_home_overview_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/order_details/at_home_overview/views/order_details_at_home_overview_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/order_details/at_home_overview/views/order_details_at_home_overview_view.dart" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
