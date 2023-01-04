@@ -16,6 +16,7 @@ import '../controllers/order_details_at_home_overview_controller.dart';
 class OrderDetailsAtHomeOverviewView
     extends GetView<OrderDetailsAtHomeOverviewController> {
   const OrderDetailsAtHomeOverviewView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -325,49 +326,51 @@ class OrderDetailsAtHomeOverviewView
         ),
         controller.shipmentMethod?.value != "Shipment by Official"
             ? const SizedBox()
-            : Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0, top: 16.0),
-                    child: Text(
-                      "Lokasi Pengiriman",
-                      style: TypographyTheme.titleSmall,
+            : Obx(
+                () => Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0, top: 16.0),
+                      child: Text(
+                        "Lokasi Pengiriman",
+                        style: TypographyTheme.titleSmall,
+                      ),
                     ),
-                  ),
-                  AspectRatio(
-                    aspectRatio: 328 / 148,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Align(
-                        alignment: Alignment.bottomRight,
-                        heightFactor: 0.3,
-                        widthFactor: 2.5,
-                        child: GoogleMap(
-                          mapType: MapType.normal,
-                          zoomControlsEnabled: false,
-                          zoomGesturesEnabled: false,
-                          markers: Set.from(controller.myMarker),
-                          onMapCreated: (googleMapController) {
-                            controller.onMapCreated(googleMapController);
-                          },
-                          initialCameraPosition: CameraPosition(
-                            target: LatLng(controller.markedLatitude.value,
-                                controller.markedLongitude.value),
-                            zoom: 20.0,
+                    AspectRatio(
+                      aspectRatio: 328 / 148,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          heightFactor: 0.3,
+                          widthFactor: 2.5,
+                          child: GoogleMap(
+                            mapType: MapType.normal,
+                            zoomControlsEnabled: false,
+                            zoomGesturesEnabled: false,
+                            markers: Set.from(controller.myMarker),
+                            onMapCreated: (googleMapController) {
+                              controller.onMapCreated(googleMapController);
+                            },
+                            initialCameraPosition: CameraPosition(
+                              target: LatLng(controller.markedLatitude,
+                                  controller.markedLongitude),
+                              zoom: 10.0,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 8.0,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8.0,
+                      ),
+                      child: Text(controller.address.value),
                     ),
-                    child: Text(controller.address.value),
-                  ),
-                ],
+                  ],
+                ),
               ),
       ],
     );

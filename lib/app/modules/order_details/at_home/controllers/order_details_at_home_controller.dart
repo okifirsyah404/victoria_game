@@ -107,7 +107,9 @@ class OrderDetailsAtHomeController extends GetxController {
         description:
             "Tanggal mulai main atau tanggal selesai main tidak boleh kosong nih!",
       ));
-    } else {
+    }
+
+    else {
       var result = await Get.toNamed(Routes.PAYMENT, arguments: {
         "previousMethod": {
           "method": paymentMethod.value,

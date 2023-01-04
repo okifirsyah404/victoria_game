@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:victoria_game/app/core/network/response/order_at_home/order_at_home_available_playstation_response.dart';
 import 'package:victoria_game/app/core/network/response/order_at_home/order_at_home_playstation_detail_response.dart';
 import 'package:victoria_game/app/core/repository/order_at_home_repository.dart';
-import 'package:victoria_game/app/core/repository/order_on_site_repository.dart';
 import 'package:victoria_game/app/global/widgets/alert_dialog/confirmation_action_dialog/confirmation_action_dialog.dart';
 import 'package:victoria_game/app/routes/app_pages.dart';
 import 'package:victoria_game/utils/secure_storage.dart';
@@ -17,17 +15,22 @@ class OrderDetailsAtHomeOverviewController extends GetxController {
   late OrderAtHomeRepository _orderAtHomeRepository;
 
   String get playstationType => _arguments["playstationType"];
+
   DateTime get startDate => _arguments["date"]["start"];
+
   DateTime get finishDate => _arguments["date"]["finish"];
+
   Map<String, dynamic> get payment => _arguments["payment"];
+
   int get totalAmount => _arguments["totalAmount"];
+
   int get playtime => _arguments["playtime"];
+
   String get playstationId => _arguments["playstationData"].playstationId;
+
   Map<String, dynamic> get shipment => _arguments["shipment"];
 
   final formKey = GlobalKey<FormState>();
-
-  RxBool isPageLoading = true.obs;
 
   late GoogleMapController mapController;
   late TextEditingController descriptionController;
@@ -35,8 +38,8 @@ class OrderDetailsAtHomeOverviewController extends GetxController {
 
   RxList<Marker> myMarker = <Marker>[].obs;
 
-  RxDouble markedLatitude = 0.0.obs;
-  RxDouble markedLongitude = 0.0.obs;
+  late double markedLatitude;
+  late double markedLongitude;
   RxString address = "".obs;
   bool isUseMap = false;
 
@@ -58,13 +61,11 @@ class OrderDetailsAtHomeOverviewController extends GetxController {
     shipmentMethodDescription?.value = shipment["description"];
 
     if (shipment["latitude"] != null && shipment["longitude"] != null) {
-      markedLatitude.value = shipment["latitude"];
-      markedLongitude.value = shipment["longitude"];
+      markedLatitude = shipment["latitude"];
+      markedLongitude = shipment["longitude"];
       address.value = shipment["address"];
       isUseMap = true;
     }
-
-    isPageLoading.value = false;
   }
 
   Future<void> fetchOrderData() async {
@@ -72,9 +73,9 @@ class OrderDetailsAtHomeOverviewController extends GetxController {
     var result = await _orderAtHomeRepository.fetchPlaystationData(
         authToken: authToken, playstationId: playstationId);
 
+
     if (result.data != null) {
       playstationData = result.data!;
-      initiatePage();
     }
   }
 
@@ -84,19 +85,21 @@ class OrderDetailsAtHomeOverviewController extends GetxController {
     controller.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(
-          target: LatLng(markedLatitude.value, markedLongitude.value),
+          target: LatLng(markedLatitude, markedLongitude),
           zoom: 15,
         ),
       ),
     );
-    Marker initialLicationMarker = Marker(
-      position: LatLng(markedLatitude.value, markedLongitude.value),
-      markerId: const MarkerId("1"),
+
+    Marker initialLocationMarker = Marker(
+      position: LatLng(markedLatitude, markedLongitude),
+      markerId: const MarkerId("2"),
       infoWindow: const InfoWindow(title: "Pilih Lokasi"),
       icon: BitmapDescriptor.defaultMarker,
-      consumeTapEvents: true,
+      consumeTapEvents: false,
     );
-    myMarker.add(initialLicationMarker);
+
+    myMarker.add(initialLocationMarker);
   }
 
   void onSubmitOrder() {
@@ -128,6 +131,7 @@ class OrderDetailsAtHomeOverviewController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    initiatePage();
     _secureStorage = SecureStorage.instance;
     _orderAtHomeRepository = OrderAtHomeRepository.instance;
     descriptionController = TextEditingController();

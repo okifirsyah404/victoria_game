@@ -10,12 +10,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f9769789-2c75-4f38-9ba7-a131ffdc514f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/gradle.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/victoria_game_android.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/victoria_game_android.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/order_details/at_home/controllers/order_details_at_home_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/order_details/at_home/controllers/order_details_at_home_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/order_details/at_home_overview/controllers/order_details_at_home_overview_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/order_details/at_home_overview/controllers/order_details_at_home_overview_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/modules/order_details/at_home_overview/views/order_details_at_home_overview_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/modules/order_details/at_home_overview/views/order_details_at_home_overview_view.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
